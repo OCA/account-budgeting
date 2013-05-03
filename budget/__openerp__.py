@@ -26,31 +26,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-{
-    "name" : "Advanced Budget",
-    "version" : "5.0",
-    "author" : "Camptocamp",
-    "category" : "Generic Modules/Accounting",
-    "website" : "http://camptocamp.com",
-    "description": """
-    Budget Module:
-    * Create budget, budget items and budget versions.
-    * Base your budget on analytics accounts
-    * Budget versions are multi currencies and multi companies.
+{"name": "Advanced Budget",
+ "version": "1.0",
+ "author": "Camptocamp",
+ "category": "Generic Modules/Accounting",
+ "website": "http://camptocamp.com",
+ "description": """
+Budget Module
+=============
 
-    This module is for real advanced budget use, otherwise prefer to use the Tiny one.
+Features:
+
+* Create budget, budget items and budget versions.
+* Base your budget on analytics accounts
+* Budget versions are multi currencies and multi companies.
+
+This module is for real advanced budget use, otherwise prefer to use the
+OpenERP official one.
     """,
-    "depends" : [
-                    "base",
-                    "account",
-                    "c2c_reporting_tools"
-                ],
-    "init_xml" : [],
-    "update_xml" : [
-                        "c2c_budget_view.xml",
-                        "c2c_budget_wizard.xml",
-                        "security/ir.model.access.csv"
-                    ],
-    "active": False,
-    "installable": True
+ "depends": ["base",
+             "account",
+             "c2c_reporting_tools"
+             ],
+ "data": ["budget_view.xml",
+          "budget_wizard.xml",
+          "security/ir.model.access.csv"
+          ],
+ "installable": True,
+ "application": True,
 }
