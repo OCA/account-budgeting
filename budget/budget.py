@@ -76,15 +76,10 @@ class budget_budget(orm.Model):
                 return False
         return True
 
-    # TODO: return browse instance, should be private to XML/RPC
-    def get_periods(self, cr, uid, ids, context=None):
+    def _get_periods(self, cr, uid, ids, context=None):
         """ return the list of budget's periods ordered by date_start"""
-        if context is None:
-            context = {}
-        multi = False  # TODO: check if multi is useful / remove it
         if isinstance(ids, (int, long)):
             ids = [ids]
-            multi = True
         period_obj = self.pool.get('account.period')
         start_date = end_date = None
         result = []
@@ -94,44 +89,34 @@ class budget_budget(orm.Model):
                 [('date_stop', '>', budget.start_date),
                  ('date_start', '<', budget.end_date)],
                 order="date_start ASC")
-            result.append(period_obj.browse(cr, uid, periods_ids,
-                                            context=context))
-        if multi:
-            return result
-        else:
-            return result[0]
+            browse = period_obj.browse
+            result.append(browse(cr, uid, periods_ids, context=context))
+        return result
 
-    def get_periods_union(self, cr, uid, ids, context=None):
+    def _get_periods_union(self, cr, uid, ids, context=None):
         """ return the list of budget's periods ordered by date_start
             it returns a unique list that cover all given budgets ids
         """
         if context is None:
             context = {}
         period_obj = self.pool.get('account.period')
-        multi = False  # TODO: check if multi is useful / remove it
         if isinstance(ids, (int, long)):
             ids = [ids]
-            multi = True
-
         # find the earliest start_date en latest end_date
         start_date = end_date = None
-        result = []
         for budget in self.browse(cr, uid, ids, context=context):
             if start_date is None or start_date > budget.start_date:
                 start_date = budget.start_date
             if end_date is None or end_date < budget.end_date:
                 end_date = budget.end_date
 
+        period_ids = []
         if start_date is not None:
             periods_ids = period_obj.search(cr, uid,
                                             [('date_stop', '>', start_date),
                                              ('date_start', '<', end_date)],
                                             order="date_start ASC")
-            result = period_obj.browse(cr, uid, periods_ids, context)
-        if multi:
-            return result
-        else:
-            return result[0]
+        return period_obj.browse(cr, uid, periods_ids, context=context)
 
     def unlink(self, cr, uid, ids, context=None):
         """delete all budget versions when deleting a budget """

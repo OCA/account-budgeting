@@ -73,12 +73,13 @@ class budget_version(orm.Model):
             return periods_tmp[0]
         return None
 
-    def get_periods(self, cr, uid, version, context=None):
+    def _get_periods(self, cr, uid, version, context=None):
         """return periods informations used by this version.
         (the periods are those between start and end dates defined in
         budget)"""
-        budget_obj = self.pool.get('budget')
-        return budget_obj.get_periods(cr, uid, version.budget_id.id)
+        budget_obj = self.pool.get('budget.budget')
+        return budget_obj._get_periods(cr, uid, version.budget_id.id,
+                                       context=context)
 
     def get_next_periods(self, cr, uid,  version, start_period,
                          periods_nbr, context=None):
@@ -131,7 +132,7 @@ class budget_version(orm.Model):
         # find periods used by this version that stand between
         # period_start and period_end included.
         filtered_periods = []
-        periods = self.get_periods(cr, uid, version, context=context)
+        periods = self._get_periods(cr, uid, version, context=context)
         start = period_start.date_start if period_start is not None else None
         stop = period_start.date_stop if period_end is not None else None
         periods = [period for period in periods
@@ -179,7 +180,7 @@ class budget_version(orm.Model):
         items = item_obj.get_sorted_list(cr, uid, item_id, context=context)
         items_results = dict.fromkeys((item.id for item in items), 0.)
         line_obj = self.pool.get('budget.line')
-        periods = self.get_periods(cr, uid, version, context=context)
+        periods = self._get_periods(cr, uid, version, context=context)
         for item in items:
             items_results[item.id] = item_obj.get_real_values_from_analytic_accounts(
                 cr, uid,
@@ -202,7 +203,7 @@ class budget_version(orm.Model):
         items = item_obj.get_sorted_list(cr, uid, item_id, context=context)
         items_results = dict.fromkeys((item.id for item in items), 0.)
         line_obj = self.pool.get('budget.line')
-        periods = self.get_periods(cr, uid, version, context=context)
+        periods = self._get_periods(cr, uid, version, context=context)
         for item in items:
             items_results[item.id] = item_obj.get_real_values(
                 cr, uid,

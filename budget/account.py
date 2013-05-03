@@ -105,10 +105,10 @@ class account_period(orm.Model):
                                          context['version_id'],
                                          context=context)
 
-            allowed_periods = version_obj.get_periods(cr,
-                                                      uid,
-                                                      version,
-                                                      context)
+            allowed_periods = version_obj._get_periods(cr,
+                                                       uid,
+                                                       version,
+                                                       context=context)
             allowed_periods_ids = [p.id for p in allowed_periods]
             # match version's period with parent search result
             periods = self.browse(cr,

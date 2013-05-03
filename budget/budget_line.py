@@ -86,8 +86,7 @@ class budget_line(orm.Model):
         return list(set(line.budget_version_id for line in lines
                         if lines.budget_version_id))
 
-    # XXX returns browse instances, should be private to XML/RPC
-    def get_periods(self, cr, uid, ids, context=None):
+    def _get_periods(self, cr, uid, ids, context=None):
         """return periods informations used by this budget lines.
         (the periods are selected in the budget lines)"""
         lines = self.browse(cr, uid, ids, context=context)
@@ -188,7 +187,7 @@ class budget_line(orm.Model):
         versions_ids = version_obj.search(cr, uid, [], context=context)
         versions = version_obj.browse(cr, uid, versions_ids, context=context)
 
-        get_period = version_obj.get_periods
+        get_period = version_obj._get_periods
         periods = [get_period(cr, uid, version, context=context)
                    for version in versions]
         lines = self.browse(cr, uid, line_ids, context=context)
