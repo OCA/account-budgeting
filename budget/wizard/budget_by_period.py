@@ -170,7 +170,7 @@ class wiz_budget_by_period(wizard.interface):
         date_end = None
         if not data['form']['display_next']:
                 #find all versions concerned by the lines
-                versions = line_obj.get_versions(cr, uid, lines, context)
+                versions = line_obj._get_versions(cr, uid, lines, context)
                 for v in versions:                     
                     start_period = version_obj.get_period(cr, uid, v, data['form']['from_date'], context)
                     

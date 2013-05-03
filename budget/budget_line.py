@@ -79,8 +79,7 @@ class budget_line(orm.Model):
         return list(set(line.analytic_account_id.id for line in lines
                         if lines.analytic_account_id))
 
-    # XXX returns browse instances, should be private to XML/RPC
-    def get_versions(self, cr, uid, lines, context={}):
+    def _get_versions(self, cr, uid, lines, context={}):
         """  from a bunch of lines, return all budgets'
         versions those lines belong to """
         return list(set(line.budget_version_id for line in lines

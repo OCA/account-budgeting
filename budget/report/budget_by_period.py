@@ -57,7 +57,7 @@ class budget_by_period(StandardReport):
         
         
         #a table per version
-        versions = line_obj.get_versions(self.cr, self.uid, self.objects, context=self.context)        
+        versions = line_obj._get_versions(self.cr, self.uid, self.objects, context=self.context)        
         for version in versions:
         
         
