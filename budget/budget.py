@@ -89,8 +89,7 @@ class budget_budget(orm.Model):
                 [('date_stop', '>', budget.start_date),
                  ('date_start', '<', budget.end_date)],
                 order="date_start ASC")
-            browse = period_obj.browse
-            result.append(browse(cr, uid, periods_ids, context=context))
+            result += period_obj.browse(cr, uid, periods_ids, context=context)
         return result
 
     def _get_periods_union(self, cr, uid, ids, context=None):
