@@ -26,7 +26,7 @@ from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from c2c_reporting_tools.c2c_helper import *
 
 
-class c2c_budget_line(orm.Model):
+class budget_line(orm.Model):
     """ Budget line.
 
     A budget version line NOT linked to an analytic account """
@@ -55,7 +55,7 @@ class c2c_budget_line(orm.Model):
     def filter_by_items(self, cr, uid, lines, items_ids, context=None):
         """return a list of lines among those given in parameter
         that are linked to one of the given items """
-        budget_items_obj = self.pool.get('c2c_budget.item')
+        budget_items_obj = self.pool.get('budget.item')
         all_items = budget_items_obj.get_sub_items(cr, items_ids)
         return [line for line in lines
                 if line.budget_item_id.id in all_items]
@@ -103,10 +103,10 @@ class c2c_budget_line(orm.Model):
         objs = self.browse(cr, uid, ids, context=context)
         for obj in objs:
             budget_currency_id = obj.budget_version_id.currency_id.id
-            res[obj.id] = c2c_helper.exchange_currency(cr,
-                                                       obj.amount,
-                                                       obj.currency_id.id,
-                                                       budget_currency_id)
+            res[obj.id] = helper.exchange_currency(cr,
+                                                   obj.amount,
+                                                   obj.currency_id.id,
+                                                   budget_currency_id)
         return res
 
     def _get_budget_version_currency(self, cr, uid, context=None):
@@ -120,7 +120,7 @@ class c2c_budget_line(orm.Model):
             return context['currency_id']
         return False
 
-    _name = "c2c_budget.line"
+    _name = "budget.line"
     _description = "Budget Lines"
 
     _order = 'name ASC'
@@ -131,7 +131,7 @@ class c2c_budget_line(orm.Model):
                                      required=True),
         'analytic_account_id': fields.many2one('account.analytic.account',
                                                string='Analytic Account'),
-        'budget_item_id': fields.many2one('c2c_budget.item',
+        'budget_item_id': fields.many2one('budget.item',
                                           'Budget Item',
                                           required=True),
         'name': fields.char('Description'),
@@ -143,7 +143,7 @@ class c2c_budget_line(orm.Model):
             _get_budget_currency_amount,
             type='float',
             string="In Budget's Currency"),
-        'budget_version_id': fields.many2one('c2c_budget.version',
+        'budget_version_id': fields.many2one('budget.version',
                                              'Budget Version',
                                              required=True),
     }
@@ -155,7 +155,7 @@ class c2c_budget_line(orm.Model):
     def _check_item_in_budget_tree(self, cr, uid, ids, context=None):
         """ check if the line's budget item is in the budget's structure """
         lines = self.browse(cr, uid, ids, context=context)
-        budget_item_obj = self.pool.get('c2c_budget.item')
+        budget_item_obj = self.pool.get('budget.item')
         for line in lines:
             item_id = line.budget_version_id.budget_id.budget_item_id.id
             # get list of budget items for this budget
@@ -178,14 +178,14 @@ class c2c_budget_line(orm.Model):
         """search through lines that belongs to accessible versions """
         if context is None:
             context = {}
-        line_ids = super(c2c_budget_line, self).search(
+        line_ids = super(budget_line, self).search(
             cr, uid, args, offset, limit, order, context, count)
         if not line_ids:
             return line_ids
 
         # get versions the uid can see, from versions, get periods then
         # filter lines by those periods
-        version_obj = self.pool.get('c2c_budget.version')
+        version_obj = self.pool.get('budget.version')
         versions_ids = version_obj.search(cr, uid, [], context=context)
         versions = version_obj.browse(cr, uid, versions_ids, context=context)
 

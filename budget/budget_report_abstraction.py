@@ -22,12 +22,12 @@ from openerp.osv import orm
 
 
 # XXX to remove?
-class c2c_budget_report_abstraction(orm.AbstractModel):
+class budget_report_abstraction(orm.AbstractModel):
     """ This object define parts of reports that can be override.
         It is used to replace analytic_account by projects for some
         of ours customers """
 
-    _name = "c2c_budget.report_abstraction"
+    _name = "budget.report_abstraction"
     _description = "Report Abstraction"
 
     def get_project_group_object(self, cr, uid, context=None):

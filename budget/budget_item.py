@@ -25,11 +25,11 @@ from openerp.osv import fields, orm, osv
 from c2c_reporting_tools.c2c_helper import *
 
 
-class c2c_budget_item(orm.Model):
+class budget_item(orm.Model):
     """ Budget Item
 
     This is a link between budgets and financial accounts. """
-    _name = "c2c_budget.item"
+    _name = "budget.item"
     _description = "Budget items"
     _order = 'sequence ASC, name ASC'
 
@@ -37,8 +37,8 @@ class c2c_budget_item(orm.Model):
         'code': fields.char('Code', required=True),
         'name': fields.char('Name', required=True),
         'active': fields.boolean('Active'),
-        'parent_id': fields.many2one('c2c_budget.item', string='Parent Item'),
-        'children_ids': fields.one2many('c2c_budget.item',
+        'parent_id': fields.many2one('budget.item', string='Parent Item'),
+        'children_ids': fields.one2many('budget.item',
                                         'parent_id',
                                         string='Children Items'),
         'account': fields.many2many('account.account',
@@ -72,7 +72,7 @@ class c2c_budget_item(orm.Model):
             context = {}
 
         # filter the budget lines to work on
-        budget_line_obj = self.pool.get('c2c_budget.line')
+        budget_line_obj = self.pool.get('budget.line')
         budget_lines = budget_line_obj.filter_by_items(cr, uid,
                                                        lines,
                                                        [item_id],
@@ -183,7 +183,7 @@ class c2c_budget_item(orm.Model):
             # get all the sub items of this level
             # XXX fix the sql injection
             query = """SELECT id
-                       FROM c2c_budget_item
+                       FROM budget_item
                        WHERE parent_id IN ( %s )
                        AND active """ % ','.join(map(str,parents_ids))
             cr.execute(query)
@@ -329,7 +329,7 @@ class c2c_budget_item(orm.Model):
         if (level == 0):
             # XXX fix sql injectoin
             query = """SELECT id, code, name, sequence, type, style, %s as level
-                       FROM c2c_budget_item
+                       FROM budget_item
                        WHERE id = %s """ % (level, str(root_id))
 
             cr.execute(query)
@@ -339,7 +339,7 @@ class c2c_budget_item(orm.Model):
         #get children's data
         # XXX fix sql injectoin
         query = """SELECT id, code, name, sequence, type, style, %s as level
-                   FROM c2c_budget_item
+                   FROM budget_item
                    WHERE parent_id = %s
                    AND active
                    ORDER BY sequence """ % (level, str(root_id))
@@ -365,7 +365,7 @@ class c2c_budget_item(orm.Model):
         """ use in _constraints[]: return false
         if there is a recursion in the budget items structure """
         #use the parent check_recursion function defined in orm.py
-        return super(c2c_budget_item,self)._check_recursion(
+        return super(budget_item,self)._check_recursion(
                 cr, uid, ids, parent=parent or 'parent_id', context=context)
 
     _constraints = [
@@ -403,10 +403,10 @@ class c2c_budget_item(orm.Model):
         if context is None:
             context = {}
         result = []
-        parent_result = super(c2c_budget_item, self).search(
+        parent_result = super(budget_item, self).search(
                 cr, uid, args, offset, limit, order, context, count)
         if context.get('budget_id'):
-            budget = self.pool.get('c2c_budget').browse(cr, uid,
+            budget = self.pool.get('budget.budget').browse(cr, uid,
                                                         context['budget_id'],
                                                         context=context)
             allowed_items = self.get_sub_items(cr, [budget.budget_item_id.id])
@@ -429,7 +429,7 @@ class c2c_budget_item(orm.Model):
         # XXX delete cascade?
         #delete item and all subitems
         try:
-            return super(c2c_budget_item, self).unlink(cr, uid, sub_ids,
+            return super(budget_item, self).unlink(cr, uid, sub_ids,
                                                        context)
         except:
             raise osv.except_osv(

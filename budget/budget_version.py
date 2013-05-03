@@ -22,13 +22,13 @@ import time
 from openerp.osv import fields, orm
 
 
-class c2c_budget_version(orm.Model):
+class budget_version(orm.Model):
     """ Budget version.
 
     A budget version is a budget made at a given time for a given company.
     It also can have its own currency """
 
-    _name = "c2c_budget.version"
+    _name = "budget.version"
     _description = "Budget versions"
 
     _order = 'name ASC'
@@ -36,7 +36,7 @@ class c2c_budget_version(orm.Model):
     _columns = {
         'code': fields.char('Code'),
         'name': fields.char('Version Name',  required=True),
-        'budget_id': fields.many2one('c2c_budget',
+        'budget_id': fields.many2one('budget',
                                      string='Budget',
                                      required=True),
         'currency_id': fields.many2one('res.currency',
@@ -46,7 +46,7 @@ class c2c_budget_version(orm.Model):
                                       string='Company',
                                       required=True),
         'user_id': fields.many2one('res.users', string='User In Charge'),
-        'budget_line_ids': fields.one2many('c2c_budget.line',
+        'budget_line_ids': fields.one2many('budget.line',
                                            'budget_version_id',
                                            string='Budget Lines'),
         'note': fields.text('Notes'),
@@ -77,7 +77,7 @@ class c2c_budget_version(orm.Model):
         """return periods informations used by this version.
         (the periods are those between start and end dates defined in
         budget)"""
-        budget_obj = self.pool.get('c2c_budget')
+        budget_obj = self.pool.get('budget')
         return budget_obj.get_periods(cr, uid, version.budget_id.id)
 
     def get_next_periods(self, cr, uid,  version, start_period,
@@ -122,8 +122,8 @@ class c2c_budget_version(orm.Model):
         period_start and period_end included
         version is a budget_version object
         lines is a list of budget_lines objects to work on
-        period_start is a c2c_budget.period object
-        period_end is a c2c_budget.period object
+        period_start is a budget.period object
+        period_end is a budget.period object
         return a dict: item_id => value
         """
         if context is None:
@@ -139,7 +139,7 @@ class c2c_budget_version(orm.Model):
                    and (stop is None or period.date_stop <= stop)]
 
         # get lines related to this periods
-        budget_lines_obj = self.pool.get('c2c_budget.line')
+        budget_lines_obj = self.pool.get('budget.line')
         filtered_lines = budget_lines_obj.filter_by_period(
             cr, uid, lines, [p.id for p in periods], context=context)
         # compute budget values on those lines
@@ -154,7 +154,7 @@ class c2c_budget_version(orm.Model):
         """
         if context is None:
             context = {}
-        budget_item_obj = self.pool.get('c2c_budget.item')
+        budget_item_obj = self.pool.get('budget.item')
         item_id = version.budget_id.budget_item_id.id
         items = budget_item_obj.get_sorted_list(cr, uid, item_id)
         items_results = dict.fromkeys((item.id for item in items), 0.)
@@ -174,11 +174,11 @@ class c2c_budget_version(orm.Model):
         """ return the values from the analytic accounts """
         if context is None:
             context = {}
-        item_obj = self.pool.get('c2c_budget.item')
+        item_obj = self.pool.get('budget.item')
         item_id = version.budget_id.budget_item_id.id
         items = item_obj.get_sorted_list(cr, uid, item_id, context=context)
         items_results = dict.fromkeys((item.id for item in items), 0.)
-        line_obj = self.pool.get('c2c_budget.line')
+        line_obj = self.pool.get('budget.line')
         periods = self.get_periods(cr, uid, version, context=context)
         for item in items:
             items_results[item.id] = item_obj.get_real_values_from_analytic_accounts(
@@ -197,11 +197,11 @@ class c2c_budget_version(orm.Model):
         """ return the values from the general account """
         if context is None:
             context = {}
-        item_obj = self.pool.get('c2c_budget.item')
+        item_obj = self.pool.get('budget.item')
         item_id = version.budget_id.budget_item_id.id
         items = item_obj.get_sorted_list(cr, uid, item_id, context=context)
         items_results = dict.fromkeys((item.id for item in items), 0.)
-        line_obj = self.pool.get('c2c_budget.line')
+        line_obj = self.pool.get('budget.line')
         periods = self.get_periods(cr, uid, version, context=context)
         for item in items:
             items_results[item.id] = item_obj.get_real_values(
@@ -259,11 +259,10 @@ class c2c_budget_version(orm.Model):
     def unlink(self, cr, uid, ids, context=None):
         """delete all budget lines when deleting a budget version """
         # XXX delete cascade?
-        budget_lines_obj = self.pool.get('c2c_budget.line')
+        budget_lines_obj = self.pool.get('budget.line')
         lines_ids = budget_lines_obj.search(cr,
                                             uid,
                                             [('budget_version_id', 'in', ids)],
                                             context=context)
         budget_lines_obj.unlink(cr, uid, lines_ids, context)
-        return super(c2c_budget_version, self).unlink(cr, uid, ids,
-                                                      context=context)
+        return super(budget_version, self).unlink(cr, uid, ids, context=context)

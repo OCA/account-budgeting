@@ -22,13 +22,13 @@
 from openerp.osv import orm
 
 
-class c2c_budget_wizard_abstraction(orm.Model):
+class budget_wizard_abstraction(orm.AbstractModel):
     """ This object define parts of wizards forms
     and process that can be override.
     It is used to replace analytic_account by
     projects for some of ours customers """
 
-    _name = "c2c_budget.wizard_abstraction"
+    _name = "budget.wizard_abstraction"
     _description = "Wizard Abstraction"
 
     def budget_vs_real_get_form(self, cr, uid, data, context=None):
@@ -104,6 +104,6 @@ class c2c_budget_wizard_abstraction(orm.Model):
                                   }
         fields['versions'] = {'string': 'Versions',
                               'type': 'many2many',
-                              'relation': 'c2c_budget.version'
+                              'relation': 'budget.version'
                               }
         return fields

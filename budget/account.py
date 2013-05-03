@@ -99,7 +99,7 @@ class account_period(orm.Model):
         # special search limited to a version
         if context.get('version_id'):
             # get version's periods
-            version_obj = self.pool.get('c2c_budget.version')
+            version_obj = self.pool.get('budget.version')
             version = version_obj.browse(cr,
                                          uid,
                                          context['version_id'],
