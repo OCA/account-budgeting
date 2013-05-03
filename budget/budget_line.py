@@ -97,14 +97,15 @@ class budget_line(orm.Model):
     def _get_budget_currency_amount(self, cr, uid, ids, name, arg, context=None):
         """ return the line's amount xchanged in the budget's currency """
         res = {}
+        currency_obj = self.pool.get('res.currency')
         # We get all values from DB
-        objs = self.browse(cr, uid, ids, context=context)
-        for obj in objs:
-            budget_currency_id = obj.budget_version_id.currency_id.id
-            res[obj.id] = helper.exchange_currency(cr,
-                                                   obj.amount,
-                                                   obj.currency_id.id,
-                                                   budget_currency_id)
+        for line in self.browse(cr, uid, ids, context=context):
+            budget_currency_id = line.budget_version_id.currency_id.id
+            res[line.id] = currency_obj.compute(cr, uid,
+                                                line.currency_id.id,
+                                                budget_currency_id,
+                                                line.amount,
+                                                context=context)
         return res
 
     def _get_budget_version_currency(self, cr, uid, context=None):
