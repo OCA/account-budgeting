@@ -22,7 +22,7 @@ import copy
 from operator import itemgetter
 from openerp.osv import fields, orm, osv
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-# TODO get rid of dependency
+from openerp.tools.translate import _
 
 
 class budget_item(orm.Model):
@@ -47,14 +47,14 @@ class budget_item(orm.Model):
         'calculation': fields.text('Calculation'),
         'type': fields.selection([('view', 'View'),
                                   ('normal', 'Normal')],
-                                  string='Type',
-                                  required=True),
+                                 string='Type',
+                                 required=True),
         'sequence': fields.integer('Sequence'),
         'style': fields.selection([('normal', 'Normal'),
                                    ('bold', 'Bold'),
                                    ('invisible', 'Invisible')],
-                                   string='Style',
-                                   required=True),
+                                  string='Style',
+                                  required=True),
     }
 
     _defaults = {
@@ -178,7 +178,7 @@ class budget_item(orm.Model):
             query = """SELECT id
                        FROM budget_item
                        WHERE parent_id IN ( %s )
-                       AND active """ % ','.join(map(str,parents_ids))
+                       AND active """ % ','.join(map(str, parents_ids))
             cr.execute(query)
             children_ids = map(lambda x: x[0], cr.fetchall())
             items_ids += children_ids
@@ -229,14 +229,16 @@ class budget_item(orm.Model):
         # put in it normal items' values and view items' values that do
         # not have formula
         value_dict = {}
-        for i in items:
-            # XXX decompose
-            if (i.type == 'normal'
-                    or (i.type== 'view'
-                        and ((not i.calculation)
-                             or i.calculation.strip() == "")))
-                    and i.code and i.code.strip() != '':
-                value_dict[""+i.code] = items_values[i.id]
+        for item in items:
+            if not(item.code and item.code.strip()):
+                continue
+            if not (item.type == 'normal'
+                    or (item.type == 'view'
+                        and item.calculation
+                        and item.calculation.strip())):
+                continue
+            value_dict[item.code] = items_values[item.id]
+
         # this loop allow to use view items' results in formulas.
         # count the number of errors that append. Loop until
         # the number remain constant (=error in formulas)
@@ -249,33 +251,32 @@ class budget_item(orm.Model):
             for i in items:
                 # if this item is a view, we must maybe
                 # replace its value by a calculation (if not already done)
-                if (i.type == 'view'
-                        and i.calculation
-                        and i.calculation.strip() != ""
-                        and i.code
-                        and (i.code+"" not in value_dict):
-                    formula_ok = True
-                    exec_env = {'result': 0}
-                    # replace keys by values in formula
+                if i.type != 'view':
+                    continue
+                if not (i.calculation and i.calculation.strip()):
+                    continue
+                if not i.code or i.code in value_dict:
+                    continue
+                formula_ok = True
+                exec_env = {'result': 0}
+                # replace keys by values in formula
+                try:
+                    formula = i.calculation % value_dict
+                except Exception:
+                    formula_ok = False
+                    error_counter += 1
+                # try to run the formula
+                if formula_ok:
                     try:
-                        formula = i.calculation % value_dict
+                        exec formula in exec_env
                     except Exception:
                         formula_ok = False
                         error_counter += 1
-                    # try to run the formula
-                    if formula_ok:
-                        result = None
-                        try:
-                            exec formula in exec_env
-                        except Exception:
-                            formula_ok = False
-                            error_counter += 1
-                    # retrieve formula result
-                    if formula_ok:
-                        items_values[i.id] = exec_env['result']
-                        value_dict[""+i.code] = exec_env['result']
-                    else:
-                        items_values[i.id] = 'error'
+                # retrieve formula result
+                if formula_ok:
+                    items_values[i.id] = value_dict[i.code] = exec_env['result']
+                else:
+                    items_values[i.id] = 'error'
 
             # the number of errors in this loop equal to the previous loop.
             # No chance to get better... let's exit the "while true" loop
@@ -297,7 +298,7 @@ class budget_item(orm.Model):
         item_ids = [item['id'] for item in flat_tree]
         return self.browse(cr, uid, item_ids, context=context)
 
-    def  get_flat_tree(self, cr, uid, root_id, level=0):
+    def get_flat_tree(self, cr, uid, root_id, level=0):
         """ return informations about a buget items tree strcuture.
 
         Data are returned in a list
@@ -342,7 +343,7 @@ class budget_item(orm.Model):
         for child in query_result:
             result.append(child)
             # recursive call to append the children right after the item
-            result += self.get_flat_tree(cr, uid, child['id'], level+1)
+            result += self.get_flat_tree(cr, uid, child['id'], level + 1)
 
         #check to avoid inifite loop
         if (level > 100):
@@ -358,13 +359,13 @@ class budget_item(orm.Model):
         """ use in _constraints[]: return false
         if there is a recursion in the budget items structure """
         #use the parent check_recursion function defined in orm.py
-        return super(budget_item,self)._check_recursion(
-                cr, uid, ids, parent=parent or 'parent_id', context=context)
+        return super(budget_item, self)._check_recursion(
+            cr, uid, ids, parent=parent or 'parent_id', context=context)
 
     _constraints = [
-            (_check_recursion,
-             'Error ! You can not create recursive budget items structure.',
-             ['parent_id'])
+        (_check_recursion,
+         'Error ! You can not create recursive budget items structure.',
+         ['parent_id'])
     ]
 
     def name_search(self, cr, uid, name, args=None,
@@ -397,14 +398,14 @@ class budget_item(orm.Model):
             context = {}
         result = []
         parent_result = super(budget_item, self).search(
-                cr, uid, args, offset, limit, order, context, count)
+            cr, uid, args, offset, limit, order, context, count)
         if context.get('budget_id'):
             budget = self.pool.get('budget.budget').browse(cr, uid,
-                                                        context['budget_id'],
-                                                        context=context)
+                                                           context['budget_id'],
+                                                           context=context)
             allowed_items = self.get_sub_items(cr, [budget.budget_item_id.id])
             result.extend([item for item in parent_result
-                           if item in allowed_items]
+                           if item in allowed_items])
         # normal search
         else:
             result = parent_result
@@ -413,7 +414,7 @@ class budget_item(orm.Model):
     def unlink(self, cr, uid, ids, context=None):
         """ delete subitems and catch the ugly error in case
          of the item is in use in another object """
-        if isintance(ids, (int, long)):
+        if isinstance(ids, (int, long)):
             ids = [ids]
 
         #build a list of all sub items
@@ -422,8 +423,7 @@ class budget_item(orm.Model):
         # XXX delete cascade?
         #delete item and all subitems
         try:
-            return super(budget_item, self).unlink(cr, uid, sub_ids,
-                                                       context)
+            return super(budget_item, self).unlink(cr, uid, sub_ids, context)
         except:
             raise osv.except_osv(
                 _('Unable to delete the item'),
