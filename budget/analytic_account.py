@@ -18,56 +18,49 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-import pooler
-from copy import copy
+import copy
+from openerp.osv import orm
 
 
-class analytic_account(osv.osv):
-    """ add new methods to the base 
-        analytic_account object """
-
+class analytic_account(orm.Model):
+    """ add new methods to the base analytic_account object """
     _inherit = "account.analytic.account"
-    
+
     def get_children_map(self, cr, uid, context=None):
-        """ return a dictionnary mapping the parent relation 
+        """ return a dictionnary mapping the parent relation
             between accounts and their children """
-        if context is None: context = {}
-        #build a dictionnary {parent_id -> [children_ids]}
-        children_ids =  {}
+        if context is None:
+            context = {}
+        # build a dictionnary {parent_id -> [children_ids]}
+        children_ids = {}
         anal_ids = self.search(cr, uid, [], context)
         anal_accounts = self.browse(cr, uid, anal_ids, context)
-        
-        for anal_account in anal_accounts: 
+
+        for anal_account in anal_accounts:
             if anal_account.parent_id:
                 if anal_account.parent_id.id not in children_ids:
                     children_ids[anal_account.parent_id.id] = []
                 children_ids[anal_account.parent_id.id].append(anal_account.id)
-            
-        
         return children_ids
-    
-    
+
     def get_children_flat_list(self, cr, uid, ids, context=None):
-        """return a flat list of all accounts'ids above the ones 
-        given in the account structure (included the one given in params)"""
-        if context is None: context = {}
-        result= [] 
-        
+        """return a flat list of all accounts'ids above the ones given
+        in the account structure (included the one given in params)"""
+        if context is None:
+            context = {}
+        result = []
+
         children_map = self.get_children_map(cr, uid, context)
-        #init the children array
+        # init the children array
         children = ids
-        
-        #while there is children, go deep in the structure
+
+        # while there is children, go deep in the structure
         while len(children) > 0:
             result += children
-            
-            #go deeper in the structure
-            parents = copy(children)
+            # go deeper in the structure
+            parents = copy.copy(children)
             children = []
             for p in parents:
                 if p in children_map:
                     children += children_map[p]
-                
         return result
-analytic_account()

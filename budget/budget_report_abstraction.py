@@ -18,29 +18,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from osv import fields, osv
-import time
-import pooler
+from openerp.osv import orm
 
 
-class c2c_budget_report_abstraction(osv.osv):
-    """ This object define parts of reports that can be override. 
-        It is used to replace analytic_account by projects for some 
+# XXX to remove?
+class c2c_budget_report_abstraction(orm.AbstractModel):
+    """ This object define parts of reports that can be override.
+        It is used to replace analytic_account by projects for some
         of ours customers """
-    
+
     _name = "c2c_budget.report_abstraction"
     _description = "Report Abstraction"
-    _columns = {}
-    _defaults = {}
-        
-        
+
     def get_project_group_object(self, cr, uid, context=None):
-        """ return the object use to group by projects in reports 
-            this is an abstraction level use to allow this module 
+        """ return the object use to group by projects in reports
+            this is an abstraction level use to allow this module
             to be overridden in order to use project as analytic accounts
         """
         return self.pool.get('account.analytic.account');
-        
-        
-    
-c2c_budget_report_abstraction()
