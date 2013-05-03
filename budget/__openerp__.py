@@ -41,7 +41,6 @@ OpenERP official one.
              "c2c_reporting_tools"
              ],
  "data": ["budget_view.xml",
-          "budget_wizard.xml",
           "security/ir.model.access.csv"
           ],
  "installable": True,
