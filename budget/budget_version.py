@@ -36,7 +36,7 @@ class budget_version(orm.Model):
     _columns = {
         'code': fields.char('Code'),
         'name': fields.char('Version Name',  required=True),
-        'budget_id': fields.many2one('budget',
+        'budget_id': fields.many2one('budget.budget',
                                      string='Budget',
                                      required=True),
         'currency_id': fields.many2one('res.currency',
