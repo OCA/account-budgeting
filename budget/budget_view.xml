@@ -281,23 +281,6 @@
             </field>
         </record>
 
-        <!-- VIEW: budget analytic line list -->
-        <record model="ir.ui.view" id="view_budget_analytic_line_list">
-            <field name="name">budget.analytic_line.list</field>
-            <field name="model">budget.analytic_line</field>
-            <field name="arch" type="xml">
-                <tree string="Analytic Budget Lines" editable="top">
-                    <field name="budget_version_id" />
-                    <field name="period_id"/>
-                    <field name="analytic_account_id"/>
-                    <field name="budget_item_id" domain="[('type', '=', 'normal')]"/>
-                    <field name="name" />
-                    <field name="amount" />
-                    <field name="currency_id" />
-                    <field name="amount_in_budget_currency" sum="Total Amount"/>
-                </tree>
-            </field>
-        </record>
 
         <!-- ########################################### -->
         <!-- Actions                                     -->
