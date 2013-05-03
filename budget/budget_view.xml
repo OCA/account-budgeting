@@ -2,29 +2,21 @@
 <openerp>
     <data>
 
-
-        <!-- ########################################### -->
-        <!-- Views                                       -->
-        <!-- ########################################### -->
-
         <!--VIEW: form view to edit/create a main budget -->
-        <record model="ir.ui.view" id="view_budget_form">
+        <record model="ir.ui.view" id="view_budget_budget_form">
             <field name="name">budget.budget.form</field>
             <field name="model">budget.budget</field>
-            <field name="type">form</field>
-            <field name="priority" eval="5"/>
             <field name="arch" type="xml">
-
                 <form string="Budget">
                     <group colspan="8" col="8" string="Budget">
-                        <field name="name" select="1" />
-                        <field name="code" select="1"/>
+                        <field name="name"/>
+                        <field name="code"/>
                         <newline/>
-                        <field name="budget_item_id" domain="[('parent_id','=', False)]" />
-                        <field name="active" select="2"/>
+                        <field name="budget_item_id" domain="[('parent_id', '=', False)]"/>
+                        <field name="active"/>
                         <newline/>
-                        <field name="start_date" select="2"/>
-                        <field name="end_date" select="2"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
                         <newline/>
                         <field name="create_date" />
                         <newline/>
@@ -32,7 +24,8 @@
                     <notebook>
                         <page string="Versions">
                             <field name="budget_version_ids" nolabel="1" widget="many2many" />
-                            </page><page string="Notes">
+                        </page>
+                        <page string="Notes">
                             <field name="note" nolabel="1"/>
                         </page>
                     </notebook>
@@ -40,36 +33,44 @@
             </field>
         </record>
 
+        <record id="view_budget_budget_search" model="ir.ui.view">
+            <field name="name">budget.budget.search</field>
+            <field name="model">budget.budget</field>
+            <field name="arch" type="xml">
+                <search string="Budget">
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+
         <!--VIEW: form view to edit/create a budget versions -->
         <record model="ir.ui.view" id="view_budget_version_form">
             <field name="name">budget.version.form</field>
             <field name="model">budget.version</field>
-            <field name="type">form</field>
-            <field name="priority" eval="5"/>
             <field name="arch" type="xml">
-
                 <form string="Budget Versions">
                     <group colspan="8" col="8" string="Budgets Versions">
-                        <field name="name" select="1"/>
-                        <field name="code" select="1"/>
+                        <field name="name"/>
+                        <field name="code"/>
                         <newline/>
-                        <field name="budget_id" select="1" />
+                        <field name="budget_id" />
                         <field name="currency_id" />
                         <newline/>
-                        <field name="company_id" select="2" groups="base.group_multi_company"/>
-                        <field name="user_id" select="2"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="user_id" />
                         <newline/>
                         <field name="ref_date" />
                         <field name="create_date" />
                         <newline/>
-
                     </group>
                     <notebook>
                         <page string="Budget Lines">
-                            <field name="budget_line_ids" nolabel="1" mode="tree" select="1" context="{'currency_id':currency_id, 'budget_id':budget_id, 'version_id':active_id}" >
+                            <field name="budget_line_ids" nolabel="1"
+                                mode="tree" context="{'currency_id':currency_id, 'budget_id':budget_id, 'version_id':active_id}" >
                                 <tree string="Budget Lines" editable="top">
-                                    <field name="period_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
-                                    <field name="budget_item_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
+                                    <field name="period_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
+                                    <field name="budget_item_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
                                     <field name="name" />
                                     <field name="analytic_account_id"/>
                                     <field name="amount" />
@@ -77,8 +78,8 @@
                                     <field name="amount_in_budget_currency"  sum="Total Amount" />
                                 </tree>
                                 <form>
-                                    <field name="period_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
-                                    <field name="budget_item_id" context="{'budget_id':parent.budget_id, 'version_id':parent.id}" />
+                                    <field name="period_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
+                                    <field name="budget_item_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
                                     <field name="name" />
                                     <field name="analytic_account_id"/>
                                     <field name="amount" />
@@ -86,7 +87,8 @@
                                     <field name="amount_in_budget_currency"  sum="Total Amount" />
                                 </form>
                             </field>
-                            </page><page string="Notes">
+                        </page>
+                        <page string="Notes">
                             <field name="note" nolabel="1" />
                         </page>
                     </notebook>
@@ -94,14 +96,23 @@
             </field>
         </record>
 
+        <record id="view_budget_version_search" model="ir.ui.view">
+            <field name="name">budget.version.search</field>
+            <field name="model">budget.version</field>
+            <field name="arch" type="xml">
+                <search string="Budget Versions">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="budget_id"/>
+                </search>
+            </field>
+        </record>
+
         <!--VIEW: form view to edit/create a budget item -->
         <record model="ir.ui.view" id="view_budget_item_form">
             <field name="name">budget.item.form</field>
             <field name="model">budget.item</field>
-            <field name="type">form</field>
-            <field name="priority" eval="5"/>
             <field name="arch" type="xml">
-
                 <form string="Budget Items">
                     <group colspan="8" col="8" string="Budget Items">
                         <field name="name" select="1"/>
@@ -119,15 +130,18 @@
                     <notebook>
                         <page string="Accounts">
                             <field name="account" nolabel="1" context="{'limit':800}"/>
-                            </page><page string="Children">
+                        </page>
+                        <page string="Children">
                             <field name="children_ids" nolabel="1" widget="many2many" domain="[('parent_id', '=', False)]" />
-                            </page><page string="Calculation">
+                        </page>
+                        <page string="Calculation">
                             <label string="For item of type 'view', you can define a method of calculation based on other items." align="0.0" />
                             <label string="Start your formula by 'result=' and use standard math symbols with items codes surrounded by %%()f . Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compilant." align="0.0" />
                             <label string="Here is a simple example: result=(%%(ebitda)f+%%(ebit)f)*2" align="0.0" />
 
                             <field name="calculation" nolabel="1" colspan="8"/>
-                            </page><page string="Notes">
+                        </page>
+                        <page string="Notes">
                             <field name="note" nolabel="1"/>
                         </page>
                     </notebook>
@@ -135,14 +149,11 @@
             </field>
         </record>
 
-
-
         <!-- VIEW: budget list -->
         <record model="ir.ui.view" id="view_budget_list">
             <field name="name">budget.list</field>
             <field name="model">budget.budget</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="4"/>
+            <field name="priority">4</field>
             <field name="arch" type="xml">
                 <tree string="Budgets">
                     <field name="name"/>
@@ -154,13 +165,11 @@
             </field>
         </record>
 
-
         <!-- VIEW: budget version list in budget form-->
         <record model="ir.ui.view" id="view_budget_version_list">
             <field name="name">budget.version.list</field>
             <field name="model">budget.version</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="3"/>
+            <field name="priority">3</field>
             <field name="arch" type="xml">
                 <tree string="Budgets Versions">
                     <field name="name"/>
@@ -172,13 +181,10 @@
             </field>
         </record>
 
-
         <!-- VIEW: budget version list from the menu-->
         <record model="ir.ui.view" id="view_budget_version_list_from_menu">
             <field name="name">budget.version.list</field>
             <field name="model">budget.version</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="4"/>
             <field name="arch" type="xml">
                 <tree string="Budgets Versions">
                     <field name="name"/>
@@ -191,13 +197,10 @@
             </field>
         </record>
 
-
         <!-- VIEW: budget item list -->
         <record model="ir.ui.view" id="view_budget_item_list">
             <field name="name">budget.item.list</field>
             <field name="model">budget.item</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="4"/>
             <field name="arch" type="xml">
                 <tree string="Budgets Items">
                     <field name="sequence" />
@@ -209,14 +212,12 @@
             </field>
         </record>
 
-
         <!-- VIEW: budget structure -->
         <record model="ir.ui.view" id="view_budget_item_tree">
             <field name="name">budget.item.tree</field>
             <field name="model">budget.item</field>
-            <field name="type">tree</field>
             <field name="field_parent">children_ids</field>
-            <field name="priority" eval="6"/>
+            <field name="priority">6</field>
             <field name="arch" type="xml">
                 <tree string="Budgets Structure">
                     <field name="name"/>
@@ -226,13 +227,11 @@
             </field>
         </record>
 
-
         <!-- VIEW: budget line list inside the page "budget version" -->
         <record model="ir.ui.view" id="view_budget_line_list_in_budget_version">
             <field name="name">budget.line.list.in.budget.version</field>
             <field name="model">budget.line</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="4"/>
+            <field name="priority">4</field>
             <field name="arch" type="xml">
                 <tree string="Budget Lines" editable="top">
                     <field name="period_id"/>
@@ -246,14 +245,10 @@
             </field>
         </record>
 
-
-
-
         <!-- VIEW: budget line list -->
         <record model="ir.ui.view" id="view_budget_line_list">
             <field name="name">budget.line.list</field>
             <field name="model">budget.line</field>
-            <field name="type">tree</field>
             <field name="priority" eval="3"/>
             <field name="arch" type="xml">
                 <tree string="Budget Lines" editable="top">
@@ -272,8 +267,7 @@
         <record model="ir.ui.view" id="view_budget_line_form">
             <field name="name">budget.line.list</field>
             <field name="model">budget.line</field>
-            <field name="type">form</field>
-            <field name="priority" eval="3"/>
+            <field name="priority">3</field>
             <field name="arch" type="xml">
                 <form string="Budget Lines">
                     <field name="budget_version_id" select="1"/>
@@ -287,14 +281,10 @@
             </field>
         </record>
 
-
-
         <!-- VIEW: budget analytic line list -->
         <record model="ir.ui.view" id="view_budget_analytic_line_list">
             <field name="name">budget.analytic_line.list</field>
             <field name="model">budget.analytic_line</field>
-            <field name="type">tree</field>
-            <field name="priority" eval="4"/>
             <field name="arch" type="xml">
                 <tree string="Analytic Budget Lines" editable="top">
                     <field name="budget_version_id" />
@@ -304,54 +294,43 @@
                     <field name="name" />
                     <field name="amount" />
                     <field name="currency_id" />
-                    <field name="amount_in_budget_currency"  sum="Total Amount"/>
+                    <field name="amount_in_budget_currency" sum="Total Amount"/>
                 </tree>
             </field>
         </record>
-
-
-
-
-
-
-
-
-
-
-
 
         <!-- ########################################### -->
         <!-- Actions                                     -->
         <!-- ########################################### -->
 
-        <!-- ACTION: dbl click on Financial Management/Budgets/Budgets -->
+        <!-- ACTION: click on Financial Management/Budgets/Budgets -->
         <record model="ir.actions.act_window" id="open_budget_list">
             <field name="res_model">budget.budget</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <!-- ACTION: dbl click on Financial Management/Budgets/Budgets versions -->
+        <!-- ACTION: click on Financial Management/Budgets/Budgets versions -->
         <record model="ir.actions.act_window" id="open_budget_version_list">
             <field name="res_model">budget.version</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_budget_version_list_from_menu"/>
         </record>
-        <!-- ACTION: dbl click on Financial Management/Budgets/Budgets lines -->
+        <!-- ACTION: click on Financial Management/Budgets/Budgets lines -->
         <record model="ir.actions.act_window" id="open_budget_lines_list">
             <field name="res_model">budget.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_budget_line_list"/>
         </record>
-        <!-- ACTION: dbl click on Financial Management/Budgets/Budgets items -->
+        <!-- ACTION: click on Financial Management/Budgets/Budgets items -->
         <record model="ir.actions.act_window" id="open_budget_items_list">
             <field name="res_model">budget.item</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_budget_item_list"/>
         </record>
-        <!-- ACTION: dbl click on Financial Management/Budgets/Budgets structure-->
+        <!-- ACTION: click on Financial Management/Budgets/Budgets structure-->
         <record model="ir.actions.act_window" id="open_budget_items_tree">
             <field name="name">Budgets Structure</field>
             <field name="res_model">budget.item</field>
@@ -360,7 +339,7 @@
             <field name="domain">[('parent_id', '=', False)]</field>
         </record>
 
-        <!-- ACTION: dbl click on a budget item in the tree structure to open the item-->
+        <!-- ACTION: click on a budget item in the tree structure to open the item-->
         <record model="ir.actions.act_window" id="dblc_budget_structure">
             <field name="res_model">budget.item</field>
             <field name="name">Open Item</field>
@@ -376,7 +355,7 @@
             <field name="object" eval="True" />
         </record>
 
-        <!-- ACTION: dbl click on a budget item in the tree structure to check the structure-->
+        <!-- ACTION: click on a budget item in the tree structure to check the structure-->
         <wizard string="Validate Budget Structure"
             model="budget.item"
             name="budget.validate_budget_structure"
@@ -389,7 +368,6 @@
             <field name="value" eval="'ir.actions.wizard,%d'%action_validate_budget_structure"/>
             <field name="object" eval="True"/>
         </record>
-
 
         <!-- ########################################### -->
         <!-- Menus                                       -->
@@ -409,7 +387,6 @@
         <menuitem id="menu_budget_item_tree" name="Budget Items Structures"
             action="open_budget_items_tree"
             parent="menu_budget"/>
-
 
     </data>
 </openerp>
