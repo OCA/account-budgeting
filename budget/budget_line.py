@@ -173,27 +173,27 @@ class c2c_budget_line(orm.Model):
                    and line.period_id.date_stop < line.budget_version_id.budget_id.end_date
                    for line in lines)
 
-    def search(self, cr, user, args, offset=0, limit=None,
+    def search(self, cr, uid, args, offset=0, limit=None,
                order=None, context=None, count=False):
         """search through lines that belongs to accessible versions """
         if context is None:
             context = {}
         line_ids = super(c2c_budget_line, self).search(
-            cr, user, args, offset, limit, order, context, count)
+            cr, uid, args, offset, limit, order, context, count)
         if not line_ids:
             return line_ids
 
-        # get versions the user can see, from versions, get periods then
+        # get versions the uid can see, from versions, get periods then
         # filter lines by those periods
         version_obj = self.pool.get('c2c_budget.version')
-        versions_ids = version_obj.search(cr, user, [], context=context)
-        versions = version_obj.browse(cr, user, versions_ids, context=context)
+        versions_ids = version_obj.search(cr, uid, [], context=context)
+        versions = version_obj.browse(cr, uid, versions_ids, context=context)
 
         get_period = version_obj.get_periods
-        periods = [get_period(cr, user, version, context=context)
+        periods = [get_period(cr, uid, version, context=context)
                    for version in versions]
-        lines = self.browse(cr, user, line_ids, context=context)
-        lines = self.filter_by_period(cr, user, lines, [p.id for p in periods], context)
+        lines = self.browse(cr, uid, line_ids, context=context)
+        lines = self.filter_by_period(cr, uid, lines, [p.id for p in periods], context)
         return [l.id for l in lines]
 
     _constraints = [

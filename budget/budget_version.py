@@ -236,25 +236,25 @@ class c2c_budget_version(orm.Model):
 
         return result
 
-    def name_search(self, cr, user, name, args=None, operator='ilike',
+    def name_search(self, cr, uid, name, args=None, operator='ilike',
                     context=None, limit=80):
         """search not only for a matching names but also
         for a matching codes. Search also in budget names """
 
         if args is None:
             args = []
-        ids = self.search(cr, user,
+        ids = self.search(cr, uid,
                           [('name', operator, name)] + args,
                           limit=limit,
                           context=context)
 
         if len(ids) < limit:
-            ids += self.search(cr, user,
+            ids += self.search(cr, uid,
                                [('code', operator, name)] + args,
                                limit=limit,
                                context=context)
         ids = ids[:limit]
-        return self.name_get(cr, user, ids, context)
+        return self.name_get(cr, uid, ids, context)
 
     def unlink(self, cr, uid, ids, context=None):
         """delete all budget lines when deleting a budget version """

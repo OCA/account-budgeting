@@ -374,7 +374,7 @@ class c2c_budget_item(orm.Model):
              ['parent_id'])
     ]
 
-    def name_search(self, cr, user, name, args=None,
+    def name_search(self, cr, uid, name, args=None,
                     operator='ilike', context=None, limit=80):
         """search not only for a matching names but also
         for a matching codes """
@@ -383,18 +383,18 @@ class c2c_budget_item(orm.Model):
         if context is None:
             context = {}
         ids = self.search(cr,
-                          user,
+                          uid,
                           [('code', operator, name)] + args,
                           limit=limit,
                           context=context)
         ids += self.search(cr,
-                           user,
+                           uid,
                            [('name', operator, name)] + args,
                            limit=limit,
                            context=context)
-        return self.name_get(cr, user, ids, context=context)
+        return self.name_get(cr, uid, ids, context=context)
 
-    def search(self, cr, user, args, offset=0,
+    def search(self, cr, uid, args, offset=0,
                limit=None, order=None, context=None, count=False):
         """ special search. If we search an item from the budget
         version form (in the budget lines)
@@ -404,9 +404,9 @@ class c2c_budget_item(orm.Model):
             context = {}
         result = []
         parent_result = super(c2c_budget_item, self).search(
-                cr, user, args, offset, limit, order, context, count)
+                cr, uid, args, offset, limit, order, context, count)
         if context.get('budget_id'):
-            budget = self.pool.get('c2c_budget').browse(cr, user,
+            budget = self.pool.get('c2c_budget').browse(cr, uid,
                                                         context['budget_id'],
                                                         context=context)
             allowed_items = self.get_sub_items(cr, [budget.budget_item_id.id])

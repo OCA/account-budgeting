@@ -69,7 +69,7 @@ class account_account(orm.Model):
         # accounts to not return protected results
         return self.search(cr, uid, [('id', 'in', result)], context=context)
 
-    def name_search(self, cr, user, name='', args=None, operator='ilike',
+    def name_search(self, cr, uid, name='', args=None, operator='ilike',
                     context=None, limit=80):
         """ If a limit is defined in the context, use it for the search."""
         if context is None:
@@ -78,14 +78,14 @@ class account_account(orm.Model):
         if context.get('limit'):
             current_limit = context['limit']
         return super(account_account, self).name_search(
-            cr, user, name, args, operator, context, current_limit)
+            cr, uid, name, args, operator, context, current_limit)
 
 
 class account_period(orm.Model):
     """ add new methods to the account_period base object """
     _inherit = 'account.period'
 
-    def search(self, cr, user, args, offset=0, limit=None, order=None,
+    def search(self, cr, uid, args, offset=0, limit=None, order=None,
                context=None, count=False):
         """ Special search. If we search a period from the budget
         version form (in the budget lines)  then the choice is reduce to
@@ -94,25 +94,25 @@ class account_period(orm.Model):
             context = {}
         result = []
         parent_result = super(account_period, self).search(
-            cr, user, args, offset, limit, order, context, count)
+            cr, uid, args, offset, limit, order, context, count)
 
         # special search limited to a version
         if context.get('version_id'):
             # get version's periods
             version_obj = self.pool.get('c2c_budget.version')
             version = version_obj.browse(cr,
-                                         user,
+                                         uid,
                                          context['version_id'],
                                          context=context)
 
             allowed_periods = version_obj.get_periods(cr,
-                                                      user,
+                                                      uid,
                                                       version,
                                                       context)
             allowed_periods_ids = [p.id for p in allowed_periods]
             # match version's period with parent search result
             periods = self.browse(cr,
-                                  user,
+                                  uid,
                                   parent_result,
                                   context)
             for p in periods:

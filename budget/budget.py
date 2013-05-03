@@ -49,7 +49,7 @@ class c2c_budget(orm.Model):
         'active': True,
     }
 
-    def name_search(self, cr, user, name, args=None,
+    def name_search(self, cr, uid, name, args=None,
                     operator='ilike', context=None, limit=80):
         """search not only for a matching names but also for a matching
         codes """
@@ -59,16 +59,16 @@ class c2c_budget(orm.Model):
             args = []
 
         ids = self.search(cr,
-                          user,
+                          uid,
                           [('code',operator,name)] + args,
                           limit=limit,
                           context=context)
         ids += self.search(cr,
-                           user,
+                           uid,
                            [('name',operator,name)]+ args,
                            limit=limit,
                            context=context)
-        return self.name_get(cr, user, ids, context=context)
+        return self.name_get(cr, uid, ids, context=context)
 
     def _check_start_end_dates(self, cr, uid, ids):
         """ check the start date is before the end date """
