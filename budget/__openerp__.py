@@ -38,7 +38,6 @@ OpenERP official one.
     """,
  "depends": ["base",
              "account",
-             "c2c_reporting_tools"
              ],
  "data": ["budget_view.xml",
           "security/ir.model.access.csv"

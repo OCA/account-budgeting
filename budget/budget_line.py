@@ -22,8 +22,6 @@ from datetime import datetime
 from operator import attrgetter
 from openerp.osv import fields, orm
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-# XXX remove c2c_helper
-from c2c_reporting_tools.c2c_helper import *
 
 
 class budget_line(orm.Model):

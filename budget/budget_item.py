@@ -21,8 +21,8 @@
 import copy
 from operator import itemgetter
 from openerp.osv import fields, orm, osv
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 # TODO get rid of dependency
-from c2c_reporting_tools.c2c_helper import *
 
 
 class budget_item(orm.Model):
@@ -112,15 +112,16 @@ class budget_item(orm.Model):
         aa_lines = aa_lines_obj.browse(cr, uid, aa_lines_ids, context=context)
         # now we have the lines, let's add them
         result = 0
+        currency_obj = self.pool.get('res.currency')
+        ctx = context.copy()
+        ctx['date'] = change_date.strptime(DEFAULT_SERVER_DATE_FORMAT)
         for line in aa_lines:
-            # XXX remove c2c_helper
-            result += c2c_helper.exchange_currency(
-                cr,
-                line.amount,
-                line.general_account_id.company_id.currency_id.id,
-                currency_id,
-                c2c_helper.parse_date(change_date))
-
+            from_ccy_id = line.general_account_id.company_id.currency_id.id
+            result += currency_obj.compute(cr, uid,
+                                           from_ccy_id,
+                                           currency_id,
+                                           line.amount,
+                                           context=ctx)
         return result
 
     def get_real_values(self, cr, uid, item, periods, company_id,
@@ -128,29 +129,22 @@ class budget_item(orm.Model):
         """return the sum of the account move lines for this item """
         if context is None:
             context = {}
-        result = 0
-
+        result = 0.
+        currency_obj = self.pool.get('res.currency')
+        move_line_obj = self.pool.get('account.move.line')
         # get the list of accounts and subaccounts linked to this item
         accounts = self.get_accounts(cr, uid,  [item.id], company_id, context)
-
-        #get all move_lines linked to this item
-        move_line_obj = self.pool.get('account.move.line')
+        # get all move_lines linked to this item
         move_line_ids = move_line_obj.search(
             cr, uid,
             [('period_id', 'in', [p.id for p in periods]),
              ('account_id', 'in', accounts)],
             context=context)
-        move_lines = move_line_obj.browse(cr, uid, move_line_ids, context=context)
-
+        move_lines = move_line_obj.browse(cr, uid, move_line_ids,
+                                          context=context)
         # sum all lines
         for line in move_lines:
-            # multi company!
-            # XXX company_id is always there now
-            if 'company_id' in move_line_obj._columns:
-                line_currency_id = line.company_id.currency_id.id
-            #get company's currency from account
-            else:
-                line_currency_id = line.account_id.company_id.currency_id.id
+            line_currency_id = line.company_id.currency_id.id
 
             if line.debit != 0:
                 amount = line.debit
@@ -159,14 +153,13 @@ class budget_item(orm.Model):
                 amount = line.credit
                 sign = 1
 
-            # XXX c2c_helper
-            result += sign * c2c_helper.exchange_currency(
-                cr,
-                amount,
-                line_currency_id,
-                currency_id,
-                c2c_helper.parse_date(change_date))
-
+            ctx = context.copy()
+            ctx['date'] = change_date.strptime(DEFAULT_SERVER_DATE_FORMAT)
+            result += sign * currency_obj.compute(cr, uid,
+                                                  line_currency_id,
+                                                  currency_id,
+                                                  amount,
+                                                  context=ctx)
         return result
 
     def get_sub_items(self, cr, item_ids):
@@ -190,18 +183,18 @@ class budget_item(orm.Model):
             children_ids = map(lambda x: x[0], cr.fetchall())
             items_ids += children_ids
 
-            #continue with next level
+            # continue with next level
             parents_ids = copy.copy(children_ids)
 
-            #count the loops to avoid infinit loops
+            # count the loops to avoid infinite loops
             loop_counter += 1
             if (loop_counter > 100):
                 raise osv.except_osv(
-                'Recursion Error',
-                """It seems the item structure is recursive.
-                Please check and correct it before to run this action again""")
-
-        return c2c_helper.unique(items_ids)
+                    _('Recursion Error'),
+                    _("It seems the item structure is recursive.\n"
+                      "Please check and correct it before to run this "
+                      "action again"))
+        return list(set(item_ids))
 
     def get_accounts(self, cr, uid,  item_ids, company_id, context=None):
         """return a list of accounts ids and their sub accounts
