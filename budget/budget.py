@@ -48,6 +48,20 @@ class budget_budget(orm.Model):
         'active': True,
     }
 
+    def _check_start_end_dates(self, cr, uid, ids):
+        """ check the start date is before the end date """
+        lines = self.browse(cr, uid, ids)
+        for l in lines:
+            if l.end_date < l.start_date:
+                return False
+        return True
+
+    _constraints = [
+        (_check_start_end_dates,
+         'Date Error: The end date is defined before the start date',
+         ['start_date', 'end_date']),
+    ]
+
     def name_search(self, cr, uid, name, args=None,
                     operator='ilike', context=None, limit=100):
         """ Extend search to look in name and code """
@@ -60,14 +74,6 @@ class budget_budget(orm.Model):
                           limit=limit,
                           context=context)
         return self.name_get(cr, uid, ids, context=context)
-
-    def _check_start_end_dates(self, cr, uid, ids):
-        """ check the start date is before the end date """
-        lines = self.browse(cr, uid, ids)
-        for l in lines:
-            if l.end_date < l.start_date:
-                return False
-        return True
 
     def _get_periods(self, cr, uid, ids, context=None):
         """ return the list of budget's periods ordered by date_start"""
@@ -84,9 +90,3 @@ class budget_budget(orm.Model):
                 order="date_start ASC")
             result += period_obj.browse(cr, uid, periods_ids, context=context)
         return result
-
-    _constraints = [
-        (_check_start_end_dates,
-         'Date Error: The end date is defined before the start date',
-         ['start_date', 'end_date']),
-    ]
