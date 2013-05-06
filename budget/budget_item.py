@@ -66,6 +66,19 @@ class budget_item(orm.Model):
         'style': 'normal',
     }
 
+    def _check_recursion(self, cr, uid, ids, context=None, parent=None):
+        """ use in _constraints[]: return false
+        if there is a recursion in the budget items structure """
+        #use the parent check_recursion function defined in orm.py
+        return super(budget_item, self)._check_recursion(
+            cr, uid, ids, parent=parent or 'parent_id', context=context)
+
+    _constraints = [
+        (_check_recursion,
+         'Error ! You can not create recursive budget items structure.',
+         ['parent_id'])
+    ]
+
     def get_real_values_from_analytic_accounts(self, cr, uid, item_id, periods,
                                                lines, company_id, currency_id,
                                                change_date, context=None):
@@ -330,19 +343,6 @@ class budget_item(orm.Model):
             return result
         return recurse_tree([root_id])
 
-    def _check_recursion(self, cr, uid, ids, context=None, parent=None):
-        """ use in _constraints[]: return false
-        if there is a recursion in the budget items structure """
-        #use the parent check_recursion function defined in orm.py
-        return super(budget_item, self)._check_recursion(
-            cr, uid, ids, parent=parent or 'parent_id', context=context)
-
-    _constraints = [
-        (_check_recursion,
-         'Error ! You can not create recursive budget items structure.',
-         ['parent_id'])
-    ]
-
     def name_search(self, cr, uid, name, args=None,
                     operator='ilike', context=None, limit=100):
         """search not only for a matching names but also
@@ -365,8 +365,7 @@ class budget_item(orm.Model):
         that overlap the budget dates"""
         if context is None:
             context = {}
-        result = []
-        parent_result = super(budget_item, self).search(
+        result = super(budget_item, self).search(
             cr, uid, args, offset, limit, order, context, count)
         if context.get('budget_id'):
             budget_obj = self.pool.get('budget.budget')
@@ -374,9 +373,5 @@ class budget_item(orm.Model):
                                        context['budget_id'],
                                        context=context)
             allowed_items = self.get_sub_items(cr, [budget.budget_item_id.id])
-            result.extend([item for item in parent_result
-                           if item in allowed_items])
-        # normal search
-        else:
-            result = parent_result
+            result = [item for item in result if item in allowed_items]
         return result
