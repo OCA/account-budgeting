@@ -304,62 +304,31 @@ class budget_item(orm.Model):
         item_ids = [item['id'] for item in flat_tree]
         return self.browse(cr, uid, item_ids, context=context)
 
-    def get_flat_tree(self, cr, uid, root_id, level=0):
-        """ return informations about a buget items tree strcuture.
+    def get_flat_tree(self, cr, uid, root_id, context=None):
+        """ return informations about a buget items tree structure.
 
-        Data are returned in a list
-        (value=dictionnary(keys='id','code','name','level', sequence, type, style))
+        Data are returned in a list of dicts with the items values.
         Data are sorted as in the pre-order walk
-        algorithm in order to allow to display easily the tree in rapports
-
-        example::
-
-            root
-            |_node 1
-                |_sub node 1
-            |_node 2
-            |_ ...
-
-        Do not specify the level param when you call this method,
-        it is used for recursive calls
+        algorithm in order to allow to display easily the tree in reports
         """
-        result = []
-        # this method is recursive so for the first call,
-        # we must init result with the root node
-        if (level == 0):
-            # XXX fix sql injectoin
-            query = """SELECT id, code, name, sequence, type, style, %s as level
-                       FROM budget_item
-                       WHERE id = %s """ % (level, str(root_id))
-
-            cr.execute(query)
-            result.append(cr.dictfetchall()[0])
-            level += 1
-
-        #get children's data
-        # XXX fix sql injectoin
-        query = """SELECT id, code, name, sequence, type, style, %s as level
-                   FROM budget_item
-                   WHERE parent_id = %s
-                   AND active
-                   ORDER BY sequence """ % (level, str(root_id))
-        cr.execute(query)
-        query_result = cr.dictfetchall()
-
-        for child in query_result:
-            result.append(child)
-            # recursive call to append the children right after the item
-            result += self.get_flat_tree(cr, uid, child['id'], level + 1)
-
-        #check to avoid inifite loop
-        if (level > 100):
-            raise osv.except_osv(_('Recursion Error'),
-                                 _("It seems the budget items structure "
-                                   "is recursive (or too deep). "
-                                   "Please check and correct it "
-                                   "before to run this action again"))
-
-        return result
+        def recurse_tree(node_ids, level=0):
+            result = []
+            items = self.read(cr, uid,
+                              node_ids,
+                              ['code', 'name', 'sequence',
+                               'type', 'style', 'children_ids'],
+                              context=context)
+            all_children_ids = []
+            for item in items:
+                children_ids = item.pop('children_ids')
+                if children_ids:
+                    all_children_ids += children_ids
+                item['level'] = level
+            result += items
+            if all_children_ids:
+                result += recurse_tree(all_children_ids, level + 1)
+            return result
+        return recurse_tree([root_id])
 
     def _check_recursion(self, cr, uid, ids, context=None, parent=None):
         """ use in _constraints[]: return false
