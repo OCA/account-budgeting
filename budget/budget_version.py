@@ -239,21 +239,15 @@ class budget_version(orm.Model):
         return result
 
     def name_search(self, cr, uid, name, args=None, operator='ilike',
-                    context=None, limit=80):
-        """search not only for a matching names but also
-        for a matching codes. Search also in budget names """
+                    context=None, limit=100):
+        """Extend search to name and code. """
 
         if args is None:
             args = []
         ids = self.search(cr, uid,
-                          [('name', operator, name)] + args,
+                          ['|',
+                           ('name', operator, name),
+                           ('code', operator, name)] + args,
                           limit=limit,
                           context=context)
-
-        if len(ids) < limit:
-            ids += self.search(cr, uid,
-                               [('code', operator, name)] + args,
-                               limit=limit,
-                               context=context)
-        ids = ids[:limit]
-        return self.name_get(cr, uid, ids, context)
+        return self.name_get(cr, uid, ids, context=context)

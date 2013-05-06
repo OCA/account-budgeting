@@ -69,17 +69,6 @@ class account_account(orm.Model):
         # accounts to not return protected results
         return self.search(cr, uid, [('id', 'in', result)], context=context)
 
-    def name_search(self, cr, uid, name='', args=None, operator='ilike',
-                    context=None, limit=80):
-        """ If a limit is defined in the context, use it for the search."""
-        if context is None:
-            context = {}
-        current_limit = limit
-        if context.get('limit'):
-            current_limit = context['limit']
-        return super(account_account, self).name_search(
-            cr, uid, name, args, operator, context, current_limit)
-
 
 class account_period(orm.Model):
     """ add new methods to the account_period base object """

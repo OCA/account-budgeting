@@ -371,23 +371,17 @@ class budget_item(orm.Model):
     ]
 
     def name_search(self, cr, uid, name, args=None,
-                    operator='ilike', context=None, limit=80):
+                    operator='ilike', context=None, limit=100):
         """search not only for a matching names but also
         for a matching codes """
         if args is None:
             args = []
-        if context is None:
-            context = {}
-        ids = self.search(cr,
-                          uid,
-                          [('code', operator, name)] + args,
+        ids = self.search(cr, uid,
+                          ['|',
+                           ('name', operator, name),
+                           ('code', operator, name)] + args,
                           limit=limit,
                           context=context)
-        ids += self.search(cr,
-                           uid,
-                           [('name', operator, name)] + args,
-                           limit=limit,
-                           context=context)
         return self.name_get(cr, uid, ids, context=context)
 
     def search(self, cr, uid, args, offset=0,
@@ -402,9 +396,10 @@ class budget_item(orm.Model):
         parent_result = super(budget_item, self).search(
             cr, uid, args, offset, limit, order, context, count)
         if context.get('budget_id'):
-            budget = self.pool.get('budget.budget').browse(cr, uid,
-                                                           context['budget_id'],
-                                                           context=context)
+            budget_obj = self.pool.get('budget.budget')
+            budget = budget_obj.browse(cr, uid,
+                                       context['budget_id'],
+                                       context=context)
             allowed_items = self.get_sub_items(cr, [budget.budget_item_id.id])
             result.extend([item for item in parent_result
                            if item in allowed_items])

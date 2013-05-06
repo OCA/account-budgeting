@@ -49,24 +49,16 @@ class budget_budget(orm.Model):
     }
 
     def name_search(self, cr, uid, name, args=None,
-                    operator='ilike', context=None, limit=80):
-        """search not only for a matching names but also for a matching
-        codes """
-        if context is None:
-            context = {}
+                    operator='ilike', context=None, limit=100):
+        """ Extend search to look in name and code """
         if args is None:
             args = []
-
-        ids = self.search(cr,
-                          uid,
-                          [('code',operator,name)] + args,
+        ids = self.search(cr, uid,
+                          ['|',
+                           ('name', operator, name),
+                           ('code', operator, name)] + args,
                           limit=limit,
                           context=context)
-        ids += self.search(cr,
-                           uid,
-                           [('name',operator,name)]+ args,
-                           limit=limit,
-                           context=context)
         return self.name_get(cr, uid, ids, context=context)
 
     def _check_start_end_dates(self, cr, uid, ids):

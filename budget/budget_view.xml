@@ -129,7 +129,7 @@
                     </group>
                     <notebook>
                         <page string="Accounts">
-                            <field name="account" nolabel="1" context="{'limit':800}"/>
+                            <field name="account" nolabel="1"/>
                         </page>
                         <page string="Children">
                             <field name="children_ids" nolabel="1" widget="many2many" domain="[('parent_id', '=', False)]" />
