@@ -34,7 +34,8 @@ class budget_budget(orm.Model):
         'end_date': fields.date('End Date', required=True),
         'budget_item_id': fields.many2one('budget.item',
                                           'Budget Structure',
-                                          required=True),
+                                          required=True,
+                                          ondelete='restrict'),
         'budget_version_ids': fields.one2many('budget.version',
                                               'budget_id',
                                               'Budget Versions',
@@ -116,18 +117,6 @@ class budget_budget(orm.Model):
                                              ('date_start', '<', end_date)],
                                             order="date_start ASC")
         return period_obj.browse(cr, uid, periods_ids, context=context)
-
-    def unlink(self, cr, uid, ids, context=None):
-        """delete all budget versions when deleting a budget """
-        # XXX delete cascade is not working?
-        if context is None:
-            context = {}
-        budget_version_obj = self.pool.get('budget.version')
-        lines_ids = budget_version_obj.search(cr, uid,
-                                              [('budget_id', 'in', ids)],
-                                              context=context)
-        budget_version_obj.unlink(cr, uid, lines_ids, context=context)
-        return super(budget_budget, self).unlink(cr, uid, ids, context=context)
 
     _constraints = [
         (_check_start_end_dates,

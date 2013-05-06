@@ -130,7 +130,8 @@ class budget_line(orm.Model):
                                                string='Analytic Account'),
         'budget_item_id': fields.many2one('budget.item',
                                           'Budget Item',
-                                          required=True),
+                                          required=True,
+                                          ondelete='restrict'),
         'name': fields.char('Description'),
         'amount': fields.float('Amount', required=True),
         'currency_id': fields.many2one('res.currency',
@@ -142,7 +143,8 @@ class budget_line(orm.Model):
             string="In Budget's Currency"),
         'budget_version_id': fields.many2one('budget.version',
                                              'Budget Version',
-                                             required=True),
+                                             required=True,
+                                             ondelete='cascade'),
     }
 
     _defaults = {

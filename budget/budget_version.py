@@ -38,7 +38,8 @@ class budget_version(orm.Model):
         'name': fields.char('Version Name',  required=True),
         'budget_id': fields.many2one('budget.budget',
                                      string='Budget',
-                                     required=True),
+                                     required=True,
+                                     ondelete='cascade'),
         'currency_id': fields.many2one('res.currency',
                                        string='Currency',
                                        required=True),
@@ -256,14 +257,3 @@ class budget_version(orm.Model):
                                context=context)
         ids = ids[:limit]
         return self.name_get(cr, uid, ids, context)
-
-    def unlink(self, cr, uid, ids, context=None):
-        """delete all budget lines when deleting a budget version """
-        # XXX delete cascade?
-        budget_lines_obj = self.pool.get('budget.line')
-        lines_ids = budget_lines_obj.search(cr,
-                                            uid,
-                                            [('budget_version_id', 'in', ids)],
-                                            context=context)
-        budget_lines_obj.unlink(cr, uid, lines_ids, context)
-        return super(budget_version, self).unlink(cr, uid, ids, context=context)

@@ -37,7 +37,9 @@ class budget_item(orm.Model):
         'code': fields.char('Code', required=True),
         'name': fields.char('Name', required=True),
         'active': fields.boolean('Active'),
-        'parent_id': fields.many2one('budget.item', string='Parent Item'),
+        'parent_id': fields.many2one('budget.item',
+                                     string='Parent Item',
+                                     ondelete='cascade'),
         'children_ids': fields.one2many('budget.item',
                                         'parent_id',
                                         string='Children Items'),
@@ -410,26 +412,3 @@ class budget_item(orm.Model):
         else:
             result = parent_result
         return result
-
-    def unlink(self, cr, uid, ids, context=None):
-        """ delete subitems and catch the ugly error in case
-         of the item is in use in another object """
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-
-        #build a list of all sub items
-        sub_ids = self.get_sub_items(cr, ids)
-
-        # XXX delete cascade?
-        #delete item and all subitems
-        try:
-            return super(budget_item, self).unlink(cr, uid, sub_ids, context)
-        except:
-            raise osv.except_osv(
-                _('Unable to delete the item'),
-                _("At least one of the items you are trying to "
-                  "delete or one of their subitems is still "
-                  "referenced by another element.\n "
-                  "Check there is no budget lines that link to "
-                  "these items and there is no budget that use "
-                  "these items as budget structure root."))
