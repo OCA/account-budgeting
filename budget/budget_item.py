@@ -22,6 +22,7 @@ import copy
 from operator import itemgetter
 from openerp.osv import fields, orm, osv
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from tools.safe_eval import safe_eval
 from openerp.tools.translate import _
 
 
@@ -241,6 +242,9 @@ class budget_item(orm.Model):
                 continue
             value_dict[item.code] = items_values[item.id]
 
+        # TODO: check why this method is done so, weirdness sensors
+        # actived
+
         # this loop allow to use view items' results in formulas.
         # count the number of errors that append. Loop until
         # the number remain constant (=error in formulas)
@@ -260,7 +264,7 @@ class budget_item(orm.Model):
                 if not i.code or i.code in value_dict:
                     continue
                 formula_ok = True
-                exec_env = {'result': 0}
+                scope = {'result': 0}
                 # replace keys by values in formula
                 try:
                     formula = i.calculation % value_dict
@@ -270,13 +274,13 @@ class budget_item(orm.Model):
                 # try to run the formula
                 if formula_ok:
                     try:
-                        exec formula in exec_env
+                        safe_eval(formula, scope, mode='exec', nocopy=True)
                     except Exception:
                         formula_ok = False
                         error_counter += 1
                 # retrieve formula result
                 if formula_ok:
-                    items_values[i.id] = value_dict[i.code] = exec_env['result']
+                    items_values[i.id] = value_dict[i.code] = scope['result']
                 else:
                     items_values[i.id] = 'error'
 
