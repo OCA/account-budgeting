@@ -61,19 +61,6 @@ class budget_version(orm.Model):
                                                     cr, uid, 'account.account', context=c),
     }
 
-    def get_period(self, cr, uid, version, date, context=None):
-        """ return the period corresponding to the given date
-        for the given version """
-        period_obj = self.pool.get('account.period')
-        period_ids = period_obj.search(cr, uid,
-                                       [('date_start', '<=', date),
-                                        ('date_stop', '>=', date)],
-                                       context=context)
-        periods_tmp = period_obj.browse(cr, uid, period_ids, context=context)
-        if len(periods_tmp) > 0:
-            return periods_tmp[0]
-        return None
-
     def _get_periods(self, cr, uid, version, context=None):
         """return periods informations used by this version.
         (the periods are those between start and end dates defined in
@@ -82,17 +69,16 @@ class budget_version(orm.Model):
         return budget_obj._get_periods(cr, uid, version.budget_id.id,
                                        context=context)
 
-    def get_next_periods(self, cr, uid,  version, start_period,
+    def _get_next_periods(self, cr, uid,  version, start_period,
                          periods_nbr, context=None):
-        """ return a list of "periods_nbr" periods that follow the
-        "start_period" for the given version """
+        """ return a list of browse record periods that follow the
+        "start_period" for the given version.
+
+        periods_nbr is the limit of periods to return"""
         period_obj = self.pool.get('account.period')
-        period_ids = period_obj.search(
-            cr, uid,
-            [('date_start', '>', start_period.date_start)],
-            order="date_start ASC",
-            limit=periods_nbr,
-            context=context)
+        period_ids = period_obj.next(cr, uid, start_period,
+                                     periods_nbr,
+                                     context=context)
         return period_obj.browse(cr, uid, period_ids, context=context)
 
     def get_previous_period(self, cr, uid, version, period, context=None):
@@ -111,7 +97,7 @@ class budget_version(orm.Model):
     def get_next_period(self, cr, uid, version, period, context=None):
         """ return the period that follow the one given in param.
             return None if there is no next period defined """
-        nexts = self.get_next_periods(cr, uid, version, period, 1, context)
+        nexts = self._get_next_periods(cr, uid, version, period, 1, context)
         if len(nexts) > 0:
             return nexts[0]
         return None

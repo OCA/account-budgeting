@@ -63,10 +63,15 @@ class budget_by_period(StandardReport):
         
             periods = []
             if self.datas['form']['periods_nbr'] >= 1:
-                start_period = version_obj.get_period(self.cr, self.uid, version, self.datas['form']['from_date'], context=self.context)
+                ctx = self.conctext.copy()
+                ctx['account_period_prefer_normal'] = True
+                start_period = version_obj.find(self.cr,
+                                                self.uid,
+                                                self.datas['form']['from_date'],
+                                                context=self.context)
                 periods.append(start_period)
                 if self.datas['form']['periods_nbr'] >= 2:
-                    next_periods = version_obj.get_next_periods(self.cr, self.uid, version, start_period, self.datas['form']['periods_nbr']-1, context=self.context)
+                    next_periods = version_obj._get_next_periods(self.cr, self.uid, version, start_period, self.datas['form']['periods_nbr']-1, context=self.context)
                     periods = periods + next_periods
             analytic_accounts = []
             
@@ -102,7 +107,7 @@ class budget_by_period(StandardReport):
     
             if display_next and len(periods) > 0:
                 #get the period after the last one
-                from_period = version_obj.get_next_period(self.cr, self.uid, version, periods[-1], self.context)
+                from_period = version_obj._get_next_period(self.cr, self.uid, version, periods[-1], self.context)
                 if from_period is not None:
                     info = {'from': from_period, 
                             'to': None,
