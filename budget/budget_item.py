@@ -190,7 +190,7 @@ class budget_item(orm.Model):
         if context is None:
             context = {}
 
-        sub_items_ids = self.get_sub_items(cr, item_ids)
+        sub_items_ids = self.get_sub_items(cr, uid, item_ids, context=context)
         sub_items = self.browse(cr, uid, sub_items_ids, context=context)
         # gather all account linked to all subitems
         ids = []
@@ -346,6 +346,8 @@ class budget_item(orm.Model):
             budget = budget_obj.browse(cr, uid,
                                        context['budget_id'],
                                        context=context)
-            allowed_items = self.get_sub_items(cr, [budget.budget_item_id.id])
+            allowed_items = self.get_sub_items(cr, uid,
+                                               [budget.budget_item_id.id],
+                                               context=context)
             result = [item for item in result if item in allowed_items]
         return result

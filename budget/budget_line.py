@@ -54,7 +54,9 @@ class budget_line(orm.Model):
         """return a list of lines among those given in parameter
         that are linked to one of the given items """
         budget_items_obj = self.pool.get('budget.item')
-        all_items = budget_items_obj.get_sub_items(cr, items_ids)
+        all_items = budget_items_obj.get_sub_items(cr, uid,
+                                                   items_ids,
+                                                   context=context)
         return [line for line in lines
                 if line.budget_item_id.id in all_items]
 
@@ -158,7 +160,9 @@ class budget_line(orm.Model):
         for line in lines:
             item_id = line.budget_version_id.budget_id.budget_item_id.id
             # get list of budget items for this budget
-            flat_items_ids = budget_item_obj.get_sub_items(cr, [item_id])
+            flat_items_ids = budget_item_obj.get_sub_items(cr, uid,
+                                                           [item_id],
+                                                           context=context)
             if line.budget_item_id.id not in flat_items_ids:
                 return False
         return True
