@@ -46,6 +46,7 @@ class budget_by_period(StandardReport):
         #period_obj = self.pool.get('account.period')
         line_obj = self.pool.get('c2c_budget.line')
         version_obj = self.pool.get('c2c_budget.version')
+        period_obj = self.pool.get('account.period')
         project_obj = self.pool.get('c2c_budget.report_abstraction').get_project_group_object(self.cr, self.uid, self.context)
         
         
@@ -63,15 +64,15 @@ class budget_by_period(StandardReport):
         
             periods = []
             if self.datas['form']['periods_nbr'] >= 1:
-                ctx = self.conctext.copy()
+                ctx = self.context.copy()
                 ctx['account_period_prefer_normal'] = True
-                start_period = version_obj.find(self.cr,
-                                                self.uid,
-                                                self.datas['form']['from_date'],
-                                                context=self.context)
+                start_period = period_obj.find(self.cr,
+                                               self.uid,
+                                               self.datas['form']['from_date'],
+                                               context=self.context)
                 periods.append(start_period)
                 if self.datas['form']['periods_nbr'] >= 2:
-                    next_periods = version_obj._get_next_periods(self.cr, self.uid, version, start_period, self.datas['form']['periods_nbr']-1, context=self.context)
+                    next_periods = period_obj._get_next_periods(self.cr, self.uid, start_period, self.datas['form']['periods_nbr']-1, context=self.context)
                     periods = periods + next_periods
             analytic_accounts = []
             
@@ -83,7 +84,7 @@ class budget_by_period(StandardReport):
             
             if display_previous and len(periods) > 0:
                 #get the period before the first one
-                to_period = version_obj.get_previous_period(self.cr, self.uid, version, periods[0], self.context)
+                to_period = period_obj._get_previous_period(self.cr, self.uid, periods[0], self.context)
                 if to_period is not None:
                     info = {'from': None, 
                             'to': to_period,
@@ -107,7 +108,7 @@ class budget_by_period(StandardReport):
     
             if display_next and len(periods) > 0:
                 #get the period after the last one
-                from_period = version_obj._get_next_period(self.cr, self.uid, version, periods[-1], self.context)
+                from_period = period_obj._get_next_periods(self.cr, self.uid, periods[-1], 1, self.context)
                 if from_period is not None:
                     info = {'from': from_period, 
                             'to': None,

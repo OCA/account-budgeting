@@ -69,39 +69,6 @@ class budget_version(orm.Model):
         return budget_obj._get_periods(cr, uid, version.budget_id.id,
                                        context=context)
 
-    def _get_next_periods(self, cr, uid,  version, start_period,
-                         periods_nbr, context=None):
-        """ return a list of browse record periods that follow the
-        "start_period" for the given version.
-
-        periods_nbr is the limit of periods to return"""
-        period_obj = self.pool.get('account.period')
-        period_ids = period_obj.next(cr, uid, start_period,
-                                     periods_nbr,
-                                     context=context)
-        return period_obj.browse(cr, uid, period_ids, context=context)
-
-    def get_previous_period(self, cr, uid, version, period, context=None):
-        """ return the period that preceed the one given in param.
-            return None if there is no preceeding period defined """
-        period_obj = self.pool.get('account.period')
-        ids = period_obj.search(cr, uid,
-                                [('date_stop', '<', period.date_start)],
-                                order="date_start DESC",
-                                context=context)
-        periods = period_obj.browse(cr, uid, ids, context)
-        if len(periods) > 0:
-            return periods[0]
-        return None
-
-    def get_next_period(self, cr, uid, version, period, context=None):
-        """ return the period that follow the one given in param.
-            return None if there is no next period defined """
-        nexts = self._get_next_periods(cr, uid, version, period, 1, context)
-        if len(nexts) > 0:
-            return nexts[0]
-        return None
-
     def get_filtered_budget_values(self, cr, uid, version, lines,
                                    period_start=None, period_end=None,
                                    context=None):

@@ -56,3 +56,30 @@ class account_period(orm.Model):
             period_ids = [period_id for period_id in period_ids
                           if period_id in allowed_periods_ids]
         return period_ids
+
+    def _get_next_periods(self, cr, uid, start_period,
+                         periods_nbr, context=None):
+        """ return a list of browse record periods that follow the
+        "start_period" for the given version.
+
+        periods_nbr is the limit of periods to return"""
+        period_obj = self.pool.get('account.period')
+        period_ids = period_obj.next(cr, uid, start_period,
+                                     periods_nbr,
+                                     context=context)
+        if not period_ids:
+            return None
+        return period_obj.browse(cr, uid, period_ids, context=context)
+
+    def get_previous_period(self, cr, uid, period, context=None):
+        """ return the period that preceed the one given in param.
+            return None if there is no preceeding period defined """
+        period_obj = self.pool.get('account.period')
+        ids = period_obj.search(cr, uid,
+                                [('date_stop', '<', period.date_start)],
+                                order="date_start DESC",
+                                limit=1,
+                                context=context)
+        if not ids:
+            return None
+        return period_obj.browse(cr, uid, ids[0], context)
