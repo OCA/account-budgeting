@@ -18,12 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import copy
 from operator import itemgetter
-from openerp.osv import fields, orm, osv
+from openerp.osv import fields, orm
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from tools.safe_eval import safe_eval
-from openerp.tools.translate import _
 
 
 class budget_item(orm.Model):
@@ -197,14 +195,11 @@ class budget_item(orm.Model):
         for subitem in sub_items:
             ids += [a.id for a in subitem.account]
 
-        #get the list of sub accounts of gathered accounts
+        # get the list of sub accounts of gathered accounts
         account_obj = self.pool.get('account.account')
-        account_flat_list = account_obj.get_children_flat_list(cr, uid, ids,
-                                                               company_id,
-                                                               context=context)
-        #here is the list of all accounts and subaccounts linked to
-        #items and subitems
-        return account_flat_list
+        return account_obj.get_children_flat_list(cr, uid, ids,
+                                                  company_id,
+                                                  context=context)
 
     def compute_view_items(self, items, items_values):
         """ compute items (type "view") values that are based on calculations
