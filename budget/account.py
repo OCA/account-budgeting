@@ -25,6 +25,9 @@ class account_period(orm.Model):
     """ add new methods to the account_period base object """
     _inherit = 'account.period'
 
+    # XXX context is not propagated from the view,
+    # so we never have 'version_id', check if it is a bug
+    # or a 'feature'
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
                context=None, count=False):
         """ Special search. If we search a period from the budget
@@ -32,8 +35,7 @@ class account_period(orm.Model):
         periods that overlap the budget dates """
         if context is None:
             context = {}
-        result = []
-        parent_result = super(account_period, self).search(
+        period_ids = super(account_period, self).search(
             cr, uid, args, offset, limit, order, context, count)
 
         # special search limited to a version
@@ -44,22 +46,13 @@ class account_period(orm.Model):
                                          uid,
                                          context['version_id'],
                                          context=context)
-
             allowed_periods = version_obj._get_periods(cr,
                                                        uid,
                                                        version,
                                                        context=context)
             allowed_periods_ids = [p.id for p in allowed_periods]
-            # match version's period with parent search result
-            periods = self.browse(cr,
-                                  uid,
-                                  parent_result,
-                                  context)
-            for p in periods:
-                if p.id in allowed_periods_ids:
-                    result.append(p.id)
 
-        # normal search
-        else:
-            result = parent_result
-        return result
+            # match version's period with parent search result
+            period_ids = [period_id for period_id in period_ids
+                          if period_id in allowed_periods_ids]
+        return period_ids

@@ -67,7 +67,8 @@
                     <notebook>
                         <page string="Budget Lines">
                             <field name="budget_line_ids" nolabel="1"
-                                mode="tree" context="{'currency_id':currency_id, 'budget_id':budget_id, 'version_id':active_id}" >
+                                mode="tree"
+                                context="{'currency_id': currency_id, 'budget_id': budget_id, 'version_id': active_id}" >
                                 <tree string="Budget Lines" editable="top">
                                     <field name="period_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
                                     <field name="budget_item_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
@@ -75,17 +76,8 @@
                                     <field name="analytic_account_id"/>
                                     <field name="amount" />
                                     <field name="currency_id" />
-                                    <field name="amount_in_budget_currency"  sum="Total Amount" />
+                                    <field name="amount_in_budget_currency" sum="Total Amount" />
                                 </tree>
-                                <form>
-                                    <field name="period_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
-                                    <field name="budget_item_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
-                                    <field name="name" />
-                                    <field name="analytic_account_id"/>
-                                    <field name="amount" />
-                                    <field name="currency_id" />
-                                    <field name="amount_in_budget_currency"  sum="Total Amount" />
-                                </form>
                             </field>
                         </page>
                         <page string="Notes">
