@@ -178,39 +178,11 @@ class budget_item(orm.Model):
                                                   context=ctx)
         return result
 
-    def get_sub_items(self, cr, item_ids):
-        """ return a flat list of ids of all items under
-        items in the tree structure """
-        parents_ids = item_ids
-
-        items_ids = copy.copy(parents_ids)
-
-        loop_counter = 0
-
-        # for each "level" of parent
-        while len(parents_ids) > 0:
-            # get all the sub items of this level
-            # XXX fix the sql injection
-            query = """SELECT id
-                       FROM budget_item
-                       WHERE parent_id IN ( %s )
-                       AND active """ % ','.join(map(str, parents_ids))
-            cr.execute(query)
-            children_ids = map(lambda x: x[0], cr.fetchall())
-            items_ids += children_ids
-
-            # continue with next level
-            parents_ids = copy.copy(children_ids)
-
-            # count the loops to avoid infinite loops
-            loop_counter += 1
-            if (loop_counter > 100):
-                raise osv.except_osv(
-                    _('Recursion Error'),
-                    _("It seems the item structure is recursive.\n"
-                      "Please check and correct it before to run this "
-                      "action again"))
-        return list(set(item_ids))
+    def get_sub_items(self, cr, uid, item_ids, context=None):
+        """ Returns list of ids of sub items (including the top level
+        item id)"""
+        tree = self.get_flat_tree(cr, uid, item_ids, context=context)
+        return [item['id'] for item in tree]
 
     def get_accounts(self, cr, uid,  item_ids, company_id, context=None):
         """return a list of accounts ids and their sub accounts
@@ -312,12 +284,12 @@ class budget_item(orm.Model):
            (value=dictionnary(keys='id','code',
            'name','level', sequence, type, style))
         """
-        flat_tree = sorted(self.get_flat_tree(cr, uid, root_id),
-                           key=itemgetter('sequence'))
+        flat_tree = self.get_flat_tree(cr, uid, root_id, context=context)
+        flat_tree = sorted(flat_tree, key=itemgetter('sequence'))
         item_ids = [item['id'] for item in flat_tree]
         return self.browse(cr, uid, item_ids, context=context)
 
-    def get_flat_tree(self, cr, uid, root_id, context=None):
+    def get_flat_tree(self, cr, uid, root_ids, context=None):
         """ return informations about a buget items tree structure.
 
         Data are returned in a list of dicts with the items values.
@@ -341,7 +313,9 @@ class budget_item(orm.Model):
             if all_children_ids:
                 result += recurse_tree(all_children_ids, level + 1)
             return result
-        return recurse_tree([root_id])
+        if not hasattr(root_ids, '__iter__'):
+            root_ids = [root_ids]
+        return recurse_tree(root_ids)
 
     def name_search(self, cr, uid, name, args=None,
                     operator='ilike', context=None, limit=100):
