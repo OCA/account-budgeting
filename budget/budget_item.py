@@ -95,7 +95,6 @@ class budget_item(orm.Model):
         # get the list of Analytic accounts related to those lines
         aa_ids = budget_line_obj.get_analytic_accounts(cr, uid,
                                                        budget_lines,
-                                                       company_id,
                                                        context=context)
 
         # get accounts (and subaccounts) related to the given item (and

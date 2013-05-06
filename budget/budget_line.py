@@ -74,8 +74,7 @@ class budget_line(orm.Model):
         return [line for line in lines
                 if line.analytic_account_id in tree_account_ids]
 
-    def get_analytic_accounts(self, cr, uid, lines,
-                              company_id, context=None):
+    def get_analytic_accounts(self, cr, uid, lines, context=None):
         """ from a bunch of lines, return all analytic accounts
         ids linked by those lines. """
         return list(set(line.analytic_account_id.id for line in lines
