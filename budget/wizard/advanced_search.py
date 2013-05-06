@@ -75,7 +75,10 @@ class wiz_advanced_search(wizard.interface):
         
         version_ids = data['form']['versions'][0][2]
         
-        anal_account_ids = anal_account_obj.get_children_flat_list(cr, uid, data['form']['analytic_accounts'][0][2])
+        anal_account_ids = anal_account_obj.search(
+            cr, uid,
+            [('id', 'child_of', data['form']['analytic_accounts'][0][2])],
+            context=context)
         
         if data['form']['empty_aa_too']:
             anal_account_ids.append(False)

@@ -19,7 +19,6 @@
 #
 ##############################################################################
 import account
-import analytic_account
 import budget_item
 import budget
 import budget_version

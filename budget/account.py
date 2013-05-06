@@ -18,56 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import copy
 from openerp.osv import orm
-
-
-class account_account(orm.Model):
-    """add new methods to the base account_account object """
-    _inherit = "account.account"
-
-    def get_children_map(self, cr, uid, company_id, context=None):
-        if context is None:
-            context = {}
-        children_ids = {}
-        account_obj = self.pool.get('account.account')
-        domain = [('company_id', '=', company_id)]
-        # Get all the accounts in the company
-        acc_ids = account_obj.search(cr, uid, domain, context=context)
-
-        # For each account, get the child accounts
-        for acc in acc_ids:
-            child_ids = account_obj.search(cr, uid,
-                                           [('parent_id', 'child_of', acc)],
-                                           context=context)
-            children_ids[acc] = [child_id for child_id in child_ids
-                                 if child_id != acc]
-        return children_ids
-
-    def get_children_flat_list(self, cr, uid, ids, company_id, context=None):
-        """return a flat list of all accounts' ids above the ones given
-        in the account structure (included the one given in params)
-        """
-        if context is None:
-            context = {}
-        result = []
-        children_map = self.get_children_map(cr, uid, company_id, context)
-        # init the children array
-        children = ids
-        # while there is children, go deep in the structure
-        while len(children) > 0:
-            result += children
-            #go deeper in the structure
-            parents = copy.copy(children)
-            children = []
-            for p in parents:
-                if p in children_map:
-                    children += children_map[p]
-
-        # it may looks stupid tu do a search on ids to get ids...  But
-        # it's not! It allows to apply access rules and rights on the
-        # accounts to not return protected results
-        return self.search(cr, uid, [('id', 'in', result)], context=context)
 
 
 class account_period(orm.Model):

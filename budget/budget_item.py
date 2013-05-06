@@ -182,12 +182,9 @@ class budget_item(orm.Model):
         tree = self.get_flat_tree(cr, uid, item_ids, context=context)
         return [item['id'] for item in tree]
 
-    def get_accounts(self, cr, uid,  item_ids, company_id, context=None):
+    def get_accounts(self, cr, uid, item_ids, company_id, context=None):
         """return a list of accounts ids and their sub accounts
         linked to items (item_ids) and their subitems """
-        if context is None:
-            context = {}
-
         sub_items_ids = self.get_sub_items(cr, uid, item_ids, context=context)
         sub_items = self.browse(cr, uid, sub_items_ids, context=context)
         # gather all account linked to all subitems
@@ -197,9 +194,10 @@ class budget_item(orm.Model):
 
         # get the list of sub accounts of gathered accounts
         account_obj = self.pool.get('account.account')
-        return account_obj.get_children_flat_list(cr, uid, ids,
-                                                  company_id,
-                                                  context=context)
+        account_ids = account_obj.search(cr, uid,
+                                         [('company_id', '=', company_id),
+                                          ('id', 'child_of', ids)],
+                                         context=context)
 
     def compute_view_items(self, items, items_values):
         """ compute items (type "view") values that are based on calculations

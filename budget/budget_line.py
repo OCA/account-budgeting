@@ -65,14 +65,14 @@ class budget_line(orm.Model):
         """return a list of lines among those given in parameter
         that is linked to analytic_accounts.
         param analytic_accounts_ids should be a list of accounts'ids. """
-        if context is None:
-            context = {}
         result = []
         aa_obj = self.pool.get('account.analytic.account')
-        all_accounts = aa_obj.get_children_flat_list(cr, uid,
-                                                     analytic_accounts_ids)
+        tree_account_ids = aa_obj.search(
+            cr, uid,
+            [('id', 'child_of', analytic_accounts_ids)],
+            context=context)
         return [line for line in lines
-                if line.analytic_account_id in all_accounts]
+                if line.analytic_account_id in tree_account_ids]
 
     def get_analytic_accounts(self, cr, uid, lines,
                               company_id, context=None):
