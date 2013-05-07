@@ -29,8 +29,9 @@ Budget Module
 
 Features:
 
+* The main difference with the official budget module is that
+  this budget is based on analytics accounts, not accounting ones.
 * Create budget, budget items and budget versions.
-* Base your budget on analytics accounts
 * Budget versions are multi currencies and multi companies.
 
 This module is for real advanced budget use, otherwise prefer to use the

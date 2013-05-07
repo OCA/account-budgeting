@@ -314,36 +314,6 @@
             <field name="domain">[('parent_id', '=', False)]</field>
         </record>
 
-        <!-- ACTION: click on a budget item in the tree structure to open the item-->
-        <record model="ir.actions.act_window" id="dblc_budget_structure">
-            <field name="res_model">budget.item</field>
-            <field name="name">Open Item</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('id', '=', active_id)]</field>
-        </record>
-        <record model="ir.values" id="ir_open_item">
-            <field name="key2" eval=" 'tree_but_open'" />
-            <field name="model" eval="'budget.item'" />
-            <field name="name">Open Item</field>
-            <field name="value" eval="'ir.actions.act_window,'+str(dblc_budget_structure)" />
-            <field name="object" eval="True" />
-        </record>
-
-        <!-- ACTION: click on a budget item in the tree structure to check the structure-->
-        <wizard string="Validate Budget Structure"
-            model="budget.item"
-            name="budget.validate_budget_structure"
-            id="action_validate_budget_structure"
-            />
-        <record model="ir.values" id="ir_check_structure">
-            <field name="key2" eval=" 'tree_but_open'" />
-            <field name="model"  eval="'budget.item'" />
-            <field name="name">Check Budget Structure</field>
-            <field name="value" eval="'ir.actions.wizard,%d'%action_validate_budget_structure"/>
-            <field name="object" eval="True"/>
-        </record>
-
         <!-- ########################################### -->
         <!-- Menus                                       -->
         <!-- ########################################### -->
