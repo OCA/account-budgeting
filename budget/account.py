@@ -68,7 +68,7 @@ class account_period(orm.Model):
             return None
         return period_obj.browse(cr, uid, period_ids, context=context)
 
-    def get_previous_period(self, cr, uid, period, context=None):
+    def _get_previous_period(self, cr, uid, period, context=None):
         """ return the period that preceed the one given in param.
             return None if there is no preceeding period defined """
         period_obj = self.pool.get('account.period')
