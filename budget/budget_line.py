@@ -206,6 +206,6 @@ class budget_line(orm.Model):
         for version in versions:
             periods += get_periods(cr, uid, version, context=context)
         lines = self.browse(cr, uid, line_ids, context=context)
-        lines = self.filter_by_period(cr, uid, lines,
-                                      [p.id for p in periods], context=context)
+        lines = self._filter_by_period(cr, uid, lines,
+                                       [p.id for p in periods], context=context)
         return [l.id for l in lines]
