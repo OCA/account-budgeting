@@ -175,7 +175,7 @@ class budget_item(orm.Model):
                                                   context=ctx)
         return result
 
-    def get_sub_items(self, cr, uid, item_ids, context=None):
+    def get_sub_item_ids(self, cr, uid, item_ids, context=None):
         """ Returns list of ids of sub items (including the top level
         item id)"""
         tree = self.get_flat_tree(cr, uid, item_ids, context=context)
@@ -184,7 +184,7 @@ class budget_item(orm.Model):
     def get_accounts(self, cr, uid, item_ids, company_id, context=None):
         """return a list of accounts ids and their sub accounts
         linked to items (item_ids) and their subitems """
-        sub_items_ids = self.get_sub_items(cr, uid, item_ids, context=context)
+        sub_items_ids = self.get_sub_item_ids(cr, uid, item_ids, context=context)
         sub_items = self.browse(cr, uid, sub_items_ids, context=context)
         # gather all account linked to all subitems
         ids = []
@@ -331,15 +331,15 @@ class budget_item(orm.Model):
         that overlap the budget dates"""
         if context is None:
             context = {}
-        result = super(budget_item, self).search(
-            cr, uid, args, offset, limit, order, context, count)
+        domain = []
         if context.get('budget_id'):
             budget_obj = self.pool.get('budget.budget')
             budget = budget_obj.browse(cr, uid,
                                        context['budget_id'],
                                        context=context)
-            allowed_items = self.get_sub_items(cr, uid,
-                                               [budget.budget_item_id.id],
-                                               context=context)
-            result = [item for item in result if item in allowed_items]
-        return result
+            allowed_item_ids = self.get_sub_item_ids(cr, uid,
+                                                     [budget.budget_item_id.id],
+                                                     context=context)
+            domain = [('id', 'in', allowed_item_ids)]
+        return super(budget_item, self).search(
+            cr, uid, args + domain, offset, limit, order, context, count)

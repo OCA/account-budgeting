@@ -35,12 +35,9 @@ class account_period(orm.Model):
         periods that overlap the budget dates """
         if context is None:
             context = {}
-        period_ids = super(account_period, self).search(
-            cr, uid, args, offset, limit, order, context, count)
-
+        domain = []
         # special search limited to a version
         if context.get('version_id'):
-            # get version's periods
             version_obj = self.pool.get('budget.version')
             version = version_obj.browse(cr,
                                          uid,
@@ -50,15 +47,13 @@ class account_period(orm.Model):
                                                        uid,
                                                        version,
                                                        context=context)
-            allowed_periods_ids = [p.id for p in allowed_periods]
-
-            # match version's period with parent search result
-            period_ids = [period_id for period_id in period_ids
-                          if period_id in allowed_periods_ids]
-        return period_ids
+            allowed_period_ids = [p.id for p in allowed_periods]
+            domain = [('id', 'in', allowed_period_ids)]
+        return super(account_period, self).search(
+            cr, uid, args + domain, offset, limit, order, context, count)
 
     def _get_next_periods(self, cr, uid, start_period,
-                         periods_nbr, context=None):
+                          periods_nbr, context=None):
         """ return a list of browse record periods that follow the
         "start_period" for the given version.
 

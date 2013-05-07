@@ -114,7 +114,9 @@ class budget_version(orm.Model):
         items = budget_item_obj.get_sorted_list(cr, uid, item_id)
         items_results = dict.fromkeys((item.id for item in items), 0.)
         for item in items:
-            sub_items_ids = budget_item_obj.get_sub_items(cr, [item.id])
+            sub_items_ids = budget_item_obj.get_sub_item_ids(cr, uid,
+                                                             [item.id],
+                                                             context=context)
             for line in lines:
                 if line.budget_version_id.id != version.id:
                     continue
