@@ -38,15 +38,17 @@ class account_period(orm.Model):
         domain = []
         # special search limited to a version
         if context.get('version_id'):
+            ctx = context.copy()
+            ctx.pop('version_id')  # avoid recursion for underhand searches
             version_obj = self.pool.get('budget.version')
             version = version_obj.browse(cr,
                                          uid,
                                          context['version_id'],
-                                         context=context)
+                                         context=ctx)
             allowed_periods = version_obj._get_periods(cr,
                                                        uid,
                                                        version,
-                                                       context=context)
+                                                       context=ctx)
             allowed_period_ids = [p.id for p in allowed_periods]
             domain = [('id', 'in', allowed_period_ids)]
         return super(account_period, self).search(

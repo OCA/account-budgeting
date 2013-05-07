@@ -333,13 +333,15 @@ class budget_item(orm.Model):
             context = {}
         domain = []
         if context.get('budget_id'):
+            ctx = context.copy()
+            ctx.pop('budget_id')  # avoid recursion for underhand searches
             budget_obj = self.pool.get('budget.budget')
             budget = budget_obj.browse(cr, uid,
                                        context['budget_id'],
-                                       context=context)
+                                       context=ctx)
             allowed_item_ids = self.get_sub_item_ids(cr, uid,
                                                      [budget.budget_item_id.id],
-                                                     context=context)
+                                                     context=ctx)
             domain = [('id', 'in', allowed_item_ids)]
         return super(budget_item, self).search(
             cr, uid, args + domain, offset, limit, order, context, count)

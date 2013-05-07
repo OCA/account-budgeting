@@ -85,14 +85,11 @@ class budget_budget(orm.Model):
         start_date = end_date = None
         result = []
         for budget in self.browse(cr, uid, ids, context=context):
-            ctx = context.copy()
-            ctx.pop('version_id', None)  # avoid recursive search from
-                                         # account_period.search
             period_ids = period_obj.search(
                 cr, uid,
                 [('date_stop', '>', budget.start_date),
                  ('date_start', '<', budget.end_date)],
                 order="date_start ASC",
-                context=ctx)
+                context=context)
             result += period_obj.browse(cr, uid, period_ids, context=context)
         return result
