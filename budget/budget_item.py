@@ -87,15 +87,15 @@ class budget_item(orm.Model):
 
         # filter the budget lines to work on
         budget_line_obj = self.pool.get('budget.line')
-        budget_lines = budget_line_obj.filter_by_items(cr, uid,
-                                                       lines,
-                                                       [item_id],
-                                                       context=context)
+        budget_lines = budget_line_obj._filter_by_items(cr, uid,
+                                                        lines,
+                                                        [item_id],
+                                                        context=context)
 
         # get the list of Analytic accounts related to those lines
-        aa_ids = budget_line_obj.get_analytic_accounts(cr, uid,
-                                                       budget_lines,
-                                                       context=context)
+        aa_ids = budget_line_obj.get_analytic_account_ids(cr, uid,
+                                                          budget_lines,
+                                                          context=context)
 
         # get accounts (and subaccounts) related to the given item (and
         # subitems)
@@ -193,10 +193,10 @@ class budget_item(orm.Model):
 
         # get the list of sub accounts of gathered accounts
         account_obj = self.pool.get('account.account')
-        account_ids = account_obj.search(cr, uid,
-                                         [('company_id', '=', company_id),
-                                          ('id', 'child_of', ids)],
-                                         context=context)
+        return account_obj.search(cr, uid,
+                                  [('company_id', '=', company_id),
+                                   ('id', 'child_of', ids)],
+                                  context=context)
 
     def compute_view_items(self, items, items_values):
         """ compute items (type "view") values that are based on calculations

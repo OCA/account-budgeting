@@ -95,7 +95,7 @@ class budget_version(orm.Model):
 
         # get lines related to this periods
         budget_lines_obj = self.pool.get('budget.line')
-        filtered_lines = budget_lines_obj.filter_by_period(
+        filtered_lines = budget_lines_obj._filter_by_period(
             cr, uid, lines, [p.id for p in periods], context=context)
         # compute budget values on those lines
         return self.get_budget_values(cr, uid, version,

@@ -121,7 +121,7 @@ class budget_line(orm.Model):
          ['budget_item_id'])
     ]
 
-    def filter_by_period(self, cr, uid, lines, period_ids, context=None):
+    def _filter_by_period(self, cr, uid, lines, period_ids, context=None):
         """ return a list of lines amoungs those given in parameter that
         are linked to one of the given periods """
         if not period_ids:
@@ -129,7 +129,7 @@ class budget_line(orm.Model):
         return [line for line in lines
                 if line.period_id.id in period_ids]
 
-    def filter_by_date(self, cr, uid, lines, date_start=None,
+    def _filter_by_date(self, cr, uid, lines, date_start=None,
                        date_end=None, context=None):
         """return a list of lines among those given in parameter
            that stand between date_start and date_end """
@@ -137,12 +137,12 @@ class budget_line(orm.Model):
                 if (date_start is None or line.period_id.date_start >= date_start)
                    and (date_end is None or line.period_id.date_stop <= date_end)]
 
-    def filter_by_missing_analytic_account(self, cr, uid, lines, context=None):
+    def _filter_by_missing_analytic_account(self, cr, uid, lines, context=None):
         """return a list of lines among those given in parameter that are ot
         linked to a analytic account """
         return [line for line in lines if not line.analytic_account_id]
 
-    def filter_by_items(self, cr, uid, lines, items_ids, context=None):
+    def _filter_by_items(self, cr, uid, lines, items_ids, context=None):
         """return a list of lines among those given in parameter
         that are linked to one of the given items """
         budget_items_obj = self.pool.get('budget.item')
@@ -152,7 +152,7 @@ class budget_line(orm.Model):
         return [line for line in lines
                 if line.budget_item_id.id in all_items]
 
-    def filter_by_analytic_account(self, cr, uid, lines,
+    def _filter_by_analytic_account(self, cr, uid, lines,
                                    analytic_accounts_ids, context=None):
         """return a list of lines among those given in parameter
         that is linked to analytic_accounts.
@@ -166,7 +166,7 @@ class budget_line(orm.Model):
         return [line for line in lines
                 if line.analytic_account_id in tree_account_ids]
 
-    def get_analytic_accounts(self, cr, uid, lines, context=None):
+    def get_analytic_account_ids(self, cr, uid, lines, context=None):
         """ from a bunch of lines, return all analytic accounts
         ids linked by those lines. """
         return list(set(line.analytic_account_id.id for line in lines
