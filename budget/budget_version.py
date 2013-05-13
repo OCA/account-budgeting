@@ -122,7 +122,7 @@ class budget_version(orm.Model):
                     continue
                 if line.budget_item_id.id not in sub_items_ids:
                     continue
-                items_results[item.id] += line.amount_in_budget_currency
+                items_results[item.id] += line.budget_amount
         # complete results with calculated items
         return budget_item_obj.compute_view_items(items, items_results)
 

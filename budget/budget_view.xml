@@ -80,7 +80,7 @@
                                     <field name="analytic_account_id"/>
                                     <field name="amount" />
                                     <field name="currency_id" />
-                                    <field name="amount_in_budget_currency" sum="Total Amount" />
+                                    <field name="budget_amount" sum="Total Amount" />
                                 </tree>
                             </field>
                         </page>
@@ -237,7 +237,7 @@
                     <field name="name" />
                     <field name="amount" />
                     <field name="currency_id" />
-                    <field name="amount_in_budget_currency"  sum="Total Amount" />
+                    <field name="budget_amount"  sum="Total Amount" />
                 </tree>
             </field>
         </record>
@@ -257,7 +257,7 @@
                     <field name="analytic_account_id"/>
                     <field name="amount" />
                     <field name="currency_id" />
-                    <field name="amount_in_budget_currency"  sum="Total Amount" />
+                    <field name="budget_amount"  sum="Total Amount" />
                 </tree>
             </field>
         </record>

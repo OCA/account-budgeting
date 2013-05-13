@@ -22,6 +22,7 @@ from datetime import datetime
 from operator import attrgetter
 from openerp.osv import fields, orm
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+from openerp.addons import decimal_precision as dp
 
 
 class budget_line(orm.Model):
@@ -48,6 +49,24 @@ class budget_line(orm.Model):
                                                 context=context)
         return res
 
+    def _get_account_amount(self, cr, uid, ids, name, arg, context=None):
+        """ Compute the amounts in the analytic account's currency"""
+        res = {}
+        currency_obj = self.pool.get('res.currency')
+        for line in self.browse(cr, uid, ids, context=context):
+            anl_account = line.analytic_account_id
+            if not anl_account:
+                res[line.id] = 0.0
+                continue
+            line_currency_id = line.currency_id.id
+            anl_currency_id = anl_account.currency_id.id
+            res[line.id] = currency_obj.compute(cr, uid,
+                                                line_currency_id,
+                                                anl_currency_id,
+                                                line.amount,
+                                                context=context)
+        return res
+
     def _get_budget_version_currency(self, cr, uid, context=None):
         """ return the default currency for this line of account.
         The default currency is the currency set for the budget
@@ -55,9 +74,7 @@ class budget_line(orm.Model):
         if context is None:
             context = {}
         # if the budget currency is already set
-        if context.get('currency_id'):
-            return context['currency_id']
-        return False
+        return context.get('currency_id', False)
 
     _columns = {
         'period_id': fields.many2one('account.period',
@@ -77,14 +94,20 @@ class budget_line(orm.Model):
         'currency_id': fields.many2one('res.currency',
                                        'Currency',
                                        required=True),
-        'amount_in_budget_currency': fields.function(
+        'budget_amount': fields.function(
             _get_budget_currency_amount,
             type='float',
+            precision=dp.get_precision('Account'),
             string="In Budget's Currency"),
         'budget_version_id': fields.many2one('budget.version',
                                              'Budget Version',
                                              required=True,
                                              ondelete='cascade'),
+        'account_amount': fields.function(
+            _get_account_amount,
+            type='float',
+            precision=dp.get_precision('Account'),
+            string="In Analytic Account's currency"),
     }
 
     _defaults = {
