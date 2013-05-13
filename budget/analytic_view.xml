@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="view_account_analytic_account_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <page name="contract_page" position="after">
+                    <page string="Budget" name="budget">
+                        <group string="Budget Lines" name="budget_lines">
+                            <field name="budget_line_ids" nolabel="1">
+                                <tree string="Budget Lines">
+                                    <field name="budget_version_id"/>
+                                    <field name="period_id"/>
+                                    <field name="to_period_id"/>
+                                    <field name="budget_item_id"/>
+                                    <field name="name" />
+                                    <field name="amount"/>
+                                    <field name="currency_id"/>
+                                    <field name="analytic_amount"
+                                        string="Amount Currency"
+                                        sum="Total Amount" />
+                                    <field name="analytic_real_amount"
+                                        string="Real"
+                                        sum="Total Real Amount" />
+                                    <field name="analytic_diff_amount"
+                                        string="Difference"
+                                        sum="Total Difference" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</openerp>

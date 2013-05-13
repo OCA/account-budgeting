@@ -69,7 +69,7 @@
                             <field name="budget_line_ids" nolabel="1"
                                 mode="tree"
                                 context="{'currency_id': currency_id, 'budget_id': budget_id, 'version_id': active_id}" >
-                                <tree string="Budget Lines" editable="top">
+                                <tree string="Budget Lines" editable="bottom">
                                     <field name="period_id"
                                         on_change="on_change_period_id(period_id, to_period_id)"
                                         context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
@@ -223,32 +223,13 @@
             </field>
         </record>
 
-        <!-- VIEW: budget line list inside the page "budget version" -->
-        <record model="ir.ui.view" id="view_budget_line_list_in_budget_version">
-            <field name="name">budget.line.list.in.budget.version</field>
-            <field name="model">budget.line</field>
-            <field name="priority">4</field>
-            <field name="arch" type="xml">
-                <tree string="Budget Lines" editable="top">
-                    <field name="period_id"/>
-                    <field name="to_period_id"/>
-                    <field name="analytic_account_id"/>
-                    <field name="budget_item_id" domain="[('type','=', 'normal')]" />
-                    <field name="name" />
-                    <field name="amount" />
-                    <field name="currency_id" />
-                    <field name="budget_amount"  sum="Total Amount" />
-                </tree>
-            </field>
-        </record>
-
         <!-- VIEW: budget line list -->
         <record model="ir.ui.view" id="view_budget_line_list">
             <field name="name">budget.line.list</field>
             <field name="model">budget.line</field>
             <field name="priority" eval="3"/>
             <field name="arch" type="xml">
-                <tree string="Budget Lines" editable="top">
+                <tree string="Budget Lines" editable="bottom">
                     <field name="budget_version_id" />
                     <field name="period_id"/>
                     <field name="to_period_id"/>
@@ -263,7 +244,7 @@
         </record>
 
         <record model="ir.ui.view" id="view_budget_line_form">
-            <field name="name">budget.line.list</field>
+            <field name="name">budget.line.form</field>
             <field name="model">budget.line</field>
             <field name="priority">3</field>
             <field name="arch" type="xml">

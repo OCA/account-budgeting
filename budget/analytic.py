@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Arnaud Wüst
-#    Copyright 2009-2013 Camptocamp SA
+#    Author: Guewen Baconnier
+#    Copyright 2013 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,9 +18,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account
-import budget_item
-import budget
-import budget_version
-import budget_line
-import analytic
+
+from openerp.osv import orm, fields
+
+
+class account_analytic_account(orm.Model):
+    _inherit = 'account.analytic.account'
+
+    _columns = {
+        'budget_line_ids': fields.one2many('budget.line',
+                                           'analytic_account_id',
+                                           string='Budget Lines',
+                                           readonly=True),
+    }

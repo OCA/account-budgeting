@@ -42,6 +42,7 @@ OpenERP official one.
              "analytic_multicurrency",
              ],
  "data": ["budget_view.xml",
+          "analytic_view.xml",
           "security/ir.model.access.csv"
           ],
  "installable": True,

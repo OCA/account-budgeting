@@ -146,7 +146,7 @@ class budget_line(orm.Model):
             type='float',
             precision=dp.get_precision('Account'),
             multi='analytic',
-            string="Analytic Real Amount",
+            string="Analytic Difference Amount",
         ),
     }
 
