@@ -39,6 +39,7 @@ OpenERP official one.
     """,
  "depends": ["base",
              "account",
+             "analytic_multicurrency",
              ],
  "data": ["budget_view.xml",
           "security/ir.model.access.csv"
