@@ -19,7 +19,7 @@
                                     <field name="amount"/>
                                     <field name="currency_id"/>
                                     <field name="analytic_amount"
-                                        string="Amount Currency"
+                                        string="In Contract's Currency"
                                         sum="Total Amount" />
                                     <field name="analytic_real_amount"
                                         string="Real"

@@ -41,7 +41,7 @@ class budget_line(orm.Model):
         currency_obj = self.pool.get('res.currency')
         # We get all values from DB
         for line in self.browse(cr, uid, ids, context=context):
-            budget_currency_id = line.budget_version_id.currency_id.id
+            budget_currency_id = line.budget_currency_id.id
             res[line.id] = currency_obj.compute(cr, uid,
                                                 line.currency_id.id,
                                                 budget_currency_id,
@@ -64,7 +64,7 @@ class budget_line(orm.Model):
                 continue
 
             line_currency_id = line.currency_id.id
-            anl_currency_id = anl_account.currency_id.id
+            anl_currency_id = line.analytic_currency_id.id
             amount = currency_obj.compute(cr, uid,
                                           line_currency_id,
                                           anl_currency_id,
@@ -123,6 +123,12 @@ class budget_line(orm.Model):
             type='float',
             precision=dp.get_precision('Account'),
             string="In Budget's Currency"),
+        'budget_currency_id': fields.related('budget_version_id',
+                                             'currency_id',
+                                             type='many2one',
+                                             relation='res.currency',
+                                             string='Budget Currency',
+                                             readonly=True),
         'budget_version_id': fields.many2one('budget.version',
                                              'Budget Version',
                                              required=True,
@@ -148,6 +154,12 @@ class budget_line(orm.Model):
             multi='analytic',
             string="Analytic Difference Amount",
         ),
+        'analytic_currency_id': fields.related('analytic_account_id',
+                                               'currency_id',
+                                               type='many2one',
+                                               relation='res.currency',
+                                               string='Analytic Currency',
+                                               readonly=True)
     }
 
     _defaults = {
@@ -187,14 +199,6 @@ class budget_line(orm.Model):
         lines = self.browse(cr, uid, ids, context=context)
         return all(periods_valid(line.period_id, line.to_period_id)
                    for line in lines)
-
-    def _check_start_end_dates(self, cr, uid, ids):
-        """ check the start date is before the end date """
-        lines = self.browse(cr, uid, ids)
-        for l in lines:
-            if l.end_date < l.start_date:
-                return False
-        return True
 
     _constraints = [
         (_check_period_budget,

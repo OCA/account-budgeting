@@ -248,15 +248,37 @@
             <field name="model">budget.line</field>
             <field name="priority">3</field>
             <field name="arch" type="xml">
-                <form string="Budget Lines">
-                    <field name="budget_version_id" select="1"/>
-                    <field name="period_id" select="1"/>
-                    <field name="to_period_id" select="1"/>
-                    <field name="budget_item_id"  domain="[('type', '=', 'normal')]" select="1"/>
-                    <field name="name" select="1" />
-                    <field name="analytic_account_id" select="1"/>
-                    <field name="amount" />
-                    <field name="currency_id" />
+                <form string="Budget Lines" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="budget_version_id"/>
+                            <field name="budget_item_id"  domain="[('type', '=', 'normal')]"/>
+                            <field name="name"/>
+                            <field name="analytic_account_id"/>
+                        </group>
+                        <group string="Periods">
+                            <field name="period_id"/>
+                            <field name="to_period_id"/>
+                        </group>
+                        <group string="Amount">
+                            <label for="amount"/>
+                            <div>
+                                <field name="amount" class="oe_inline"/>
+                                <field name="currency_id" class="oe_inline"/>
+                            </div>
+                            <label for="budget_amount"/>
+                            <div>
+                                <field name="budget_amount" class="oe_inline"/>
+                                <field name="budget_currency_id" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group string="Analytic Amounts">
+                            <field name="analytic_currency_id"/>
+                            <field name="analytic_amount" class="oe_inline"/>
+                            <field name="analytic_real_amount"/>
+                            <field name="analytic_diff_amount"/>
+                        </group>
+                    </sheet>
                 </form>
             </field>
         </record>
