@@ -48,7 +48,7 @@ class budget_budget(orm.Model):
         'active': True,
     }
 
-    def _check_start_end_dates(self, cr, uid, ids):
+    def _check_start_end_dates(self, cr, uid, ids, context=None):
         """ check the start date is before the end date """
         lines = self.browse(cr, uid, ids)
         for l in lines:

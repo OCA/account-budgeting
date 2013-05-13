@@ -70,7 +70,11 @@
                                 mode="tree"
                                 context="{'currency_id': currency_id, 'budget_id': budget_id, 'version_id': active_id}" >
                                 <tree string="Budget Lines" editable="top">
-                                    <field name="period_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
+                                    <field name="period_id"
+                                        on_change="on_change_period_id(period_id, to_period_id)"
+                                        context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
+                                    <field name="to_period_id"
+                                        context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
                                     <field name="budget_item_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
                                     <field name="name" />
                                     <field name="analytic_account_id"/>
@@ -227,6 +231,7 @@
             <field name="arch" type="xml">
                 <tree string="Budget Lines" editable="top">
                     <field name="period_id"/>
+                    <field name="to_period_id"/>
                     <field name="analytic_account_id"/>
                     <field name="budget_item_id" domain="[('type','=', 'normal')]" />
                     <field name="name" />
@@ -246,6 +251,7 @@
                 <tree string="Budget Lines" editable="top">
                     <field name="budget_version_id" />
                     <field name="period_id"/>
+                    <field name="to_period_id"/>
                     <field name="budget_item_id"  domain="[('type', '=', 'normal')]" />
                     <field name="name" />
                     <field name="analytic_account_id"/>
@@ -264,6 +270,7 @@
                 <form string="Budget Lines">
                     <field name="budget_version_id" select="1"/>
                     <field name="period_id" select="1"/>
+                    <field name="to_period_id" select="1"/>
                     <field name="budget_item_id"  domain="[('type', '=', 'normal')]" select="1"/>
                     <field name="name" select="1" />
                     <field name="analytic_account_id" select="1"/>

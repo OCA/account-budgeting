@@ -61,8 +61,11 @@ class budget_line(orm.Model):
 
     _columns = {
         'period_id': fields.many2one('account.period',
-                                     string='Period',
+                                     string='Start Period',
                                      required=True),
+        'to_period_id': fields.many2one('account.period',
+                                        string='End Period',
+                                        required=True),
         'analytic_account_id': fields.many2one('account.analytic.account',
                                                string='Analytic Account'),
         'budget_item_id': fields.many2one('budget.item',
@@ -102,24 +105,57 @@ class budget_line(orm.Model):
                 return False
         return True
 
-    def _check_period(self, cr, uid, ids, context=None):
+    def _check_period_budget(self, cr, uid, ids, context=None):
         """ check if the line's period overlay the budget's period """
+        def period_valid(period, budget):
+            return (period.date_start > budget.start_date
+                    and period.date_stop > budget.start_date
+                    and period.date_start < budget.end_date
+                    and period.date_stop < budget.end_date)
         lines = self.browse(cr, uid, ids, context=context)
-        return all(line.period_id.date_start > line.budget_version_id.budget_id.start_date
-                   and line.period_id.date_stop > line.budget_version_id.budget_id.start_date
-                   and line.period_id.date_start < line.budget_version_id.budget_id.end_date
-                   and line.period_id.date_stop < line.budget_version_id.budget_id.end_date
+        return all(period_valid(line.period_id, line.budget_version_id.budget_id)
+                   and period_valid(line.to_period_id, line.budget_version_id.budget_id)
                    for line in lines)
 
+    def _check_periods(self, cr, uid, ids, context=None):
+        def periods_valid(period, to_period):
+            return (period.date_start <= to_period.date_start
+                    and period.date_stop <= to_period.date_stop)
+        lines = self.browse(cr, uid, ids, context=context)
+        return all(periods_valid(line.period_id, line.to_period_id)
+                   for line in lines)
+
+    def _check_start_end_dates(self, cr, uid, ids):
+        """ check the start date is before the end date """
+        lines = self.browse(cr, uid, ids)
+        for l in lines:
+            if l.end_date < l.start_date:
+                return False
+        return True
+
     _constraints = [
-        (_check_period,
+        (_check_period_budget,
          "The line's period must overlap the budget's start or end dates",
-         ['period_id']),
+         ['period_id', 'to_period_id']),
+        (_check_periods,
+         "The end period must begin after the start period.",
+         ['period_id', 'to_period_id']),
         (_check_item_in_budget_tree,
          "The line's bugdet item must belong to the budget structure "
          "defined in the budget",
          ['budget_item_id'])
     ]
+
+    def init(self, cr):
+        sql = ("UPDATE budget_line SET to_period_id = period_id "
+               "WHERE to_period_id ISNULL")
+        cr.execute(sql)
+
+    def on_change_period_id(self, cr, uid, ids, period_id, to_period_id, context=None):
+        if not to_period_id:
+            return {'value': {'to_period_id': period_id}}
+        else:
+            return {}
 
     def _filter_by_period(self, cr, uid, lines, period_ids, context=None):
         """ return a list of lines amoungs those given in parameter that
