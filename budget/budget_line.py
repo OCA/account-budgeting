@@ -49,22 +49,46 @@ class budget_line(orm.Model):
                                                 context=context)
         return res
 
-    def _get_account_amount(self, cr, uid, ids, name, arg, context=None):
+    def _get_analytic_amount(self, cr, uid, ids, field_names=None,
+                             arg=False, context=None):
         """ Compute the amounts in the analytic account's currency"""
         res = {}
+        if field_names is None:
+            field_names = []
         currency_obj = self.pool.get('res.currency')
+        anl_lines_obj = self.pool.get('account.analytic.line')
         for line in self.browse(cr, uid, ids, context=context):
             anl_account = line.analytic_account_id
             if not anl_account:
-                res[line.id] = 0.0
+                res[line.id] = dict.fromkeys(field_names, 0.0)
                 continue
+
             line_currency_id = line.currency_id.id
             anl_currency_id = anl_account.currency_id.id
-            res[line.id] = currency_obj.compute(cr, uid,
-                                                line_currency_id,
-                                                anl_currency_id,
-                                                line.amount,
-                                                context=context)
+            amount = currency_obj.compute(cr, uid,
+                                          line_currency_id,
+                                          anl_currency_id,
+                                          line.amount,
+                                          context=context)
+
+            # real amount is the total of analytic lines
+            # within the periods, we'll read it in the
+            # analytic account's currency, as for the
+            # the budget line so we can compare them
+            anl_line_ids = anl_lines_obj.search(
+                cr, uid,
+                [('account_id', '=', anl_account.id),
+                 ('date', '>=', line.period_id.date_start),
+                 ('date', '<=', line.to_period_id.date_stop)],
+                context=context)
+            anl_lines = anl_lines_obj.read(
+                cr, uid, anl_line_ids, ['aa_amount_currency'], context=context)
+            real = sum([l['aa_amount_currency'] for l in anl_lines])
+            res[line.id] = {
+                'analytic_amount': amount,
+                'analytic_real_amount': real,
+                'analytic_diff_amount': amount - real,
+            }
         return res
 
     def _get_budget_version_currency(self, cr, uid, context=None):
@@ -103,11 +127,27 @@ class budget_line(orm.Model):
                                              'Budget Version',
                                              required=True,
                                              ondelete='cascade'),
-        'account_amount': fields.function(
-            _get_account_amount,
+        'analytic_amount': fields.function(
+            _get_analytic_amount,
             type='float',
             precision=dp.get_precision('Account'),
-            string="In Analytic Account's currency"),
+            multi='analytic',
+            string="In Analytic Amount's Currency",
+        ),
+        'analytic_real_amount': fields.function(
+            _get_analytic_amount,
+            type='float',
+            precision=dp.get_precision('Account'),
+            multi='analytic',
+            string="Analytic Real Amount",
+        ),
+        'analytic_diff_amount': fields.function(
+            _get_analytic_amount,
+            type='float',
+            precision=dp.get_precision('Account'),
+            multi='analytic',
+            string="Analytic Real Amount",
+        ),
     }
 
     _defaults = {
