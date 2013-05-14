@@ -25,9 +25,7 @@ class account_period(orm.Model):
     """ add new methods to the account_period base object """
     _inherit = 'account.period'
 
-    # XXX context is not propagated from the view,
-    # so we never have 'version_id', check if it is a bug
-    # or a 'feature'
+    # if not working, see https://bugs.launchpad.net/bugs/1177348
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
                context=None, count=False):
         """ Special search. If we search a period from the budget

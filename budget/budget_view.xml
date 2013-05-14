@@ -180,7 +180,7 @@
                         </group>
                         <group colspan="8" col="8" string="Reports">
                             <field name="sequence" />
-                            <field name="style" />
+                            <field name="style" invisible="1" />
                         </group>
                         <notebook>
                             <page string="Accounts">
@@ -189,7 +189,7 @@
                             <page string="Children">
                                 <field name="children_ids" nolabel="1" widget="many2many" domain="[('parent_id', '=', False)]" />
                             </page>
-                            <page string="Calculation">
+                            <page string="Calculation" invisible="1">
                                 <label string="For item of type 'view', you can define a method of calculation based on other items." align="0.0" />
                                 <label string="Start your formula by 'result=' and use standard math symbols with items codes surrounded by %%()f . Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compilant." align="0.0" />
                                 <label string="Here is a simple example: result=(%%(ebitda)f+%%(ebit)f)*2" align="0.0" />

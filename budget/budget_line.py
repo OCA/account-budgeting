@@ -232,62 +232,6 @@ class budget_line(orm.Model):
         return [line for line in lines
                 if line.period_id.id in period_ids]
 
-    def _filter_by_date(self, cr, uid, lines, date_start=None,
-                       date_end=None, context=None):
-        """return a list of lines among those given in parameter
-           that stand between date_start and date_end """
-        return [line for line in lines
-                if (date_start is None or line.period_id.date_start >= date_start)
-                   and (date_end is None or line.period_id.date_stop <= date_end)]
-
-    def _filter_by_missing_analytic_account(self, cr, uid, lines, context=None):
-        """return a list of lines among those given in parameter that are ot
-        linked to a analytic account """
-        return [line for line in lines if not line.analytic_account_id]
-
-    def _filter_by_items(self, cr, uid, lines, items_ids, context=None):
-        """return a list of lines among those given in parameter
-        that are linked to one of the given items """
-        budget_items_obj = self.pool.get('budget.item')
-        all_items = budget_items_obj.get_sub_item_ids(cr, uid,
-                                                      items_ids,
-                                                      context=context)
-        return [line for line in lines
-                if line.budget_item_id.id in all_items]
-
-    def _filter_by_analytic_account(self, cr, uid, lines,
-                                   analytic_accounts_ids, context=None):
-        """return a list of lines among those given in parameter
-        that is linked to analytic_accounts.
-        param analytic_accounts_ids should be a list of accounts'ids. """
-        result = []
-        aa_obj = self.pool.get('account.analytic.account')
-        tree_account_ids = aa_obj.search(
-            cr, uid,
-            [('id', 'child_of', analytic_accounts_ids)],
-            context=context)
-        return [line for line in lines
-                if line.analytic_account_id in tree_account_ids]
-
-    def get_analytic_account_ids(self, cr, uid, lines, context=None):
-        """ from a bunch of lines, return all analytic accounts
-        ids linked by those lines. """
-        return list(set(line.analytic_account_id.id for line in lines
-                        if lines.analytic_account_id))
-
-    def _get_versions(self, cr, uid, lines, context=None):
-        """  from a bunch of lines, return all budgets'
-        versions those lines belong to """
-        return list(set(line.budget_version_id for line in lines
-                        if lines.budget_version_id))
-
-    def _get_periods(self, cr, uid, ids, context=None):
-        """return periods informations used by this budget lines.
-        (the periods are selected in the budget lines)"""
-        lines = self.browse(cr, uid, ids, context=context)
-        periods = set(line.period_id for line in lines)
-        return sorted(periods, key=attrgetter('date_start'))
-
     def search(self, cr, uid, args, offset=0, limit=None,
                order=None, context=None, count=False):
         """search through lines that belongs to accessible versions """
