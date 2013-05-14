@@ -74,3 +74,12 @@ class budget_version(orm.Model):
                           limit=limit,
                           context=context)
         return self.name_get(cr, uid, ids, context=context)
+
+    def _get_periods(self, cr, uid, version, context=None):
+        """return periods informations used by this version.
+
+        (the periods are those between start and end dates defined in
+         budget)"""
+        budget_obj = self.pool.get('budget.budget')
+        return budget_obj._get_periods(cr, uid, version.budget_id.id,
+                                       context=context)
