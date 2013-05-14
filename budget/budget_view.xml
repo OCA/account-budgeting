@@ -169,16 +169,22 @@
             <field name="arch" type="xml">
                 <form string="Budget Items" version="7.0">
                     <sheet>
-                        <group colspan="8" col="8" string="Budget Items">
-                            <field name="name" select="1"/>
-                            <field name="code" select="1"/>
-                            <newline/>
+                        <div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name" string="Budget's name"/>
+                            </div>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <label for="code" class="oe_edit_only"/>
+                            <h2><field name="code"/></h2>
+                        </div>
+                        <group>
                             <field name="type" select="1" />
                             <field name="parent_id" select="2" />
-                            <newline/>
                             <field name="active" select="2"/>
                         </group>
-                        <group colspan="8" col="8" string="Reports">
+                        <group string="Reports">
                             <field name="sequence" />
                             <field name="style" invisible="1" />
                         </group>
@@ -187,13 +193,21 @@
                                 <field name="account" nolabel="1"/>
                             </page>
                             <page string="Children">
-                                <field name="children_ids" nolabel="1" widget="many2many" domain="[('parent_id', '=', False)]" />
+                                <field name="children_ids" nolabel="1"
+                                    widget="many2many"
+                                    domain="[('parent_id', '=', False)]" />
                             </page>
-                            <page string="Calculation" invisible="1">
-                                <label string="For item of type 'view', you can define a method of calculation based on other items." align="0.0" />
-                                <label string="Start your formula by 'result=' and use standard math symbols with items codes surrounded by %%()f . Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compilant." align="0.0" />
-                                <label string="Here is a simple example: result=(%%(ebitda)f+%%(ebit)f)*2" align="0.0" />
-
+                            <page string="Calculation" invisible="1" >
+                                <p class="oe_grey">
+                                    For item of type 'view', you can define a method of calculation based on other items.
+                                </p>
+                                <p class="oe_grey">
+                                    Start your formula by 'result = ' and use standard math symbols with items codes surrounded by %%()f.
+                                    Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compliant.
+                                </p>
+                                <p class="oe_grey">
+                                    Here is a simple example: result = (%%(ebitda)f + %%(ebit)f) * 2
+                                </p>
                                 <field name="calculation" nolabel="1" colspan="8"/>
                             </page>
                             <page string="Notes">
