@@ -224,14 +224,6 @@ class budget_line(orm.Model):
         else:
             return {}
 
-    def _filter_by_period(self, cr, uid, lines, period_ids, context=None):
-        """ return a list of lines amoungs those given in parameter that
-        are linked to one of the given periods """
-        if not period_ids:
-            return []
-        return [line for line in lines
-                if line.period_id.id in period_ids]
-
     def search(self, cr, uid, args, offset=0, limit=None,
                order=None, context=None, count=False):
         """search through lines that belongs to accessible versions """
@@ -253,6 +245,8 @@ class budget_line(orm.Model):
         for version in versions:
             periods += get_periods(cr, uid, version, context=context)
         lines = self.browse(cr, uid, line_ids, context=context)
-        lines = self._filter_by_period(cr, uid, lines,
-                                       [p.id for p in periods], context=context)
+        period_ids = [p.id for p in periods]
+        lines = [line for line in lines
+                 if line.period_id.id in period_ids
+                 or line.to_period_id.id in period_ids]
         return [l.id for l in lines]
