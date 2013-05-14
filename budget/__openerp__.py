@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{"name": "Advanced Budget",
+{"name": "Multicurrency Analytic Budget",
  "version": "1.0",
  "author": "Camptocamp",
  "category": "Generic Modules/Accounting",
@@ -29,8 +29,6 @@ Budget Module
 
 Features:
 
-* The main difference with the official budget module is that
-  this budget is based on analytics accounts, not accounting ones.
 * Create budget, budget items and budget versions.
 * Budget versions are multi currencies and multi companies.
 
