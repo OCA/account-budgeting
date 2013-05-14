@@ -10,11 +10,15 @@
                     <page string="Budget" name="budget">
                         <group string="Budget Lines" name="budget_lines">
                             <field name="budget_line_ids" nolabel="1">
-                                <tree string="Budget Lines">
+                                <tree string="Budget Lines" editable="bottom">
                                     <field name="budget_version_id"/>
-                                    <field name="period_id"/>
-                                    <field name="to_period_id"/>
-                                    <field name="budget_item_id"/>
+                                    <field name="period_id"
+                                        on_change="on_change_period_id(period_id, to_period_id)"
+                                        context="{'version_id': budget_version_id}" />
+                                    <field name="to_period_id"
+                                        context="{'version_id': budget_version_id}" />
+                                    <field name="budget_item_id"
+                                        context="{'version_id': budget_version_id}" />
                                     <field name="name" />
                                     <field name="amount"/>
                                     <field name="currency_id"/>
