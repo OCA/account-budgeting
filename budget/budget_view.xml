@@ -171,7 +171,7 @@
                     <sheet>
                         <div class="oe_title">
                             <div class="oe_edit_only">
-                                <label for="name" string="Budget's name"/>
+                                <label for="name" string="Budget Item's name"/>
                             </div>
                             <h1>
                                 <field name="name"/>
