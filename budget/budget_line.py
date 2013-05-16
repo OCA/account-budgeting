@@ -57,6 +57,7 @@ class budget_line(orm.Model):
             field_names = []
         currency_obj = self.pool.get('res.currency')
         anl_lines_obj = self.pool.get('account.analytic.line')
+
         for line in self.browse(cr, uid, ids, context=context):
             anl_account = line.analytic_account_id
             if not anl_account:
@@ -70,6 +71,8 @@ class budget_line(orm.Model):
                                           anl_currency_id,
                                           line.amount,
                                           context=context)
+            fnl_account_ids = [acc.id for acc
+                               in line.budget_item_id.all_account_ids]
 
             # real amount is the total of analytic lines
             # within the periods, we'll read it in the
@@ -78,6 +81,7 @@ class budget_line(orm.Model):
             anl_line_ids = anl_lines_obj.search(
                 cr, uid,
                 [('account_id', '=', anl_account.id),
+                 ('general_account_id', 'in', fnl_account_ids),
                  ('date', '>=', line.period_id.date_start),
                  ('date', '<=', line.to_period_id.date_stop)],
                 context=context)

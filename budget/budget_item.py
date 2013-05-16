@@ -32,6 +32,20 @@ class budget_item(orm.Model):
     _description = "Budget items"
     _order = 'sequence ASC, name ASC'
 
+    def _get_all_account_ids(self, cr, uid, ids, field_name,
+                             arg, context=None):
+        result = {}
+        account_obj = self.pool.get('account.account')
+        for item in self.browse(cr, uid, ids, context=context):
+            result[item.id] = []
+            if not item.account:
+                continue
+            account_ids = [account.id for account in item.account]
+            account_ids = account_obj._get_children_and_consol(
+                cr, uid, account_ids, context=context)
+            result[item.id] = account_ids
+        return result
+
     _columns = {
         'code': fields.char('Code', required=True),
         'name': fields.char('Name', required=True),
@@ -56,6 +70,11 @@ class budget_item(orm.Model):
                                    ('invisible', 'Invisible')],
                                   string='Style',
                                   required=True),
+        'all_account_ids': fields.function(
+            _get_all_account_ids,
+            type='many2many',
+            relation='account.account',
+            string='Accounts and Children Accounts'),
     }
 
     _defaults = {
