@@ -229,7 +229,7 @@ class budget_line(orm.Model):
             sql = ("UPDATE budget_line "
                    "SET {1} = (SELECT {1} FROM account_period "
                    "           WHERE account_period.id = budget_line.{0}) "
-                   ", {0} = NULL"
+                   ", {0} = NULL "
                    "WHERE {1} IS NULL "
                    "AND {0} IS NOT NULL"
                    ).format(period_column, date_column)
