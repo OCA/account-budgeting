@@ -25,33 +25,6 @@ class account_period(orm.Model):
     """ add new methods to the account_period base object """
     _inherit = 'account.period'
 
-    # if not working, see https://bugs.launchpad.net/bugs/1177348
-    def search(self, cr, uid, args, offset=0, limit=None, order=None,
-               context=None, count=False):
-        """ Special search. If we search a period from the budget
-        version form (in the budget lines)  then the choice is reduce to
-        periods that overlap the budget dates """
-        if context is None:
-            context = {}
-        domain = []
-        # special search limited to a version
-        if context.get('version_id'):
-            ctx = context.copy()
-            ctx.pop('version_id')  # avoid recursion for underhand searches
-            version_obj = self.pool.get('budget.version')
-            version = version_obj.browse(cr,
-                                         uid,
-                                         context['version_id'],
-                                         context=ctx)
-            allowed_periods = version_obj._get_periods(cr,
-                                                       uid,
-                                                       version,
-                                                       context=ctx)
-            allowed_period_ids = [p.id for p in allowed_periods]
-            domain = [('id', 'in', allowed_period_ids)]
-        return super(account_period, self).search(
-            cr, uid, args + domain, offset, limit, order, context, count)
-
     def _get_next_periods(self, cr, uid, start_period,
                           periods_nbr, context=None):
         """ return a list of browse record periods that follow the

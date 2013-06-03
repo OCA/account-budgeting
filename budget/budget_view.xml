@@ -109,14 +109,11 @@
                         <notebook>
                             <page string="Lines">
                                 <field name="budget_line_ids" nolabel="1"
-                                    context="{'currency_id': currency_id, 'budget_id': budget_id, 'version_id': active_id}" >
+                                    context="{'currency_id': currency_id, 'budget_id': budget_id}" >
                                     <tree string="Budget Lines" editable="bottom">
-                                        <field name="period_id"
-                                            on_change="on_change_period_id(period_id, to_period_id)"
-                                            context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
-                                        <field name="to_period_id"
-                                            context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
-                                        <field name="budget_item_id" context="{'budget_id': parent.budget_id, 'version_id': parent.id}" />
+                                        <field name="date_start" />
+                                        <field name="date_stop" />
+                                        <field name="budget_item_id" context="{'budget_id': parent.budget_id}" />
                                         <field name="name" />
                                         <field name="analytic_account_id"/>
                                         <field name="amount" />
@@ -269,8 +266,8 @@
             <field name="arch" type="xml">
                 <tree string="Budget Lines" editable="top">
                     <field name="budget_version_id" />
-                    <field name="period_id"/>
-                    <field name="to_period_id"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
                     <field name="budget_item_id"  domain="[('type', '=', 'normal')]" />
                     <field name="name" />
                     <field name="analytic_account_id"/>
@@ -295,8 +292,8 @@
                             <field name="analytic_account_id"/>
                         </group>
                         <group string="Periods">
-                            <field name="period_id"/>
-                            <field name="to_period_id"/>
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
                         </group>
                         <group string="Amount">
                             <label for="amount"/>

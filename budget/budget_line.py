@@ -75,16 +75,17 @@ class budget_line(orm.Model):
                                in line.budget_item_id.all_account_ids]
 
             # real amount is the total of analytic lines
-            # within the periods, we'll read it in the
+            # within the time frame, we'll read it in the
             # analytic account's currency, as for the
             # the budget line so we can compare them
-            anl_line_ids = anl_lines_obj.search(
-                cr, uid,
-                [('account_id', '=', anl_account.id),
-                 ('general_account_id', 'in', fnl_account_ids),
-                 ('date', '>=', line.period_id.date_start),
-                 ('date', '<=', line.to_period_id.date_stop)],
-                context=context)
+            domain = [('account_id', '=', anl_account.id),
+                      ('general_account_id', 'in', fnl_account_ids)]
+            if line.date_start:
+                domain.append(('date', '>=', line.date_start))
+            if line.date_stop:
+                domain.append(('date', '<=', line.date_stop))
+            anl_line_ids = anl_lines_obj.search(cr, uid, domain,
+                                                context=context)
             anl_lines = anl_lines_obj.read(
                 cr, uid, anl_line_ids, ['aa_amount_currency'], context=context)
             real = sum([l['aa_amount_currency'] for l in anl_lines])
@@ -105,12 +106,8 @@ class budget_line(orm.Model):
         return context.get('currency_id', False)
 
     _columns = {
-        'period_id': fields.many2one('account.period',
-                                     string='Start Period',
-                                     required=True),
-        'to_period_id': fields.many2one('account.period',
-                                        string='End Period',
-                                        required=True),
+        'date_start': fields.date('Start Date'),
+        'date_stop': fields.date('End Date'),
         'analytic_account_id': fields.many2one('account.analytic.account',
                                                string='Analytic Account'),
         'budget_item_id': fields.many2one('budget.item',
@@ -184,33 +181,36 @@ class budget_line(orm.Model):
                 return False
         return True
 
-    def _check_period_budget(self, cr, uid, ids, context=None):
-        """ check if the line's period overlay the budget's period """
-        def period_valid(period, budget):
-            return (period.date_start > budget.start_date
-                    and period.date_stop > budget.start_date
-                    and period.date_start < budget.end_date
-                    and period.date_stop < budget.end_date)
+    def _check_dates_budget(self, cr, uid, ids, context=None):
+        """ check if the line dates are within the budget's dates """
+        def date_valid(date, budget):
+            if not date:
+                return True
+            return (date >= budget.start_date and
+                    date <= budget.end_date)
         lines = self.browse(cr, uid, ids, context=context)
-        return all(period_valid(line.period_id, line.budget_version_id.budget_id)
-                   and period_valid(line.to_period_id, line.budget_version_id.budget_id)
+        return all(date_valid(line.date_start,
+                              line.budget_version_id.budget_id)
+                   and date_valid(line.date_stop,
+                                  line.budget_version_id.budget_id)
                    for line in lines)
 
-    def _check_periods(self, cr, uid, ids, context=None):
-        def periods_valid(period, to_period):
-            return (period.date_start <= to_period.date_start
-                    and period.date_stop <= to_period.date_stop)
+    def _check_dates(self, cr, uid, ids, context=None):
+        def dates_valid(start, stop):
+            if not start or not stop:
+                return True
+            return start <= stop
         lines = self.browse(cr, uid, ids, context=context)
-        return all(periods_valid(line.period_id, line.to_period_id)
+        return all(dates_valid(line.date_start, line.date_stop)
                    for line in lines)
 
     _constraints = [
-        (_check_period_budget,
-         "The line's period must overlap the budget's start or end dates",
-         ['period_id', 'to_period_id']),
-        (_check_periods,
-         "The end period must begin after the start period.",
-         ['period_id', 'to_period_id']),
+        (_check_dates_budget,
+         "The line's dates must be within the budget's start and end dates",
+         ['date_start', 'date_stop']),
+        (_check_dates,
+         "The end date must be after the start date.",
+         ['date_start', 'date_stop']),
         (_check_item_in_budget_tree,
          "The line's bugdet item must belong to the budget structure "
          "defined in the budget",
@@ -218,39 +218,21 @@ class budget_line(orm.Model):
     ]
 
     def init(self, cr):
-        sql = ("UPDATE budget_line SET to_period_id = period_id "
-               "WHERE to_period_id ISNULL")
-        cr.execute(sql)
+        def migrate_period(period_column, date_column):
+            sql = ("SELECT column_name FROM information_schema.columns "
+                   "WHERE table_name = 'budget_line' "
+                   "AND column_name = %s")
+            cr.execute(sql, (period_column, ))
+            if not cr.fetchall():
+                return
 
-    def on_change_period_id(self, cr, uid, ids, period_id, to_period_id, context=None):
-        if not to_period_id:
-            return {'value': {'to_period_id': period_id}}
-        else:
-            return {}
+            sql = ("UPDATE budget_line SET {1} = "
+                   "  (SELECT {1} FROM account_period "
+                   "   WHERE account_period.id = budget_line.{0}) "
+                   "WHERE {1} IS NULL "
+                   "AND {0} IS NOT NULL"
+                   ).format(period_column, date_column)
+            cr.execute(sql)
 
-    def search(self, cr, uid, args, offset=0, limit=None,
-               order=None, context=None, count=False):
-        """search through lines that belongs to accessible versions """
-        if context is None:
-            context = {}
-        line_ids = super(budget_line, self).search(
-            cr, uid, args, offset, limit, order, context, count)
-        if not line_ids:
-            return line_ids
-
-        # get versions the uid can see, from versions, get periods then
-        # filter lines by those periods
-        version_obj = self.pool.get('budget.version')
-        versions_ids = version_obj.search(cr, uid, [], context=context)
-        versions = version_obj.browse(cr, uid, versions_ids, context=context)
-
-        get_periods = version_obj._get_periods
-        periods = []
-        for version in versions:
-            periods += get_periods(cr, uid, version, context=context)
-        lines = self.browse(cr, uid, line_ids, context=context)
-        period_ids = [p.id for p in periods]
-        lines = [line for line in lines
-                 if line.period_id.id in period_ids
-                 or line.to_period_id.id in period_ids]
-        return [l.id for l in lines]
+        migrate_period('period_id', 'date_start')
+        migrate_period('to_period_id', 'date_stop')
