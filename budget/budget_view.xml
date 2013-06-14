@@ -268,7 +268,8 @@
                     <field name="budget_version_id" />
                     <field name="budget_item_id"  domain="[('type', '=', 'normal')]" />
                     <field name="name" />
-                    <field name="analytic_account_id"/>
+                    <field name="analytic_account_id"
+                        on_change="onchange_analytic_account_id(analytic_account_id)"/>
                     <field name="date_start"/>
                     <field name="date_stop"/>
                     <field name="amount" />

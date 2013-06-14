@@ -237,3 +237,12 @@ class budget_line(orm.Model):
 
         migrate_period('period_id', 'date_start')
         migrate_period('to_period_id', 'date_stop')
+
+    def onchange_analytic_account_id(self, cr, uid, ids, analytic_account_id, context=None):
+        values = {}
+        if analytic_account_id:
+            aa_obj = self.pool.get('account.analytic.account')
+            account = aa_obj.browse(cr, uid, analytic_account_id,
+                                    context=context)
+            values['currency_id'] = account.currency_id.id
+        return {'value': values}
