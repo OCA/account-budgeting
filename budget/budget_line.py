@@ -92,7 +92,7 @@ class budget_line(orm.Model):
             res[line.id] = {
                 'analytic_amount': amount,
                 'analytic_real_amount': real,
-                'analytic_diff_amount': amount - real,
+                'analytic_diff_amount': real - amount,
             }
         return res
 
