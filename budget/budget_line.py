@@ -108,8 +108,10 @@ class budget_line(orm.Model):
     _columns = {
         'date_start': fields.date('Start Date'),
         'date_stop': fields.date('End Date'),
-        'analytic_account_id': fields.many2one('account.analytic.account',
-                                               string='Analytic Account'),
+        'analytic_account_id': fields.many2one(
+            'account.analytic.account',
+            string='Analytic Account',
+            domain="[('state', '=', 'open')]"),
         'budget_item_id': fields.many2one('budget.item',
                                           'Budget Item',
                                           required=True,
