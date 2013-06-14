@@ -262,7 +262,7 @@
         <record model="ir.ui.view" id="view_budget_line_list">
             <field name="name">budget.line.list</field>
             <field name="model">budget.line</field>
-            <field name="priority">3</field>
+            <field name="priority">16</field>
             <field name="arch" type="xml">
                 <tree string="Budget Lines" editable="top">
                     <field name="budget_version_id" />

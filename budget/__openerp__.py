@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Arnaud Wüst
+#    Author: Arnaud Wüst, Guewen Baconnier
 #    Copyright 2009-2013 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
