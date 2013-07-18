@@ -111,7 +111,7 @@ class budget_line(orm.Model):
         'analytic_account_id': fields.many2one(
             'account.analytic.account',
             string='Analytic Account',
-            domain="[('state', '=', 'open')]"),
+            domain="[('state', '=', 'open'), ('type', '!=', 'view')]"),
         'budget_item_id': fields.many2one('budget.item',
                                           'Budget Item',
                                           required=True,
