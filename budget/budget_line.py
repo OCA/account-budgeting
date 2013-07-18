@@ -78,7 +78,7 @@ class budget_line(orm.Model):
             # within the time frame, we'll read it in the
             # analytic account's currency, as for the
             # the budget line so we can compare them
-            domain = [('account_id', '=', anl_account.id),
+            domain = [('account_id', 'child_of', anl_account.id),
                       ('general_account_id', 'in', fnl_account_ids)]
             if line.date_start:
                 domain.append(('date', '>=', line.date_start))
