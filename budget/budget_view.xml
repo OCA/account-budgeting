@@ -361,6 +361,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_budget_line_list"/>
+            <field name="context">{'search_default_group_budget_item_id': 1}</field>
         </record>
         <!-- ACTION: click on Financial Management/Budgets/Budgets items -->
         <record model="ir.actions.act_window" id="open_budget_items_list">
