@@ -327,7 +327,7 @@
                     <field name="name"/>
                     <field name="budget_version_id"/>
                     <field name="budget_item_id"/>
-                    <field name="analytic_account_id"/>
+                    <field name="analytic_account_id"  filter_domain="[('analytic_account_id','child_of',self)]"/>
                     <group string="Group By..." expand="0">
                         <filter string="Version" context="{'group_by': 'budget_version_id'}" name="group_budget_version_id"/>
                         <filter string="Item" context="{'group_by': 'budget_item_id'}" name="group_budget_item_id"/>
