@@ -155,8 +155,15 @@ class budget_line(orm.Model):
             multi='analytic',
             string="In Analytic Amount's Currency",
             store={
-                 'budget.line': (lambda self, cr, uid, ids, c={}: ids, ['date_start', 'date_stop', 'analytic_account_id', 'currency_id'], 10),
-                 'analytic.account.line': (_fetch_budget_line_from_aal, ['amount','unit_amount', 'date'], 10),
+                 'budget.line': (lambda self, cr, uid, ids, c: ids,
+                     ['date_start',
+                      'date_stop',
+                      'analytic_account_id',
+                      'currency_id'], 10),
+                 'analytic.account.line': (_fetch_budget_line_from_aal,
+                     ['amount',
+                      'unit_amount',
+                      'date'], 10),
                  }
         ),
         'analytic_real_amount': fields.function(
@@ -166,8 +173,15 @@ class budget_line(orm.Model):
             multi='analytic',
             string="Analytic Real Amount",
             store={
-                 'budget.line': (lambda self, cr, uid, ids, c={}: ids, ['date_start', 'date_stop', 'analytic_account_id', 'currency_id'], 10),
-                 'analytic.account.line': (_fetch_budget_line_from_aal, ['amount','unit_amount', 'date'], 10),
+                 'budget.line': (lambda self, cr, uid, ids, c: ids,
+                     ['date_start',
+                      'date_stop',
+                      'analytic_account_id',
+                      'currency_id'], 10),
+                 'analytic.account.line': (_fetch_budget_line_from_aal,
+                     ['amount',
+                      'unit_amount',
+                      'date'], 10),
                  }
         ),
         'analytic_diff_amount': fields.function(
@@ -177,8 +191,15 @@ class budget_line(orm.Model):
             multi='analytic',
             string="Analytic Difference Amount",
             store={
-                 'budget.line': (lambda self, cr, uid, ids, c={}: ids, ['date_start', 'date_stop', 'analytic_account_id', 'currency_id'], 10),
-                 'analytic.account.line': (_fetch_budget_line_from_aal, ['amount','unit_amount', 'date'], 10),
+                 'budget.line': (lambda self, cr, uid, ids, c: ids,
+                     ['date_start',
+                      'date_stop',
+                      'analytic_account_id',
+                      'currency_id'], 10),
+                 'analytic.account.line': (_fetch_budget_line_from_aal,
+                     ['amount',
+                      'unit_amount',
+                      'date'], 10),
                  }
         ),
         'analytic_currency_id': fields.related('analytic_account_id',
