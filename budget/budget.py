@@ -82,7 +82,6 @@ class budget_budget(orm.Model):
         if isinstance(ids, (int, long)):
             ids = [ids]
         period_obj = self.pool.get('account.period')
-        start_date = end_date = None
         result = []
         for budget in self.browse(cr, uid, ids, context=context):
             period_ids = period_obj.search(
