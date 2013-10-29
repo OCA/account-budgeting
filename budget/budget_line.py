@@ -18,10 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from datetime import datetime
-from operator import attrgetter
 from openerp.osv import fields, orm
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.addons import decimal_precision as dp
 
 

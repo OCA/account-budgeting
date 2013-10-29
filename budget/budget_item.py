@@ -20,8 +20,6 @@
 ##############################################################################
 from operator import itemgetter
 from openerp.osv import fields, orm
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-from tools.safe_eval import safe_eval
 
 
 class budget_item(orm.Model):
