@@ -18,9 +18,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import account
-import budget_item
-import budget
-import budget_version
-import budget_line
-import analytic
+from . import account
+from . import budget_item
+from . import budget
+from . import budget_version
+from . import budget_line
+from . import analytic
