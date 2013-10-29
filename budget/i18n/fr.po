@@ -1,0 +1,427 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* budget
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-19 14:04+0000\n"
+"PO-Revision-Date: 2013-07-19 14:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: budget
+#: field:budget.item,all_account_ids:0
+msgid "Accounts and Children Accounts"
+msgstr "Comptes et sous-comptes"
+
+#. module: budget
+#: view:budget.budget:0
+#: field:budget.budget,budget_version_ids:0
+#: view:budget.version:0
+#: model:ir.ui.menu,name:budget.menu_budget_version_list
+msgid "Budget Versions"
+msgstr "Versions de budget"
+
+#. module: budget
+#: field:budget.budget,budget_item_id:0
+#: view:budget.item:0
+msgid "Budget Structure"
+msgstr "Structure du budget"
+
+#. module: budget
+#: field:budget.version,name:0
+msgid "Version Name"
+msgstr "Nom de la version"
+
+#. module: budget
+#: view:budget.line:0
+#: view:budget.version:0
+msgid "Total Amount"
+msgstr "Montant total"
+
+#. module: budget
+#: field:budget.item,style:0
+msgid "Style"
+msgstr "Style"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Group By..."
+msgstr "Grouper Par..."
+
+#. module: budget
+#: field:budget.budget,end_date:0
+#: field:budget.line,date_stop:0
+msgid "End Date"
+msgstr "Date Fin"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Version"
+msgstr "Version"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Total Real Amount"
+msgstr "Total Real Amount"
+
+#. module: budget
+#: view:budget.item:0
+msgid "Budget Item's name"
+msgstr "Nom du poste budgétaire"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Total Difference"
+msgstr "Difference Total"
+
+#. module: budget
+#: field:budget.item,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: budget
+#: field:budget.item,parent_id:0
+msgid "Parent Item"
+msgstr "Parent Item"
+
+#. module: budget
+#: field:budget.line,budget_currency_id:0
+msgid "Budget Currency"
+msgstr "Devise Budget"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Real"
+msgstr "Réel"
+
+#. module: budget
+#: field:budget.line,analytic_account_id:0
+#: model:ir.model,name:budget.model_account_analytic_account
+msgid "Analytic Account"
+msgstr "Compte analytique"
+
+#. module: budget
+#: selection:budget.item,style:0
+#: selection:budget.item,type:0
+msgid "Normal"
+msgstr "Normal"
+
+#. module: budget
+#: field:budget.version,user_id:0
+msgid "User In Charge"
+msgstr "Responsable"
+
+#. module: budget
+#: selection:budget.item,style:0
+msgid "Bold"
+msgstr "Gras"
+
+#. module: budget
+#: field:budget.line,currency_id:0
+#: field:budget.version,currency_id:0
+msgid "Currency"
+msgstr "Devise"
+
+#. module: budget
+#: field:budget.budget,create_date:0
+#: field:budget.version,create_date:0
+msgid "Creation Date"
+msgstr "Date de création"
+
+#. module: budget
+#: model:ir.model,name:budget.model_account_period
+msgid "Account period"
+msgstr "Période"
+
+#. module: budget
+#: constraint:budget.line:0
+msgid "The end date must be after the start date."
+msgstr "The end date must be after the start date."
+
+#. module: budget
+#: field:budget.line,analytic_currency_id:0
+msgid "Analytic Currency"
+msgstr "Currency en analytique"
+
+#. module: budget
+#: view:budget.item:0
+msgid "Here is a simple example: result = (%(ebitda)f + %(ebit)f) * 2"
+msgstr "Voici un example: résultat = (%(ebitda)f + %(ebit)f) * 2"
+
+#. module: budget
+#: model:ir.actions.act_window,name:budget.open_budget_items_tree
+msgid "Budgets Structure"
+msgstr "Structure de budget"
+
+#. module: budget
+#: constraint:budget.item:0
+msgid "Error ! You can not create recursive budget items structure."
+msgstr "Erreur ! Vous ne pouvez pas créer des structures de poste budgétaire de manière récurcive (boucle circulaire)."
+
+#. module: budget
+#: field:budget.line,budget_item_id:0
+msgid "Budget Item"
+msgstr "Poste budgétaire"
+
+#. module: budget
+#: field:budget.budget,active:0
+#: field:budget.item,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: budget
+#: constraint:budget.line:0
+msgid "The line's bugdet item must belong to the budget structure defined in the budget"
+msgstr "Une ligne de budget doit appartenir à une structure définie pour ce budget"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Difference"
+msgstr "Différence"
+
+#. module: budget
+#: constraint:budget.line:0
+msgid "The line's dates must be within the budget's start and end dates"
+msgstr "Les dates au niveau des lignes de budget doivent être comprises dans les dates paramétrées au niveau du budget."
+
+#. module: budget
+#: field:budget.line,analytic_amount:0
+msgid "In Analytic Amount's Currency"
+msgstr "En devise"
+
+#. module: budget
+#: view:budget.item:0
+msgid "For item of type 'view', you can define a method of calculation based on other items."
+msgstr "Pour les postes budgétaire de type 'vue', vous pouvez définir une méthode de calcul basée sur d'autres postes. "
+
+#. module: budget
+#: field:budget.line,analytic_real_amount:0
+msgid "Analytic Real Amount"
+msgstr "Montant Réel"
+
+#. module: budget
+#: field:budget.budget,name:0
+#: field:budget.item,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: budget
+#: view:budget.budget:0
+msgid "Versions"
+msgstr "Versions"
+
+#. module: budget
+#: view:budget.item:0
+msgid "Reports"
+msgstr "Rapports"
+
+#. module: budget
+#: constraint:budget.budget:0
+msgid "Date Error: The end date is defined before the start date"
+msgstr "Erreur de date: La date de fin ne peut être antérieure à la date de début"
+
+#. module: budget
+#: view:budget.budget:0
+#: field:budget.budget,note:0
+#: view:budget.item:0
+#: field:budget.item,note:0
+#: view:budget.version:0
+#: field:budget.version,note:0
+msgid "Notes"
+msgstr "Notes"
+
+#. module: budget
+#: view:budget.item:0
+#: model:ir.ui.menu,name:budget.menu_budget_item_list
+msgid "Budget Items"
+msgstr "Postes budgétaires"
+
+#. module: budget
+#: view:budget.version:0
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: budget
+#: view:budget.budget:0
+#: field:budget.version,budget_id:0
+#: model:ir.model,name:budget.model_budget_budget
+#: model:ir.ui.menu,name:budget.menu_budget
+msgid "Budget"
+msgstr "Budget"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: budget
+#: field:budget.version,ref_date:0
+msgid "Reference Date"
+msgstr "Date de référence"
+
+#. module: budget
+#: selection:budget.item,style:0
+msgid "Invisible"
+msgstr "Invisible"
+
+#. module: budget
+#: view:budget.line:0
+#: field:budget.line,amount:0
+msgid "Amount"
+msgstr "Montant"
+
+#. module: budget
+#: view:budget.version:0
+msgid "Budget version's name"
+msgstr "Nom de la version du budget"
+
+#. module: budget
+#: view:budget.budget:0
+#: model:ir.ui.menu,name:budget.menu_budget_list
+msgid "Budgets"
+msgstr "Budgets"
+
+#. module: budget
+#: field:budget.item,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: budget
+#: view:budget.budget:0
+msgid "Starting and Ending Dates"
+msgstr "Dates de début et de fin"
+
+#. module: budget
+#: view:budget.budget:0
+msgid "Budget's name"
+msgstr "Nom du budget"
+
+#. module: budget
+#: view:budget.item:0
+msgid "Start your formula by 'result = ' and use standard math symbols with items codes surrounded by %()f.\n"
+"                                    Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compliant."
+msgstr "Start your formula by 'result = ' and use standard math symbols with items codes surrounded by %()f.\n"
+"                                    Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compliant."
+
+#. module: budget
+#: field:budget.line,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: budget
+#: model:ir.ui.menu,name:budget.menu_budget_item_tree
+msgid "Budget Items Structures"
+msgstr "Structures de postes budgétaire "
+
+#. module: budget
+#: model:ir.model,name:budget.model_budget_version
+msgid "Budget versions"
+msgstr "Budget versions"
+
+#. module: budget
+#: field:budget.version,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: budget
+#: field:budget.budget,code:0
+#: field:budget.item,code:0
+#: field:budget.version,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: budget
+#: selection:budget.item,type:0
+msgid "View"
+msgstr "Vue"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Item"
+msgstr "Poste"
+
+#. module: budget
+#: view:budget.item:0
+#: field:budget.item,calculation:0
+msgid "Calculation"
+msgstr "Calcul"
+
+#. module: budget
+#: view:budget.line:0
+msgid "In Contract's Currency"
+msgstr "En devise"
+
+#. module: budget
+#: model:ir.model,name:budget.model_budget_item
+msgid "Budget items"
+msgstr "Postes budgétaires"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Analytic Amounts"
+msgstr "Montants"
+
+#. module: budget
+#: field:budget.line,analytic_diff_amount:0
+msgid "Analytic Difference Amount"
+msgstr "Différence"
+
+#. module: budget
+#: field:budget.line,budget_version_id:0
+msgid "Budget Version"
+msgstr "Version du Budget"
+
+#. module: budget
+#: field:budget.item,children_ids:0
+msgid "Children Items"
+msgstr "Postes budgétaires enfants"
+
+#. module: budget
+#: view:budget.item:0
+msgid "Accounts"
+msgstr "Comptes"
+
+#. module: budget
+#: view:budget.line:0
+msgid "Periods"
+msgstr "Periodes"
+
+#. module: budget
+#: field:account.analytic.account,budget_line_ids:0
+#: view:budget.line:0
+#: view:budget.version:0
+#: field:budget.version,budget_line_ids:0
+#: model:ir.actions.act_window,name:budget.action_budget_line_analytic_tree
+#: model:ir.model,name:budget.model_budget_line
+#: model:ir.ui.menu,name:budget.menu_budget_line_list
+msgid "Budget Lines"
+msgstr "Lignes de budget"
+
+#. module: budget
+#: field:budget.budget,start_date:0
+#: field:budget.line,date_start:0
+msgid "Start Date"
+msgstr "Date Début"
+
+#. module: budget
+#: field:budget.line,budget_amount:0
+msgid "In Budget's Currency"
+msgstr "En devise"
+
+#. module: budget
+#: view:budget.item:0
+msgid "Children"
+msgstr "Enfant"
+
+#. module: budget
+#: field:budget.item,account:0
+msgid "Financial Account"
+msgstr "Compte"
+

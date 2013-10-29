@@ -105,6 +105,17 @@ class budget_line(orm.Model):
         # if the budget currency is already set
         return context.get('currency_id', False)
 
+    def _fetch_budget_line_from_aal(self, cr, uid, ids, name, context=None):
+        """
+        return the list of budget line to which belong the analytic.account.line `ids´
+        """
+        result = set()
+        budget_line_obj = self.pool.get('budget.line')
+        for aal in self.browse(cr, uid, ids, context=context):
+            line_ids = budget_line_obj.search(cr, uid, [('analytic_account_id', '=', aal.account_id)], context=context)
+            result |= set(line_ids)
+        return list(result)
+
     _columns = {
         'date_start': fields.date('Start Date'),
         'date_stop': fields.date('End Date'),
@@ -125,7 +136,8 @@ class budget_line(orm.Model):
             _get_budget_currency_amount,
             type='float',
             precision=dp.get_precision('Account'),
-            string="In Budget's Currency"),
+            string="In Budget's Currency",
+            store=True),
         'budget_currency_id': fields.related('budget_version_id',
                                              'currency_id',
                                              type='many2one',
@@ -142,6 +154,17 @@ class budget_line(orm.Model):
             precision=dp.get_precision('Account'),
             multi='analytic',
             string="In Analytic Amount's Currency",
+            store={
+                 'budget.line': (lambda self, cr, uid, ids, c: ids,
+                     ['date_start',
+                      'date_stop',
+                      'analytic_account_id',
+                      'currency_id'], 10),
+                 'analytic.account.line': (_fetch_budget_line_from_aal,
+                     ['amount',
+                      'unit_amount',
+                      'date'], 10),
+                 }
         ),
         'analytic_real_amount': fields.function(
             _get_analytic_amount,
@@ -149,6 +172,17 @@ class budget_line(orm.Model):
             precision=dp.get_precision('Account'),
             multi='analytic',
             string="Analytic Real Amount",
+            store={
+                 'budget.line': (lambda self, cr, uid, ids, c: ids,
+                     ['date_start',
+                      'date_stop',
+                      'analytic_account_id',
+                      'currency_id'], 10),
+                 'analytic.account.line': (_fetch_budget_line_from_aal,
+                     ['amount',
+                      'unit_amount',
+                      'date'], 10),
+                 }
         ),
         'analytic_diff_amount': fields.function(
             _get_analytic_amount,
@@ -156,6 +190,17 @@ class budget_line(orm.Model):
             precision=dp.get_precision('Account'),
             multi='analytic',
             string="Analytic Difference Amount",
+            store={
+                 'budget.line': (lambda self, cr, uid, ids, c: ids,
+                     ['date_start',
+                      'date_stop',
+                      'analytic_account_id',
+                      'currency_id'], 10),
+                 'analytic.account.line': (_fetch_budget_line_from_aal,
+                     ['amount',
+                      'unit_amount',
+                      'date'], 10),
+                 }
         ),
         'analytic_currency_id': fields.related('analytic_account_id',
                                                'currency_id',

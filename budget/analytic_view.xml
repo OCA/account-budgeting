@@ -40,7 +40,7 @@
         </record>
 
         <act_window
-            context="{'search_default_analytic_account_id': active_id, 'default_analytic_account_id': active_id, 'tree_view_ref': 'budget.view_budget_line_analytic_list'}"
+            context="{'search_default_analytic_account_id': active_id, 'search_default_group_budget_item_id': 1, 'default_analytic_account_id': active_id, 'tree_view_ref': 'budget.view_budget_line_analytic_list'}"
             id="action_budget_line_analytic_tree"
             name="Budget Lines"
             res_model="budget.line"
