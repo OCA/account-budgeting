@@ -22,6 +22,13 @@ from operator import itemgetter
 from openerp.osv import fields, orm
 
 
+class allocation_type(orm.Model):
+    """Allocation type from budget line"""
+    _name = "budget.allocation.type"
+
+    _columns = {"name": fields.char('Name', required=True,)}
+
+
 class budget_item(orm.Model):
     """ Budget Item
 
@@ -63,6 +70,9 @@ class budget_item(orm.Model):
                                  string='Type',
                                  required=True),
         'sequence': fields.integer('Sequence'),
+        'allocation_id': fields.many2one('budget.allocation.type',
+                                         'Budget Line Allocation Type'),
+
         'style': fields.selection([('normal', 'Normal'),
                                    ('bold', 'Bold'),
                                    ('invisible', 'Invisible')],

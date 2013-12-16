@@ -178,6 +178,7 @@
                         </div>
                         <group>
                             <field name="type" select="1" />
+                            <field name="allocation_id" />
                             <field name="parent_id" select="2" />
                             <field name="active" select="2"/>
                         </group>
@@ -226,6 +227,7 @@
                     <field name="name"/>
                     <field name="code"/>
                     <field name="type" />
+                    <field name="allocation_id" />
                     <field name="active" />
                 </tree>
             </field>
@@ -267,6 +269,7 @@
                 <tree string="Budget Lines" editable="top">
                     <field name="budget_version_id" />
                     <field name="budget_item_id"  domain="[('type', '=', 'normal')]" />
+                    <field name="allocation" invisible="True"/>
                     <field name="name" />
                     <field name="analytic_account_id"
                         on_change="onchange_analytic_account_id(analytic_account_id)"/>
@@ -331,12 +334,33 @@
                     <group string="Group By..." expand="0">
                         <filter string="Version" context="{'group_by': 'budget_version_id'}" name="group_budget_version_id"/>
                         <filter string="Item" context="{'group_by': 'budget_item_id'}" name="group_budget_item_id"/>
+                        <filter string="Allocation" context="{'group_by': 'allocation'}" name="group_budget_allocation"/>
                         <filter string="Contract" context="{'group_by': 'analytic_account_id'}" name="group_analytic_account_id"/>
                     </group>
                 </search>
             </field>
         </record>
 
+
+        <record id="budget_item_allocation_type_form" model="ir.ui.view">
+          <field name="name">budget item allocation type form</field>
+          <field name="model">budget.allocation.type</field>
+          <field name="arch" type="xml">
+            <form version="7.0" string="Allocation">
+              <field name="name"/>
+            </form>
+          </field>
+        </record>
+
+        <record id="budget_item_allocation_type_list" model="ir.ui.view">
+          <field name="name">budget item allocation type list</field>
+          <field name="model">budget.allocation.type</field>
+          <field name="arch" type="xml">
+            <list version="7.0" string="Allocation">
+              <field name="name"/>
+            </list>
+          </field>
+        </record>
 
         <!-- ########################################### -->
         <!-- Actions                                     -->

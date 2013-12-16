@@ -10,6 +10,7 @@
             <field name="arch" type="xml">
                 <tree string="Budget Lines">
                     <field name="analytic_account_id" invisible="1" />
+                    <field name="allocation" invisible="1" />
                     <field name="budget_version_id" />
                     <field name="budget_item_id"  domain="[('type', '=', 'normal')]" />
                     <field name="name" />

@@ -3,3 +3,4 @@
 "access_budget_budget","budget.budget","model_budget_budget","account.group_account_manager",1,1,1,1
 "access_budget_version","budget.version","model_budget_version","account.group_account_manager",1,1,1,1
 "access_budget_line","budget.line","model_budget_line","account.group_account_manager",1,1,1,1
+"access_budget_allocation_type","budget.allocation","model_budget_allocation_type","account.group_account_manager",1,1,1,1
