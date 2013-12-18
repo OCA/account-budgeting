@@ -317,6 +317,13 @@ class budget_line(orm.Model):
         return {'value': values}
 
     def _sum_columns(self, cr, uid, res, orderby, context=None):
+        """Compute sum of columns showed by the group by
+
+        :param res: standard group by result
+        :param orderby: order by string sent by webclient
+        :returns: updated dict with missing sums of int and float
+
+        """
         # We want to sum float and int only
         cols_to_sum = self._get_applicable_cols()
         r_ids = self.search(cr, uid, res['__domain'], context=context)
