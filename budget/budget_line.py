@@ -353,7 +353,7 @@ class budget_line(orm.Model):
         if orderby:
             order = [x.split(' ') for x in orderby.split(',')]
             reverse = False
-            if len(order[0]) > 1:
+            if order and len(order[0]) > 1:
                 reverse = (order[0][1] == 'DESC')
             getter = [x[0] for x in order if x[0]]
             if getter:
