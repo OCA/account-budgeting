@@ -18,8 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from datetime import datetime
-from operator import attrgetter, itemgetter
+from operator import itemgetter
 from itertools import imap
 from openerp.osv import fields, orm
 from openerp.addons import decimal_precision as dp
@@ -349,11 +348,13 @@ class budget_line(orm.Model):
         for result in res:
             self._sum_columns(cr, uid, result, orderby, context=context)
         #order_by looks like
-        # 'col 1 DESC, col2 DESC, col3 DESC'
+        # 'col1 DESC, col2 DESC, col3 DESC'
         #  Naive implementation we decide of the order using the first DESC ASC
         if orderby:
             order = [x.split(' ') for x in orderby.split(',')]
-            reverse = True if order[0][1] == 'DESC' else False
+            reverse = False
+            if len(order[0]) > 1:
+                reverse = (order[0][1] == 'DESC')
             getter = [x[0] for x in order if x[0]]
             if getter:
                 res = sorted(res, key=itemgetter(*getter), reverse=reverse)
