@@ -26,7 +26,9 @@ class allocation_type(orm.Model):
     """Allocation type from budget line"""
     _name = "budget.allocation.type"
 
-    _columns = {"name": fields.char('Name', required=True,)}
+    _columns = {
+        'name': fields.char('Name', required=True),
+    }
 
 
 class budget_item(orm.Model):
