@@ -40,7 +40,8 @@ class budget_line(orm.Model):
         item_ids = item_obj.search(cr, uid, [('allocation_id', 'in', ids)],
                                    context=context)
         if item_ids:
-            line_ids = line_obj.search(cr, uid, [('budget_item_id', 'in', item_ids)],
+            line_ids = line_obj.search(cr, uid,
+                                       [('budget_item_id', 'in', item_ids)],
                                        context=context)
             return line_ids
         return []
@@ -318,7 +319,7 @@ class budget_line(orm.Model):
         return {'value': values}
 
     def _sum_columns(self, cr, uid, res, orderby, context=None):
-        """Compute sum of columns showed by the group by
+        """ Compute sum of columns showed by the group by
 
         :param res: standard group by result
         :param orderby: order by string sent by webclient
@@ -339,7 +340,7 @@ class budget_line(orm.Model):
         return res
 
     def _get_applicable_cols(self):
-        """Get function columns of numeric types"""
+        """ Get function columns of numeric types """
         col_to_return = []
         for col, val in self._columns.iteritems():
             if (isinstance(val, fields.function) and
@@ -350,12 +351,15 @@ class budget_line(orm.Model):
     def read_group(self, cr, uid, domain, fields, groupby, offset=0,
                    limit=None, context=None, orderby=False):
         """ Override in order to see useful values in group by allocation.
-        Compute all numeric value"""
+
+        Compute all numerical values.
+
+        """
         res = super(budget_line, self).read_group(cr, uid, domain, fields, groupby,
                                                   offset, limit, context, orderby)
         for result in res:
             self._sum_columns(cr, uid, result, orderby, context=context)
-        #order_by looks like
+        # order_by looks like
         # 'col1 DESC, col2 DESC, col3 DESC'
         #  Naive implementation we decide of the order using the first DESC ASC
         if orderby:
