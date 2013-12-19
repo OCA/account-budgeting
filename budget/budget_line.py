@@ -45,7 +45,8 @@ class budget_line(orm.Model):
             return line_ids
         return []
 
-    _store_tuple = (lambda self, cr, uid, ids, c={}: ids, ['budget_item_id'], 10)
+    _store_tuple = (lambda self, cr, uid, ids, c=None: ids,
+                    ['budget_item_id'], 10)
     _alloc_store_tuple = (_get_alloc_rel, [], 20)
 
     def _get_budget_currency_amount(self, cr, uid, ids, name, arg, context=None):
