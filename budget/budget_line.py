@@ -18,6 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from operator import itemgetter
+from itertools import imap
 from openerp.osv import fields, orm
 from openerp.addons import decimal_precision as dp
 
@@ -31,6 +33,22 @@ class budget_line(orm.Model):
     _description = "Budget Lines"
 
     _order = 'name ASC'
+
+    def _get_alloc_rel(self, cr, uid, ids, context=None):
+        item_obj = self.pool['budget.item']
+        line_obj = self.pool['budget.line']
+        item_ids = item_obj.search(cr, uid, [('allocation_id', 'in', ids)],
+                                   context=context)
+        if item_ids:
+            line_ids = line_obj.search(cr, uid,
+                                       [('budget_item_id', 'in', item_ids)],
+                                       context=context)
+            return line_ids
+        return []
+
+    _store_tuple = (lambda self, cr, uid, ids, c=None: ids,
+                    ['budget_item_id'], 10)
+    _alloc_store_tuple = (_get_alloc_rel, [], 20)
 
     def _get_budget_currency_amount(self, cr, uid, ids, name, arg, context=None):
         """ return the line's amount xchanged in the budget's currency """
@@ -124,6 +142,15 @@ class budget_line(orm.Model):
                                           'Budget Item',
                                           required=True,
                                           ondelete='restrict'),
+        'allocation': fields.related('budget_item_id',
+                                     'allocation_id',
+                                     'name',
+                                     type='char',
+                                     string='Budget Item Allocation',
+                                     select=True,
+                                     readonly=True,
+                                     store={'budget.line': _store_tuple,
+                                            'budget.allocation.type': _alloc_store_tuple}),
         'name': fields.char('Description'),
         'amount': fields.float('Amount', required=True),
         'currency_id': fields.many2one('res.currency',
@@ -290,3 +317,57 @@ class budget_line(orm.Model):
                                     context=context)
             values['currency_id'] = account.currency_id.id
         return {'value': values}
+
+    def _sum_columns(self, cr, uid, res, orderby, context=None):
+        """ Compute sum of columns showed by the group by
+
+        :param res: standard group by result
+        :param orderby: order by string sent by webclient
+        :returns: updated dict with missing sums of int and float
+
+        """
+        # We want to sum float and int only
+        cols_to_sum = self._get_applicable_cols()
+        r_ids = self.search(cr, uid, res['__domain'], context=context)
+        lines = self.read(cr, uid, r_ids, cols_to_sum, context=context)
+        if lines:
+            # Summing list of dict For details:
+            # http://stackoverflow.com/questions/974678/
+            # faster implementation as mine even if less readable
+            tmp_res = dict((key, sum(imap(itemgetter(key), lines)))
+                           for key in cols_to_sum)
+            res.update(tmp_res)
+        return res
+
+    def _get_applicable_cols(self):
+        """ Get function columns of numeric types """
+        col_to_return = []
+        for col, val in self._columns.iteritems():
+            if (isinstance(val, fields.function) and
+                    val._type in ('float', 'integer')):
+                col_to_return.append(col)
+        return col_to_return
+
+    def read_group(self, cr, uid, domain, fields, groupby, offset=0,
+                   limit=None, context=None, orderby=False):
+        """ Override in order to see useful values in group by allocation.
+
+        Compute all numerical values.
+
+        """
+        res = super(budget_line, self).read_group(cr, uid, domain, fields, groupby,
+                                                  offset, limit, context, orderby)
+        for result in res:
+            self._sum_columns(cr, uid, result, orderby, context=context)
+        # order_by looks like
+        # 'col1 DESC, col2 DESC, col3 DESC'
+        #  Naive implementation we decide of the order using the first DESC ASC
+        if orderby:
+            order = [x.split(' ') for x in orderby.split(',')]
+            reverse = False
+            if order and len(order[0]) > 1:
+                reverse = (order[0][1] == 'DESC')
+            getter = [x[0] for x in order if x[0]]
+            if getter:
+                res = sorted(res, key=itemgetter(*getter), reverse=reverse)
+        return res

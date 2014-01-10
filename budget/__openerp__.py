@@ -35,6 +35,7 @@ Features:
 This module is for real advanced budget use, otherwise prefer to use the
 OpenERP official one.
     """,
+ "complexity": "expert",
  "depends": ["base",
              "account",
              "analytic_multicurrency",
@@ -45,4 +46,4 @@ OpenERP official one.
           ],
  "installable": True,
  "application": True,
-}
+ }
