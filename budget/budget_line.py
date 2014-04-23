@@ -124,13 +124,19 @@ class budget_line(orm.Model):
         """
         return the list of budget line to which belong the analytic.account.line `ids´
         """
-        cr.execute('''SELECT DISTINCT id FROM budget_line
-                      WHERE analytic_account_id IN
-                          (SELECT DISTINCT account_id
-                           FROM account_analytic_line
-                           WHERE id IN %s )''', (tuple(ids),))
-        result = cr.fetchall()
-        return [x[0] for x in result]
+        account_ids = []
+        budget_line_obj = self.pool.get('budget.line')
+        for aal in self.browse(cr, uid, ids, context=context):
+            if aal.account_id and aal.account_id.id not in account_ids:
+                account_ids.append(aal.account_id.id)
+
+        line_ids = budget_line_obj.search(cr,
+                                          uid,
+                                          [('analytic_account_id',
+                                            'in',
+                                            account_ids)],
+                                          context=context)
+        return line_ids
 
     _columns = {
         'date_start': fields.date('Start Date'),
