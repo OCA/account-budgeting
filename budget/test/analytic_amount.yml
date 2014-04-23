@@ -1,0 +1,64 @@
+-
+  I first create a budget item
+-
+  !record {model: budget.item, id: budget_item_1}:
+    code: "BI1"
+    name: "Budget item 1"
+    account: [account.a_expense]
+-
+  I then create a budget
+-
+  !record {model: budget.budget, id: budget_test_1}:
+    name: "Budget test"
+    start_date: !eval "'%s-01-01' %(datetime.now().year)"
+    end_date: !eval "'%s-12-31' %(datetime.now().year)"
+    budget_item_id: budget_item_1
+-
+  and a budget version
+-
+  !record {model: budget.version, id: budget_version_1}:
+    name: "Budget Version 1"
+    budget_id: budget_test_1
+    currency_id: base.EUR
+-
+  and a budget line
+-
+  !record {model: budget.line, id: budget_line_1}:
+    analytic_account_id: account.analytic_agrolait
+    budget_item_id: budget_item_1
+    amount: -200.0
+    currency_id: base.EUR
+    budget_version_id: budget_version_1
+-
+  I assert that the real amount and the diff amount are correct
+-
+  !python {model: budget.line}: |
+    line = self.browse(cr, uid, ref('budget_line_1'))
+    assert abs(line.analytic_amount + 200.0) < 1e-4, "Analytic amount is not correct! -200.0 != %s" % line.analytic_amount
+    assert abs(line.analytic_real_amount - 0.0) < 1e-4, "Analytic real amount is not correct! 0.0 != %s" % line.analytic_real_amount
+    assert abs(line.analytic_diff_amount - 200.0) < 1e-4, "Analytic diff amount is not correct! 200.0 != %s" % line.analytic_diff_amount
+-
+  I create an analytical journal
+-
+  !record {model: account.analytic.journal, id: timesheet_for_test_1}:
+    code: "TS-test"
+    name: "Timesheet journal for YAML"
+    type: 'general'
+-
+  I create an account analytic line.
+-
+  !record {model: account.analytic.line, id: account_analytic_line_budget0 }:
+    account_id: account.analytic_agrolait
+    amount: -12.0
+    general_account_id: account.a_expense
+    journal_id: timesheet_for_test_1
+    name: line to test budget line in YAML
+-
+  I assert that the real amount and the diff amount are correct
+-
+  !python {model: budget.line}: |
+    line = self.browse(cr, uid, ref('budget_line_1'))
+    assert abs(line.analytic_amount + 200.0) < 1e-4, "Analytic amount is not correct! -200.0 != %s" % line.analytic_amount
+    assert abs(line.analytic_real_amount + 12.0) < 1e-4, "Analytic real amount is not correct! -12.0 != %s" % line.analytic_real_amount
+    assert abs(line.analytic_diff_amount + 188.0) < 1e-4, "Analytic diff amount is not correct! 188.0 != %s" % line.analytic_diff_amount
+
