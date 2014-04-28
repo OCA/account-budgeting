@@ -120,16 +120,23 @@ class budget_line(orm.Model):
         # if the budget currency is already set
         return context.get('currency_id', False)
 
-    def _fetch_budget_line_from_aal(self, cr, uid, ids, name, context=None):
+    def _fetch_budget_line_from_aal(self, cr, uid, ids, context=None):
         """
         return the list of budget line to which belong the analytic.account.line `ids´
         """
-        result = set()
+        account_ids = []
         budget_line_obj = self.pool.get('budget.line')
         for aal in self.browse(cr, uid, ids, context=context):
-            line_ids = budget_line_obj.search(cr, uid, [('analytic_account_id', '=', aal.account_id)], context=context)
-            result |= set(line_ids)
-        return list(result)
+            if aal.account_id and aal.account_id.id not in account_ids:
+                account_ids.append(aal.account_id.id)
+
+        line_ids = budget_line_obj.search(cr,
+                                          uid,
+                                          [('analytic_account_id',
+                                            'in',
+                                            account_ids)],
+                                          context=context)
+        return line_ids
 
     _columns = {
         'date_start': fields.date('Start Date'),
@@ -184,7 +191,7 @@ class budget_line(orm.Model):
                      'date_stop',
                      'analytic_account_id',
                      'currency_id'], 10),
-                'analytic.account.line': (_fetch_budget_line_from_aal,
+                'account.analytic.line': (_fetch_budget_line_from_aal,
                     ['amount',
                      'unit_amount',
                      'date'], 10),
@@ -202,7 +209,7 @@ class budget_line(orm.Model):
                      'date_stop',
                      'analytic_account_id',
                      'currency_id'], 10),
-                'analytic.account.line': (_fetch_budget_line_from_aal,
+                'account.analytic.line': (_fetch_budget_line_from_aal,
                     ['amount',
                      'unit_amount',
                      'date'], 10),
@@ -220,7 +227,7 @@ class budget_line(orm.Model):
                      'date_stop',
                      'analytic_account_id',
                      'currency_id'], 10),
-                'analytic.account.line': (_fetch_budget_line_from_aal,
+                'account.analytic.line': (_fetch_budget_line_from_aal,
                     ['amount',
                      'unit_amount',
                      'date'], 10),
