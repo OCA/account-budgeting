@@ -42,6 +42,7 @@ OpenERP official one.
              ],
  "data": ["budget_view.xml",
           "analytic_view.xml",
+          "security/security.xml",
           "security/ir.model.access.csv"
           ],
  "test": ["test/analytic_amount.yml"],
