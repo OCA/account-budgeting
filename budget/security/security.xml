@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="res.groups" id="group_budget_responsible">
+            <field name="name">Budget Responsible</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        </record>
+
+    </data>
+</openerp>
