@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {"name": "Multicurrency Analytic Budget",
- "version": "1.0",
+ "version": "1.1",
  "author": "Camptocamp",
  "category": "Generic Modules/Accounting",
  "website": "http://camptocamp.com",
