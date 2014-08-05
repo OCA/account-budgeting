@@ -46,6 +46,6 @@ OpenERP official one.
           "security/ir.model.access.csv"
           ],
  "test": ["test/analytic_amount.yml"],
- "installable": True,
+ "installable": False,
  "application": True,
  }
