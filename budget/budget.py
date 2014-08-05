@@ -18,7 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from datetime import date, datetime
+import calendar
+
 from openerp.osv import fields, orm
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 
 
 class budget_budget(orm.Model):
@@ -93,3 +97,18 @@ class budget_budget(orm.Model):
                 context=context)
             result += period_obj.browse(cr, uid, period_ids, context=context)
         return result
+
+    def on_change_start_date(self, cr, uid, ids, start_date_str, context=None):
+        start_date = datetime.strptime(start_date_str, DATE_FORMAT)
+
+        last_day_of_month = calendar.monthrange(start_date.year,
+                                                start_date.month)[1]
+
+        end_date = datetime(
+            year=start_date.year,
+            month=start_date.month,
+            day=last_day_of_month)
+
+        end_date_str = date.strftime(end_date, DATE_FORMAT)
+
+        return {'value': {'end_date': end_date_str}}
