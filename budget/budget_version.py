@@ -21,7 +21,7 @@
 from openerp.osv import fields, orm
 
 
-class budget_version(orm.Model):
+class BudgetVersion(orm.Model):
 
     """ Budget version.
 
@@ -84,3 +84,12 @@ class budget_version(orm.Model):
         budget_obj = self.pool.get('budget.budget')
         return budget_obj._get_periods(cr, uid, version.budget_id.id,
                                        context=context)
+
+    def copy_data(self, cr, uid, id, default=None, context=None):
+        if default is None:
+            default = {}
+
+        default['budget_line_ids'] = []
+
+        return super(BudgetVersion, self).copy_data(
+            cr, uid, id, default, context)
