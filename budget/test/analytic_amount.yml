@@ -1,4 +1,9 @@
 -
+   Run those tests with a user belonging to "Budget Responsible"
+-
+  !context
+    uid: 'res_users_aurore_budget_responsible'
+-
   I first create a budget item
 -
   !record {model: budget.item, id: budget_item_1}:

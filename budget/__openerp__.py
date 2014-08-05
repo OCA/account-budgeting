@@ -45,7 +45,10 @@ OpenERP official one.
           "security/security.xml",
           "security/ir.model.access.csv"
           ],
- "test": ["test/analytic_amount.yml"],
+ "test": [
+     "test/user.yml",
+     "test/analytic_amount.yml",
+ ],
  "installable": True,
  "application": True,
  }
