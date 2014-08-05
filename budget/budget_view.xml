@@ -23,7 +23,7 @@
                             <field name="budget_item_id" domain="[('parent_id', '=', False)]"/>
                             <label for="start_date" string="Starting and Ending Dates"/>
                             <div>
-                                <field name="start_date" class="oe_inline"/> - 
+                                <field name="start_date" class="oe_inline" on_change="on_change_start_date(start_date)"/>
                                 <field name="end_date" class="oe_inline"/>
                             </div>
                             <field name="create_date"/>

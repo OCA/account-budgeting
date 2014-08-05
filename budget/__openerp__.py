@@ -49,6 +49,7 @@ OpenERP official one.
      "test/user.yml",
      "test/analytic_amount.yml",
      "test/duplicate_budget.yml",
+     "test/default_end_date.yml",
  ],
  "installable": True,
  "application": True,
