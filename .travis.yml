@@ -10,7 +10,7 @@ install:
   - export PATH=$HOME/maintainer-quality-tools/travis:$PATH
   - $HOME/maintainer-quality-tools/travis/travis_install_nightly 7.0
   - pip install coveralls flake8
-  - git clone https://github.com/OCA/account-analytic 7.0 $HOME/account-analytic
+  - git clone https://github.com/OCA/account-analytic -b 7.0 $HOME/account-analytic
 
 services:
   - postgresql
