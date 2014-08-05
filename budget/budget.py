@@ -22,6 +22,7 @@ from openerp.osv import fields, orm
 
 
 class budget_budget(orm.Model):
+
     """ Budget Model. The module's main object.  """
     _name = "budget.budget"
     _description = "Budget"
