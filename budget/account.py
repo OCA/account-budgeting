@@ -22,6 +22,7 @@ from openerp.osv import orm
 
 
 class account_period(orm.Model):
+
     """ add new methods to the account_period base object """
     _inherit = 'account.period'
 

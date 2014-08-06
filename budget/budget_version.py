@@ -22,6 +22,7 @@ from openerp.osv import fields, orm
 
 
 class budget_version(orm.Model):
+
     """ Budget version.
 
     A budget version is a budget made at a given time for a given company.
@@ -56,8 +57,9 @@ class budget_version(orm.Model):
 
     _defaults = {
         'ref_date': fields.date.context_today,
-        'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(
-                                                    cr, uid, 'account.account', context=c),
+        'company_id':
+        lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(
+            cr, uid, 'account.account', context=c),
     }
 
     def name_search(self, cr, uid, name, args=None, operator='ilike',
