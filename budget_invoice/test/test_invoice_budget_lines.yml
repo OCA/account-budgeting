@@ -24,9 +24,10 @@
     assert budget_line.invoice_id, (
       'An invoice should be associated to the budget line')
 -
-  I check that the invoice has two lines
+  I check that the invoice is correct
 -
   !python {model: budget.line}: |
     budget_line = self.browse(cr, uid, ref('budget_line_1'), context)
     invoice = budget_line.invoice_id
     assert len(invoice.invoice_line) == 2, 'The invoice should have two lines'
+    assert invoice.amount_total == 500.0, 'The invoice total is incorrect'
