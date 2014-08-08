@@ -21,11 +21,21 @@
     budget_id: budget_test_1
     currency_id: base.EUR
 -
-  and a budget line
+  and a first budget line with description
 -
   !record {model: budget.line, id: budget_line_1}:
+    name: first budget line description
     analytic_account_id: account.analytic_agrolait
     budget_item_id: budget_item_1
     amount: -200.0
+    currency_id: base.EUR
+    budget_version_id: budget_version_1
+-
+  and a second budget line without description
+-
+  !record {model: budget.line, id: budget_line_2}:
+    analytic_account_id: account.analytic_agrolait
+    budget_item_id: budget_item_1
+    amount: -300.0
     currency_id: base.EUR
     budget_version_id: budget_version_1

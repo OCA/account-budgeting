@@ -38,14 +38,21 @@ class BudgetLine(orm.Model):
         invoice_obj = self.pool['account.invoice']
         invoice_line_obj = self.pool['account.invoice.line']
 
-        invoice_ids = []
-
         invoice_data = {
             'partner_id': partner.id,
             'account_id': partner.property_account_receivable.id,
         }
 
         invoice_id = invoice_obj.create(cr, uid, invoice_data, context)
+
+        for budget_line in self.browse(cr, uid, ids, context):
+            invoice_line_data = {
+                'name': budget_line.name or u'/',
+                'price_unit': budget_line.amount,
+                'invoice_id': invoice_id,
+            }
+            invoice_line_obj.create(cr, uid, invoice_line_data, context)
+
         self.write(cr, uid, ids, {'invoice_id': invoice_id}, context)
-        invoice_ids.append(invoice_id)
-        return invoice_ids
+
+        return [invoice_id]
