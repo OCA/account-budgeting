@@ -1,0 +1,23 @@
+-
+   Run those tests with a user belonging to "Budget Responsible"
+-
+  !context
+    uid: 'res_users_barbara_budget_responsible'
+-
+  I fill in the wizard to create an invoice
+-
+  !record {model: budget.line.invoice.create, id: wizard_1}:
+    product_id: product.product_product_consultant
+    partner_id: base.res_partner_1
+-
+  I click on the button to create the invoice
+-
+  !python {model: budget.line.invoice.create}: |
+    self.do_create(cr, uid, [ref('wizard_1')], {
+      'active_ids': [ref('budget_line_1')]
+    })
+-
+  I check that the invoice has been created an associated to the line
+-
+  !assert {model: budget.line, id: budget_line_1}:
+    - invoice_id.id != False
