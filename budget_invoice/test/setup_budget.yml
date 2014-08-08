@@ -27,7 +27,7 @@
     name: first budget line description
     analytic_account_id: account.analytic_agrolait
     budget_item_id: budget_item_1
-    amount: -200.0
+    amount: 200.0
     currency_id: base.EUR
     budget_version_id: budget_version_1
 -
@@ -36,6 +36,6 @@
   !record {model: budget.line, id: budget_line_2}:
     analytic_account_id: account.analytic_agrolait
     budget_item_id: budget_item_1
-    amount: -300.0
+    amount: 300.0
     currency_id: base.EUR
     budget_version_id: budget_version_1
