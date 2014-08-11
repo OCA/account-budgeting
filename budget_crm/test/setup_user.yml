@@ -1,5 +1,5 @@
 -
-  Create to run the tests in this module
+  I create a user to run the tests in this module
 -
   !record {model: res.users, id: res_users_colette}:
     name: Colette
