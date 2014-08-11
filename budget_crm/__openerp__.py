@@ -45,8 +45,10 @@ account_budget module.
      'view/budget_line.xml',
  ],
  "test": [
+     'test/setup_team.yml',
      'test/setup_user.yml',
      'test/setup_budget.yml',
+     'test/test_lead_defaults.yml',
  ],
  "installable": True,
  }
