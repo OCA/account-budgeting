@@ -1,7 +1,7 @@
 -
-  Create the user belonging to the group 'Budget Responsible'
+  Create to run the tests in this module
 -
-  !record {model: res.users, id: res_users_barbara_budget_responsible}:
+  !record {model: res.users, id: res_users_barbara}:
     name: Barbara the Budget Responsible
     login: barbara
     groups_id:
