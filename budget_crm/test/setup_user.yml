@@ -6,3 +6,4 @@
     login: colette
     groups_id:
       - budget.group_budget_responsible
+      - base.group_sale_salesman
