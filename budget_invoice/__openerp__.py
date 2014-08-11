@@ -24,8 +24,8 @@
  "category": "Generic Modules/Accounting",
  "website": "http://camptocamp.com",
  "description": """
-Create Invoice from Budget
-==========================
+Create Invoice from Budget Lines
+================================
 
 Features:
 
