@@ -19,6 +19,15 @@
 #
 ##############################################################################
 
-from . import lead
-from . import team
-from . import stage
+from openerp.osv import orm, fields
+
+
+class Stage(orm.Model):
+    _name = 'crm.case.stage'
+    _inherit = 'crm.case.stage'
+
+    _columns = {
+        'budget_item_id': fields.many2one(
+            'budget.item',
+            u'Budget Item'),
+    }
