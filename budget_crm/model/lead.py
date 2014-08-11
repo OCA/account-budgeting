@@ -30,4 +30,8 @@ class Lead(orm.Model):
         'budget_item_id': fields.many2one(
             'budget.item',
             u'Budget Item'),
+        'analytic_account_id': fields.many2one(
+            'account.analytic.account',
+            u'Analytic Account',
+            required=True),
     }
