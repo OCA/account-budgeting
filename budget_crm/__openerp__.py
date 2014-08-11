@@ -38,7 +38,9 @@ account_budget module.
  "depends": ["budget",
              "crm",
              ],
- "data": [],
+ "data": [
+     'view/lead.xml'
+ ],
  "test": [
      'test/setup_user.yml',
      'test/setup_budget.yml',
