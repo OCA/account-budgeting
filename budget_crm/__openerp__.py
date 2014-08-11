@@ -41,6 +41,7 @@ account_budget module.
  "data": [
      'view/lead.xml',
      'view/team.xml',
+     'view/stage.xml',
  ],
  "test": [
      'test/setup_user.yml',
