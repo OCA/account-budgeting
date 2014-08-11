@@ -1,4 +1,9 @@
 -
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_barbara'
+-
   I first create a budget item
 -
   !record {model: budget.item, id: budget_item_1}:
