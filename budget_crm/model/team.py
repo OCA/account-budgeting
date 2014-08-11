@@ -19,5 +19,15 @@
 #
 ##############################################################################
 
-from . import lead
-from . import team
+from openerp.osv import orm, fields
+
+
+class SalesTeam(orm.Model):
+    _name = 'crm.case.section'
+    _inherit = 'crm.case.section'
+
+    _columns = {
+        'analytic_account_id': fields.many2one(
+            'account.analytic.account',
+            u'Analytic Account'),
+    }

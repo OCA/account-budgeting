@@ -39,7 +39,8 @@ account_budget module.
              "crm",
              ],
  "data": [
-     'view/lead.xml'
+     'view/lead.xml',
+     'view/team.xml',
  ],
  "test": [
      'test/setup_user.yml',
