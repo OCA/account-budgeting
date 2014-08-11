@@ -1,0 +1,14 @@
+-
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_colette'
+-
+  I create a lead
+-
+  !record {model: crm.lead, id: lead_1}:
+    name: "Sell something"
+-
+  I check that the Analytic Account comes from the user's Team
+- !assert {model: crm.lead, id: lead_1}:
+    - analytic_account_id == ref('account.analytic_commercial_marketing')
