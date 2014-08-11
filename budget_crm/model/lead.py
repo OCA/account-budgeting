@@ -27,5 +27,7 @@ class Lead(orm.Model):
     _inherit = 'crm.lead'
 
     _columns = {
-        'budget_item_id': fields.many2one('budget.item', u'Budget Item')
+        'budget_item_id': fields.many2one(
+            'budget.item',
+            u'Budget Item'),
     }
