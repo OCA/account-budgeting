@@ -19,4 +19,13 @@
 #
 ##############################################################################
 
-from . import lead
+from openerp.osv import orm, fields
+
+
+class Lead(orm.Model):
+    _name = 'crm.lead'
+    _inherit = 'crm.lead'
+
+    _columns = {
+        'budget_item_id': fields.many2one('budget.item', u'Budget Item')
+    }

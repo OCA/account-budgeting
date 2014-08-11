@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="opportunity_form">
+      <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+      <field name="model">crm.lead</field>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+
+          <page string="Budget">
+            <group>
+              <group>
+                <field name="budget_item_id"/>
+              </group>
+            </group>
+          </page>
+
+        </notebook>
+      </field>
+    </record>
+
+  </data>
+</openerp>
