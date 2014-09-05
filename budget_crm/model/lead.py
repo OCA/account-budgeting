@@ -51,6 +51,6 @@ class Lead(orm.Model):
         else:
             return False
 
-    _default = {
+    _defaults = {
         'analytic_account_id': _get_default_analytic_account,
     }
