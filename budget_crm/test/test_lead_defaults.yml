@@ -10,5 +10,7 @@
     name: "Sell something"
 -
   I check that the Analytic Account comes from the user's Team
-- !assert {model: crm.lead, id: lead_1}:
-    - analytic_account_id == ref('account.analytic_commercial_marketing')
+-
+  !python {model: crm.lead}: |
+    lead = model.browse(cr, uid, ref('lead_1'))
+    assert lead.analytic_account_id.id == ref('account.analytic_commercial_marketing'), "Analytic Account of the lead does not come automatically from the user's team"
