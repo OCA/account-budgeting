@@ -89,13 +89,13 @@ class BudgetVersion(orm.Model):
         return budget_obj._get_periods(cr, uid, version.budget_id.id,
                                        context=context)
 
-    def copy_data(self, cr, uid, id, default=None, context=None):
+    def copy(self, cr, uid, id, default=None, context=None):
         if default is None:
             default = {}
 
         default['budget_line_ids'] = []
 
-        return super(BudgetVersion, self).copy_data(
+        return super(BudgetVersion, self).copy(
             cr, uid, id, default, context)
 
     def make_active(self, cr, uid, ids, context=None):
