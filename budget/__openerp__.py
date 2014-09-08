@@ -50,6 +50,7 @@ OpenERP official one.
      "test/test_analytic_amount.yml",
      "test/test_duplicate_budget.yml",
      "test/test_default_end_date.yml",
+     "test/test_active_version.yml",
  ],
  "installable": True,
  "application": True,

@@ -53,6 +53,10 @@ class BudgetVersion(orm.Model):
         'note': fields.text('Notes'),
         'create_date': fields.datetime('Creation Date', readonly=True),
         'ref_date': fields.date('Reference Date', required=True),
+        'is_active': fields.boolean(
+            'Active version',
+            readonly=True,
+            help='Each budget can have no more than one active version.')
     }
 
     _defaults = {
