@@ -99,6 +99,8 @@
                             <h2><field name="code"/></h2>
                         </div>
                         <group>
+                            <field name="is_active" />
+                            <button name="make_active" colspan="2" String="Make active" type="object" />
                             <field name="budget_id" />
                             <field name="currency_id" />
                             <field name="company_id" groups="base.group_multi_company"/>
