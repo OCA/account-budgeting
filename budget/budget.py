@@ -31,6 +31,21 @@ class budget_budget(orm.Model):
     _name = "budget.budget"
     _description = "Budget"
     _order = 'name ASC'
+
+    def _get_active_version(self, cr, uid, ids, field_name, arg, context=None):
+        version_obj = self.pool['budget.version']
+        result = {}
+
+        for budget_id in ids:
+            active_ids = version_obj.search(cr, uid, [
+                ('budget_id', '=', budget_id),
+                ('is_active', '=', True),
+            ], context=context)
+
+            result[budget_id] = active_ids and active_ids[0] or False
+
+        return result
+
     _columns = {
         'code': fields.char('Code'),
         'name': fields.char('Name', required=True),
@@ -45,6 +60,12 @@ class budget_budget(orm.Model):
                                               'budget_id',
                                               'Budget Versions',
                                               readonly=True),
+        'active_version_id': fields.function(
+            _get_active_version,
+            string='Active Version',
+            type='many2one',
+            relation='budget.version',
+        ),
         'note': fields.text('Notes'),
         'create_date': fields.datetime('Creation Date', readonly=True)
     }
