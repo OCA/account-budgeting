@@ -32,5 +32,5 @@
     versions = model.browse(cr, uid, [
       ref('version_january_1'), ref('version_january_2')
     ], context)
-    assert versions[0].is_active is False, "Version should be False"
-    assert versions[1].is_active is False, "Version should be False"
+    assert versions[0].is_active is False, "Version should not be active"
+    assert versions[1].is_active is False, "Version should not be active"
