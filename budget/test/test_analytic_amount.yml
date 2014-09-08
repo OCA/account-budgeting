@@ -1,8 +1,8 @@
 -
-   Run those tests with a user belonging to "Budget Responsible"
+  I select for this file a user that is not admin
 -
   !context
-    uid: 'res_users_aurore_budget_responsible'
+    uid: 'res_users_aurore'
 -
   I first create a budget item
 -
