@@ -1,4 +1,9 @@
 -
+  I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_beth'
+-
   The version we start with should have one line
 -
   !python {model: budget.version}: |

@@ -1,4 +1,9 @@
 -
+  I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_beth'
+-
   I create a budget starting on an arbitrary date in the past
 -
   !record {model: budget.budget, id: budget_test_march}:
