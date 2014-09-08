@@ -90,6 +90,8 @@ class BudgetVersion(orm.Model):
                                        context=context)
 
     def copy(self, cr, uid, id, default=None, context=None):
+        self.write(cr, uid, id, {'is_active': False}, context)
+
         if default is None:
             default = {}
 
