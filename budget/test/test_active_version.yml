@@ -24,6 +24,11 @@
   !assert {model: budget.version, id: version_january_1}:
     - is_active is False
 -
+  The budget should have no active version
+-
+  !assert {model: budget.budget, id: budget_january}:
+    - bool(active_version_id) is False
+-
   I press the button to make it active
 -
   !python {model: budget.version}: |
@@ -63,3 +68,11 @@
     ], context)
     assert versions[0].is_active is False, "Version should not be active"
     assert versions[1].is_active is True, "Version should be active"
+-
+  The active version of the budget should be the second one
+-
+  !python {model: budget.budget}: |
+    budget = model.browse(cr, uid, ref('budget_january'), context)
+    assert budget.active_version_id.id == ref('version_january_2'), (
+        'The active version should be the second one'
+    )
