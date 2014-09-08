@@ -19,26 +19,27 @@
     name: "Version 1"
     currency_id: base.EUR
 -
-  And a second one
+  It should not be active
+-
+  !assert {model: budget.version, id: version_january_1}:
+    - is_active is False
+-
+  I press the button to make it active
+-
+  !python {model: budget.version}: |
+    model.make_active(cr, uid, [ref('version_january_1')], context)
+-
+  It should now be active
+-
+  !assert {model: budget.version, id: version_january_1}:
+    - is_active is True
+-
+  I create now a second version
 -
   !record {model: budget.version, id: version_january_2}:
     budget_id: budget_january
     name: "Version 2"
     currency_id: base.EUR
--
-  I check that both versions are inactive
--
-  !python {model: budget.version}: |
-    versions = model.browse(cr, uid, [
-      ref('version_january_1'), ref('version_january_2')
-    ], context)
-    assert versions[0].is_active is False, "Version should not be active"
-    assert versions[1].is_active is False, "Version should not be active"
--
-  I make the first one active
--
-  !python {model: budget.version}: |
-    model.make_active(cr, uid, [ref('version_january_1')], context)
 -
   I check that only the first one is now active
 -

@@ -106,6 +106,4 @@ class BudgetVersion(orm.Model):
                 ('budget_id', '=', this_version.budget_id.id),
                 ('id', '!=', this_version.id),
             ], context=context)
-            if other_versions:
-                self.write(cr, uid, other_versions, {'is_active': False},
-                           context)
+            self.write(cr, uid, other_versions, {'is_active': False}, context)
