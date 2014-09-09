@@ -27,8 +27,9 @@ class Lead(orm.Model):
     _inherit = 'crm.lead'
 
     _columns = {
-        'budget_line_id': fields.many2one(
+        'budget_line_ids': fields.one2many(
             'budget.line',
+            'opportunity_id',
             u'Budget Line'),
         'budget_item_id': fields.many2one(
             'budget.item',
@@ -37,6 +38,8 @@ class Lead(orm.Model):
             'account.analytic.account',
             u'Analytic Account',
             required=True),
+        'months': fields.integer(
+            u'Duration in months'),
     }
 
     def _get_default_analytic_account(self, cr, uid, context=None):
