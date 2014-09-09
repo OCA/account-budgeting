@@ -27,12 +27,36 @@
 Budget CRM
 ==========
 
-Features:
-
-* Create and update budget lines from Opportunities
-
 This module depends on the OCA module "budget", not on the Odoo core
 account_budget module.
+
+It provides a link in the drop down menu of the Opportunities to generate
+automatically budget lines from them.
+
+The information used to generate the budget lines is found as follows:
+
+* The active Budget Version is the one selected in the Company
+* The number of lines to generate comes from the Months field of the
+  Opportunity
+* The amount of every line is the expected revenue of the Opportunity, divided
+  by the number of months
+* The first line starts on the 1st of the month after the Expected Date of the
+  Opportunity and ends on the last day of the month
+* The other lines start end end in the following months
+* The name comes from the name of the opportunity, with also the year and
+  month.
+* The Analytic Account comes from the Lead, where by default it comes from the
+  Sales Team
+* The Budget Item comes from the Lead, where by default it comes from the
+  Stage.
+* The Currency comes from the current Budget Version (in the Company)
+
+The generated Budget Lines are linked to the Opportunity and can be seen in
+the new Budget tab. They can coexist vith existing budget lines in the same
+Version.
+
+The next time the synchronization is run, the budget lines previously linked
+to the Opportunity are deleted. Existing lines are not affected.
     """,
  "complexity": "normal",
  "depends": ["budget",
