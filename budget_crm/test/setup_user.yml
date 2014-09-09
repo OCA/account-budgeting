@@ -8,4 +8,3 @@
       - budget.group_budget_responsible
       - base.group_sale_manager
       - account.group_account_manager
-    default_section_id: crm.crm_case_section_1
