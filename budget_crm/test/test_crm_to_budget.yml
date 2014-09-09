@@ -1,0 +1,30 @@
+-
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_colette'
+-
+  I set the active budget version in the company
+-
+  !record {model: res.company, id: base.main_company}:
+    budget_version_id: budget_version_1
+-
+  I create a lead
+-
+  !record {model: crm.lead, id: lead_2}:
+    name: "Sell something"
+    date_deadline: "2012-10-15"
+    months: 6
+    planned_revenue: 300.0
+    budget_item_id: budget_item_1
+-
+  I create a wizard
+-
+  !record {model: crm.to.budget.wizard, id: wizard_1}:
+-
+  I run the wizard on one opportunity
+-
+  !python {model: crm.to.budget.wizard}: |
+    model.do_compute(cr, uid, [ref('wizard_1')], context={
+      'active_ids': [ref('lead_2')]
+    })

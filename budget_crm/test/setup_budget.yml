@@ -15,8 +15,8 @@
 -
   !record {model: budget.budget, id: budget_test_1}:
     name: "Budget test"
-    start_date: !eval "'%s-01-01' %(datetime.now().year)"
-    end_date: !eval "'%s-12-31' %(datetime.now().year)"
+    start_date: "2012-01-01"
+    end_date: "2013-12-31"
     budget_item_id: budget_item_1
 -
   and a budget version

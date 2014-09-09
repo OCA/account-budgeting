@@ -43,6 +43,7 @@ account_budget module.
      'view/team.xml',
      'view/stage.xml',
      'view/budget_line.xml',
+     'wizard/crm_to_budget.xml',
  ],
  "test": [
      'test/setup_team.yml',
@@ -51,6 +52,7 @@ account_budget module.
      # testing defaults if broken because of
      # https://github.com/odoo/odoo/issues/1885
      # 'test/test_lead_defaults.yml',
+     'test/test_crm_to_budget.yml',
  ],
  "installable": True,
  }

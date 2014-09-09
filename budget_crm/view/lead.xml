@@ -11,11 +11,13 @@
           <page string="Budget">
             <group>
               <group>
-                <field name="budget_line_id"/>
+                <field name="analytic_account_id"/>
                 <field name="budget_item_id"/>
               </group>
+            </group>
+            <group string="Budget Lines">
               <group>
-                <field name="analytic_account_id"/>
+                <field name="budget_line_ids" nolabel="1" colspan="2"/>
               </group>
             </group>
           </page>

@@ -22,12 +22,11 @@
 from openerp.osv import orm, fields
 
 
-class BudgetLine(orm.Model):
-    _name = 'budget.line'
-    _inherit = 'budget.line'
+class Company(orm.Model):
+    _inherit = 'res.company'
 
     _columns = {
-        'opportunity_id': fields.many2one(
-            'crm.lead',
-            u'Linked Opportunity'),
+        'budget_version_id': fields.many2one(
+            'budget.version',
+            u'Active budget version'),
     }

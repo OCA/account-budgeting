@@ -8,8 +8,7 @@
       <field name="arch" type="xml">
         <group string="Analytic Amounts" position="after">
           <group string="CRM">
-            <separator string="Opportunities" colspan="4"/>
-            <field name="opportunity_ids" nolabel="1" colspan="4"/>
+            <field name="opportunity_id" />
           </group>
         </group>
       </field>
