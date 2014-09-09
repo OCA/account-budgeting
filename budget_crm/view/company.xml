@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="company_form">
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="model">res.company</field>
+      <field name="arch" type="xml">
+        <notebook position="inside">
+          <page string="Budget">
+            <group>
+              <group>
+                <field name="budget_version_id"/>
+              </group>
+            </group>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
+  </data>
+</openerp>

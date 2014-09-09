@@ -43,6 +43,7 @@ account_budget module.
      'view/team.xml',
      'view/stage.xml',
      'view/budget_line.xml',
+     'view/company.xml',
      'wizard/crm_to_budget.xml',
  ],
  "test": [
