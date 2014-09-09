@@ -41,6 +41,20 @@ class Lead(orm.Model):
             u'Duration in months'),
     }
 
+    def write(self, cr, uid, ids, vals, context=None):
+        """Get the budget item from the stage.
+
+        The clickable progressbar does not run on_change, apparently.
+        """
+        if 'stage_id' in vals:
+            stage_obj = self.pool['crm.case.stage']
+            stage = stage_obj.browse(cr, uid, vals['stage_id'], context)
+
+            vals['budget_item_id'] = stage.budget_item_id.id or False
+
+        return super(Lead, self).write(cr, uid, ids, vals, context)
+
+
     def _get_default_analytic_account(self, cr, uid, context=None):
         team_id = self._get_default_section_id(cr, uid, context)
         if team_id:
