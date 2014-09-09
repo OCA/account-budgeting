@@ -22,6 +22,7 @@
 import datetime as dt
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import rrule, MONTHLY
+import calendar
 
 from openerp.osv import orm
 from openerp.tools.translate import _
@@ -78,11 +79,15 @@ class CrmToBudgetWizard(orm.TransientModel):
             deadline = dt.datetime.strptime(lead.date_deadline,
                                             DATE_FORMAT)
             budget_lines = []
-            for date_start, date_end in self._line_dates(deadline,
+            for date_start, date_stop in self._line_dates(deadline,
                                                          lead.months):
                 budget_lines.append((0, 0, {
+                    'name': u'{0} - {1} {2}'.format(
+                        lead.name,
+                        _(calendar.month_name[date_start.month]),
+                        date_start.year),
                     'date_start': date_start,
-                    'date_stop': date_end,
+                    'date_stop': date_stop,
                     'analytic_account_id': lead.analytic_account_id.id,
                     'budget_item_id': lead.budget_item_id.id,
                     'amount': lead.planned_revenue / lead.months,
