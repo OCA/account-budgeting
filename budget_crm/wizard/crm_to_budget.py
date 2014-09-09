@@ -40,16 +40,16 @@ class CrmToBudgetWizard(orm.TransientModel):
 
     def do_compute(self, cr, uid, ids, context=None):
         lead_obj = self.pool['crm.lead']
+        budget_line_obj = self.pool['budget.line']
+
         lead_ids = context['active_ids']
 
         for lead in lead_obj.browse(cr, uid, lead_ids, context):
 
             if lead.budget_line_ids:
-                raise orm.except_orm(
-                    _(u'Error'),
-                    _(u'Budget lines exist already for this opportunities. '
-                      u'This case is not handled yet.')
-                )
+                budget_line_obj.unlink(cr, uid, [
+                    line.id for line in lead.budget_line_ids
+                ], context=context)
 
             if not lead.date_deadline:
                 raise orm.except_orm(_(u'Error'),
