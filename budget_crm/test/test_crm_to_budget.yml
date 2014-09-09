@@ -17,6 +17,7 @@
     months: 3
     planned_revenue: 150.0
     budget_item_id: budget_item_1
+    analytic_account_id: account.analytic_commercial_marketing
 -
   I create a wizard
 -

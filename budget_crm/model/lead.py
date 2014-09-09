@@ -36,8 +36,7 @@ class Lead(orm.Model):
             u'Budget Item'),
         'analytic_account_id': fields.many2one(
             'account.analytic.account',
-            u'Analytic Account',
-            required=True),
+            u'Analytic Account'),
         'months': fields.integer(
             u'Duration in months'),
     }

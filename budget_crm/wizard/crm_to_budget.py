@@ -53,28 +53,33 @@ class CrmToBudgetWizard(orm.TransientModel):
 
             if not lead.date_deadline:
                 raise orm.except_orm(_(u'Error'),
-                                     _(u'The Expected Date needs to be set'))
+                                     _(u'The Expected Date must be set'))
 
             if not lead.months:
                 raise orm.except_orm(
                     _(u'Error'),
-                    _(u'The Duration in months needs to be set'))
+                    _(u'The Duration in months must be set'))
 
             if not lead.planned_revenue:
                 raise orm.except_orm(
                     _(u'Error'),
-                    _(u'The Expected Revenue needs to be set'))
+                    _(u'The Expected Revenue must be set'))
 
             if not lead.budget_item_id:
                 raise orm.except_orm(
                     _(u'Error'),
-                    _(u'The Budget Item needs to be set'))
+                    _(u'The Budget Item must be set'))
+
+            if not lead.analytic_account_id:
+                raise orm.except_orm(
+                    _(u'Error'),
+                    _(u'The Analytic Account must be set'))
 
             version = lead.company_id.budget_version_id
             if not version:
                 raise orm.except_orm(
                     _(u'Error'),
-                    _(u'The budget version needs to be set in the company'))
+                    _(u'The budget version must be set in the company'))
 
             deadline = dt.datetime.strptime(lead.date_deadline,
                                             DATE_FORMAT)
