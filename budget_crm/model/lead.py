@@ -56,16 +56,13 @@ class Lead(orm.Model):
 
 
     def _get_default_analytic_account(self, cr, uid, context=None):
-        team_id = self._get_default_section_id(cr, uid, context)
-        if team_id:
-            team_obj = self.pool['crm.case.section']
-            team = team_obj.browse(cr, uid, team_id, context)
-            return (
-                team.analytic_account_id
-                and team.analytic_account_id.id
-                or False)
-        else:
-            return False
+        user_obj = self.pool['res.users']
+        team = user_obj.browse(cr, uid, uid, context).default_section_id
+        return (
+            team
+            and team.analytic_account_id
+            and team.analytic_account_id.id
+            or False)
 
     _defaults = {
         'analytic_account_id': _get_default_analytic_account,
