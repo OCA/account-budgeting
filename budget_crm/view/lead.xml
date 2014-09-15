@@ -15,7 +15,7 @@
           <page string="Budget">
             <group>
               <group>
-                <field name="analytic_account_id"/>
+                <field name="analytic_account_id" domain="[('state', 'not in', ('close', 'template'))]" />
                 <field name="budget_item_id"/>
               </group>
             </group>
