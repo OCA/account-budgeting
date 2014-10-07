@@ -85,7 +85,7 @@ class CrmToBudgetWizard(orm.TransientModel):
                                             DATE_FORMAT)
             budget_lines = []
             for date_start, date_stop in self._line_dates(deadline,
-                                                         lead.months):
+                                                          lead.months):
                 budget_lines.append((0, 0, {
                     'name': u'{0} - {1} {2}'.format(
                         lead.name,
