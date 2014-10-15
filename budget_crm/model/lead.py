@@ -39,6 +39,9 @@ class Lead(orm.Model):
             u'Analytic Account'),
         'months': fields.integer(
             u'Duration in months'),
+        'currency_id': fields.many2one(
+            'res.currency',
+            u'Revenue Currency'),
     }
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -70,4 +73,8 @@ class Lead(orm.Model):
 
     _defaults = {
         'analytic_account_id': _get_default_analytic_account,
+        'currency_id': lambda self, cr, uid, c:
+            self.pool.get('res.users').browse(cr, uid,
+                                              uid,
+                                              c).company_id.currency_id.id,
     }
