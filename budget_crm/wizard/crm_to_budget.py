@@ -51,6 +51,11 @@ class CrmToBudgetWizard(orm.TransientModel):
                     line.id for line in lead.budget_line_ids
                 ], context=context)
 
+            if not lead.budget_item_id:
+                # we do not raise here because we do not want to revert the
+                # deletion of old budget lines
+                continue
+
             if not lead.date_deadline:
                 raise orm.except_orm(_(u'Error'),
                                      _(u'The Expected Date must be set'))
@@ -64,11 +69,6 @@ class CrmToBudgetWizard(orm.TransientModel):
                 raise orm.except_orm(
                     _(u'Error'),
                     _(u'The Expected Revenue must be set'))
-
-            if not lead.budget_item_id:
-                raise orm.except_orm(
-                    _(u'Error'),
-                    _(u'The Budget Item must be set'))
 
             if not lead.analytic_account_id:
                 raise orm.except_orm(
@@ -96,7 +96,7 @@ class CrmToBudgetWizard(orm.TransientModel):
                     'analytic_account_id': lead.analytic_account_id.id,
                     'budget_item_id': lead.budget_item_id.id,
                     'amount': lead.planned_revenue / lead.months,
-                    'currency_id': version.currency_id.id,
+                    'currency_id': lead.currency_id.id,
                     'budget_version_id': version.id,
                 }))
 

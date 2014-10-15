@@ -51,6 +51,11 @@ class Lead(orm.Model):
             stage = stage_obj.browse(cr, uid, vals['stage_id'], context)
 
             vals['budget_item_id'] = stage.budget_item_id.id or False
+            team = self.browse(cr, uid, ids, context=context)[0].section_id
+            vals['analytic_account_id'] = (team
+                                           and team.analytic_account_id
+                                           and team.analytic_account_id.id
+                                           or False)
 
         return super(Lead, self).write(cr, uid, ids, vals, context)
 
