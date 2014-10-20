@@ -23,7 +23,7 @@
                             <field name="budget_item_id" domain="[('parent_id', '=', False)]"/>
                             <label for="start_date" string="Starting and Ending Dates"/>
                             <div>
-                                <field name="start_date" class="oe_inline"/> - 
+                                <field name="start_date" class="oe_inline"/> -
                                 <field name="end_date" class="oe_inline"/>
                             </div>
                             <field name="create_date"/>
@@ -272,6 +272,7 @@
                     <field name="allocation" invisible="True"/>
                     <field name="name" />
                     <field name="analytic_account_id"
+                        domain="[('state','not in',['close','cancelled'])]"
                         on_change="onchange_analytic_account_id(analytic_account_id)"/>
                     <field name="date_start"/>
                     <field name="date_stop"/>
@@ -293,7 +294,8 @@
                             <field name="budget_version_id"/>
                             <field name="budget_item_id"  domain="[('type', '=', 'normal')]"/>
                             <field name="name"/>
-                            <field name="analytic_account_id"/>
+                            <field name="analytic_account_id"
+                                   domain="[('state','not in',['close','cancelled'])]" />
                         </group>
                         <group string="Periods">
                             <field name="date_start"/>
