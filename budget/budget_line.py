@@ -192,7 +192,8 @@ class budget_line(orm.Model):
             string="In Analytic Amount's Currency",
             store={
                 'budget.line': (lambda self, cr, uid, ids, c: ids,
-                                ['date_start',
+                                ['amount',
+                                 'date_start',
                                  'date_stop',
                                  'analytic_account_id',
                                  'currency_id'], 10),
@@ -210,7 +211,8 @@ class budget_line(orm.Model):
             string="Analytic Real Amount",
             store={
                 'budget.line': (lambda self, cr, uid, ids, c: ids,
-                                ['date_start',
+                                ['amount',
+                                 'date_start',
                                  'date_stop',
                                  'analytic_account_id',
                                  'currency_id'], 10),
@@ -228,7 +230,8 @@ class budget_line(orm.Model):
             string="Analytic Difference Amount",
             store={
                 'budget.line': (lambda self, cr, uid, ids, c: ids,
-                                ['date_start',
+                                ['amount',
+                                 'date_start',
                                  'date_stop',
                                  'analytic_account_id',
                                  'currency_id'], 10),
