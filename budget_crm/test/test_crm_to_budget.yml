@@ -1,0 +1,60 @@
+-
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_colette'
+-
+  I set the active budget version in the company
+-
+  !record {model: res.company, id: base.main_company}:
+    budget_version_id: budget_version_1
+-
+  I create a lead
+-
+  !record {model: crm.lead, id: lead_2}:
+    name: "Sell something"
+    date_deadline: "2012-11-15"
+    months: 3
+    planned_revenue: 150.0
+    budget_item_id: budget_item_1
+    analytic_account_id: account.analytic_commercial_marketing
+-
+  I create a wizard
+-
+  !record {model: crm.to.budget.wizard, id: wizard_1}:
+-
+  I run the wizard on one opportunity
+-
+  !python {model: crm.to.budget.wizard}: |
+    model.do_compute(cr, uid, [ref('wizard_1')], context={
+      'active_ids': [ref('lead_2')]
+    })
+-
+  I check that there are now 5 lines
+-
+  !python {model: budget.version}: |
+    version = model.browse(cr, uid, ref('budget_version_1'), context)
+    assert len(version.budget_line_ids) == 5, 'There should be 5 lines: 2 old and 3 new'
+-
+  I check that there are 3 lines with amount 50.00 and the dates are good
+-
+  !python {model: budget.line}: |
+    budget_line_ids = model.search(cr, uid, [
+        ('budget_version_id', '=', ref('budget_version_1')),
+        ('amount', '=', 50.00),
+    ], order='date_start')
+    assert len(budget_line_ids) == 3, 'We should have 3 lines'
+
+    lines = model.browse(cr, uid, budget_line_ids, context)
+
+    assert lines[0].name == u'Sell something - December 2012'
+    assert lines[1].name == u'Sell something - January 2013'
+    assert lines[2].name == u'Sell something - February 2013'
+
+    assert lines[0].date_start == u'2012-12-01'
+    assert lines[1].date_start == u'2013-01-01'
+    assert lines[2].date_start == u'2013-02-01'
+
+    assert lines[0].date_stop == u'2012-12-31'
+    assert lines[1].date_stop == u'2013-01-31'
+    assert lines[2].date_stop == u'2013-02-28'

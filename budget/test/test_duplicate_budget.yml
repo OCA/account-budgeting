@@ -1,0 +1,29 @@
+-
+  I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_beth'
+-
+  The version we start with should have one line
+-
+  !python {model: budget.version}: |
+    version = self.browse(cr, uid, ref('budget_version_1'), context=context)
+    assert len(version.budget_line_ids) == 1
+-
+  I make it active
+-
+  !python {model: budget.version}: |
+    model.make_active(cr, uid, [ref('budget_version_1')], context)
+-
+  When I duplicate it, the new version should have no lines
+-
+  !python {model: budget.version}: |
+    original_version = self.browse(cr, uid, ref('budget_version_1'), context=context)
+    new_version_id = self.copy(cr, uid, original_version.id, context=context)
+    new_version = self.browse(cr, uid, new_version_id, context=context)
+    assert len(new_version.budget_line_ids) == 0, "When I Duplicate, the new version should have no lines"
+-
+  The old one should be now inactive
+-
+  !assert {model: budget.version, id: budget_version_1}:
+    - is_active is False

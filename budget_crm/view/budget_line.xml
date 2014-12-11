@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="budget_line_form">
+      <field name="inherit_id" ref="budget.view_budget_line_form"/>
+      <field name="model">budget.line</field>
+      <field name="arch" type="xml">
+        <group string="Analytic Amounts" position="after">
+          <group string="CRM">
+            <field name="opportunity_id" />
+          </group>
+        </group>
+      </field>
+    </record>
+
+  </data>
+</openerp>
