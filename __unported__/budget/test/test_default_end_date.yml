@@ -1,0 +1,29 @@
+-
+  I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_beth'
+-
+  I create a budget starting on an arbitrary date in the past
+-
+  !record {model: budget.budget, id: budget_test_march}:
+    name: "Budget Test March"
+    start_date: "2013-03-05"
+    budget_item_id: budget_item_1
+-
+  The end date should be filled automatically at the end of the same month
+-
+  !assert {model: budget.budget, id: budget_test_march}:
+    - end_date == "2013-03-31"
+-
+  I create another budget starting on April
+-
+  !record {model: budget.budget, id: budget_test_april}:
+    name: "Budget Test April"
+    start_date: "2013-04-10"
+    budget_item_id: budget_item_1
+-
+  The end date should be on the 30th
+-
+  !assert {model: budget.budget, id: budget_test_april}:
+    - end_date == "2013-04-30"

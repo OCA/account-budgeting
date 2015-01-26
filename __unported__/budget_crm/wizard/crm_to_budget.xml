@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="crm_to_budget_wizard_form" model="ir.ui.view">
+      <field name="model">crm.to.budget.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Sync Budget from Opportunities" version="7.0">
+          <label string="This will create or update budgets based on the selected opportunities."/>
+          <footer>
+            <button name="do_compute" string="Compute" type="object" icon="gtk-apply" class="oe_highlight"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <act_window name="Sync Budget from Opportunities"
+      res_model="crm.to.budget.wizard"
+      src_model="crm.lead"
+      key2="client_action_multi"
+      multi="True"
+      view_mode="form"
+      view_type="form"
+      target="new"
+      id="crm_to_budget_wizard_action"/>
+
+  </data>
+</openerp>
+

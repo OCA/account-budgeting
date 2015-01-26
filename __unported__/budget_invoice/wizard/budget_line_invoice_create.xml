@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_budget_line_invoice_create" model="ir.ui.view">
+      <field name="name">budget.line.invoice.create.form</field>
+      <field name="model">budget.line.invoice.create</field>
+      <field name="arch" type="xml">
+        <form string="Create Invoice" version="7.0">
+          <notebook>
+            <page string="Billing Data">
+              <group  string="Product" colspan="1" cols="2">
+                <p class="oe_grey" colspan="2">
+                  You must specify a product here to get the correct prices.
+                  Otherwise, if you choose it later in the invoice, it will
+                  override the price with the default unit price of the
+                  product.
+                </p>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+              </group>
+            </page>
+          </notebook>
+          <footer>
+            <button name="do_create" string="Create Invoices" type="object" class="oe_highlight"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_budget_line_invoice_create" model="ir.actions.act_window">
+      <field name="name">Create Invoice</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">budget.line.invoice.create</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <record model="ir.values" id="budget_line_invoice_create_values">
+      <field name="model_id" ref="budget.model_budget_line" />
+      <field name="name">Create Invoice</field>
+      <field name="key2">client_action_multi</field>
+      <field name="value" eval="'ir.actions.act_window,' + str(ref('action_budget_line_invoice_create'))" />
+      <field name="key">action</field>
+      <field name="model">budget.line</field>
+    </record>
+
+  </data>
+</openerp>

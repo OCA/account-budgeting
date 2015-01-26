@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {"name": "Multicurrency Analytic Budget",
- "version": "1.0",
+ "version": "1.1",
  "author": "Camptocamp",
  "category": "Generic Modules/Accounting",
  "website": "http://camptocamp.com",
@@ -34,6 +34,16 @@ Features:
 
 This module is for real advanced budget use, otherwise prefer to use the
 OpenERP official one.
+
+Active Budget Version
+=====================
+
+Every Budget has zero or one active Version. This is marked by a flag and that
+can be set with a button. All other versions are disabled.
+
+If a budget version is duplicated, the old one is automatically disabled as
+well.
+
     """,
  "complexity": "expert",
  "depends": ["base",
@@ -45,7 +55,13 @@ OpenERP official one.
           "security/security.xml",
           "security/ir.model.access.csv"
           ],
- "test": ["test/analytic_amount.yml"],
+ "test": [
+     "test/setup_user.yml",
+     "test/test_analytic_amount.yml",
+     "test/test_duplicate_budget.yml",
+     "test/test_default_end_date.yml",
+     "test/test_active_version.yml",
+ ],
  "installable": False,
  "application": True,
  }

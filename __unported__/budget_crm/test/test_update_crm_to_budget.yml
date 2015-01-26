@@ -1,0 +1,30 @@
+-
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_colette'
+-
+  I update the amount and months in my lead
+-
+  !record {model: crm.lead, id: lead_2}:
+    months: 2
+    planned_revenue: 200.0
+    budget_item_id: budget_item_1
+-
+  I create a new wizard on the lame lead
+-
+  !record {model: crm.to.budget.wizard, id: wizard_2}:
+-
+  I run the wizard on one opportunity
+-
+  !python {model: crm.to.budget.wizard}: |
+    model.do_compute(cr, uid, [ref('wizard_2')], context={
+      'active_ids': [ref('lead_2')]
+    })
+-
+  The budget version should now have only 4 lines, of which 2 existing and 2
+  attached to this lead.
+-
+  !python {model: budget.version}: |
+    version = model.browse(cr, uid, ref('budget_version_1'), context)
+    assert len(version.budget_line_ids) == 4, 'There should be 4 lines: 2 old and 2 new'

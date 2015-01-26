@@ -1,0 +1,33 @@
+-
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_barbara'
+-
+  I fill in the wizard to create an invoice
+-
+  !record {model: budget.line.invoice.create, id: wizard_1}:
+    product_id: product.product_product_consultant
+    partner_id: base.res_partner_1
+-
+  I click on the button to create the invoice
+-
+  !python {model: budget.line.invoice.create}: |
+    self.do_create(cr, uid, [ref('wizard_1')], {
+      'active_ids': [ref('budget_line_1'), ref('budget_line_2')]
+    })
+-
+  I check that the invoice has been created an associated to the first line
+-
+  !python {model: budget.line}: |
+    budget_line = self.browse(cr, uid, ref('budget_line_1'), context)
+    assert budget_line.invoice_id, (
+      'An invoice should be associated to the budget line')
+-
+  I check that the invoice is correct
+-
+  !python {model: budget.line}: |
+    budget_line = self.browse(cr, uid, ref('budget_line_1'), context)
+    invoice = budget_line.invoice_id
+    assert len(invoice.invoice_line) == 2, 'The invoice should have two lines'
+    assert invoice.amount_total == 500.0, 'The invoice total is incorrect'

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Arnaud Wüst
-#    Copyright 2009-2013 Camptocamp SA
+#    Author: Arnaud Wüst, Leonardo Pistone
+#    Copyright 2009-2014 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,7 +21,8 @@
 from openerp.osv import fields, orm
 
 
-class budget_version(orm.Model):
+class BudgetVersion(orm.Model):
+
     """ Budget version.
 
     A budget version is a budget made at a given time for a given company.
@@ -34,7 +35,7 @@ class budget_version(orm.Model):
 
     _columns = {
         'code': fields.char('Code'),
-        'name': fields.char('Version Name',  required=True),
+        'name': fields.char('Version Name', required=True),
         'budget_id': fields.many2one('budget.budget',
                                      string='Budget',
                                      required=True,
@@ -52,12 +53,17 @@ class budget_version(orm.Model):
         'note': fields.text('Notes'),
         'create_date': fields.datetime('Creation Date', readonly=True),
         'ref_date': fields.date('Reference Date', required=True),
+        'is_active': fields.boolean(
+            'Active version',
+            readonly=True,
+            help='Each budget can have no more than one active version.')
     }
 
     _defaults = {
         'ref_date': fields.date.context_today,
-        'company_id': lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(
-                                                    cr, uid, 'account.account', context=c),
+        'company_id':
+        lambda s, cr, uid, c: s.pool.get('res.company')._company_default_get(
+            cr, uid, 'account.account', context=c),
     }
 
     def name_search(self, cr, uid, name, args=None, operator='ilike',
@@ -82,3 +88,24 @@ class budget_version(orm.Model):
         budget_obj = self.pool.get('budget.budget')
         return budget_obj._get_periods(cr, uid, version.budget_id.id,
                                        context=context)
+
+    def copy(self, cr, uid, id, default=None, context=None):
+        self.write(cr, uid, id, {'is_active': False}, context)
+
+        if default is None:
+            default = {}
+
+        default['budget_line_ids'] = []
+
+        return super(BudgetVersion, self).copy(
+            cr, uid, id, default, context)
+
+    def make_active(self, cr, uid, ids, context=None):
+        for this_version in self.browse(cr, uid, ids, context):
+            this_version.write({'is_active': True})
+
+            other_versions = self.search(cr, uid, [
+                ('budget_id', '=', this_version.budget_id.id),
+                ('id', '!=', this_version.id),
+            ], context=context)
+            self.write(cr, uid, other_versions, {'is_active': False}, context)
