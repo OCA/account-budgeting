@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="stage_form">
+      <field name="inherit_id" ref="crm.crm_case_stage_form"/>
+      <field name="model">crm.case.stage</field>
+      <field name="arch" type="xml">
+        <field name="fold" position="after">
+          <field name="budget_item_id"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</openerp>

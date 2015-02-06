@@ -23,6 +23,7 @@ from openerp.osv import fields, orm
 
 
 class allocation_type(orm.Model):
+
     """Allocation type from budget line"""
     _name = "budget.allocation.type"
 
@@ -32,6 +33,7 @@ class allocation_type(orm.Model):
 
 
 class budget_item(orm.Model):
+
     """ Budget Item
 
     This is a link between budgets and financial accounts. """
@@ -96,7 +98,7 @@ class budget_item(orm.Model):
     def _check_recursion(self, cr, uid, ids, context=None, parent=None):
         """ use in _constraints[]: return false
         if there is a recursion in the budget items structure """
-        #use the parent check_recursion function defined in orm.py
+        # use the parent check_recursion function defined in orm.py
         return super(budget_item, self)._check_recursion(
             cr, uid, ids, parent=parent or 'parent_id', context=context)
 
@@ -181,9 +183,11 @@ class budget_item(orm.Model):
             budget = budget_obj.browse(cr, uid,
                                        context['budget_id'],
                                        context=ctx)
-            allowed_item_ids = self.get_sub_item_ids(cr, uid,
-                                                     [budget.budget_item_id.id],
-                                                     context=ctx)
+            allowed_item_ids = self.get_sub_item_ids(
+                cr, uid,
+                [budget.budget_item_id.id],
+                context=ctx)
+
             domain = [('id', 'in', allowed_item_ids)]
         return super(budget_item, self).search(
             cr, uid, args + domain, offset, limit, order, context, count)

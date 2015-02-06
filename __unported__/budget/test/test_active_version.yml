@@ -1,0 +1,78 @@
+-
+  I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_beth'
+-
+  I create a new budget
+-
+  !record {model: budget.budget, id: budget_january}:
+    name: "January Budget"
+    start_date: '2013-01-01'
+    end_date: '2013-01-31'
+    budget_item_id: budget_item_1
+-
+  I create a first version 
+-
+  !record {model: budget.version, id: version_january_1}:
+    budget_id: budget_january
+    name: "Version 1"
+    currency_id: base.EUR
+-
+  It should not be active
+-
+  !assert {model: budget.version, id: version_january_1}:
+    - is_active is False
+-
+  The budget should have no active version
+-
+  !assert {model: budget.budget, id: budget_january}:
+    - bool(active_version_id) is False
+-
+  I press the button to make it active
+-
+  !python {model: budget.version}: |
+    model.make_active(cr, uid, [ref('version_january_1')], context)
+-
+  It should now be active
+-
+  !assert {model: budget.version, id: version_january_1}:
+    - is_active is True
+-
+  I create now a second version
+-
+  !record {model: budget.version, id: version_january_2}:
+    budget_id: budget_january
+    name: "Version 2"
+    currency_id: base.EUR
+-
+  Only the first one should be active
+-
+  !python {model: budget.version}: |
+    versions = model.browse(cr, uid, [
+      ref('version_january_1'), ref('version_january_2')
+    ], context)
+    assert versions[0].is_active is True, "Version should be active"
+    assert versions[1].is_active is False, "Version should not be active"
+-
+  I press the button on the second one
+-
+  !python {model: budget.version}: |
+    model.make_active(cr, uid, [ref('version_january_2')], context)
+-
+  Only the second one should now be active
+-
+  !python {model: budget.version}: |
+    versions = model.browse(cr, uid, [
+      ref('version_january_1'), ref('version_january_2')
+    ], context)
+    assert versions[0].is_active is False, "Version should not be active"
+    assert versions[1].is_active is True, "Version should be active"
+-
+  The active version of the budget should be the second one
+-
+  !python {model: budget.budget}: |
+    budget = model.browse(cr, uid, ref('budget_january'), context)
+    assert budget.active_version_id.id == ref('version_january_2'), (
+        'The active version should be the second one'
+    )

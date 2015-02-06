@@ -1,0 +1,17 @@
+-
+  I create a first user to run the tests in this module
+-
+  !record {model: res.users, id: res_users_aurore}:
+    name: Aurore
+    login: aurore
+    groups_id:
+      - budget.group_budget_responsible
+-
+  I create a second user to run the tests in this module
+-
+  !record {model: res.users, id: res_users_beth}:
+    name: Beth
+    login: beth
+    groups_id:
+      - budget.group_budget_responsible
+      - account.group_account_manager

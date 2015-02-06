@@ -25,6 +25,7 @@ from openerp.addons import decimal_precision as dp
 
 
 class budget_line(orm.Model):
+
     """ Budget line.
 
     A budget version line NOT linked to an analytic account """
@@ -50,7 +51,8 @@ class budget_line(orm.Model):
                     ['budget_item_id'], 10)
     _alloc_store_tuple = (_get_alloc_rel, [], 20)
 
-    def _get_budget_currency_amount(self, cr, uid, ids, name, arg, context=None):
+    def _get_budget_currency_amount(self, cr, uid, ids, name, arg,
+                                    context=None):
         """ return the line's amount xchanged in the budget's currency """
         res = {}
         currency_obj = self.pool.get('res.currency')
@@ -122,7 +124,8 @@ class budget_line(orm.Model):
 
     def _fetch_budget_line_from_aal(self, cr, uid, ids, context=None):
         """
-        return the list of budget line to which belong the analytic.account.line `ids´
+        return the list of budget line to which belong the
+        analytic.account.line `ids´
         """
         account_ids = []
         budget_line_obj = self.pool.get('budget.line')
@@ -149,15 +152,17 @@ class budget_line(orm.Model):
                                           'Budget Item',
                                           required=True,
                                           ondelete='restrict'),
-        'allocation': fields.related('budget_item_id',
-                                     'allocation_id',
-                                     'name',
-                                     type='char',
-                                     string='Budget Item Allocation',
-                                     select=True,
-                                     readonly=True,
-                                     store={'budget.line': _store_tuple,
-                                            'budget.allocation.type': _alloc_store_tuple}),
+        'allocation': fields.related(
+            'budget_item_id',
+            'allocation_id',
+            'name',
+            type='char',
+            string='Budget Item Allocation',
+            select=True,
+            readonly=True,
+            store={
+                'budget.line': _store_tuple,
+                'budget.allocation.type': _alloc_store_tuple}),
         'name': fields.char('Description'),
         'amount': fields.float('Amount', required=True),
         'currency_id': fields.many2one('res.currency',
@@ -187,15 +192,16 @@ class budget_line(orm.Model):
             string="In Analytic Amount's Currency",
             store={
                 'budget.line': (lambda self, cr, uid, ids, c: ids,
-                    ['date_start',
-                     'date_stop',
-                     'analytic_account_id',
-                     'currency_id'], 10),
+                                ['amount',
+                                 'date_start',
+                                 'date_stop',
+                                 'analytic_account_id',
+                                 'currency_id'], 10),
                 'account.analytic.line': (_fetch_budget_line_from_aal,
-                    ['amount',
-                     'unit_amount',
-                     'date'], 10),
-                }
+                                          ['amount',
+                                           'unit_amount',
+                                           'date'], 10),
+            }
         ),
         'analytic_real_amount': fields.function(
             _get_analytic_amount,
@@ -205,15 +211,16 @@ class budget_line(orm.Model):
             string="Analytic Real Amount",
             store={
                 'budget.line': (lambda self, cr, uid, ids, c: ids,
-                    ['date_start',
-                     'date_stop',
-                     'analytic_account_id',
-                     'currency_id'], 10),
+                                ['amount',
+                                 'date_start',
+                                 'date_stop',
+                                 'analytic_account_id',
+                                 'currency_id'], 10),
                 'account.analytic.line': (_fetch_budget_line_from_aal,
-                    ['amount',
-                     'unit_amount',
-                     'date'], 10),
-                }
+                                          ['amount',
+                                           'unit_amount',
+                                           'date'], 10),
+            }
         ),
         'analytic_diff_amount': fields.function(
             _get_analytic_amount,
@@ -223,15 +230,16 @@ class budget_line(orm.Model):
             string="Analytic Difference Amount",
             store={
                 'budget.line': (lambda self, cr, uid, ids, c: ids,
-                    ['date_start',
-                     'date_stop',
-                     'analytic_account_id',
-                     'currency_id'], 10),
+                                ['amount',
+                                 'date_start',
+                                 'date_stop',
+                                 'analytic_account_id',
+                                 'currency_id'], 10),
                 'account.analytic.line': (_fetch_budget_line_from_aal,
-                    ['amount',
-                     'unit_amount',
-                     'date'], 10),
-                }
+                                          ['amount',
+                                           'unit_amount',
+                                           'date'], 10),
+            }
         ),
         'analytic_currency_id': fields.related('analytic_account_id',
                                                'currency_id',
@@ -242,7 +250,8 @@ class budget_line(orm.Model):
     }
 
     _defaults = {
-        'currency_id': lambda self, cr, uid, context: self._get_budget_version_currency(cr, uid, context)
+        'currency_id': lambda self, cr, uid, context:
+        self._get_budget_version_currency(cr, uid, context)
     }
 
     def _check_item_in_budget_tree(self, cr, uid, ids, context=None):
@@ -316,7 +325,8 @@ class budget_line(orm.Model):
         migrate_period('period_id', 'date_start')
         migrate_period('to_period_id', 'date_stop')
 
-    def onchange_analytic_account_id(self, cr, uid, ids, analytic_account_id, context=None):
+    def onchange_analytic_account_id(self, cr, uid, ids, analytic_account_id,
+                                     context=None):
         values = {}
         if analytic_account_id:
             aa_obj = self.pool.get('account.analytic.account')
@@ -362,8 +372,11 @@ class budget_line(orm.Model):
         Compute all numerical values.
 
         """
-        res = super(budget_line, self).read_group(cr, uid, domain, fields, groupby,
-                                                  offset, limit, context, orderby)
+        res = super(budget_line, self).read_group(
+            cr, uid, domain, fields, groupby,
+            offset, limit, context, orderby
+        )
+
         for result in res:
             self._sum_columns(cr, uid, result, orderby, context=context)
         # order_by looks like
