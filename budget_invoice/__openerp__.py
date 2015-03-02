@@ -20,7 +20,7 @@
 ##############################################################################
 {"name": "Create Invoice from Budget Lines",
  "version": "1.0",
- "author": "Camptocamp",
+ "author": "Camptocamp,Odoo Community Association (OCA)",
  "category": "Generic Modules/Accounting",
  "website": "http://camptocamp.com",
  "description": """
