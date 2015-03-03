@@ -55,21 +55,18 @@ class Lead(orm.Model):
 
             vals['budget_item_id'] = stage.budget_item_id.id or False
             team = self.browse(cr, uid, ids, context=context)[0].section_id
-            vals['analytic_account_id'] = (team
-                                           and team.analytic_account_id
-                                           and team.analytic_account_id.id
-                                           or False)
+            vals['analytic_account_id'] = (team.analytic_account_id.id
+                                           if team and team.analytic_account_id
+                                           else False)
 
         return super(Lead, self).write(cr, uid, ids, vals, context)
 
     def _get_default_analytic_account(self, cr, uid, context=None):
         user_obj = self.pool['res.users']
         team = user_obj.browse(cr, uid, uid, context).default_section_id
-        return (
-            team
-            and team.analytic_account_id
-            and team.analytic_account_id.id
-            or False)
+        return (team.analytic_account_id.id
+                if team and team.analytic_account_id
+                else False)
 
     _defaults = {
         'analytic_account_id': _get_default_analytic_account,
