@@ -62,6 +62,6 @@ well.
      "test/test_default_end_date.yml",
      "test/test_active_version.yml",
  ],
- "installable": False,
+ "installable": True,
  "application": True,
  }
