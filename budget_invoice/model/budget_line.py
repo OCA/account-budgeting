@@ -52,7 +52,7 @@ class BudgetLine(orm.Model):
                 uom_id=False,
                 qty=0,
                 name=budget_line.name or u'/',
-                type='in_invoice',
+                type='out_invoice',
                 partner_id=partner.id,
                 fposition_id=False,
                 price_unit=budget_line.amount,
