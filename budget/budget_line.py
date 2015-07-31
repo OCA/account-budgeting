@@ -366,7 +366,7 @@ class budget_line(orm.Model):
         return col_to_return
 
     def read_group(self, cr, uid, domain, fields, groupby, offset=0,
-                   limit=None, context=None, orderby=False):
+                   limit=None, context=None, orderby=False, lazy=True):
         """ Override in order to see useful values in group by allocation.
 
         Compute all numerical values.
@@ -374,7 +374,7 @@ class budget_line(orm.Model):
         """
         res = super(budget_line, self).read_group(
             cr, uid, domain, fields, groupby,
-            offset, limit, context, orderby
+            offset, limit, context, orderby, lazy
         )
 
         for result in res:
