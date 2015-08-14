@@ -55,8 +55,10 @@ well.
           "security/security.xml",
           "security/ir.model.access.csv"
           ],
- "test": [
+ "demo": [
      "test/setup_user.yml",
+ ],
+ "test": [
      "test/test_analytic_amount.yml",
      "test/test_duplicate_budget.yml",
      "test/test_default_end_date.yml",
