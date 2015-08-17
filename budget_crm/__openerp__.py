@@ -63,9 +63,9 @@ to the Opportunity are deleted. Existing lines are not affected.
              "crm",
              ],
  "demo": [
-    'demo/setup_team.yml',
-    'demo/setup_user.yml',
-    'demo/setup_budget.yml',
+     'demo/setup_team.yml',
+     'demo/setup_user.yml',
+     'demo/setup_budget.yml',
  ],
  "data": [
      'view/lead.xml',
