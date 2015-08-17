@@ -44,3 +44,11 @@
     amount: 300.0
     currency_id: base.EUR
     budget_version_id: budget_version_1
+-
+  !context
+    uid: 'base.user_root'
+-
+  I make it active
+-
+  !python {model: budget.version}: |
+    model.make_active(cr, uid, [ref('budget_version_1')], context)

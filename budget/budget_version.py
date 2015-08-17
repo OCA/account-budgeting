@@ -103,6 +103,9 @@ class BudgetVersion(orm.Model):
     def make_active(self, cr, uid, ids, context=None):
         for this_version in self.browse(cr, uid, ids, context):
             this_version.write({'is_active': True})
+            this_version.company_id.write(
+                {'budget_version_id': this_version.id}
+                )
 
             other_versions = self.search(cr, uid, [
                 ('budget_id', '=', this_version.budget_id.id),

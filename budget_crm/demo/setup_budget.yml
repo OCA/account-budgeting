@@ -1,0 +1,34 @@
+-
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'res_users_colette'
+-
+   Edit budget lines
+-
+  !record {model: budget.line, id: budget.budget_line_1}:
+    name: first budget line description
+    analytic_account_id: account.analytic_agrolait
+    budget_item_id: budget.budget_item_1
+    amount: 200.0
+    currency_id: base.EUR
+    budget_version_id: budget.budget_version_1
+-
+  and a second budget line without description
+-
+  !record {model: budget.line, id: budget_line_2}:
+    analytic_account_id: account.analytic_agrolait
+    budget_item_id: budget.budget_item_1
+    amount: 300.0
+    currency_id: base.EUR
+    budget_version_id: budget.budget_version_1
+-
+   I select for this file a user that is not admin
+-
+  !context
+    uid: 'base.user_root'
+-
+  I make version active
+-
+  !python {model: budget.version}: |
+    model.make_active(cr, uid, [ref('budget.budget_version_1')], context)

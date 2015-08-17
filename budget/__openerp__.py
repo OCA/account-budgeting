@@ -50,13 +50,14 @@ well.
              "account",
              "analytic_multicurrency",
              ],
- "data": ["budget_view.xml",
+ "data": ["security/security.xml",
+          "security/ir.model.access.csv",
+          "budget_view.xml",
           "analytic_view.xml",
-          "security/security.xml",
-          "security/ir.model.access.csv"
           ],
  "demo": [
      "test/setup_user.yml",
+     "demo/setup.yml",
  ],
  "test": [
      "test/test_analytic_amount.yml",

@@ -9,7 +9,7 @@
   !record {model: crm.lead, id: lead_2}:
     months: 2
     planned_revenue: 200.0
-    budget_item_id: budget_item_1
+    budget_item_id: budget.budget_item_1
 -
   I create a new wizard on the lame lead
 -
@@ -26,5 +26,5 @@
   attached to this lead.
 -
   !python {model: budget.version}: |
-    version = model.browse(cr, uid, ref('budget_version_1'), context)
+    version = model.browse(cr, uid, ref('budget.budget_version_1'), context)
     assert len(version.budget_line_ids) == 4, 'There should be 4 lines: 2 old and 2 new'

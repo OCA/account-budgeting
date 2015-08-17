@@ -1,0 +1,5 @@
+-
+  I configure an existing Sales Team
+-
+  !record {model: crm.case.section, id: sales_team.crm_case_section_1}:
+    analytic_account_id: account.analytic_commercial_marketing
