@@ -4,14 +4,9 @@
   !context
     uid: 'res_users_colette'
 -
-  I create a lead
--
-  !record {model: crm.lead, id: lead_1}:
-    name: "Sell something"
-    section_id: crm.crm_case_section_1
--
   I check that the Analytic Account comes from the lead's Team
 -
   !python {model: crm.lead}: |
-    lead = model.browse(cr, uid, ref('lead_1'))
+    lead = model.create(cr, uid, {'name': 'TTTT', "section_id": ref('sales_team.crm_case_section_1')}, context=context)
+    lead = model.browse(cr, uid, lead, context=context)
     assert lead.analytic_account_id.id == ref('account.analytic_commercial_marketing'), "Analytic Account of the lead does not come automatically from the team of the lead"

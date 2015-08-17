@@ -65,7 +65,6 @@ to the Opportunity are deleted. Existing lines are not affected.
  "demo": [
      'demo/setup_team.yml',
      'demo/setup_user.yml',
-     'demo/setup_budget.yml',
  ],
  "data": [
      'view/lead.xml',
@@ -78,7 +77,7 @@ to the Opportunity are deleted. Existing lines are not affected.
  "test": [
      # testing defaults if broken because of
      # https://github.com/odoo/odoo/issues/1885
-     # 'test/test_lead_defaults.yml',
+     'test/test_lead_defaults.yml',
      'test/test_crm_to_budget.yml',
      'test/test_update_crm_to_budget.yml',
  ],

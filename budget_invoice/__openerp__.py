@@ -41,7 +41,6 @@ account_budget module.
           ],
  "demo": [
      'demo/setup_user.yml',
-     'demo/setup_budget.yml',
  ],
  "test": [
      'test/test_invoice_budget_lines.yml',

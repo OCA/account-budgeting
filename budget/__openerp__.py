@@ -56,8 +56,7 @@ well.
           "analytic_view.xml",
           ],
  "demo": [
-     "test/setup_user.yml",
-     "demo/setup.yml",
+     "demo/setup_user.yml",
  ],
  "test": [
      "test/test_analytic_amount.yml",

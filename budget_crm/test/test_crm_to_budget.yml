@@ -4,10 +4,58 @@
   !context
     uid: 'res_users_colette'
 -
+  I first create a budget item
+-
+  !record {model: budget.item, id: budget_item_1}:
+    code: "BI1"
+    name: "Budget item 1"
+    account: [account.a_expense]
+-
+  I then create a budget
+-
+  !record {model: budget.budget, id: budget_test_1}:
+    name: "Budget test"
+    start_date: !eval "'%s-01-01' %(datetime.now().year)"
+    end_date: !eval "'%s-12-31' %(datetime.now().year)"
+    budget_item_id: budget_item_1
+-
+  and a budget version
+-
+  !record {model: budget.version, id: budget_version_1}:
+    name: "Budget Version 1"
+    budget_id: budget_test_1
+    currency_id: base.EUR
+-
+   Edit budget lines
+-
+  !record {model: budget.line, id: budget_line_1}:
+    name: first budget line description
+    analytic_account_id: account.analytic_agrolait
+    budget_item_id: budget_item_1
+    amount: 200.0
+    currency_id: base.EUR
+    budget_version_id: budget_version_1
+-
+  and a second budget line without description
+-
+  !record {model: budget.line, id: budget_line_2}:
+    analytic_account_id: account.analytic_agrolait
+    budget_item_id: budget_item_1
+    amount: 300.0
+    currency_id: base.EUR
+    budget_version_id: budget_version_1
+-
+   I select for this file a user that is not admin
+-
+  I make version active
+-
+  !python {model: budget.version}: |
+    model.make_active(cr, uid, [ref('budget_version_1')], context)
+-
   I set the active budget version in the company
 -
   !record {model: res.company, id: base.main_company}:
-    budget_version_id: budget.budget_version_1
+    budget_version_id: budget_version_1
 -
   I create a lead
 -
@@ -16,7 +64,7 @@
     date_deadline:  !eval "'%s-03-15' %(datetime.now().year)"
     months: 3
     planned_revenue: 150.0
-    budget_item_id: budget.budget_item_1
+    budget_item_id: budget_item_1
     analytic_account_id: account.analytic_commercial_marketing
 -
   I create a wizard
@@ -33,14 +81,14 @@
   I check that there are now 5 lines
 -
   !python {model: budget.version}: |
-    version = model.browse(cr, uid, ref('budget.budget_version_1'), context)
+    version = model.browse(cr, uid, ref('budget_version_1'), context)
     assert len(version.budget_line_ids) == 5, 'There should be 5 lines: 2 old and 3 new'
 -
   I check that there are 3 lines with amount 50.00 and the dates are good
 -
   !python {model: budget.line}: |
     budget_line_ids = model.search(cr, uid, [
-        ('budget_version_id', '=', ref('budget.budget_version_1')),
+        ('budget_version_id', '=', ref('budget_version_1')),
         ('amount', '=', 50.00),
     ], order='date_start')
     assert len(budget_line_ids) == 3, 'We should have 3 lines'
