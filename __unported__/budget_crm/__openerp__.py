@@ -80,5 +80,5 @@ to the Opportunity are deleted. Existing lines are not affected.
      'test/test_crm_to_budget.yml',
      'test/test_update_crm_to_budget.yml',
  ],
- "installable": True,
+ "installable": False,
  }

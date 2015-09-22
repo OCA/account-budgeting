@@ -44,5 +44,5 @@ account_budget module.
      'test/setup_budget.yml',
      'test/test_invoice_budget_lines.yml',
  ],
- "installable": True,
+ "installable": False,
  }
