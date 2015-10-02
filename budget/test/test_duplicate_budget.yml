@@ -1,5 +1,6 @@
 -
   I select for this file a user that is not admin
+  broken because https://github.com/odoo/odoo/issues/8107
 -
   !context
     uid: 'res_users_beth'
