@@ -18,14 +18,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp import models, api
 
 
-class BudgetVersion(orm.Model):
+class BudgetVersion(models.Model):
     _inherit = "budget.version"
 
-    def make_active(self, cr, uid, ids, context=None):
-        super(BudgetVersion, self).make_active(cr, uid, ids, context=context)
-        for this_version in self.browse(cr, uid, ids, context):
+    @api.multi
+    def make_active(self):
+        super(BudgetVersion, self).make_active()
+        for this_version in self:
             this_version.company_id.sudo().write(
                 {'budget_version_id': this_version.id})
