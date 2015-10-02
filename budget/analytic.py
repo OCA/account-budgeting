@@ -27,13 +27,6 @@ class account_analytic_account(orm.Model):
     _columns = {
         'budget_line_ids': fields.one2many('budget.line',
                                            'analytic_account_id',
-                                           string='Budget Lines'),
+                                           string='Budget Lines',
+                                           copy=False),
     }
-
-    def copy_data(self, cr, uid, id, default=None, context=None):
-        """Remove budget lines when copying analytic account"""
-        if default is None:
-            default = {}
-        default.setdefault('budget_line_ids', False)
-        return super(account_analytic_account, self).copy_data(
-            cr, uid, id, default=default, context=context)

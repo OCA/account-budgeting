@@ -2,7 +2,7 @@
   I select for this file a user that is not admin
 -
   !context
-    uid: 'res_users_beth'
+    uid: 'res_users_aurore'
 -
   I first create a budget item
 -
