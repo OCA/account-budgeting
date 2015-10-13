@@ -11,8 +11,8 @@ Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[budget](__unported__/budget/) | 1.1 (unported) | Multicurrency Analytic Budget
-[budget_crm](__unported__/budget_crm/) | 1.0 (unported) | Budget CRM
-[budget_invoice](__unported__/budget_invoice/) | 1.0 (unported) | Create Invoice from Budget Lines
+[budget](budget/) | 1.1 (unported) | Multicurrency Analytic Budget
+[budget_crm](budget_crm/) | 1.0 (unported) | Budget CRM
+[budget_invoice](budget_invoice/) | 1.0 (unported) | Create Invoice from Budget Lines
 
 [//]: # (end addons)
