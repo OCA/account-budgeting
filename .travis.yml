@@ -14,19 +14,24 @@ python:
 virtualenv:
   system_site_packages: true
 
+env:
+  global:
+  - VERSION="7.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
+  matrix:
+  - LINT_CHECK="1"
+  - TESTS="1" ODOO_REPO="odoo/odoo"
+  - TESTS="1" ODOO_REPO="OCA/OCB"
+
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git $HOME/maintainer-quality-tools
   - export PATH=$HOME/maintainer-quality-tools/travis:$PATH
-  - $HOME/maintainer-quality-tools/travis/travis_install_nightly 7.0
-  - pip install coveralls flake8
-  - git clone https://github.com/OCA/account-analytic -b 7.0 $HOME/account-analytic
+  - travis_install_nightly
 
 services:
   - postgresql
 
 script:
-  - travis_run_flake8
-  - travis_run_tests 7.0 $HOME/account-analytic
+  - travis_run_tests
 
 after_success:
-  coveralls
+  - travis_after_tests_success
