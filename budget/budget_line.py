@@ -277,9 +277,9 @@ class budget_line(orm.Model):
                     date <= budget.end_date)
         lines = self.browse(cr, uid, ids, context=context)
         return all(date_valid(line.date_start,
+                              line.budget_version_id.budget_id) and
+                   date_valid(line.date_stop,
                               line.budget_version_id.budget_id)
-                   and date_valid(line.date_stop,
-                                  line.budget_version_id.budget_id)
                    for line in lines)
 
     def _check_dates(self, cr, uid, ids, context=None):
