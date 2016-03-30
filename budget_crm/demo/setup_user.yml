@@ -1,0 +1,16 @@
+-
+  I create a first user to run the tests in this module
+-
+  !record {model: res.users, id: res_users_colette}:
+    name: Colette
+    login: colette
+    email: colette@colette.colette
+-
+  I add groups to this user
+-
+  !record {model: res.users, id: res_users_colette}:
+    default_section_id: sales_team.crm_case_section_1
+    groups_id:
+      - budget.group_budget_responsible
+      - base.group_sale_manager
+      - account.group_account_manager

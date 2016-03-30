@@ -3,7 +3,7 @@
   <data>
 
     <record model="ir.ui.view" id="team_form">
-      <field name="inherit_id" ref="crm.crm_case_section_view_form"/>
+      <field name="inherit_id" ref="sales_team.crm_case_section_view_form"/>
       <field name="model">crm.case.section</field>
       <field name="arch" type="xml">
         <notebook position="inside">

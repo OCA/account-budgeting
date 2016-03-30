@@ -50,18 +50,20 @@ well.
              "account",
              "analytic_multicurrency",
              ],
- "data": ["budget_view.xml",
+ "data": ["security/security.xml",
+          "security/ir.model.access.csv",
+          "budget_view.xml",
           "analytic_view.xml",
-          "security/security.xml",
-          "security/ir.model.access.csv"
           ],
+ "demo": [
+     "demo/setup_user.yml",
+ ],
  "test": [
-     "test/setup_user.yml",
      "test/test_analytic_amount.yml",
      "test/test_duplicate_budget.yml",
      "test/test_default_end_date.yml",
      "test/test_active_version.yml",
  ],
- "installable": False,
+ "installable": True,
  "application": True,
  }

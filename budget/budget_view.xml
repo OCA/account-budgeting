@@ -360,9 +360,9 @@
           <field name="name">budget item allocation type list</field>
           <field name="model">budget.allocation.type</field>
           <field name="arch" type="xml">
-            <list version="7.0" string="Allocation">
+            <tree string="Allocation">
               <field name="name"/>
-            </list>
+            </tree>
           </field>
         </record>
 
@@ -372,12 +372,14 @@
 
         <!-- ACTION: click on Financial Management/Budgets/Budgets -->
         <record model="ir.actions.act_window" id="open_budget_list">
+            <field name="name">Open Budget List</field>
             <field name="res_model">budget.budget</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
         <!-- ACTION: click on Financial Management/Budgets/Budgets versions -->
         <record model="ir.actions.act_window" id="open_budget_version_list">
+            <field name="name">Open Budget Versions</field>
             <field name="res_model">budget.version</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -385,6 +387,7 @@
         </record>
         <!-- ACTION: click on Financial Management/Budgets/Budgets lines -->
         <record model="ir.actions.act_window" id="open_budget_lines_list">
+            <field name="name">Open Budget Lines</field>
             <field name="res_model">budget.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -393,6 +396,7 @@
         </record>
         <!-- ACTION: click on Financial Management/Budgets/Budgets items -->
         <record model="ir.actions.act_window" id="open_budget_items_list">
+            <field name="name">Open Budget Items</field>
             <field name="res_model">budget.item</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>

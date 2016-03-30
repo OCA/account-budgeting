@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Leonardo Pistone
-#    Copyright 2014 Camptocamp SA
+#    Author: Arnaud Wüst, Leonardo Pistone
+#    Copyright 2009-2014 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,10 +18,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp import models, api
 
-from . import team
-from . import stage
-from . import company
-from . import budget_line
-from . import lead
-from . import budget_version
+
+class BudgetVersion(models.Model):
+    _inherit = "budget.version"
+
+    @api.multi
+    def make_active(self):
+        super(BudgetVersion, self).make_active()
+        for this_version in self:
+            this_version.company_id.sudo().write(
+                {'budget_version_id': this_version.id})

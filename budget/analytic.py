@@ -27,5 +27,6 @@ class account_analytic_account(orm.Model):
     _columns = {
         'budget_line_ids': fields.one2many('budget.line',
                                            'analytic_account_id',
-                                           string='Budget Lines'),
+                                           string='Budget Lines',
+                                           copy=False),
     }

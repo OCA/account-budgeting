@@ -46,10 +46,34 @@ class BudgetLine(orm.Model):
         invoice_id = invoice_obj.create(cr, uid, invoice_data, context)
 
         for budget_line in self.browse(cr, uid, ids, context):
+            product_onchange_result = invoice_line_obj.product_id_change(
+                cr, uid, [],
+                product.id,
+                uom_id=False,
+                qty=0,
+                name=budget_line.name or u'/',
+                type='in_invoice',
+                partner_id=partner.id,
+                fposition_id=False,
+                price_unit=budget_line.amount,
+                currency_id=False,
+                context=context,
+                company_id=(budget_line.analytic_account_id and
+                            budget_line.analytic_account_id.company_id.id or
+                            None),
+            )
             invoice_line_data = {
+                'product_id': product.id,
+                'account_id': product_onchange_result['value']['account_id'],
                 'name': budget_line.name or u'/',
+                'uos_id': product_onchange_result['value']['uos_id'],
                 'price_unit': budget_line.amount,
                 'invoice_id': invoice_id,
+                'invoice_line_tax_id': [
+                    (6, 0,
+                     product_onchange_result['value']['invoice_line_tax_id'])
+                ],
+                'account_analytic_id': budget_line.analytic_account_id.id,
             }
             invoice_line_obj.create(cr, uid, invoice_line_data, context)
 

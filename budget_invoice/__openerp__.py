@@ -39,9 +39,10 @@ account_budget module.
              ],
  "data": ['wizard/budget_line_invoice_create.xml',
           ],
+ "demo": [
+     'demo/setup_user.yml',
+ ],
  "test": [
-     'test/setup_user.yml',
-     'test/setup_budget.yml',
      'test/test_invoice_budget_lines.yml',
  ],
  "installable": False,
