@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-31 00:45+0000\n"
-"PO-Revision-Date: 2016-04-01 04:49+0000\n"
+"POT-Creation-Date: 2016-05-06 22:08+0000\n"
+"PO-Revision-Date: 2016-05-07 07:09+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -280,6 +280,13 @@ msgid "Difference"
 msgstr "Razlika"
 
 #. module: budget
+#: field:budget.allocation.type,display_name:0
+#: field:budget.budget,display_name:0 field:budget.item,display_name:0
+#: field:budget.line,display_name:0 field:budget.version,display_name:0
+msgid "Display Name"
+msgstr "Prikazni naziv"
+
+#. module: budget
 #: help:budget.version,is_active:0
 msgid "Each budget can have no more than one active version."
 msgstr "Dovoljena je le ena aktivna verzija za vsak proračun."
@@ -346,6 +353,13 @@ msgstr "Nevidno"
 #: view:budget.line:budget.view_budget_line_search
 msgid "Item"
 msgstr "Postavka"
+
+#. module: budget
+#: field:budget.allocation.type,__last_update:0
+#: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
+#: field:budget.line,__last_update:0 field:budget.version,__last_update:0
+msgid "Last Modified on"
+msgstr "Zadnjič spremenjeno"
 
 #. module: budget
 #: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-31 00:45+0000\n"
-"PO-Revision-Date: 2016-03-30 10:33+0000\n"
+"POT-Creation-Date: 2016-05-06 22:08+0000\n"
+"PO-Revision-Date: 2016-05-06 22:08+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -279,6 +279,13 @@ msgid "Difference"
 msgstr "Difference"
 
 #. module: budget
+#: field:budget.allocation.type,display_name:0
+#: field:budget.budget,display_name:0 field:budget.item,display_name:0
+#: field:budget.line,display_name:0 field:budget.version,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: budget
 #: help:budget.version,is_active:0
 msgid "Each budget can have no more than one active version."
 msgstr "Each budget can have no more than one active version."
@@ -345,6 +352,13 @@ msgstr "Invisible"
 #: view:budget.line:budget.view_budget_line_search
 msgid "Item"
 msgstr "Item"
+
+#. module: budget
+#: field:budget.allocation.type,__last_update:0
+#: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
+#: field:budget.line,__last_update:0 field:budget.version,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
 
 #. module: budget
 #: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0
