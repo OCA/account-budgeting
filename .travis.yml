@@ -16,7 +16,7 @@ addons:
 
 env:
   global:
-  - VERSION="9.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
+  - VERSION="10.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
   - TRANSIFEX_USER='transbot@odoo-community.org'
   - secure: QhZpJTRe5e/mw0gY0LPcPHM0kdR68sGEqaOnPaRuL44Ni04OZ4iZkVLybHdc+L7qKMN2rzFSkMqgpBA/B9zUasKC8P8ezdM8VU6ZgFt/5J364vERm27ys0CDMgpcuRlE8ciubMLsgh7PkTLNqG63AsZCEwObgvd0dT24HsCjxvA=
 
