@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-23 22:30+0000\n"
-"PO-Revision-Date: 2016-09-30 09:38+0000\n"
+"POT-Creation-Date: 2016-09-30 22:28+0000\n"
+"PO-Revision-Date: 2016-10-05 06:30+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,active:0 field:budget.item,active:0
 msgid "Active"
-msgstr ""
+msgstr "Aktivan"
 
 #. module: budget
 #: field:budget.budget,active_version_id:0
@@ -245,13 +245,13 @@ msgstr ""
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Kreirao"
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Kreirano"
 
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
@@ -365,14 +365,14 @@ msgstr "Zadnje modificirano"
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Zadnji ažurirao"
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
 #: field:budget.item,write_date:0 field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Zadnje ažurirano"
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
