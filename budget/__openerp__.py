@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {"name": "Multicurrency Analytic Budget",
- "version": "1.1",
+ "version": "8.0.1.1.0",
  "author": "Camptocamp,Odoo Community Association (OCA)",
  "category": "Generic Modules/Accounting",
  "website": "http://camptocamp.com",
