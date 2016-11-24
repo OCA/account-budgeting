@@ -10,12 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2016-09-30 22:28+0000\n"
 "PO-Revision-Date: 2016-11-22 12:24+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Russian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/ru/)\n"
+"Language-Team: French (Canada) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: fr_CA\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -271,7 +271,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr "Описание"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -383,7 +383,7 @@ msgstr ""
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
 #: field:budget.item,name:0
 msgid "Name"
-msgstr "Название"
+msgstr "Nom"
 
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0

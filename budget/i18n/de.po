@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-30 22:28+0000\n"
-"PO-Revision-Date: 2016-10-04 09:43+0000\n"
+"PO-Revision-Date: 2016-11-22 16:24+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -293,7 +293,7 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,end_date:0 field:budget.line,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Enddatum"
 
 #. module: budget
 #: constraint:budget.item:0
@@ -508,7 +508,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,type:0
 msgid "Type"
-msgstr ""
+msgstr "Art"
 
 #. module: budget
 #: field:budget.version,user_id:0

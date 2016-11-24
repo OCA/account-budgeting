@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-30 22:28+0000\n"
-"PO-Revision-Date: 2016-11-22 12:24+0000\n"
+"PO-Revision-Date: 2016-10-11 09:51+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Russian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/ru/)\n"
+"Language-Team: Ukrainian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -245,13 +245,13 @@ msgstr ""
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Створив"
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Дата створення"
 
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
@@ -271,7 +271,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr "Описание"
+msgstr "Опис"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -283,7 +283,7 @@ msgstr ""
 #: field:budget.budget,display_name:0 field:budget.item,display_name:0
 #: field:budget.line,display_name:0 field:budget.version,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Назва для відображення"
 
 #. module: budget
 #: help:budget.version,is_active:0
@@ -326,7 +326,7 @@ msgstr ""
 #: field:budget.allocation.type,id:0 field:budget.budget,id:0
 #: field:budget.item,id:0 field:budget.line,id:0 field:budget.version,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: budget
 #: field:budget.line,analytic_amount:0
@@ -358,21 +358,21 @@ msgstr ""
 #: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
 #: field:budget.line,__last_update:0 field:budget.version,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Остання модифікація"
 
 #. module: budget
 #: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Востаннє оновив"
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
 #: field:budget.item,write_date:0 field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Останнє оновлення"
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
@@ -383,7 +383,7 @@ msgstr ""
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
 #: field:budget.item,name:0
 msgid "Name"
-msgstr "Название"
+msgstr "Name"
 
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
@@ -447,7 +447,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Послідовність"
 
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
@@ -508,7 +508,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,type:0
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #. module: budget
 #: field:budget.version,user_id:0

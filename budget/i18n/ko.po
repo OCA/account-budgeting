@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-30 22:28+0000\n"
-"PO-Revision-Date: 2016-11-22 12:24+0000\n"
+"PO-Revision-Date: 2016-10-11 09:51+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Russian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/ru/)\n"
+"Language-Team: Korean (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -245,13 +245,13 @@ msgstr ""
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "작성자"
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "작성일"
 
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
@@ -271,7 +271,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr "Описание"
+msgstr "설명"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -283,7 +283,7 @@ msgstr ""
 #: field:budget.budget,display_name:0 field:budget.item,display_name:0
 #: field:budget.line,display_name:0 field:budget.version,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "표시 이름"
 
 #. module: budget
 #: help:budget.version,is_active:0
@@ -326,7 +326,7 @@ msgstr ""
 #: field:budget.allocation.type,id:0 field:budget.budget,id:0
 #: field:budget.item,id:0 field:budget.line,id:0 field:budget.version,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: budget
 #: field:budget.line,analytic_amount:0
@@ -358,21 +358,21 @@ msgstr ""
 #: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
 #: field:budget.line,__last_update:0 field:budget.version,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "최근 수정"
 
 #. module: budget
 #: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "최근 갱신한 사람"
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
 #: field:budget.item,write_date:0 field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "최근 갱신 날짜"
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
@@ -383,7 +383,7 @@ msgstr ""
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
 #: field:budget.item,name:0
 msgid "Name"
-msgstr "Название"
+msgstr "이름"
 
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
@@ -447,7 +447,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "순서"
 
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
@@ -508,7 +508,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,type:0
 msgid "Type"
-msgstr ""
+msgstr "유형"
 
 #. module: budget
 #: field:budget.version,user_id:0
