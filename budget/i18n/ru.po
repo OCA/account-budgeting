@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-30 22:28+0000\n"
-"PO-Revision-Date: 2016-11-22 12:24+0000\n"
+"POT-Creation-Date: 2016-12-23 23:06+0000\n"
+"PO-Revision-Date: 2016-12-27 08:22+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Russian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -245,13 +245,13 @@ msgstr ""
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Создано"
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Создан"
 
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
@@ -326,7 +326,7 @@ msgstr ""
 #: field:budget.allocation.type,id:0 field:budget.budget,id:0
 #: field:budget.item,id:0 field:budget.line,id:0 field:budget.version,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: budget
 #: field:budget.line,analytic_amount:0
@@ -365,14 +365,14 @@ msgstr ""
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Последний раз обновлено"
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
 #: field:budget.item,write_date:0 field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Последний раз обновлено"
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
