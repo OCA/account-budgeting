@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-30 22:28+0000\n"
-"PO-Revision-Date: 2016-10-11 09:53+0000\n"
+"POT-Creation-Date: 2017-01-13 23:06+0000\n"
+"PO-Revision-Date: 2017-01-19 20:16+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -233,7 +233,7 @@ msgstr ""
 #. module: budget
 #: field:budget.version,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Företag"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
@@ -256,7 +256,7 @@ msgstr "Skapad den"
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Skapad"
 
 #. module: budget
 #: field:budget.line,currency_id:0 field:budget.version,currency_id:0
@@ -315,7 +315,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Group By..."
-msgstr ""
+msgstr "Gruppera efter..."
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -388,7 +388,7 @@ msgstr "Namn"
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
