@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-30 22:28+0000\n"
-"PO-Revision-Date: 2016-10-11 09:52+0000\n"
+"POT-Creation-Date: 2017-02-17 23:05+0000\n"
+"PO-Revision-Date: 2017-02-23 15:58+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Basque (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/eu/)\n"
 "MIME-Version: 1.0\n"
@@ -228,12 +228,12 @@ msgstr ""
 #: field:budget.budget,code:0 field:budget.item,code:0
 #: field:budget.version,code:0
 msgid "Code"
-msgstr ""
+msgstr "Kodea"
 
 #. module: budget
 #: field:budget.version,company_id:0
 msgid "Company"
-msgstr ""
+msgstr "Enpresa"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
