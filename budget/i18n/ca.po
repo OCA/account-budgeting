@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 23:06+0000\n"
-"PO-Revision-Date: 2017-01-17 19:17+0000\n"
+"POT-Creation-Date: 2017-03-10 23:07+0000\n"
+"PO-Revision-Date: 2017-03-14 18:29+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -238,7 +238,7 @@ msgstr "Empresa"
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Contract"
-msgstr ""
+msgstr "Contracte"
 
 #. module: budget
 #: field:budget.allocation.type,create_uid:0 field:budget.budget,create_uid:0
@@ -271,7 +271,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -315,7 +315,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Group By..."
-msgstr ""
+msgstr "Agrupat per..."
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
