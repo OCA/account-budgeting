@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-10 23:07+0000\n"
-"PO-Revision-Date: 2017-03-13 12:49+0000\n"
+"POT-Creation-Date: 2017-03-17 23:04+0000\n"
+"PO-Revision-Date: 2017-03-24 18:23+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -258,7 +258,7 @@ msgstr "Creado en"
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Fecha de creación"
 
 #. module: budget
 #: field:budget.line,currency_id:0 field:budget.version,currency_id:0
@@ -390,7 +390,7 @@ msgstr "Nombre"
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
