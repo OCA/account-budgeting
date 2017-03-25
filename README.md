@@ -7,6 +7,7 @@ OpenERP / Odoo Budgeting
 You'll find modules that manage budgeting.
 
 [//]: # (addons)
+
 Available addons
 ----------------
 addon | version | summary
