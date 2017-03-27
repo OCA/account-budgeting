@@ -14,6 +14,7 @@ addon | version | summary
 --- | --- | ---
 [budget](budget/) | 8.0.1.1.0 | Multicurrency Analytic Budget
 
+
 Unported addons
 ---------------
 addon | version | summary
