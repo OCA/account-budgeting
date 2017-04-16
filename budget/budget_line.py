@@ -389,5 +389,6 @@ class budget_line(orm.Model):
                 reverse = (order[0][1] == 'DESC')
             getter = [x[0] for x in order if x[0]]
             if getter:
-                res = sorted(res, key=itemgetter(*getter), reverse=reverse)
+                if all([x in res[0].keys() for x in getter]):
+                    res = sorted(res, key=itemgetter(*getter), reverse=reverse)
         return res
