@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-17 23:04+0000\n"
-"PO-Revision-Date: 2017-03-24 18:23+0000\n"
+"POT-Creation-Date: 2017-03-27 14:51+0000\n"
+"PO-Revision-Date: 2017-04-28 09:21+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -429,7 +429,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
 msgid "Periods"
-msgstr ""
+msgstr "Periodos"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list

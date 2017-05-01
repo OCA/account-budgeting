@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-24 23:06+0000\n"
-"PO-Revision-Date: 2017-03-03 07:08+0000\n"
+"POT-Creation-Date: 2017-03-27 14:51+0000\n"
+"PO-Revision-Date: 2017-04-19 01:22+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr ""
 #: field:budget.line,analytic_account_id:0
 #: model:ir.model,name:budget.model_account_analytic_account
 msgid "Analytic Account"
-msgstr ""
+msgstr "核算科目"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
@@ -217,7 +217,7 @@ msgstr ""
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Children"
-msgstr ""
+msgstr "子分类"
 
 #. module: budget
 #: field:budget.item,children_ids:0
@@ -238,7 +238,7 @@ msgstr "公司"
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Contract"
-msgstr ""
+msgstr "合同"
 
 #. module: budget
 #: field:budget.allocation.type,create_uid:0 field:budget.budget,create_uid:0

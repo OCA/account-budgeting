@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 23:06+0000\n"
-"PO-Revision-Date: 2017-01-19 20:17+0000\n"
+"POT-Creation-Date: 2017-03-27 14:51+0000\n"
+"PO-Revision-Date: 2017-04-25 22:47+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr ""
 #: field:budget.line,analytic_account_id:0
 #: model:ir.model,name:budget.model_account_analytic_account
 msgid "Analytic Account"
-msgstr ""
+msgstr "Conta analítica"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
