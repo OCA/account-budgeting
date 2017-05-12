@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-27 14:51+0000\n"
-"PO-Revision-Date: 2017-04-25 10:44+0000\n"
+"POT-Creation-Date: 2017-05-01 13:00+0000\n"
+"PO-Revision-Date: 2017-05-11 14:14+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Finnish (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -508,7 +508,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,type:0
 msgid "Type"
-msgstr ""
+msgstr "Tyyppi"
 
 #. module: budget
 #: field:budget.version,user_id:0
