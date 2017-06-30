@@ -3,58 +3,56 @@
 # * budget
 # 
 # Translators:
-# Eduardo Rodríguez Crespo <erocre@gmail.com>, 2016
-# Nicolas Cozzarin <nicolasjcozzarin@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-23 22:10+0000\n"
-"PO-Revision-Date: 2017-06-27 01:52+0000\n"
+"PO-Revision-Date: 2017-06-30 08:53+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/es/)\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
+"Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
 msgid "Account period"
-msgstr "Periodo de cuenta"
+msgstr ""
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Accounts"
-msgstr "Cuentas"
+msgstr ""
 
 #. module: budget
 #: field:budget.item,all_account_ids:0
 msgid "Accounts and Children Accounts"
-msgstr "Cuentas y Cuentas de niños"
+msgstr ""
 
 #. module: budget
 #: field:budget.budget,active:0 field:budget.item,active:0
 msgid "Active"
-msgstr "Activo"
+msgstr ""
 
 #. module: budget
 #: field:budget.budget,active_version_id:0
 msgid "Active Version"
-msgstr "Version activa"
+msgstr ""
 
 #. module: budget
 #: field:budget.version,is_active:0
 msgid "Active version"
-msgstr "Version activa"
+msgstr ""
 
 #. module: budget
 #: view:budget.allocation.type:budget.budget_item_allocation_type_form
 #: view:budget.allocation.type:budget.budget_item_allocation_type_list
 #: view:budget.line:budget.view_budget_line_search
 msgid "Allocation"
-msgstr "Asignacion"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form field:budget.line,amount:0
@@ -65,7 +63,7 @@ msgstr ""
 #: field:budget.line,analytic_account_id:0
 #: model:ir.model,name:budget.model_account_analytic_account
 msgid "Analytic Account"
-msgstr "Cuenta analítica"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
@@ -99,7 +97,7 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_budget
 #: model:ir.ui.menu,name:budget.menu_budget
 msgid "Budget"
-msgstr "Presupuesto"
+msgstr ""
 
 #. module: budget
 #: field:budget.line,budget_currency_id:0
@@ -230,12 +228,12 @@ msgstr ""
 #: field:budget.budget,code:0 field:budget.item,code:0
 #: field:budget.version,code:0
 msgid "Code"
-msgstr "Código"
+msgstr ""
 
 #. module: budget
 #: field:budget.version,company_id:0
 msgid "Company"
-msgstr "Compañía"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
@@ -247,23 +245,23 @@ msgstr ""
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr "Creado por"
+msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr "Creado en"
+msgstr ""
 
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
 msgid "Creation Date"
-msgstr "Fecha de creación"
+msgstr ""
 
 #. module: budget
 #: field:budget.line,currency_id:0 field:budget.version,currency_id:0
 msgid "Currency"
-msgstr "Moneda"
+msgstr ""
 
 #. module: budget
 #: constraint:budget.budget:0
@@ -273,7 +271,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr "Descripción"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -285,7 +283,7 @@ msgstr ""
 #: field:budget.budget,display_name:0 field:budget.item,display_name:0
 #: field:budget.line,display_name:0 field:budget.version,display_name:0
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr "Weergavenaam"
 
 #. module: budget
 #: help:budget.version,is_active:0
@@ -295,7 +293,7 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,end_date:0 field:budget.line,date_stop:0
 msgid "End Date"
-msgstr "Fecha Final"
+msgstr ""
 
 #. module: budget
 #: constraint:budget.item:0
@@ -317,7 +315,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Group By..."
-msgstr "Agrupar por..."
+msgstr ""
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -360,37 +358,37 @@ msgstr ""
 #: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
 #: field:budget.line,__last_update:0 field:budget.version,__last_update:0
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Laatst gewijzigd op"
 
 #. module: budget
 #: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
 #: field:budget.item,write_date:0 field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr "Última actualización el"
+msgstr ""
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
 msgid "Lines"
-msgstr "Líneas"
+msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
 #: field:budget.item,name:0
 msgid "Name"
-msgstr "Nombre"
+msgstr ""
 
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
 msgid "Normal"
-msgstr "Normal"
+msgstr ""
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -399,7 +397,7 @@ msgstr "Normal"
 #: view:budget.version:budget.view_budget_version_form
 #: field:budget.version,note:0
 msgid "Notes"
-msgstr "Notas"
+msgstr ""
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_items_list
@@ -429,7 +427,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
 msgid "Periods"
-msgstr "Periodos"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -444,17 +442,17 @@ msgstr ""
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Reports"
-msgstr "Reportes"
+msgstr ""
 
 #. module: budget
 #: field:budget.item,sequence:0
 msgid "Sequence"
-msgstr "Secuencia"
+msgstr ""
 
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
 msgid "Start Date"
-msgstr "Fecha de inicio"
+msgstr ""
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -510,7 +508,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,type:0
 msgid "Type"
-msgstr "Tipo"
+msgstr ""
 
 #. module: budget
 #: field:budget.version,user_id:0
@@ -520,7 +518,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Version"
-msgstr "Versión"
+msgstr ""
 
 #. module: budget
 #: field:budget.version,name:0
@@ -535,4 +533,4 @@ msgstr ""
 #. module: budget
 #: selection:budget.item,type:0
 msgid "View"
-msgstr "Vista"
+msgstr ""
