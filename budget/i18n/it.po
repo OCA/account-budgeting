@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-30 22:15+0000\n"
-"PO-Revision-Date: 2017-07-25 11:39+0000\n"
+"POT-Creation-Date: 2017-08-11 22:07+0000\n"
+"PO-Revision-Date: 2017-08-21 07:21+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Accounts"
-msgstr ""
+msgstr "Conti"
 
 #. module: budget
 #: field:budget.item,all_account_ids:0
@@ -57,7 +57,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form field:budget.line,amount:0
 msgid "Amount"
-msgstr ""
+msgstr "Importo"
 
 #. module: budget
 #: field:budget.line,analytic_account_id:0
@@ -261,7 +261,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,currency_id:0 field:budget.version,currency_id:0
 msgid "Currency"
-msgstr ""
+msgstr "Valuta"
 
 #. module: budget
 #: constraint:budget.budget:0
@@ -377,7 +377,7 @@ msgstr "Ultimo aggiornamento il"
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
 msgid "Lines"
-msgstr ""
+msgstr "Righe"
 
 #. module: budget
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
