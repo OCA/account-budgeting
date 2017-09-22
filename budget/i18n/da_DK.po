@@ -10,11 +10,11 @@ msgstr ""
 "POT-Creation-Date: 2017-09-01 22:21+0000\n"
 "PO-Revision-Date: 2017-09-22 21:53+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/nl_NL/)\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: nl_NL\n"
+"Language: da_DK\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: budget
@@ -245,13 +245,13 @@ msgstr ""
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr "Aangemaakt door"
+msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr "Aangemaakt op"
+msgstr ""
 
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
@@ -271,7 +271,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr "Omschrijving"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -283,7 +283,7 @@ msgstr ""
 #: field:budget.budget,display_name:0 field:budget.item,display_name:0
 #: field:budget.line,display_name:0 field:budget.version,display_name:0
 msgid "Display Name"
-msgstr "Weergavenaam"
+msgstr ""
 
 #. module: budget
 #: help:budget.version,is_active:0
@@ -326,7 +326,7 @@ msgstr ""
 #: field:budget.allocation.type,id:0 field:budget.budget,id:0
 #: field:budget.item,id:0 field:budget.line,id:0 field:budget.version,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: budget
 #: field:budget.line,analytic_amount:0
@@ -358,21 +358,21 @@ msgstr ""
 #: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
 #: field:budget.line,__last_update:0 field:budget.version,__last_update:0
 msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
+msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr "Laatst bijgewerkt door"
+msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
 #: field:budget.item,write_date:0 field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr "Laatst bijgewerkt op"
+msgstr ""
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
@@ -383,7 +383,7 @@ msgstr ""
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
 #: field:budget.item,name:0
 msgid "Name"
-msgstr "Naam"
+msgstr ""
 
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
@@ -447,7 +447,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Rækkefølge"
 
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
