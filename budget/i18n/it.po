@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-11 22:07+0000\n"
-"PO-Revision-Date: 2017-08-21 07:21+0000\n"
+"POT-Creation-Date: 2017-09-22 22:06+0000\n"
+"PO-Revision-Date: 2017-09-28 10:53+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -493,7 +493,7 @@ msgstr ""
 #: view:budget.line:budget.view_budget_line_list
 #: view:budget.version:budget.view_budget_version_form
 msgid "Total Amount"
-msgstr ""
+msgstr "Importo Totale"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
