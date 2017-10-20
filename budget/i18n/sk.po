@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-27 14:51+0000\n"
-"PO-Revision-Date: 2017-04-25 10:42+0000\n"
+"POT-Creation-Date: 2017-09-29 22:07+0000\n"
+"PO-Revision-Date: 2017-10-16 18:32+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Slovak (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -293,7 +293,7 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,end_date:0 field:budget.line,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Dátum ukončenia"
 
 #. module: budget
 #: constraint:budget.item:0
@@ -452,7 +452,7 @@ msgstr "Postupnosť"
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Počiatočný dátum"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
