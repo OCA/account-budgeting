@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-28 22:13+0000\n"
-"PO-Revision-Date: 2017-08-11 11:56+0000\n"
+"POT-Creation-Date: 2017-11-17 23:07+0000\n"
+"PO-Revision-Date: 2017-11-23 23:27+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/vi_VN/)\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,active:0 field:budget.item,active:0
 msgid "Active"
-msgstr ""
+msgstr "Có hiệu lực"
 
 #. module: budget
 #: field:budget.budget,active_version_id:0
