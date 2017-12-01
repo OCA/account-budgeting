@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-11 22:07+0000\n"
-"PO-Revision-Date: 2017-08-21 07:19+0000\n"
+"POT-Creation-Date: 2017-11-24 23:13+0000\n"
+"PO-Revision-Date: 2017-11-28 21:13+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -217,7 +217,7 @@ msgstr ""
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Children"
-msgstr ""
+msgstr "Kinderen"
 
 #. module: budget
 #: field:budget.item,children_ids:0
