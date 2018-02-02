@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-11 22:07+0000\n"
-"PO-Revision-Date: 2017-08-21 07:26+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"POT-Creation-Date: 2017-12-01 23:10+0000\n"
+"PO-Revision-Date: 2018-02-02 14:11+0000\n"
+"Last-Translator: Carlos Hormigo\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/ca_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,12 +40,12 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,active_version_id:0
 msgid "Active Version"
-msgstr ""
+msgstr "Versió en actiu"
 
 #. module: budget
 #: field:budget.version,is_active:0
 msgid "Active version"
-msgstr ""
+msgstr "Versió en actiu"
 
 #. module: budget
 #: view:budget.allocation.type:budget.budget_item_allocation_type_form
@@ -228,7 +228,7 @@ msgstr ""
 #: field:budget.budget,code:0 field:budget.item,code:0
 #: field:budget.version,code:0
 msgid "Code"
-msgstr ""
+msgstr "Codi"
 
 #. module: budget
 #: field:budget.version,company_id:0
@@ -245,18 +245,18 @@ msgstr ""
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Creat per"
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Creat a"
 
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Data de creació"
 
 #. module: budget
 #: field:budget.line,currency_id:0 field:budget.version,currency_id:0
@@ -266,24 +266,24 @@ msgstr ""
 #. module: budget
 #: constraint:budget.budget:0
 msgid "Date Error: The end date is defined before the start date"
-msgstr ""
+msgstr "Error en la data: La data final és anterior a la data d'inici"
 
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Difference"
-msgstr ""
+msgstr "Diferència"
 
 #. module: budget
 #: field:budget.allocation.type,display_name:0
 #: field:budget.budget,display_name:0 field:budget.item,display_name:0
 #: field:budget.line,display_name:0 field:budget.version,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Nom visible"
 
 #. module: budget
 #: help:budget.version,is_active:0
@@ -293,7 +293,7 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,end_date:0 field:budget.line,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Data final"
 
 #. module: budget
 #: constraint:budget.item:0
@@ -358,37 +358,37 @@ msgstr ""
 #: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
 #: field:budget.line,__last_update:0 field:budget.version,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Darrera modificació en"
 
 #. module: budget
 #: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Darrera actualització per"
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
 #: field:budget.item,write_date:0 field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Darrera actualització el"
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
 msgid "Lines"
-msgstr ""
+msgstr "Linies"
 
 #. module: budget
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
 #: field:budget.item,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -397,7 +397,7 @@ msgstr ""
 #: view:budget.version:budget.view_budget_version_form
 #: field:budget.version,note:0
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_items_list
@@ -432,7 +432,7 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Real"
-msgstr ""
+msgstr "Real"
 
 #. module: budget
 #: field:budget.version,ref_date:0
@@ -452,7 +452,7 @@ msgstr ""
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Data d'inici"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -469,7 +469,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,style:0
 msgid "Style"
-msgstr ""
+msgstr "Estil"
 
 #. module: budget
 #: constraint:budget.line:0
@@ -508,7 +508,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,type:0
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #. module: budget
 #: field:budget.version,user_id:0
@@ -518,17 +518,17 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Version"
-msgstr ""
+msgstr "Versió"
 
 #. module: budget
 #: field:budget.version,name:0
 msgid "Version Name"
-msgstr ""
+msgstr "Nom de la versió"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Versions"
-msgstr ""
+msgstr "Versions"
 
 #. module: budget
 #: selection:budget.item,type:0
