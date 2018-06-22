@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * budget
-# 
+#
 # Translators:
 # Christophe CHAUVET <christophe.chauvet@gmail.com>, 2016
 # Hosni Hadj Taher <hajhasni@hotmail.com>, 2017
@@ -12,11 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2017-02-17 23:05+0000\n"
 "PO-Revision-Date: 2017-02-21 13:47+0000\n"
 "Last-Translator: Hosni Hadj Taher <hajhasni@hotmail.com>\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-account-budgeting-8-0/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/oca/OCA-account-"
+"budgeting-8-0/language/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: budget
@@ -268,7 +269,8 @@ msgstr "Devise"
 #. module: budget
 #: constraint:budget.budget:0
 msgid "Date Error: The end date is defined before the start date"
-msgstr "Erreur de date: La date de fin ne peut être antérieure à la date de début"
+msgstr ""
+"Erreur de date: La date de fin ne peut être antérieure à la date de début"
 
 #. module: budget
 #: field:budget.line,name:0
@@ -300,7 +302,9 @@ msgstr "Date Fin"
 #. module: budget
 #: constraint:budget.item:0
 msgid "Error ! You can not create recursive budget items structure."
-msgstr "Erreur ! Vous ne pouvez pas créer des structures de poste budgétaire de manière récurcive (boucle circulaire)."
+msgstr ""
+"Erreur ! Vous ne pouvez pas créer des structures de poste budgétaire de "
+"manière récurcive (boucle circulaire)."
 
 #. module: budget
 #: field:budget.item,account:0
@@ -312,7 +316,9 @@ msgstr "Compte"
 msgid ""
 "For item of type 'view', you can define a method of calculation based on "
 "other items."
-msgstr "Pour les postes budgétaire de type 'vue', vous pouvez définir une méthode de calcul basée sur d'autres postes. "
+msgstr ""
+"Pour les postes budgétaire de type 'vue', vous pouvez définir une méthode de "
+"calcul basée sur d'autres postes. "
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
@@ -459,9 +465,15 @@ msgstr "Date Début"
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid ""
-"Start your formula by 'result = ' and use standard math symbols with items codes surrounded by %()f.\n"
-"                                    Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compliant."
-msgstr "Start your formula by 'result = ' and use standard math symbols with items codes surrounded by %()f.\n                                    Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compliant."
+"Start your formula by 'result = ' and use standard math symbols with items "
+"codes surrounded by %()f.\n"
+"                                    Items' codes will be replaced by items' "
+"values and then parsed in python code. So be sure to be python compliant."
+msgstr ""
+"Start your formula by 'result = ' and use standard math symbols with items "
+"codes surrounded by %()f.\n"
+"                                    Items' codes will be replaced by items' "
+"values and then parsed in python code. So be sure to be python compliant."
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -483,12 +495,15 @@ msgstr "The end date must be after the start date."
 msgid ""
 "The line's bugdet item must belong to the budget structure defined in the "
 "budget"
-msgstr "Une ligne de budget doit appartenir à une structure définie pour ce budget"
+msgstr ""
+"Une ligne de budget doit appartenir à une structure définie pour ce budget"
 
 #. module: budget
 #: constraint:budget.line:0
 msgid "The line's dates must be within the budget's start and end dates"
-msgstr "Les dates au niveau des lignes de budget doivent être comprises dans les dates paramétrées au niveau du budget."
+msgstr ""
+"Les dates au niveau des lignes de budget doivent être comprises dans les "
+"dates paramétrées au niveau du budget."
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list

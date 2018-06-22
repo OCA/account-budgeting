@@ -1,22 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * budget
+#	* budget
 #
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: account-budgeting (8.0)\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-30 22:28+0000\n"
-"PO-Revision-Date: 2016-11-22 12:24+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Bulgarian (http://www.transifex.com/oca/OCA-account-"
-"budgeting-8-0/language/bg/)\n"
-"Language: bg\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -34,9 +29,10 @@ msgid "Accounts and Children Accounts"
 msgstr ""
 
 #. module: budget
-#: field:budget.budget,active:0 field:budget.item,active:0
+#: field:budget.budget,active:0
+#: field:budget.item,active:0
 msgid "Active"
-msgstr "Активен"
+msgstr ""
 
 #. module: budget
 #: field:budget.budget,active_version_id:0
@@ -56,7 +52,8 @@ msgid "Allocation"
 msgstr ""
 
 #. module: budget
-#: view:budget.line:budget.view_budget_line_form field:budget.line,amount:0
+#: view:budget.line:budget.view_budget_line_form
+#: field:budget.line,amount:0
 msgid "Amount"
 msgstr ""
 
@@ -226,15 +223,16 @@ msgid "Children Items"
 msgstr ""
 
 #. module: budget
-#: field:budget.budget,code:0 field:budget.item,code:0
+#: field:budget.budget,code:0
+#: field:budget.item,code:0
 #: field:budget.version,code:0
 msgid "Code"
-msgstr "Код"
+msgstr ""
 
 #. module: budget
 #: field:budget.version,company_id:0
 msgid "Company"
-msgstr "Фирма"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
@@ -242,25 +240,30 @@ msgid "Contract"
 msgstr ""
 
 #. module: budget
-#: field:budget.allocation.type,create_uid:0 field:budget.budget,create_uid:0
-#: field:budget.item,create_uid:0 field:budget.line,create_uid:0
+#: field:budget.allocation.type,create_uid:0
+#: field:budget.budget,create_uid:0
+#: field:budget.item,create_uid:0
+#: field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr "Създадено от"
+msgstr ""
 
 #. module: budget
-#: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
+#: field:budget.allocation.type,create_date:0
+#: field:budget.item,create_date:0
 #: field:budget.line,create_date:0
 msgid "Created on"
-msgstr "Създадено на"
+msgstr ""
 
 #. module: budget
-#: field:budget.budget,create_date:0 field:budget.version,create_date:0
+#: field:budget.budget,create_date:0
+#: field:budget.version,create_date:0
 msgid "Creation Date"
 msgstr ""
 
 #. module: budget
-#: field:budget.line,currency_id:0 field:budget.version,currency_id:0
+#: field:budget.line,currency_id:0
+#: field:budget.version,currency_id:0
 msgid "Currency"
 msgstr ""
 
@@ -272,7 +275,7 @@ msgstr ""
 #. module: budget
 #: field:budget.line,name:0
 msgid "Description"
-msgstr "Описание"
+msgstr ""
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -281,10 +284,12 @@ msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,display_name:0
-#: field:budget.budget,display_name:0 field:budget.item,display_name:0
-#: field:budget.line,display_name:0 field:budget.version,display_name:0
+#: field:budget.budget,display_name:0
+#: field:budget.item,display_name:0
+#: field:budget.line,display_name:0
+#: field:budget.version,display_name:0
 msgid "Display Name"
-msgstr "Име за Показване"
+msgstr ""
 
 #. module: budget
 #: help:budget.version,is_active:0
@@ -292,7 +297,8 @@ msgid "Each budget can have no more than one active version."
 msgstr ""
 
 #. module: budget
-#: field:budget.budget,end_date:0 field:budget.line,date_stop:0
+#: field:budget.budget,end_date:0
+#: field:budget.line,date_stop:0
 msgid "End Date"
 msgstr ""
 
@@ -308,9 +314,7 @@ msgstr ""
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
-msgid ""
-"For item of type 'view', you can define a method of calculation based on "
-"other items."
+msgid "For item of type 'view', you can define a method of calculation based on other items."
 msgstr ""
 
 #. module: budget
@@ -324,10 +328,13 @@ msgid "Here is a simple example: result = (%(ebitda)f + %(ebit)f) * 2"
 msgstr ""
 
 #. module: budget
-#: field:budget.allocation.type,id:0 field:budget.budget,id:0
-#: field:budget.item,id:0 field:budget.line,id:0 field:budget.version,id:0
+#: field:budget.allocation.type,id:0
+#: field:budget.budget,id:0
+#: field:budget.item,id:0
+#: field:budget.line,id:0
+#: field:budget.version,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: budget
 #: field:budget.line,analytic_amount:0
@@ -356,24 +363,30 @@ msgstr ""
 
 #. module: budget
 #: field:budget.allocation.type,__last_update:0
-#: field:budget.budget,__last_update:0 field:budget.item,__last_update:0
-#: field:budget.line,__last_update:0 field:budget.version,__last_update:0
+#: field:budget.budget,__last_update:0
+#: field:budget.item,__last_update:0
+#: field:budget.line,__last_update:0
+#: field:budget.version,__last_update:0
 msgid "Last Modified on"
-msgstr "Последно обновено на"
+msgstr ""
 
 #. module: budget
-#: field:budget.allocation.type,write_uid:0 field:budget.budget,write_uid:0
-#: field:budget.item,write_uid:0 field:budget.line,write_uid:0
+#: field:budget.allocation.type,write_uid:0
+#: field:budget.budget,write_uid:0
+#: field:budget.item,write_uid:0
+#: field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr "Последно обновено от"
+msgstr ""
 
 #. module: budget
-#: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
-#: field:budget.item,write_date:0 field:budget.line,write_date:0
+#: field:budget.allocation.type,write_date:0
+#: field:budget.budget,write_date:0
+#: field:budget.item,write_date:0
+#: field:budget.line,write_date:0
 #: field:budget.version,write_date:0
 msgid "Last Updated on"
-msgstr "Последно обновено на"
+msgstr ""
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
@@ -381,19 +394,22 @@ msgid "Lines"
 msgstr ""
 
 #. module: budget
-#: field:budget.allocation.type,name:0 field:budget.budget,name:0
+#: field:budget.allocation.type,name:0
+#: field:budget.budget,name:0
 #: field:budget.item,name:0
 msgid "Name"
-msgstr "Име"
+msgstr ""
 
 #. module: budget
-#: selection:budget.item,style:0 selection:budget.item,type:0
+#: selection:budget.item,style:0
+#: selection:budget.item,type:0
 msgid "Normal"
 msgstr ""
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
-#: field:budget.budget,note:0 view:budget.item:budget.view_budget_item_form
+#: field:budget.budget,note:0
+#: view:budget.item:budget.view_budget_item_form
 #: field:budget.item,note:0
 #: view:budget.version:budget.view_budget_version_form
 #: field:budget.version,note:0
@@ -448,20 +464,18 @@ msgstr ""
 #. module: budget
 #: field:budget.item,sequence:0
 msgid "Sequence"
-msgstr "Последователност"
+msgstr ""
 
 #. module: budget
-#: field:budget.budget,start_date:0 field:budget.line,date_start:0
+#: field:budget.budget,start_date:0
+#: field:budget.line,date_start:0
 msgid "Start Date"
 msgstr ""
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
-msgid ""
-"Start your formula by 'result = ' and use standard math symbols with items "
-"codes surrounded by %()f.\n"
-"                                    Items' codes will be replaced by items' "
-"values and then parsed in python code. So be sure to be python compliant."
+msgid "Start your formula by 'result = ' and use standard math symbols with items codes surrounded by %()f.\n"
+"                                    Items' codes will be replaced by items' values and then parsed in python code. So be sure to be python compliant."
 msgstr ""
 
 #. module: budget
@@ -481,9 +495,7 @@ msgstr ""
 
 #. module: budget
 #: constraint:budget.line:0
-msgid ""
-"The line's bugdet item must belong to the budget structure defined in the "
-"budget"
+msgid "The line's bugdet item must belong to the budget structure defined in the budget"
 msgstr ""
 
 #. module: budget
@@ -511,7 +523,7 @@ msgstr ""
 #. module: budget
 #: field:budget.item,type:0
 msgid "Type"
-msgstr "Вид"
+msgstr ""
 
 #. module: budget
 #: field:budget.version,user_id:0
@@ -537,3 +549,4 @@ msgstr ""
 #: selection:budget.item,type:0
 msgid "View"
 msgstr ""
+
