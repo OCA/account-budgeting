@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-17 23:07+0000\n"
-"PO-Revision-Date: 2019-02-01 13:03+0000\n"
+"PO-Revision-Date: 2019-02-06 11:50+0000\n"
 "Last-Translator: Marta Vázquez Rodríguez <vazrodmar@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/gl/)\n"
@@ -80,17 +80,17 @@ msgstr "Moneda analítica"
 #. module: budget
 #: field:budget.line,analytic_diff_amount:0
 msgid "Analytic Difference Amount"
-msgstr ""
+msgstr "Importe diferenza analítica"
 
 #. module: budget
 #: field:budget.line,analytic_real_amount:0
 msgid "Analytic Real Amount"
-msgstr ""
+msgstr "Importe Real Analítica"
 
 #. module: budget
 #: selection:budget.item,style:0
 msgid "Bold"
-msgstr ""
+msgstr "Negriña"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -99,17 +99,17 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_budget
 #: model:ir.ui.menu,name:budget.menu_budget
 msgid "Budget"
-msgstr ""
+msgstr "Presuposto"
 
 #. module: budget
 #: field:budget.line,budget_currency_id:0
 msgid "Budget Currency"
-msgstr ""
+msgstr "Moeda Orzamento"
 
 #. module: budget
 #: field:budget.line,budget_item_id:0
 msgid "Budget Item"
-msgstr ""
+msgstr "Partida Orzamento"
 
 #. module: budget
 #: field:budget.line,allocation:0
