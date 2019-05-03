@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-11 22:07+0000\n"
-"PO-Revision-Date: 2019-05-02 21:02+0000\n"
+"PO-Revision-Date: 2019-05-03 16:02+0000\n"
 "Last-Translator: Katerina Katapodi <katerinakatapodi@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/es/)\n"
@@ -504,24 +504,24 @@ msgstr ""
 #. module: budget
 #: constraint:budget.line:0
 msgid "The line's dates must be within the budget's start and end dates"
-msgstr ""
+msgstr "Las fechas de linea deben empezar entre las fechas de empezo y fin"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 #: view:budget.line:budget.view_budget_line_list
 #: view:budget.version:budget.view_budget_version_form
 msgid "Total Amount"
-msgstr ""
+msgstr "Montante Total"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Total Difference"
-msgstr ""
+msgstr "Diferencia Total"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Total Real Amount"
-msgstr ""
+msgstr "Montante Real Total"
 
 #. module: budget
 #: field:budget.item,type:0
@@ -531,7 +531,7 @@ msgstr "Tipo"
 #. module: budget
 #: field:budget.version,user_id:0
 msgid "User In Charge"
-msgstr ""
+msgstr "Usuario Competente"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
@@ -541,12 +541,12 @@ msgstr "Versión"
 #. module: budget
 #: field:budget.version,name:0
 msgid "Version Name"
-msgstr ""
+msgstr "Nombre de Version"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Versions"
-msgstr ""
+msgstr "Versiones"
 
 #. module: budget
 #: selection:budget.item,type:0
