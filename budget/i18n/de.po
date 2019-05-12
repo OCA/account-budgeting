@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-11 22:07+0000\n"
-"PO-Revision-Date: 2018-11-21 21:13+0000\n"
-"Last-Translator: Peter Schubert <psc@saco.info>\n"
+"PO-Revision-Date: 2019-05-12 21:42+0000\n"
+"Last-Translator: Katerina Katapodi <katerinakatapodi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/de/)\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.2.2\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -54,7 +54,7 @@ msgstr "Aktive Version"
 #: view:budget.allocation.type:budget.budget_item_allocation_type_list
 #: view:budget.line:budget.view_budget_line_search
 msgid "Allocation"
-msgstr ""
+msgstr "Angeben"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form field:budget.line,amount:0
@@ -70,27 +70,27 @@ msgstr "Kostenstelle"
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
 msgid "Analytic Amounts"
-msgstr ""
+msgstr "Analytische Kontos"
 
 #. module: budget
 #: field:budget.line,analytic_currency_id:0
 msgid "Analytic Currency"
-msgstr ""
+msgstr "Analytische Waehrung"
 
 #. module: budget
 #: field:budget.line,analytic_diff_amount:0
 msgid "Analytic Difference Amount"
-msgstr ""
+msgstr "Analytische Verschiedene Menge"
 
 #. module: budget
 #: field:budget.line,analytic_real_amount:0
 msgid "Analytic Real Amount"
-msgstr ""
+msgstr "Analytische Wirkliche Menge"
 
 #. module: budget
 #: selection:budget.item,style:0
 msgid "Bold"
-msgstr ""
+msgstr "Bold"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -99,27 +99,27 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_budget
 #: model:ir.ui.menu,name:budget.menu_budget
 msgid "Budget"
-msgstr ""
+msgstr "Budget"
 
 #. module: budget
 #: field:budget.line,budget_currency_id:0
 msgid "Budget Currency"
-msgstr ""
+msgstr "Waehrung von Budget"
 
 #. module: budget
 #: field:budget.line,budget_item_id:0
 msgid "Budget Item"
-msgstr ""
+msgstr "Objekt von Budget"
 
 #. module: budget
 #: field:budget.line,allocation:0
 msgid "Budget Item Allocation"
-msgstr ""
+msgstr "Bestimmung von Objekt von Budget"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Budget Item's name"
-msgstr ""
+msgstr "Name von Objekt von Budget"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -127,17 +127,17 @@ msgstr ""
 #: view:budget.item:budget.view_budget_item_search
 #: model:ir.ui.menu,name:budget.menu_budget_item_list
 msgid "Budget Items"
-msgstr ""
+msgstr "Objekte von Budget"
 
 #. module: budget
 #: model:ir.ui.menu,name:budget.menu_budget_item_tree
 msgid "Budget Items Structures"
-msgstr ""
+msgstr "Struktur von Objekten von Budget"
 
 #. module: budget
 #: field:budget.item,allocation_id:0
 msgid "Budget Line Allocation Type"
-msgstr ""
+msgstr "Typ von Bestimmung von Linie von Budget"
 
 #. module: budget
 #: field:account.analytic.account,budget_line_ids:0
@@ -151,23 +151,23 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_line
 #: model:ir.ui.menu,name:budget.menu_budget_line_list
 msgid "Budget Lines"
-msgstr ""
+msgstr "Linien von Budget"
 
 #. module: budget
 #: model:res.groups,name:budget.group_budget_responsible
 msgid "Budget Responsible"
-msgstr ""
+msgstr "Budget, Spezifisch"
 
 #. module: budget
 #: field:budget.budget,budget_item_id:0
 #: view:budget.item:budget.view_budget_item_tree
 msgid "Budget Structure"
-msgstr ""
+msgstr "Struktur von Budget"
 
 #. module: budget
 #: field:budget.line,budget_version_id:0
 msgid "Budget Version"
-msgstr ""
+msgstr "Budget, Ausgebung"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -177,17 +177,17 @@ msgstr ""
 #: view:budget.version:budget.view_budget_version_search
 #: model:ir.ui.menu,name:budget.menu_budget_version_list
 msgid "Budget Versions"
-msgstr ""
+msgstr "Budget, Ausstellungen"
 
 #. module: budget
 #: model:ir.model,name:budget.model_budget_item
 msgid "Budget items"
-msgstr ""
+msgstr "Objekte von Budget"
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
 msgid "Budget version's name"
-msgstr ""
+msgstr "Name von Version von Budget"
 
 #. module: budget
 #: model:ir.model,name:budget.model_budget_version
@@ -197,24 +197,24 @@ msgstr ""
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Budget's name"
-msgstr ""
+msgstr "Name von Budget"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_list
 #: model:ir.ui.menu,name:budget.menu_budget_list
 msgid "Budgets"
-msgstr ""
+msgstr "Budgeten"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_items_tree
 msgid "Budgets Structure"
-msgstr ""
+msgstr "Struktur von Budgeten"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 #: field:budget.item,calculation:0
 msgid "Calculation"
-msgstr ""
+msgstr "Rechnung"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -224,7 +224,7 @@ msgstr "Kinder"
 #. module: budget
 #: field:budget.item,children_ids:0
 msgid "Children Items"
-msgstr ""
+msgstr "Kontos von Kindern"
 
 #. module: budget
 #: field:budget.budget,code:0 field:budget.item,code:0
@@ -269,6 +269,7 @@ msgstr "Währung"
 #: constraint:budget.budget:0
 msgid "Date Error: The end date is defined before the start date"
 msgstr ""
+"Fehler von Daten: Das Datum von Ende wird vor dem Datum von Anfang bestimmt"
 
 #. module: budget
 #: field:budget.line,name:0
@@ -278,7 +279,7 @@ msgstr "Beschreibung"
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Difference"
-msgstr ""
+msgstr "Unterschied"
 
 #. module: budget
 #: field:budget.allocation.type,display_name:0
@@ -290,7 +291,7 @@ msgstr "Anzeigename"
 #. module: budget
 #: help:budget.version,is_active:0
 msgid "Each budget can have no more than one active version."
-msgstr ""
+msgstr "Jeder Budget kann nicht mehr als eine aktive Version haben."
 
 #. module: budget
 #: field:budget.budget,end_date:0 field:budget.line,date_stop:0
@@ -301,11 +302,13 @@ msgstr "Enddatum"
 #: constraint:budget.item:0
 msgid "Error ! You can not create recursive budget items structure."
 msgstr ""
+"Fehler! Sie koennen keine Struktur von wiederholten Objekten von Budget "
+"schaffen."
 
 #. module: budget
 #: field:budget.item,account:0
 msgid "Financial Account"
-msgstr ""
+msgstr "Finanz Konto"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -313,6 +316,8 @@ msgid ""
 "For item of type 'view', you can define a method of calculation based on "
 "other items."
 msgstr ""
+"Zum Objekt von Typ ''Sicht'', kann man eine Methode von Rechnung aufgrund "
+"anderen Objekten schaffen."
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
@@ -322,7 +327,7 @@ msgstr "Gruppiere nach..."
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Here is a simple example: result = (%(ebitda)f + %(ebit)f) * 2"
-msgstr ""
+msgstr "Hier steht e einfaches Beispiel:  Resultat=(%ebitda)f  +% (ebit)f*2"
 
 #. module: budget
 #: field:budget.allocation.type,id:0 field:budget.budget,id:0
@@ -333,7 +338,7 @@ msgstr "ID"
 #. module: budget
 #: field:budget.line,analytic_amount:0
 msgid "In Analytic Amount's Currency"
-msgstr ""
+msgstr "In der Waehrung von Analytischer Menge"
 
 #. module: budget
 #: field:budget.line,budget_amount:0
