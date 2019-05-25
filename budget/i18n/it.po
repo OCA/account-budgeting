@@ -8,20 +8,21 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-22 22:06+0000\n"
-"PO-Revision-Date: 2017-09-28 10:53+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Italian (http://www.transifex.com/oca/OCA-account-"
-"budgeting-8-0/language/it/)\n"
+"PO-Revision-Date: 2019-05-25 20:19+0000\n"
+"Last-Translator: Katerina Katapodi <katerinakatapodi@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/oca/"
+"OCA-account-budgeting-8-0/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.6.1\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
 msgid "Account period"
-msgstr ""
+msgstr "Periodo di tempo del conto"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -31,7 +32,7 @@ msgstr "Conti"
 #. module: budget
 #: field:budget.item,all_account_ids:0
 msgid "Accounts and Children Accounts"
-msgstr ""
+msgstr "Conti e Conti di Ragazzi"
 
 #. module: budget
 #: field:budget.budget,active:0 field:budget.item,active:0
@@ -41,19 +42,19 @@ msgstr "Attivo"
 #. module: budget
 #: field:budget.budget,active_version_id:0
 msgid "Active Version"
-msgstr ""
+msgstr "Versione Attiva"
 
 #. module: budget
 #: field:budget.version,is_active:0
 msgid "Active version"
-msgstr ""
+msgstr "Versione Attiva"
 
 #. module: budget
 #: view:budget.allocation.type:budget.budget_item_allocation_type_form
 #: view:budget.allocation.type:budget.budget_item_allocation_type_list
 #: view:budget.line:budget.view_budget_line_search
 msgid "Allocation"
-msgstr ""
+msgstr "Allocazione"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form field:budget.line,amount:0
@@ -64,27 +65,27 @@ msgstr "Importo"
 #: field:budget.line,analytic_account_id:0
 #: model:ir.model,name:budget.model_account_analytic_account
 msgid "Analytic Account"
-msgstr ""
+msgstr "Conto Analitico"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
 msgid "Analytic Amounts"
-msgstr ""
+msgstr "Soldi Analitici"
 
 #. module: budget
 #: field:budget.line,analytic_currency_id:0
 msgid "Analytic Currency"
-msgstr ""
+msgstr "Moneta Analitica"
 
 #. module: budget
 #: field:budget.line,analytic_diff_amount:0
 msgid "Analytic Difference Amount"
-msgstr ""
+msgstr "Conti di Differenza Analitici"
 
 #. module: budget
 #: field:budget.line,analytic_real_amount:0
 msgid "Analytic Real Amount"
-msgstr ""
+msgstr "Soldi Veri Analitici"
 
 #. module: budget
 #: selection:budget.item,style:0
@@ -98,27 +99,27 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_budget
 #: model:ir.ui.menu,name:budget.menu_budget
 msgid "Budget"
-msgstr ""
+msgstr "Presopposto"
 
 #. module: budget
 #: field:budget.line,budget_currency_id:0
 msgid "Budget Currency"
-msgstr ""
+msgstr "Moneta di Presopposto"
 
 #. module: budget
 #: field:budget.line,budget_item_id:0
 msgid "Budget Item"
-msgstr ""
+msgstr "Oggetto del Presopposto"
 
 #. module: budget
 #: field:budget.line,allocation:0
 msgid "Budget Item Allocation"
-msgstr ""
+msgstr "Oggetto di Presopposto Allocato"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Budget Item's name"
-msgstr ""
+msgstr "Nome d'Oggetto di Presopposto"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -126,17 +127,17 @@ msgstr ""
 #: view:budget.item:budget.view_budget_item_search
 #: model:ir.ui.menu,name:budget.menu_budget_item_list
 msgid "Budget Items"
-msgstr ""
+msgstr "Oggetti del Presopposto"
 
 #. module: budget
 #: model:ir.ui.menu,name:budget.menu_budget_item_tree
 msgid "Budget Items Structures"
-msgstr ""
+msgstr "Struttura d'Oggetti di Presopposti"
 
 #. module: budget
 #: field:budget.item,allocation_id:0
 msgid "Budget Line Allocation Type"
-msgstr ""
+msgstr "Tipo d'Allocazione di Linia del Presopposto"
 
 #. module: budget
 #: field:account.analytic.account,budget_line_ids:0
@@ -150,18 +151,18 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_line
 #: model:ir.ui.menu,name:budget.menu_budget_line_list
 msgid "Budget Lines"
-msgstr ""
+msgstr "Linie di Presopposti"
 
 #. module: budget
 #: model:res.groups,name:budget.group_budget_responsible
 msgid "Budget Responsible"
-msgstr ""
+msgstr "Presopposto Relativo"
 
 #. module: budget
 #: field:budget.budget,budget_item_id:0
 #: view:budget.item:budget.view_budget_item_tree
 msgid "Budget Structure"
-msgstr ""
+msgstr "Struttura del Presopposto"
 
 #. module: budget
 #: field:budget.line,budget_version_id:0
