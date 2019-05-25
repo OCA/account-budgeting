@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-11 22:07+0000\n"
-"PO-Revision-Date: 2019-05-12 21:42+0000\n"
+"PO-Revision-Date: 2019-05-25 20:19+0000\n"
 "Last-Translator: Katerina Katapodi <katerinakatapodi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/de/)\n"
@@ -192,7 +192,7 @@ msgstr "Name von Version von Budget"
 #. module: budget
 #: model:ir.model,name:budget.model_budget_version
 msgid "Budget versions"
-msgstr ""
+msgstr "Versionen von Budget"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -343,22 +343,22 @@ msgstr "In der Waehrung von Analytischer Menge"
 #. module: budget
 #: field:budget.line,budget_amount:0
 msgid "In Budget's Currency"
-msgstr ""
+msgstr "In der Waehrung von Budget"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "In Contract's Currency"
-msgstr ""
+msgstr "In der Waehrung von Vertrag"
 
 #. module: budget
 #: selection:budget.item,style:0
 msgid "Invisible"
-msgstr ""
+msgstr "Unsiehbar"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Item"
-msgstr ""
+msgstr "Objekt"
 
 #. module: budget
 #: field:budget.allocation.type,__last_update:0
@@ -409,42 +409,42 @@ msgstr "Hinweise"
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_items_list
 msgid "Open Budget Items"
-msgstr ""
+msgstr "Objekte von Budget Oeffnen"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_lines_list
 msgid "Open Budget Lines"
-msgstr ""
+msgstr "Linien von Budget Oeffnen"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_list
 msgid "Open Budget List"
-msgstr ""
+msgstr "Liste von Budget Oeffnen"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_version_list
 msgid "Open Budget Versions"
-msgstr ""
+msgstr "Versionen von Budget Oeffnen"
 
 #. module: budget
 #: field:budget.item,parent_id:0
 msgid "Parent Item"
-msgstr ""
+msgstr "Objekt in Zusammenhang"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
 msgid "Periods"
-msgstr ""
+msgstr "Zeit Perioden"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Real"
-msgstr ""
+msgstr "Wirklich"
 
 #. module: budget
 #: field:budget.version,ref_date:0
 msgid "Reference Date"
-msgstr ""
+msgstr "Datum von Referenz"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -459,7 +459,7 @@ msgstr "Reihenfolge"
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Datum von Anfang"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -469,21 +469,26 @@ msgid ""
 "                                    Items' codes will be replaced by items' "
 "values and then parsed in python code. So be sure to be python compliant."
 msgstr ""
+"Ihre Forme nach 'Resultat anfangen= ' und bestimmte Zeichen von Mathematik "
+"gebrauchen, die, Koden von Objekten von %()f,  umfangen.\n"
+"...........................Die Koden von Objekten' werden mit Werten von "
+"Objekten ersetzt werden, die in den Python Kode eingeschrieben sind. So, "
+"seien Sie sicher dass Sie Python dazu anwenden."
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Starting and Ending Dates"
-msgstr ""
+msgstr "Daten von Anfang und Ende"
 
 #. module: budget
 #: field:budget.item,style:0
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
 #. module: budget
 #: constraint:budget.line:0
 msgid "The end date must be after the start date."
-msgstr ""
+msgstr "Das Datum von Ende muss nach dem Datum von Anfang sein."
 
 #. module: budget
 #: constraint:budget.line:0
@@ -491,11 +496,14 @@ msgid ""
 "The line's bugdet item must belong to the budget structure defined in the "
 "budget"
 msgstr ""
+"Das Objekt der Linie von Budget gehoert der Struktur von Budget, im Budget "
+"bestimmt"
 
 #. module: budget
 #: constraint:budget.line:0
 msgid "The line's dates must be within the budget's start and end dates"
 msgstr ""
+"Die Daten von Linie sollen inzwischen der Daten von Anfang und Ende sein"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
@@ -507,12 +515,12 @@ msgstr "Gesamtbetrag"
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Total Difference"
-msgstr ""
+msgstr "Totaler Unterschied"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Total Real Amount"
-msgstr ""
+msgstr "Gesamte Wirkliche Menge"
 
 #. module: budget
 #: field:budget.item,type:0
@@ -522,7 +530,7 @@ msgstr "Art"
 #. module: budget
 #: field:budget.version,user_id:0
 msgid "User In Charge"
-msgstr ""
+msgstr "Beauftragter Benutzer"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
@@ -532,12 +540,12 @@ msgstr "Version"
 #. module: budget
 #: field:budget.version,name:0
 msgid "Version Name"
-msgstr ""
+msgstr "Name von Version"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Versions"
-msgstr ""
+msgstr "Versionen"
 
 #. module: budget
 #: selection:budget.item,type:0
