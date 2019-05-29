@@ -6,7 +6,7 @@
     "version": "11.0.1.0.0",
     "category": "Accounting",
     "license": "AGPL-3",
-    "author": "AvanzOSC",
+    "author": "AvanzOSC","OCA"
     "website": "http://www.avanzosc.es",
     "depends": [
         "account_budget",
