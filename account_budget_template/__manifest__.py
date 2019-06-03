@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC,"
               "Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/account-financial-tools",
+    "website": "https://github.com/OCA/account-budgeting",
     "depends": [
         "account_budget",
     ],
