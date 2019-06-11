@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
 
-from_string = fields.Date.from_string
+to_date = fields.Date.to_date
 to_string = fields.Date.to_string
 
 _periodicityMonths = {
@@ -37,8 +37,9 @@ class CrossoveredBudget(models.Model):
 
     def action_create_period(self):
         budget_line_obj = self.env['crossovered.budget.lines']
-        for budget in self.filtered(lambda b: not b.crossovered_budget_line and
-                                    b.state == 'draft'):
+        for budget in self.filtered(
+                lambda b: not b.crossovered_budget_line_ids and
+                b.state == 'draft'):
             budget_posts = budget.budget_tmpl_id.budget_post_ids
             periodicity_months = False
             if budget.budget_tmpl_id.periodicity:
@@ -57,11 +58,11 @@ class CrossoveredBudget(models.Model):
                     })
                     budget_line_obj.create(vals)
             else:
-                ds = from_string(budget.date_from)
-                while to_string(ds) < budget.date_to:
+                ds = to_date(budget.date_from)
+                while ds < to_date(budget.date_to):
                     de = ds + relativedelta(months=periodicity_months, days=-1)
-                    if to_string(de) > budget.date_to:
-                        de = from_string(budget.date_to)
+                    if de > to_date(budget.date_to):
+                        de = to_date(budget.date_to)
                     for budget_post in budget_posts:
                         vals.update({
                             'date_from': to_string(ds),
