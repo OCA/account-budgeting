@@ -1,38 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_budget_oca
+#	* account_budget_oca
 #
-# Translators:
-# Daniel Forslund <daniel.forslund@gmail.com>, 2017
-# Haojun Zou <apollo_zhj@msn.com>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# Anders Wallenquist <anders.wallenquist@vertel.se>, 2017
-# Martin Wilderoth <martin.wilderoth@linserv.se>, 2017
-# Patrik Lermon <patrik.lermon@gmail.com>, 2017
-# Kristoffer Grundström <kristoffer.grundstrom1983@gmail.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2017-10-10 11:34+0000\n"
-"Last-Translator: Kristoffer Grundström <kristoffer.grundstrom1983@gmail."
-"com>, 2017\n"
-"Language-Team: Swedish (https://www.transifex.com/odoo/teams/41243/sv/)\n"
-"Language: sv\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
-msgid ""
-"A budget is a forecast of your company's income and/or expenses\n"
-"                expected for a period in the future. A budget is defined on "
-"some\n"
-"                financial accounts and/or analytic accounts (that may "
-"represent\n"
+msgid "A budget is a forecast of your company's income and/or expenses\n"
+"                expected for a period in the future. A budget is defined on some\n"
+"                financial accounts and/or analytic accounts (that may represent\n"
 "                projects, departments, categories of products, etc.)"
 msgstr ""
 
@@ -40,7 +25,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
 msgid "Accounts"
-msgstr "Konton"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
@@ -56,12 +41,12 @@ msgstr ""
 #: model:ir.model,name:account_budget_oca.model_account_analytic_account
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__analytic_account_id
 msgid "Analytic Account"
-msgstr "Objektkonto"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Approve"
-msgstr "Godkänn"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
@@ -75,7 +60,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Budget"
-msgstr "Budget"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
@@ -86,7 +71,7 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
 msgid "Budget Line"
-msgstr "Budgetrad"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_analytic_account__crossovered_budget_line_ids
@@ -97,7 +82,7 @@ msgstr "Budgetrad"
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Budget Lines"
-msgstr "Budgetrader"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__name
@@ -112,14 +97,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
 msgid "Budgetary Position"
-msgstr "Finanser"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.actions.act_window,name:account_budget_oca.open_budget_post_form
 #: model:ir.ui.menu,name:account_budget_oca.menu_budget_post_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
 msgid "Budgetary Positions"
-msgstr "Offentliga finanserna"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
@@ -127,29 +112,26 @@ msgstr "Offentliga finanserna"
 #: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
 #: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
 msgid "Budgets"
-msgstr "Budgetar"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
-msgid ""
-"By keeping track of where your money goes, you may be less\n"
+msgid "By keeping track of where your money goes, you may be less\n"
 "                likely to overspend, and more likely to meet your financial\n"
-"                goals. Forecast a budget by detailing the expected revenue "
-"per\n"
-"                analytic account and monitor its evolution based on the "
-"actuals\n"
+"                goals. Forecast a budget by detailing the expected revenue per\n"
+"                analytic account and monitor its evolution based on the actuals\n"
 "                realised during that period."
 msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Cancel Budget"
-msgstr "Avbryt budget"
+msgstr ""
 
 #. module: account_budget_oca
 #: selection:crossovered.budget,state:0
 msgid "Cancelled"
-msgstr "Avbruten"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
@@ -161,61 +143,61 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__company_id
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__company_id
 msgid "Company"
-msgstr "Bolag"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Confirm"
-msgstr "Bekräfta"
+msgstr ""
 
 #. module: account_budget_oca
 #: selection:crossovered.budget,state:0
 msgid "Confirmed"
-msgstr "Bekräftad"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_uid
 msgid "Created by"
-msgstr "Skapad av"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_date
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_date
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_date
 msgid "Created on"
-msgstr "Skapad den"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__display_name
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__display_name
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__display_name
 msgid "Display Name"
-msgstr "Visningsnamn"
+msgstr ""
 
 #. module: account_budget_oca
 #: selection:crossovered.budget,state:0
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Done"
-msgstr "Klar"
+msgstr ""
 
 #. module: account_budget_oca
 #: selection:crossovered.budget,state:0
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Draft"
-msgstr "Utkast"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Draft Budgets"
-msgstr "Preleminära budgetar"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_to
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_to
 msgid "End Date"
-msgstr "Slutdatum"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
@@ -237,7 +219,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__id
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
@@ -264,21 +246,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget____last_update
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines____last_update
 msgid "Last Modified on"
-msgstr "Senast redigerad"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_uid
 msgid "Last Updated by"
-msgstr "Senast uppdaterad av"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_date
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_date
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_date
 msgid "Last Updated on"
-msgstr "Senast uppdaterad"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
@@ -298,7 +280,7 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
 msgid "Name"
-msgstr "Namn"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
@@ -328,46 +310,46 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
 msgid "Paid Date"
-msgstr "Betaldatum"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Period"
-msgstr "Period"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Planned Amount"
-msgstr "Planerat belopp"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Practical Amount"
-msgstr "Praktiskt belopp"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Reset to Draft"
-msgstr "Återställ till preliminär"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__creating_user_id
 msgid "Responsible"
-msgstr "Ansvarig"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_from
 msgid "Start Date"
-msgstr "Startdatum"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__state
 msgid "Status"
-msgstr "Status"
+msgstr ""
 
 #. module: account_budget_oca
 #: code:addons/account_budget_oca/models/account_budget.py:42
@@ -380,17 +362,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Theoretical Amount"
-msgstr "Teoretiskt belopp"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "To Approve"
-msgstr "Att godkänna"
+msgstr ""
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "To Approve Budgets"
-msgstr "Att godkänna budgetar"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
@@ -405,7 +387,7 @@ msgstr ""
 #. module: account_budget_oca
 #: selection:crossovered.budget,state:0
 msgid "Validated"
-msgstr "Bekräftat"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
@@ -416,3 +398,4 @@ msgstr ""
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website communication history"
 msgstr ""
+
