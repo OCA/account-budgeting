@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_budget_template
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_budget_template
+#: model_terms:ir.ui.view,arch_db:account_budget_template.crossovered_budget_form_view
+msgid "Apply Template"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model,name:account_budget_template.model_crossovered_budget
+msgid "Budget"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model,name:account_budget_template.model_crossovered_budget_template
+msgid "Budget Template"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.actions.act_window,name:account_budget_template.crossovered_budget_template_action
+#: model:ir.ui.menu,name:account_budget_template.crossovered_budget_template_menuitem
+msgid "Budget Templates"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__budget_post_ids
+msgid "Budgetary Positions"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model,name:account_budget_template.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_res_config_settings__budget_templ_id
+msgid "Default Budget Template"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__id
+msgid "ID"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_budget_template
+#: selection:crossovered.budget.template,periodicity:0
+msgid "Monthly"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__name
+msgid "Name"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget_template__periodicity
+msgid "Periodicity"
+msgstr ""
+
+#. module: account_budget_template
+#: selection:crossovered.budget.template,periodicity:0
+msgid "Quaterly"
+msgstr ""
+
+#. module: account_budget_template
+#: selection:crossovered.budget.template,periodicity:0
+msgid "Six-monthly"
+msgstr ""
+
+#. module: account_budget_template
+#: model:ir.model.fields,field_description:account_budget_template.field_crossovered_budget__budget_tmpl_id
+msgid "Template"
+msgstr ""
+
+#. module: account_budget_template
+#: code:addons/account_budget_template/models/crossovered_budget_template.py:36
+#, python-format
+msgid "The budget template must have at least one budgetary position."
+msgstr ""
+
+#. module: account_budget_template
+#: selection:crossovered.budget.template,periodicity:0
+msgid "Yearly"
+msgstr ""
+
+#. module: account_budget_template
+#: model_terms:ir.ui.view,arch_db:account_budget_template.account_config_settings_form_view
+msgid "You can set a budget template by default."
+msgstr ""
+
