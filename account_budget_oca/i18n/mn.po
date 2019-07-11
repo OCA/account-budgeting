@@ -295,10 +295,6 @@ msgstr "Төсөвт дор хаяж нэг данс тохируулагдса�
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_theoretical_amount
 #: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Theoretical Amount"
-msgstr "Онолын дүн"
-
-#. module: account_budget_oca
 #: model:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Theoretical Amount"
 msgstr "Онолын дүн"

@@ -475,6 +475,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_theoretical_amount
 #: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model:ir.ui.view,arch_db:account_budget_oca.report_budget
+#: model:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Theoretical Amount"
 msgstr ""
 
@@ -482,11 +483,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_budget_oca.report_analyticaccountbudget
 #: model:ir.ui.view,arch_db:account_budget_oca.report_crossoveredbudget
 msgid "Theoretical Amt"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
-msgid "Theoretical Amount"
 msgstr ""
 
 #. module: account_budget_oca

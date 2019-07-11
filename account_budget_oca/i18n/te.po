@@ -480,12 +480,8 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.ui.view,arch_db:account_budget_oca.report_analyticaccountbudget
 #: model:ir.ui.view,arch_db:account_budget_oca.report_crossoveredbudget
-msgid "Theoretical Amt"
-msgstr ""
-
-#. module: account_budget_oca
 #: model:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
-msgid "Theoretical Amount"
+msgid "Theoretical Amt"
 msgstr ""
 
 #. module: account_budget_oca
