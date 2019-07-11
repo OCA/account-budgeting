@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo12-addon-account_budget_oca',
+        'odoo12-addon-account_budget_template',
     ],
     classifiers=[
         'Programming Language :: Python',
