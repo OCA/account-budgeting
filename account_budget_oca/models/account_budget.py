@@ -148,8 +148,8 @@ class CrossoveredBudgetLines(models.Model):
                     SELECT SUM(amount)
                     FROM account_analytic_line
                     WHERE account_id=%s
-                        AND (date between to_date(%s,'yyyy-mm-dd')
-                        AND to_date(%s,'yyyy-mm-dd'))
+                        AND (date between %s
+                        AND %s)
                         AND general_account_id=ANY(%s)""",
                     (line.analytic_account_id.id, date_from, date_to, acc_ids,)
                 )
