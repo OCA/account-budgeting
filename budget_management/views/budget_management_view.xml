@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="budget_management_view_tree">
+        <field name="name">budget.management.view.tree</field>
+        <field name="model">budget.management</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Management">
+                <field name="name"/>
+                <field name="bm_date_from"/>
+                <field name="bm_date_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budget_management_view_form">
+        <field name="name">budget.management.view.form</field>
+        <field name="model">budget.management</field>
+        <field name="arch" type="xml">
+            <form string="Budget Management">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_id" string="KPI Template"/>
+                        </group>
+                        <group>
+                            <field name="source_mis_budget_id"/>
+                            <field name="bm_date_from"/>
+                            <field name="bm_date_to"/>
+                        </group>
+                    </group>
+                    <group string="Budget Control">
+                        <group>
+                            <field name="account_control"/>
+                            <field name="expense_control"/>
+                        </group>
+                        <group>
+                            <field name="purchase_control"/>
+                            <field name="purchase_request_control"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="budget_management_action">
+        <field name="name">Budget Management</field>
+        <field name="view_id" ref="budget_management_view_tree"/>
+        <field name="res_model">budget.management</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="budget_management_conf_menu" parent="account.menu_finance_configuration" name="Budget management" sequence="100"/>
+    <menuitem id="budget_management_menu" parent="budget_management_conf_menu" name="Budget management" action="budget_management_action" sequence="10"/>
+
+</odoo>

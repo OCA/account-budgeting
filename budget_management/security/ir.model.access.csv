@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+manage_budget_management,manage_budget_management,model_budget_management,account.group_account_manager,1,1,1,1
+manage_budget_plan,manage_budget_plan,model_budget_plan,account.group_account_manager,1,1,1,1
