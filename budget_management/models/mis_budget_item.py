@@ -1,6 +1,6 @@
 # Copyright 2019 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import fields, models, api, _
+from odoo import fields, models, api
 
 
 class MisBudgetItem(models.Model):
@@ -12,6 +12,12 @@ class MisBudgetItem(models.Model):
         index=True,
     )
     active = fields.Boolean(
-        related='budget_plan_id.active',
+        compute='_compute_active',
         readonly=True,
     )
+
+    @api.multi
+    def _compute_active(self):
+        for rec in self:
+            rec.active = rec.budget_plan_id and \
+                rec.budget_plan_id.active or True

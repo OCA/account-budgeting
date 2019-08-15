@@ -17,10 +17,6 @@ class BudgetPlan(models.Model):
         required=True,
         ondelete='restrict',
     )
-    date_range_id = fields.Many2one(
-        comodel_name='date.range',
-        related='budget_id.date_range_id',
-    )
     date_from = fields.Date(
         related='budget_id.date_from',
     )
@@ -53,14 +49,29 @@ class BudgetPlan(models.Model):
         return plan
 
     @api.multi
+    def write(self, vals):
+        # if any field in header changes, reset the plan matrix
+        res = super().write(vals)
+        fixed_fields = ['budget_id',
+                        'plan_date_range_type_id',
+                        'analytic_account_id']
+        change_fields = list(vals.keys())
+        if list(set(fixed_fields) & set(change_fields)):
+            self.prepare_budget_plan_matrix()
+        return res
+
+    @api.multi
     def prepare_budget_plan_matrix(self):
         KpiExpression = self.env['mis.report.kpi.expression']
+        DateRange = self.env['date.range']
         for plan in self:
             plan.item_ids.unlink()
             if not plan.plan_date_range_type_id:
                 raise UserError(_('Please select range'))
-            date_ranges = plan.plan_date_range_type_id.date_range_ids
-            # TODO: date ranges only within budget date range
+            date_ranges = DateRange.search([
+                ('type_id', '=', plan.plan_date_range_type_id.id),
+                ('date_start', '>=', plan.date_from),
+                ('date_end', '<=', plan.date_to)])
             kpi_expressions = KpiExpression.search([
                 ('kpi_id.report_id', '=', plan.budget_id.report_id.id),
                 ('kpi_id.budgetable', '=', True)])

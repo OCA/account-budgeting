@@ -39,12 +39,14 @@
                     </group>
                     <group string="Budget Control">
                         <group>
-                            <field name="account_control"/>
-                            <field name="expense_control"/>
+                            <field name="account"/>
+                            <field name="purchase"/>
+                            <field name="expense"/>
                         </group>
                         <group>
-                            <field name="purchase_control"/>
-                            <field name="purchase_request_control"/>
+                            <field name="control_all_analytic_accounts"/>
+                            <field name="control_analytic_account_ids" widget="many2many_tags"
+                                attrs="{'invisible': [('control_all_analytic_accounts', '=', True)]}"/>
                         </group>
                     </group>
                 </sheet>
@@ -60,7 +62,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="budget_management_conf_menu" parent="account.menu_finance_configuration" name="Budget management" sequence="100"/>
-    <menuitem id="budget_management_menu" parent="budget_management_conf_menu" name="Budget management" action="budget_management_action" sequence="10"/>
+    <menuitem id="budget_management_conf_menu" parent="account.menu_finance_configuration" name="Budget Management" sequence="100"/>
+    <menuitem id="budget_management_menu" parent="budget_management_conf_menu" name="Budget Management" action="budget_management_action" sequence="10"/>
 
 </odoo>
