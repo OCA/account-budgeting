@@ -14,7 +14,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/budget_management_view.xml',
-        'views/budget_plan_view.xml',
+        'views/budget_control_view.xml',
     ],
     'installable': True,
     'maintainers': ['kittiu'],

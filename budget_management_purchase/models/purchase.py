@@ -6,15 +6,15 @@ from odoo import fields, models, api
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    budget_commit_ids = fields.One2many(
-        comodel_name='purchase.budget.commit',
+    budget_move_ids = fields.One2many(
+        comodel_name='purchase.budget.move',
         inverse_name='purchase_id',
-        string='Purchase Budget Commitment',
+        string='Purchase Budget Moves',
     )
 
     @api.multi
-    def recompute_budget_commit(self):
-        self.mapped('order_line').recompute_budget_commit()
+    def recompute_budget_move(self):
+        self.mapped('order_line').recompute_budget_move()
 
     @api.multi
     def _write(self, vals):
@@ -28,20 +28,29 @@ class PurchaseOrder(models.Model):
                 purchase_line.commit_budget()
         return res
 
+    @api.multi
+    def button_confirm(self):
+        res = super().button_confirm()
+        BudgetManagement = self.env['budget.management']
+        for doc in self:
+            BudgetManagement.check_budget(doc.budget_move_ids,
+                                          doc_type='purchase')
+        return res
+
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    budget_commit_ids = fields.One2many(
-        comodel_name='purchase.budget.commit',
+    budget_move_ids = fields.One2many(
+        comodel_name='purchase.budget.move',
         inverse_name='purchase_line_id',
-        string='Purchase Budget Commitment',
+        string='Purchase Budget Moves',
     )
 
     @api.multi
-    def recompute_budget_commit(self):
+    def recompute_budget_move(self):
         for purchase_line in self:
-            purchase_line.budget_commit_ids.unlink()
+            purchase_line.budget_move_ids.unlink()
             # Commit on purchase order
             purchase_line.commit_budget()
             # Uncommitted on invoice confirm
@@ -63,10 +72,10 @@ class PurchaseOrderLine(models.Model):
             date_order = self.order_id.date_order
             amount = self.currency_id._convert(
                 amount_currency, company.currency_id, company, date_order)
-            self.env['purchase.budget.commit'].create({
+            self.env['purchase.budget.move'].create({
                 'purchase_line_id': self.id,
                 'account_id': account.id,
-                'account_analytic_id': self.account_analytic_id.id,
+                'analytic_account_id': self.account_analytic_id.id,
                 'date': date_order,
                 'amount_currency': amount_currency,
                 'debit': not reverse and amount or 0.0,
@@ -75,4 +84,4 @@ class PurchaseOrderLine(models.Model):
                 'invoice_line_id': invoice_line_id,
                 })
         else:
-            self.budget_commit_ids.unlink()
+            self.budget_move_ids.unlink()

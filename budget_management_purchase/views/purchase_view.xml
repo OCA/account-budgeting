@@ -11,7 +11,7 @@
                     <div class="oe_read_only oe_right oe_button_box" name="buttons">
                         <button type="object" name="recompute_budget_commit" string="Recompute" icon="fa-refresh" />
                     </div>
-                    <field name="budget_commit_ids" readonly="1">
+                    <field name="budget_move_ids" readonly="1">
                         <tree>
                             <field name="purchase_line_id"/>
                             <field name="invoice_id"/>

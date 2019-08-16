@@ -6,8 +6,8 @@ from odoo import fields, models, api
 class MisBudgetItem(models.Model):
     _inherit = 'mis.budget.item'
 
-    budget_plan_id = fields.Many2one(
-        comodel_name='budget.plan',
+    budget_control_id = fields.Many2one(
+        comodel_name='budget.control',
         ondelete='cascade',
         index=True,
     )
@@ -19,5 +19,7 @@ class MisBudgetItem(models.Model):
     @api.multi
     def _compute_active(self):
         for rec in self:
-            rec.active = rec.budget_plan_id and \
-                rec.budget_plan_id.active or True
+            if rec.budget_control_id:
+                rec.active = rec.budget_control_id.active
+            else:
+                rec.active = True

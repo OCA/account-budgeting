@@ -11,6 +11,7 @@ class BudgetManagement(models.Model):
 
     report_instance_id = fields.Many2one(
         comodel_name='mis.report.instance',
+        string='Budget MIS Instance',
         readonly=False,
         ondelete='restrict',
         help="Automatically created report instance for this budget mgnt",
@@ -35,16 +36,6 @@ class BudgetManagement(models.Model):
         default=False,
         help="Control budget on journal document(s), i.e., vendor bill",
     )
-    purchase = fields.Boolean(
-        string='On Purchase',
-        default=False,
-        help="Control budget on purchase order confirmation",
-    )
-    expense = fields.Boolean(
-        string='On Expense',
-        default=False,
-        help="Control budget on expense confirmation",
-    )
     control_all_analytic_accounts = fields.Boolean(
         string='Control All Analytics',
         default=True,
@@ -59,7 +50,7 @@ class BudgetManagement(models.Model):
     def create(self, vals):
         # Auto create mis.budget, and link it to same kpi and date range
         mis_budget = self.env['mis.budget'].create({
-            'name': _('%s - Budget Plan') % vals['name'],
+            'name': _('%s - Budget') % vals['name'],
             'report_id': vals['report_id'],
             'date_from': vals['bm_date_from'],
             'date_to': vals['bm_date_to'],
@@ -98,13 +89,13 @@ class BudgetManagement(models.Model):
             budget_mgnt._create_report_instance_period()
 
     @api.multi
-    def _create_report_instance_period(self):
+    def _create_budget_move_periods(self):
         self.ensure_one()
         Period = self.env['mis.report.instance.period']
-        report_instance_id = self.report_instance_id.id
+        periods = {}
         budget = Period.create({
             'name': 'Budgeted',
-            'report_instance_id': report_instance_id,
+            'report_instance_id': self.report_instance_id.id,
             'sequence': 10,
             'source': 'mis_budget',
             'source_mis_budget_id': self.source_mis_budget_id.id,
@@ -114,22 +105,31 @@ class BudgetManagement(models.Model):
         })
         actual = Period.create({
             'name': 'Actuals',
-            'report_instance_id': report_instance_id,
+            'report_instance_id': self.report_instance_id.id,
             'sequence': 20,
             'source': 'actuals',
             'mode': 'fix',
             'manual_date_from': self.bm_date_from,
             'manual_date_to': self.bm_date_to,
         })
+        periods = {budget: '+', actual: '-'}
+        return periods
+
+    @api.multi
+    def _create_report_instance_period(self):
+        self.ensure_one()
+        Period = self.env['mis.report.instance.period']
+        periods = self._create_budget_move_periods()
+        sumcols_list = []
+        for period, sign in periods.items():
+            sumcols_list.append((0, 0, {
+                'sign': sign, 'period_to_sum_id': period.id}))
         Period.create({
             'name': 'Available',
-            'report_instance_id': report_instance_id,
+            'report_instance_id': self.report_instance_id.id,
             'sequence': 30,
             'source': 'sumcol',
-            'source_sumcol_ids': [
-                (0, 0, {'sign': '+', 'period_to_sum_id': budget.id}),
-                (0, 0, {'sign': '-', 'period_to_sum_id': actual.id}),
-            ],
+            'source_sumcol_ids': sumcols_list,
             'mode': 'none',
         })
 
@@ -142,7 +142,7 @@ class BudgetManagement(models.Model):
         4. Get report instance as created by budget.management
         5. (2) + (3) + (4) -> kpi_matrix -> negative budget -> warnings
         """
-        if self._context.get('force_no_budget_control'):
+        if self._context.get('force_no_budget_check'):
             return
         # Find active budget.management based on budget_moves date
         date = set(budget_moves.mapped('date'))
@@ -164,7 +164,8 @@ class BudgetManagement(models.Model):
         # Check budget on each control elements against each kpi/avail(period)
         warnings = self._check_budget_available(instance, controls, kpis)
         if warnings:
-            raise UserError('\n'.join(warnings))
+            msg = '\n'.join([_('Budget not sufficient,'), '\n'.join(warnings)])
+            raise UserError(msg)
         return
 
     @api.model
@@ -218,6 +219,7 @@ class BudgetManagement(models.Model):
     def _check_budget_available(self, instance, controls, kpis):
         warnings = []
         Account = self.env['account.account']
+        Analytic = self.env['account.analytic.account']
         # Prepare result matrix for all analytic_id to be tested
         analytic_ids = [x[0] for x in list(controls)]
         kpi_matrix = self._prepare_matrix_by_analytic(instance, analytic_ids)
@@ -235,8 +237,9 @@ class BudgetManagement(models.Model):
                       'refereced by same account code %s') %
                     (instance.report_id.name, account.code))
             amount = self._get_kpi_value(kpi_matrix[analytic_id],
-                                         kpi.pop(), period)
+                                         list(kpi)[0], period)
             if amount < 0:
-                warnings.append(_('Budget not enough to process, as it result '
-                                  'in {0:,.2f} over budget').format(-amount))
+                analytic = Analytic.browse(analytic_id).display_name
+                warnings.append(_('On {0}, will result '
+                                  'in {1:,.2f}').format(analytic, amount))
         return warnings

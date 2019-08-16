@@ -41,5 +41,5 @@ class AccountInvoiceLine(models.Model):
                     purchase_line.commit_budget(
                         qty, reverse=rev, invoice_line_id=inv_line.id)
                 else:  # Cancel or draft, not commitment line
-                    self.env['purchase.budget.commit'].search(
+                    self.env['purchase.budget.move'].search(
                         [('invoice_line_id', '=', inv_line.id)]).unlink()

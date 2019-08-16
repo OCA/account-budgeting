@@ -1,0 +1,32 @@
+# Copyright 2019 Ecosoft Co., Ltd. (http://ecosoft.co.th)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo import fields, models, api
+
+
+class BudgetManagement(models.Model):
+    _inherit = 'budget.management'
+
+    purchase = fields.Boolean(
+        string='On Purchase',
+        default=False,
+        help="Control budget on purchase order confirmation",
+    )
+
+    @api.multi
+    def _create_budget_move_periods(self):
+        periods = super()._create_budget_move_periods()
+        Period = self.env['mis.report.instance.period']
+        model = self.env.ref('budget_management_purchase.'
+                             'model_purchase_budget_move')
+        purchase = Period.create({
+            'name': 'Purchase Committed',
+            'report_instance_id': self.report_instance_id.id,
+            'sequence': 12,
+            'source': 'actuals_alt',
+            'source_aml_model_id': model.id,
+            'mode': 'fix',
+            'manual_date_from': self.bm_date_from,
+            'manual_date_to': self.bm_date_to,
+        })
+        periods.update({purchase: '-'})
+        return periods

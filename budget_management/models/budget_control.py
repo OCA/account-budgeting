@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 
 class BudgetPlan(models.Model):
-    _name = 'budget.plan'
+    _name = 'budget.control'
     _description = 'Budget plan ease filling the MIS Budget form'
 
     name = fields.Char(
@@ -33,7 +33,7 @@ class BudgetPlan(models.Model):
     )
     item_ids = fields.One2many(
         comodel_name='mis.budget.item',
-        inverse_name='budget_plan_id',
+        inverse_name='budget_control_id',
         string='Budget Items',
     )
     plan_date_range_type_id = fields.Many2one(
@@ -45,7 +45,7 @@ class BudgetPlan(models.Model):
     @api.model
     def create(self, vals):
         plan = super().create(vals)
-        plan.prepare_budget_plan_matrix()
+        plan.prepare_budget_control_matrix()
         return plan
 
     @api.multi
@@ -57,11 +57,11 @@ class BudgetPlan(models.Model):
                         'analytic_account_id']
         change_fields = list(vals.keys())
         if list(set(fixed_fields) & set(change_fields)):
-            self.prepare_budget_plan_matrix()
+            self.prepare_budget_control_matrix()
         return res
 
     @api.multi
-    def prepare_budget_plan_matrix(self):
+    def prepare_budget_control_matrix(self):
         KpiExpression = self.env['mis.report.kpi.expression']
         DateRange = self.env['date.range']
         for plan in self:

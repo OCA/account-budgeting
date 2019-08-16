@@ -3,10 +3,10 @@
 from odoo import fields, models
 
 
-class PurchaseBudgetCommit(models.Model):
+class PurchaseBudgetMove(models.Model):
 
-    _name = 'purchase.budget.commit'
-    _description = 'Purchase Budget Commitment'
+    _name = 'purchase.budget.move'
+    _description = 'Purchase Budget Moves'
 
     purchase_id = fields.Many2one(
         comodel_name='purchase.order',
@@ -42,7 +42,7 @@ class PurchaseBudgetCommit(models.Model):
         index=True,
         readonly=True,
     )
-    account_analytic_id = fields.Many2one(
+    analytic_account_id = fields.Many2one(
         comodel_name='account.analytic.account',
         string='Analytic account',
         auto_join=True,

@@ -30,9 +30,9 @@
                     <group>
                         <group>
                             <field name="report_id" string="KPI Template"/>
+                            <field name="source_mis_budget_id" attrs="{'invisible': [('source_mis_budget_id', '=', False)]}"/>
                         </group>
                         <group>
-                            <field name="source_mis_budget_id"/>
                             <field name="bm_date_from"/>
                             <field name="bm_date_to"/>
                         </group>
@@ -40,8 +40,6 @@
                     <group string="Budget Control">
                         <group>
                             <field name="account"/>
-                            <field name="purchase"/>
-                            <field name="expense"/>
                         </group>
                         <group>
                             <field name="control_all_analytic_accounts"/>
@@ -62,7 +60,9 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="budget_management_conf_menu" parent="account.menu_finance_configuration" name="Budget Management" sequence="100"/>
+    <menuitem id="budget_menu" name="Budgeting" sequence="100"/>
+
+    <menuitem id="budget_management_conf_menu" parent="budget_menu" name="Budget Management" sequence="10"/>
     <menuitem id="budget_management_menu" parent="budget_management_conf_menu" name="Budget Management" action="budget_management_action" sequence="10"/>
 
 </odoo>
