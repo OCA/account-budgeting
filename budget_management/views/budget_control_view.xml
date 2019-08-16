@@ -43,12 +43,11 @@
         <field name="arch" type="xml">
             <form string="Budget Control Sheet">
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="%(mis_budget_item_from_budget_control_action)d"
-                                type="action"
-                                class="oe_stat_button"
-                                icon="fa-bars"
-                                string="Budget items"/>
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button type="object" name="preview" string="Preview" icon="fa-search" />
+                        <button type="object" name="print_pdf" string="Print" icon="fa-print" />
+                        <button type="object" name="export_xls" string="Export" icon="fa-download" />
+                        <button type="action" name="%(mis_budget_item_from_budget_control_action)d" string="Budget items" icon="fa-bars"/>
                     </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>

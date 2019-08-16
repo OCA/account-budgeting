@@ -4,7 +4,7 @@ from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
 
-class BudgetPlan(models.Model):
+class BudgetControl(models.Model):
     _name = 'budget.control'
     _description = 'Budget plan ease filling the MIS Budget form'
 
@@ -16,6 +16,8 @@ class BudgetPlan(models.Model):
         string='MIS Budget',
         required=True,
         ondelete='restrict',
+        domain=lambda self: self._get_mis_budget_domain(),
+        help="List of mis.budget created by and linked to budget.management",
     )
     date_from = fields.Date(
         related='budget_id.date_from',
@@ -41,6 +43,14 @@ class BudgetPlan(models.Model):
         string='Plan Date Range',
         required=True,
     )
+    _sql_constraints = [
+        ('name_uniq', 'UNIQUE(name)', 'Name must be unique!')
+    ]
+
+    @api.model
+    def _get_mis_budget_domain(self):
+        all_budget_mgnts = self.env['budget.management'].search([])
+        return [('id', 'in', all_budget_mgnts.mapped('mis_budget_id').ids)]
 
     @api.model
     def create(self, vals):
@@ -87,3 +97,27 @@ class BudgetPlan(models.Model):
                             }
                     items += [(0, 0, vals)]
             plan.write({'item_ids': items})
+
+    @api.multi
+    def _report_instance(self):
+        self.ensure_one()
+        budget_mgnt = self.env['budget.management'].search([
+            ('mis_budget_id', '=', self.budget_id.id)])
+        ctx = {'mis_report_filters': {}}
+        if self.analytic_account_id:
+            ctx['mis_report_filters']['analytic_account_id'] = {
+                'value': self.analytic_account_id.id,
+            }
+        return budget_mgnt.report_instance_id.with_context(ctx)
+
+    @api.multi
+    def preview(self):
+        return self._report_instance().preview()
+
+    @api.multi
+    def print_pdf(self):
+        return self._report_instance().print_pdf()
+
+    @api.multi
+    def export_xls(self):
+        return self._report_instance().export_xls()

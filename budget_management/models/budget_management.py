@@ -16,7 +16,7 @@ class BudgetManagement(models.Model):
         ondelete='restrict',
         help="Automatically created report instance for this budget mgnt",
     )
-    source_mis_budget_id = fields.Many2one(
+    mis_budget_id = fields.Many2one(
         comodel_name='mis.budget',
         string='MIS Budget',
         readonly=True,
@@ -57,7 +57,7 @@ class BudgetManagement(models.Model):
         })
         vals.update({'comparison_mode': True,
                      'target_move': 'posted',
-                     'source_mis_budget_id': mis_budget.id, })
+                     'mis_budget_id': mis_budget.id, })
         budget_mgnt = super().create(vals)
         budget_mgnt._recompute_report_instance_periods()
         return budget_mgnt
@@ -72,12 +72,25 @@ class BudgetManagement(models.Model):
     @api.multi
     def unlink(self):
         report_instances = self.mapped('report_instance_id')
-        mis_budgets = self.mapped('source_mis_budget_id')
+        mis_budgets = self.mapped('mis_budget_id')
         res = super().unlink()
         report_instances.mapped('period_ids.source_sumcol_ids').unlink()
         report_instances.mapped('period_ids').unlink()
         report_instances.unlink()
         mis_budgets.unlink()
+        return res
+
+    @api.multi
+    def action_view_budget_control(self):
+        """View all budget.control sharing same mis_budget_id."""
+        self.ensure_one()
+        action = self.env.ref('budget_management.budget_control_action')
+        res = action.read()[0]
+        budget_controls = self.env['budget.control'].search([
+            ('budget_id', '=', self.mis_budget_id.id)])
+        res.update({
+            'domain': [('id', 'in', budget_controls.ids)]
+        })
         return res
 
     @api.multi
@@ -98,7 +111,7 @@ class BudgetManagement(models.Model):
             'report_instance_id': self.report_instance_id.id,
             'sequence': 10,
             'source': 'mis_budget',
-            'source_mis_budget_id': self.source_mis_budget_id.id,
+            'source_mis_budget_id': self.mis_budget_id.id,
             'mode': 'fix',
             'manual_date_from': self.bm_date_from,
             'manual_date_to': self.bm_date_to,
@@ -243,3 +256,18 @@ class BudgetManagement(models.Model):
                 warnings.append(_('On {0}, will result '
                                   'in {1:,.2f}').format(analytic, amount))
         return warnings
+
+    @api.multi
+    def budget_preview(self):
+        # Redirect to report_instance_id
+        return self.report_instance_id.preview()
+
+    @api.multi
+    def budget_print_pdf(self):
+        # Redirect to report_instance_id
+        return self.report_instance_id.print_pdf()
+
+    @api.multi
+    def budget_export_xls(self):
+        # Redirect to report_instance_id
+        return self.report_instance_id.export_xls()
