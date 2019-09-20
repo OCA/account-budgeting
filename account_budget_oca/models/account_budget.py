@@ -139,17 +139,16 @@ class CrossoveredBudgetLines(models.Model):
         for line in self:
             result = 0.0
             acc_ids = line.general_budget_id.account_ids.ids
-            date_to = self.env.context.get('wizard_date_to') or line.date_to
-            date_from = (
-                self.env.context.get('wizard_date_from') or line.date_from)
+            date_to = line.date_to
+            date_from = line.date_from
             if line.analytic_account_id.id:
                 self.env.cr.execute(
                     """
                     SELECT SUM(amount)
                     FROM account_analytic_line
                     WHERE account_id=%s
-                        AND (date between to_date(%s,'yyyy-mm-dd')
-                        AND to_date(%s,'yyyy-mm-dd'))
+                        AND (date between %s
+                        AND %s)
                         AND general_account_id=ANY(%s)""",
                     (line.analytic_account_id.id, date_from, date_to, acc_ids,)
                 )
@@ -162,61 +161,33 @@ class CrossoveredBudgetLines(models.Model):
         for line in self:
             # Used for the report
 
-            if (self.env.context.get('wizard_date_from') and
-                    self.env.context.get('wizard_date_to')):
-                date_from = from_string(
-                    self.env.context.get('wizard_date_from'))
-                date_to = from_string(
-                    self.env.context.get('wizard_date_to'))
-                if date_from < from_string(line.date_from):
-                    date_from = from_string(line.date_from)
-                elif date_from > from_string(line.date_to):
-                    date_from = False
-
-                if date_to > from_string(line.date_to):
-                    date_to = from_string(line.date_to)
-                elif date_to < from_string(line.date_from):
-                    date_to = False
-
-                theo_amt = 0.00
-                if date_from and date_to:
-                    line_timedelta = (
-                        from_string(line.date_to) -
-                        from_string(line.date_from))
-                    elapsed_timedelta = date_to - date_from
-                    if elapsed_timedelta.days > 0:
-                        theo_amt = (
-                            (elapsed_timedelta.total_seconds() /
-                             line_timedelta.total_seconds()) *
-                            line.planned_amount)
-            else:
-                if line.paid_date:
-                    if (from_string(line.date_to) <=
-                            from_string(line.paid_date)):
-                        theo_amt = 0.00
-                    else:
-                        theo_amt = line.planned_amount
+            if line.paid_date:
+                if (from_string(line.date_to) <=
+                        from_string(line.paid_date)):
+                    theo_amt = 0.00
                 else:
-                    line_timedelta = (
-                        from_string(line.date_to) -
-                        from_string(line.date_from))
-                    elapsed_timedelta = (
-                        from_string(today) - (from_string(line.date_from)))
+                    theo_amt = line.planned_amount
+            else:
+                line_timedelta = (
+                    from_string(line.date_to) -
+                    from_string(line.date_from))
+                elapsed_timedelta = (
+                    from_string(today) - (from_string(line.date_from)))
 
-                    if elapsed_timedelta.days < 0:
-                        # If the budget line has not started yet, theoretical
-                        # amount should be zero
-                        theo_amt = 0.00
-                    elif (line_timedelta.days > 0 and
-                            from_string(today) < from_string(line.date_to)):
-                        # If today is between the budget line date_from and
-                        # date_to
-                        theo_amt = (
-                            (elapsed_timedelta.total_seconds() /
-                             line_timedelta.total_seconds()) *
-                            line.planned_amount)
-                    else:
-                        theo_amt = line.planned_amount
+                if elapsed_timedelta.days < 0:
+                    # If the budget line has not started yet, theoretical
+                    # amount should be zero
+                    theo_amt = 0.00
+                elif (line_timedelta.days > 0 and
+                      from_string(today) < from_string(line.date_to)):
+                    # If today is between the budget line date_from and
+                    # date_to
+                    theo_amt = (
+                        (elapsed_timedelta.total_seconds() /
+                         line_timedelta.total_seconds()) *
+                        line.planned_amount)
+                else:
+                    theo_amt = line.planned_amount
 
             line.theoretical_amount = theo_amt
 
