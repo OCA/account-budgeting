@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="budget_management_view_tree">
+        <field name="name">budget.management.view.tree</field>
+        <field name="model">budget.management</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Management">
+                <field name="name"/>
+                <field name="bm_date_from"/>
+                <field name="bm_date_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budget_management_view_form">
+        <field name="name">budget.management.view.form</field>
+        <field name="model">budget.management</field>
+        <field name="arch" type="xml">
+            <form string="Budget Management">
+                <sheet>
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button type="object" name="budget_preview" string="Preview" icon="fa-search" />
+                        <button type="object" name="budget_print_pdf" string="Print" icon="fa-print" />
+                        <button type="object" name="budget_export_xls" string="Export" icon="fa-download" />
+                        <button type="object" name="action_view_budget_control" string="Budget Control Sheets" icon="fa-bars"
+                            context="{'default_budget_id': mis_budget_id}"/>
+                    </div>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name"/>
+                        </div>
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_id" string="KPI Template"/>
+                            <field name="mis_budget_id" attrs="{'invisible': [('mis_budget_id', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="bm_date_from"/>
+                            <field name="bm_date_to"/>
+                        </group>
+                    </group>
+                    <group string="Budget Control">
+                        <group>
+                            <field name="account"/>
+                        </group>
+                        <group>
+                            <field name="control_all_analytic_accounts"/>
+                            <field name="control_analytic_account_ids" widget="many2many_tags"
+                                attrs="{'invisible': [('control_all_analytic_accounts', '=', True)]}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="budget_management_action">
+        <field name="name">Budget Management</field>
+        <field name="view_id" ref="budget_management_view_tree"/>
+        <field name="res_model">budget.management</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="budget_menu" name="Budgeting" sequence="300" groups="group_budget_control_user"/>
+
+    <menuitem id="budget_management_conf_menu" parent="budget_menu" name="Budget Management" sequence="10"/>
+    <menuitem id="budget_management_menu" parent="budget_management_conf_menu" name="Budget Management" action="budget_management_action" sequence="10"/>
+
+</odoo>

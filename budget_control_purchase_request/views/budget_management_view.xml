@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="budget_management_view_form">
+        <field name="name">budget.management.view.form</field>
+        <field name="model">budget.management</field>
+        <field name="inherit_id" ref="budget_control.budget_management_view_form"/>
+        <field name="arch" type="xml">
+            <field name="account" position="after">
+                <field name="purchase_request"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
