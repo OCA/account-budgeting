@@ -65,6 +65,7 @@ class HRExpense(models.Model):
                     'expense_id': expense.id,
                     'account_id': expense.account_id.id,
                     'analytic_account_id': expense.analytic_account_id.id,
+                    'analytic_tag_ids': [(6, 0, expense.analytic_tag_ids.ids)],
                     'date': expense.date,
                     'amount_currency': expense.untaxed_amount,
                     'debit': not reverse and amount or 0.0,

@@ -49,6 +49,10 @@ class PurchaseBudgetMove(models.Model):
         index=True,
         readonly=True,
     )
+    analytic_tag_ids = fields.Many2many(
+        comodel_name='account.analytic.tag',
+        string='Analytic Tags',
+    )
     amount_currency = fields.Float(
         required=True,
         help="Amount in multi currency",

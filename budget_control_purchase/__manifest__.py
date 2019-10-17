@@ -10,6 +10,7 @@
     'depends': [
         'budget_control',
         'purchase',
+        'analytic_tag_dimension',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -18,5 +19,5 @@
     ],
     'installable': True,
     'maintainers': ['kittiu'],
-    'development_status': 'Beta',
+    'development_status': 'Alpha',
 }

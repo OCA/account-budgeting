@@ -36,11 +36,3 @@ class BudgetMonitorReport(models.Model):
         return super()._get_sql() + \
             "union (%s %s)" % (self._select_ex_commit(),
                                self._from_ex_commit())
-
-    @api.model_cr
-    def init(self):
-        # self._table = account_invoice_report
-        tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute("""
-            CREATE or REPLACE VIEW %s as (%s)
-        """ % (self._table, self._get_sql()))
