@@ -4,7 +4,6 @@ from odoo import fields, models
 
 
 class ExpenseBudgetMove(models.Model):
-
     _name = 'expense.budget.move'
     _description = 'Expense Budget Moves'
 

@@ -12,8 +12,8 @@ class HRExpenseSheet(models.Model):
     )
 
     @api.multi
-    def recompute_budget_commit(self):
-        self.mapped('expense_line_ids').recompute_budget_commit()
+    def recompute_budget_move(self):
+        self.mapped('expense_line_ids').recompute_budget_move()
 
     @api.multi
     def _write(self, vals):
@@ -47,7 +47,7 @@ class HRExpense(models.Model):
     )
 
     @api.multi
-    def recompute_budget_commit(self):
+    def recompute_budget_move(self):
         self.mapped('budget_move_ids').unlink()
         self.commit_budget()
         self.uncommit_expense_budget()

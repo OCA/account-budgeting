@@ -159,6 +159,8 @@ class BudgetManagement(models.Model):
         """
         if self._context.get('force_no_budget_check'):
             return
+        if not budget_moves:
+            return
         self = self.sudo()
         # Find active budget.management based on budget_moves date
         date = set(budget_moves.mapped('date'))

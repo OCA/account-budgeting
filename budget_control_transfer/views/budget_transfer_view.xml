@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_budget_transfer_tree">
+        <field name="name">view.budget.transfer.tree</field>
+        <field name="model">budget.transfer</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Transfer">
+                <field name="name"/>
+                <field name="budget_management_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_budget_transfer_form">
+        <field name="name">view.budget.transfer.form</field>
+        <field name="model">budget.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Budget Transfer">
+                <header>
+                    <button name="action_transfer" states="draft" string="Transfer" type="object" class="oe_highlight"/>
+                    <button name="action_cancel" states="draft" string="Cancel" type="object"/>
+                    <button name="action_reverse" states="transfer" string="Reverse" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,transfer"/>
+                </header>
+                <sheet>
+                    <div class="oe_right oe_button_box" name="buttons">
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="budget_management_id"/>
+                        </group>
+                        <group>
+                            <field name="mis_budget_id"/>
+                        </group>
+                    </group>
+                    <field name="transfer_item_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="transfer_id" invisible="1"/>
+                            <field name="mis_budget_id" invisible="1"/>
+                            <field name="source_budget_control_id"/>
+                            <field name="source_item_id"/>
+                            <field name="source_amount"/>
+                            <field name="target_budget_control_id"/>
+                            <field name="target_item_id"/>
+                            <field name="target_amount"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_budget_transfer">
+        <field name="name">Budget Transfer</field>
+        <field name="view_id" ref="view_budget_transfer_tree"/>
+        <field name="res_model">budget.transfer</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_budget_transfer" parent="budget_control.budget_management_conf_menu"
+        name="Budget Transfer"
+        action="action_budget_transfer" sequence="100"/>
+
+</odoo>
