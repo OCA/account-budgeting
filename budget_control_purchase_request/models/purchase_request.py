@@ -66,12 +66,11 @@ class PurchaseRequestLine(models.Model):
             company = self.env.user.company_id
             # Purchase request has no currency to _convert()
             amount_currency = amount = self.estimated_cost
-            date_order = self.request_id.date_start
             self.env['purchase.request.budget.move'].create({
                 'purchase_request_line_id': self.id,
                 'account_id': account.id,
                 'analytic_account_id': self.analytic_account_id.id,
-                'date': date_order,
+                'date': fields.Date.today(),
                 'amount_currency': amount_currency,
                 'debit': not reverse and amount or 0.0,
                 'credit': reverse and amount or 0.0,

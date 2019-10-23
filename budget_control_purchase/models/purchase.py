@@ -77,7 +77,7 @@ class PurchaseOrderLine(models.Model):
                 'account_id': account.id,
                 'analytic_account_id': self.account_analytic_id.id,
                 'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
-                'date': date_order,
+                'date': fields.Date.today(),
                 'amount_currency': amount_currency,
                 'debit': not reverse and amount or 0.0,
                 'credit': reverse and amount or 0.0,
