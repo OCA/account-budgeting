@@ -54,6 +54,12 @@ class BudgetControl(models.Model):
         string='Plan Date Range',
         required=True,
     )
+    carry_from_budget_id = fields.Many2one(
+        comodel_name='mis.budget',
+        string='Carry Remaining Budget From',
+        domain="[('id', '!=', budget_id)]",
+        help="If selected, get the remaining budget and fill the first period",
+    )
     state = fields.Selection(
         [('draft', 'Draft'),
          ('done', 'Controlled'), ],
@@ -68,13 +74,33 @@ class BudgetControl(models.Model):
     _sql_constraints = [
         ('name_uniq', 'UNIQUE(name)', 'Name must be unique!'),
         ('budget_control_uniq', 'UNIQUE(budget_id, analytic_account_id)',
-         'Duplicated analytic account for the same budget!')
+         'Duplicated analytic account for the same budget!'),
+        ('budget_period_not_equal', 'CHECK(budget_id!=carry_from_budget_id)',
+         'You can not carry budget from same budget control period!')
     ]
 
     @api.model
     def _get_mis_budget_domain(self):
         all_budget_mgnts = self.env['budget.management'].search([])
         return [('id', 'in', all_budget_mgnts.mapped('mis_budget_id').ids)]
+
+    @api.multi
+    def do_budget_carry_over(self, budget_id=False):
+        # TODO: This is just a mock up
+        # In real, we need to find the remaining of each item
+        for plan in self:
+            if budget_id:
+                plan.update({'carry_from_budget_id': budget_id})
+            if not plan.carry_from_budget_id or not plan.item_ids:
+                continue
+            init_date = min(plan.item_ids.mapped('date_from'))
+            init_items = plan.item_ids.filtered(
+                lambda l: l.date_from == init_date)
+            init_items.update({'amount': 100})
+
+    @api.onchange('carry_from_budget_id')
+    def _onchange_carry_from_budget_id(self):
+        self.do_budget_carry_over()
 
     @api.model
     def create(self, vals):
@@ -92,6 +118,7 @@ class BudgetControl(models.Model):
         change_fields = list(vals.keys())
         if list(set(fixed_fields) & set(change_fields)):
             self.prepare_budget_control_matrix()
+            x = 1/0
         return res
 
     @api.multi
@@ -129,6 +156,8 @@ class BudgetControl(models.Model):
                             }
                     items += [(0, 0, vals)]
             plan.write({'item_ids': items})
+            # Also reset the carry over budget
+            plan.carry_from_budget_id = False
 
     @api.multi
     def _report_instance(self):

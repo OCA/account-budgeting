@@ -47,6 +47,13 @@ class BudgetManagement(models.Model):
         relation='budget_management_analytic_account_rel',
         string='Controlled Analytics',
     )
+    plan_date_range_type_id = fields.Many2one(
+        comodel_name='date.range.type',
+        string='Plan Date Range',
+        required=True,
+        help="Budget control sheet in this budget control year, will use this "
+        "data range to plan the budget."
+    )
 
     @api.model
     def create(self, vals):

@@ -24,7 +24,7 @@
                         <button type="object" name="budget_print_pdf" string="Print" icon="fa-print" />
                         <button type="object" name="budget_export_xls" string="Export" icon="fa-download" />
                         <button type="object" name="action_view_budget_control" string="Budget Control Sheets" icon="fa-bars"
-                            context="{'default_budget_id': mis_budget_id}"/>
+                            context="{'default_budget_id': mis_budget_id, 'default_plan_date_range_type_id': plan_date_range_type_id}"/>
                     </div>
                     <div class="oe_title">
                         <div class="oe_edit_only">
@@ -42,6 +42,7 @@
                         <group>
                             <field name="bm_date_from"/>
                             <field name="bm_date_to"/>
+                            <field name="plan_date_range_type_id"/>
                         </group>
                     </group>
                     <group string="Budget Control">
