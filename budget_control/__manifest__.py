@@ -19,6 +19,7 @@
         'security/ir.model.access.csv',
         'views/budget_management_view.xml',
         'views/budget_control_view.xml',
+        'views/budget_move_forward_view.xml',
         'wizard/generate_budget_control_view.xml',
         'report/budget_monitor_report_view.xml',
     ],

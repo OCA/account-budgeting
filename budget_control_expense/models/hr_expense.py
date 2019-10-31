@@ -39,7 +39,8 @@ class HRExpenseSheet(models.Model):
 
 
 class HRExpense(models.Model):
-    _inherit = 'hr.expense'
+    _name = 'hr.expense'
+    _inherit = ['hr.expense', 'budget.docline.mixin']
 
     budget_move_ids = fields.One2many(
         comodel_name='expense.budget.move',

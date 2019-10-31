@@ -40,7 +40,8 @@ class SaleOrder(models.Model):
 
 
 class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+    _name = 'sale.order.line'
+    _inherit = ['sale.order.line', 'budget.docline.mixin']
 
     budget_move_ids = fields.One2many(
         comodel_name='sale.budget.move',
