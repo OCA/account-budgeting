@@ -39,7 +39,8 @@ class PurchaseRequest(models.Model):
 
 
 class PurchaseRequestLine(models.Model):
-    _inherit = 'purchase.request.line'
+    _name = 'purchase.request.line'
+    _inherit = ['purchase.request.line', 'budget.docline.mixin']
 
     budget_move_ids = fields.One2many(
         comodel_name='purchase.request.budget.move',
