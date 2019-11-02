@@ -10,11 +10,8 @@ class BudgetMoveForward(models.Model):
 
     name = fields.Char(
         required=True,
-<<<<<<< HEAD
         readonly=True,
         states={'draft': [('readonly', False)]},
-=======
->>>>>>> 228f687164f83ae8bc5ea2c038849601d8e35c07
     )
     assignee_id = fields.Many2one(
         comodel_name='res.users',
@@ -22,12 +19,8 @@ class BudgetMoveForward(models.Model):
         domain=lambda self: [('groups_id', 'in', [self.env.ref(
             "budget_control.group_budget_control_user").id])],
         track_visibility='onchange',
-<<<<<<< HEAD
         readonly=True,
         states={'draft': [('readonly', False)]},
-=======
-        states={'done': [('readonly', True)]},
->>>>>>> 228f687164f83ae8bc5ea2c038849601d8e35c07
         copy=False,
     )
     to_budget_id = fields.Many2one(
@@ -35,11 +28,8 @@ class BudgetMoveForward(models.Model):
         string='To Budget Period',
         required=True,
         ondelete='restrict',
-<<<<<<< HEAD
         readonly=True,
         states={'draft': [('readonly', False)]},
-=======
->>>>>>> 228f687164f83ae8bc5ea2c038849601d8e35c07
         # TODO: add domain, and default
     )
     date_budget_move = fields.Date(
@@ -72,7 +62,6 @@ class BudgetMoveForward(models.Model):
     def get_budget_move_forward(self):
         """Get budget move forward for each new commit document type."""
         Line = self.env['budget.move.forward.line']
-<<<<<<< HEAD
         specific_model = self._context.get('res_model', False)
         for rec in self:
             models = Line._fields['res_model'].selection
@@ -89,20 +78,6 @@ class BudgetMoveForward(models.Model):
                               'amount_commit': doc.amount_commit,
                               'date_commit': doc.date_commit,
                               } for doc in docs])
-=======
-        model = self._context['res_model']
-        for rec in self:
-            Line.search([('forward_id', '=', rec.id),
-                         ('res_model', '=', model)]).unlink()
-            docs = self.env[model].search([('amount_commit', '>', 0.0)])
-            Line.create([{'forward_id': rec.id,
-                          'res_model': model,
-                          'res_id': doc.id,
-                          'document_id': '%s,%s' % (model, doc.id),
-                          'amount_commit': doc.amount_commit,
-                          'date_commit': doc.date_commit,
-                          } for doc in docs])
->>>>>>> 228f687164f83ae8bc5ea2c038849601d8e35c07
 
     @api.multi
     def action_budget_carry_forward(self):
