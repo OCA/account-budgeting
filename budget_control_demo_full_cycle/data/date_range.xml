@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017-2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record id="date_range_type_quarter" model="date.range.type">
+        <field name="name">Quarter</field>
+    </record>
+
+    <!-- prepare 2 years of date range -->
+    <!-- Previous Year -->
+    <record id="date_range_y1_q1" model="date.range">
+        <field name="name" eval="str(datetime.now().year-1) +'-Q1'"/>
+        <field name="date_start" eval="str(datetime.now().year-1) +'-01-01'"/>
+        <field name="date_end" eval="str(datetime.now().year-1) +'-03-31'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+    <record id="date_range_y1_q2" model="date.range">
+        <field name="name" eval="str(datetime.now().year-1) +'-Q2'"/>
+        <field name="date_start" eval="str(datetime.now().year-1) +'-04-01'"/>
+        <field name="date_end" eval="str(datetime.now().year-1) +'-06-30'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+    <record id="date_range_y1_q3" model="date.range">
+        <field name="name" eval="str(datetime.now().year-1) +'-Q3'"/>
+        <field name="date_start" eval="str(datetime.now().year-1) +'-07-01'"/>
+        <field name="date_end" eval="str(datetime.now().year-1) +'-09-30'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+    <record id="date_range_y1_q4" model="date.range">
+        <field name="name" eval="str(datetime.now().year-1) +'-Q4'"/>
+        <field name="date_start" eval="str(datetime.now().year-1) +'-10-01'"/>
+        <field name="date_end" eval="str(datetime.now().year-1) +'-12-31'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+    <!-- Current Year -->
+    <record id="date_range_y2_q1" model="date.range">
+        <field name="name" eval="str(datetime.now().year) +'-Q1'"/>
+        <field name="date_start" eval="str(datetime.now().year) +'-01-01'"/>
+        <field name="date_end" eval="str(datetime.now().year) +'-03-31'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+    <record id="date_range_y2_q2" model="date.range">
+        <field name="name" eval="str(datetime.now().year) +'-Q2'"/>
+        <field name="date_start" eval="str(datetime.now().year) +'-04-01'"/>
+        <field name="date_end" eval="str(datetime.now().year) +'-06-30'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+    <record id="date_range_y2_q3" model="date.range">
+        <field name="name" eval="str(datetime.now().year) +'-Q3'"/>
+        <field name="date_start" eval="str(datetime.now().year) +'-07-01'"/>
+        <field name="date_end" eval="str(datetime.now().year) +'-09-30'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+    <record id="date_range_y2_q4" model="date.range">
+        <field name="name" eval="str(datetime.now().year) +'-Q4'"/>
+        <field name="date_start" eval="str(datetime.now().year) +'-10-01'"/>
+        <field name="date_end" eval="str(datetime.now().year) +'-12-31'"/>
+        <field name="type_id" ref="date_range_type_quarter"/>
+    </record>
+
+</odoo>

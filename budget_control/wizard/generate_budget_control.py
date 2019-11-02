@@ -11,7 +11,8 @@ class GenerateBudgetControl(models.TransientModel):
         comodel_name='budget.management',
         required=True,
         default=lambda self:
-        self.env['budget.management'].browse(self._context.get('active_id'))
+        self.env['budget.management'].browse(self._context.get('active_id')),
+        ondelete='cascade',
     )
     budget_id = fields.Many2one(
         comodel_name='mis.budget',
@@ -37,12 +38,10 @@ class GenerateBudgetControl(models.TransientModel):
         column1='wizard_id', column2='anlaytic_id',
         domain="[('group_id', 'in', analytic_group_ids)]"
     )
-    carry_from_budget_id = fields.Many2one(
-        comodel_name='mis.budget',
-        string='Carry Remaining Budget From',
-        domain="[('id', '!=', budget_id)]",
-        help="If selected, the budget control sheet created by this action "
-        "will used the remainig buget of the same analytic as initial amount."
+    init_budget_commit = fields.Boolean(
+        string='Initial Budget By Commitment',
+        help="If checked, the newly created budget control sheet will has "
+        "initial budget equal to current budget commitment of its year.",
     )
     result_analytic_account_ids = fields.Many2many(
         comodel_name='account.analytic.account',
@@ -89,8 +88,7 @@ class GenerateBudgetControl(models.TransientModel):
                 self.budget_mgnt_id.plan_date_range_type_id.id,
             })
         budget_controls = BudgetControl.create(vals)
-        budget_controls.do_budget_carry_over(
-            budget_id=self.carry_from_budget_id.id)
+        budget_controls.do_init_budget_commit(self.init_budget_commit)
         # Return result
         self.write({
             'state': 'get',

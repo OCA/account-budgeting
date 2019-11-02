@@ -18,7 +18,7 @@
                             <field name="all_analytic_accounts"/>
                         </group>
                         <group>
-                            <field name="carry_from_budget_id"/>
+                            <field name="init_budget_commit"/>
                         </group>
                     </group>
                     <field name="analytic_account_ids" nolabel="1" states="choose"/>

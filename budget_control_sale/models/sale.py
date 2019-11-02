@@ -79,7 +79,8 @@ class SaleOrderLine(models.Model):
                 'account_id': account.id,
                 'analytic_account_id': self.order_id.analytic_account_id.id,
                 'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
-                'date': fields.Date.today(),
+                'date': (self._context.get('commit_by_docdate') and
+                         date_order or fields.Date.today()),
                 'amount_currency': amount_currency,
                 'credit': not reverse and amount or 0.0,  # switch dr/cr
                 'debit': reverse and amount or 0.0,

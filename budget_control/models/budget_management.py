@@ -209,13 +209,12 @@ class BudgetManagement(models.Model):
     def _get_eligible_budget_mgnt(self, date, doc_type):
         BudgetMgnt = self.env['budget.management']
         budget_mgnt = BudgetMgnt.search([('bm_date_from', '<=', date),
-                                         ('bm_date_to', '>=', date),
-                                         (doc_type, '=', True)])
+                                         ('bm_date_to', '>=', date)])
         if budget_mgnt and len(budget_mgnt) > 1:
             raise ValidationError(
-                _('Multiple Budget Mgnt found for date %s.\nPlease ensure '
-                  'one Budget Mgnt valid for this date') % date)
-        return budget_mgnt
+                _('Multiple Budget Management found for date %s.\nPlease '
+                  'ensure one Budget Management valid for this date') % date)
+        return budget_mgnt.filtered(doc_type)  # Only if to control
 
     @api.model
     def _prepare_controls(self, budget_mgnt, budget_moves):
@@ -283,6 +282,38 @@ class BudgetManagement(models.Model):
                 warnings.append(_('{0} on {1}, will result in {2:,.2f}').
                                 format(kpi_name, analytic, amount))
         return warnings
+
+    @api.multi
+    def get_report_amount(self, kpi_names=[], col_names=[], analytic_id=False):
+        self.ensure_one()
+        return self._get_amount(self.report_instance_id.id,
+                                kpi_names=kpi_names,
+                                col_names=col_names,
+                                analytic_id=analytic_id)
+
+    @api.model
+    def _get_amount(self, instance_id, kpi_names=[],
+                    col_names=[], analytic_id=False):
+        instance = self.env['mis.report.instance'].browse(instance_id)
+        report = instance.report_id
+        kpis = self.env['mis.report.kpi'].search([
+            ('name', 'in', kpi_names), ('report_id', '=', report.id)])
+        periods = self.env['mis.report.instance.period'].search([
+            ('name', 'in', col_names),
+            ('report_instance_id', '=', instance.id)])
+        ctx = {}
+        if analytic_id:
+            ctx = {
+                'mis_report_filters': {
+                    'analytic_account_id': {
+                        'value': analytic_id,
+                        'operator': '=', }}}
+        kpi_matrix = instance.with_context(ctx)._compute_matrix()
+        amount = 0.0
+        for kpi in kpis:
+            for period in periods:
+                amount += self._get_kpi_value(kpi_matrix, kpi, period)
+        return amount
 
     @api.multi
     def budget_preview(self):

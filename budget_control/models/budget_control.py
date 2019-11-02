@@ -54,11 +54,10 @@ class BudgetControl(models.Model):
         string='Plan Date Range',
         required=True,
     )
-    carry_from_budget_id = fields.Many2one(
-        comodel_name='mis.budget',
-        string='Carry Remaining Budget From',
-        domain="[('id', '!=', budget_id)]",
-        help="If selected, get the remaining budget and fill the first period",
+    init_budget_commit = fields.Boolean(
+        string='Initial Budget By Commitment',
+        help="If checked, the newly created budget control sheet will has "
+        "initial budget equal to current budget commitment of its year.",
     )
     state = fields.Selection(
         [('draft', 'Draft'),
@@ -75,8 +74,6 @@ class BudgetControl(models.Model):
         ('name_uniq', 'UNIQUE(name)', 'Name must be unique!'),
         ('budget_control_uniq', 'UNIQUE(budget_id, analytic_account_id)',
          'Duplicated analytic account for the same budget!'),
-        ('budget_period_not_equal', 'CHECK(budget_id!=carry_from_budget_id)',
-         'You can not carry budget from same budget control period!')
     ]
 
     @api.model
@@ -85,22 +82,35 @@ class BudgetControl(models.Model):
         return [('id', 'in', all_budget_mgnts.mapped('mis_budget_id').ids)]
 
     @api.multi
-    def do_budget_carry_over(self, budget_id=False):
-        # TODO: This is just a mock up
-        # In real, we need to find the remaining of each item
+    def get_report_amount(self, kpi_names=[], col_names=[]):
+        self.ensure_one()
+        Mgnt = self.env['budget.management']
+        budget_mgnt = Mgnt.search([('mis_budget_id', '=', self.budget_id.id)])
+        budget_mgnt.ensure_one()
+        return budget_mgnt._get_amount(budget_mgnt.report_instance_id.id,
+                                       kpi_names=kpi_names,
+                                       col_names=col_names,
+                                       analytic_id=self.analytic_account_id.id)
+
+    @api.multi
+    def do_init_budget_commit(self, init):
+        """Initialize budget with current commitment amount."""
         for plan in self:
-            if budget_id:
-                plan.update({'carry_from_budget_id': budget_id})
-            if not plan.carry_from_budget_id or not plan.item_ids:
+            plan.update({'init_budget_commit': init})
+            if not init or not plan.init_budget_commit or not plan.item_ids:
                 continue
             init_date = min(plan.item_ids.mapped('date_from'))
             init_items = plan.item_ids.filtered(
                 lambda l: l.date_from == init_date)
-            init_items.update({'amount': 100})
+            for item in init_items:
+                kpi_name = item.kpi_expression_id.kpi_id.name
+                balance = plan.get_report_amount(kpi_names=[kpi_name],
+                                                 col_names=['Available'])
+                item.update({'amount': -balance})
 
-    @api.onchange('carry_from_budget_id')
-    def _onchange_carry_from_budget_id(self):
-        self.do_budget_carry_over()
+    @api.onchange('init_budget_commit')
+    def _onchange_init_budget_commit(self):
+        self.do_init_budget_commit(self.init_budget_commit)
 
     @api.model
     def create(self, vals):
@@ -118,7 +128,6 @@ class BudgetControl(models.Model):
         change_fields = list(vals.keys())
         if list(set(fixed_fields) & set(change_fields)):
             self.prepare_budget_control_matrix()
-            x = 1/0
         return res
 
     @api.multi
@@ -157,7 +166,7 @@ class BudgetControl(models.Model):
                     items += [(0, 0, vals)]
             plan.write({'item_ids': items})
             # Also reset the carry over budget
-            plan.carry_from_budget_id = False
+            plan.init_budget_commit = False
 
     @api.multi
     def _report_instance(self):

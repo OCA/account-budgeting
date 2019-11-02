@@ -62,18 +62,22 @@ class BudgetMoveForward(models.Model):
     def get_budget_move_forward(self):
         """Get budget move forward for each new commit document type."""
         Line = self.env['budget.move.forward.line']
-        model = self._context['res_model']
+        specific_model = self._context.get('res_model', False)
         for rec in self:
-            Line.search([('forward_id', '=', rec.id),
-                         ('res_model', '=', model)]).unlink()
-            docs = self.env[model].search([('amount_commit', '>', 0.0)])
-            Line.create([{'forward_id': rec.id,
-                          'res_model': model,
-                          'res_id': doc.id,
-                          'document_id': '%s,%s' % (model, doc.id),
-                          'amount_commit': doc.amount_commit,
-                          'date_commit': doc.date_commit,
-                          } for doc in docs])
+            models = Line._fields['res_model'].selection
+            for model in list(dict(models).keys()):
+                if specific_model and specific_model != model:
+                    continue
+                Line.search([('forward_id', '=', rec.id),
+                             ('res_model', '=', model)]).unlink()
+                docs = self.env[model].search([('amount_commit', '>', 0.0)])
+                Line.create([{'forward_id': rec.id,
+                              'res_model': model,
+                              'res_id': doc.id,
+                              'document_id': '%s,%s' % (model, doc.id),
+                              'amount_commit': doc.amount_commit,
+                              'date_commit': doc.date_commit,
+                              } for doc in docs])
 
     @api.multi
     def action_budget_carry_forward(self):

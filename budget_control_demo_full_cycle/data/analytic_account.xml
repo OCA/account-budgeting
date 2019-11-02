@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="analytic_group_costcenter" model="account.analytic.group">
+        <field name="name">Costcenters</field>
+    </record>
+
+    <record id="analytic_costcenter_1" model="account.analytic.account">
+        <field name="name">Costcenter 1</field>
+        <field name="group_id" ref="analytic_group_costcenter"/>
+    </record>
+
+    <record id="analytic_costcenter_2" model="account.analytic.account">
+        <field name="name">Costcenter 2</field>
+        <field name="group_id" ref="analytic_group_costcenter"/>
+    </record>
+
+    <record id="analytic_costcenter_3" model="account.analytic.account">
+        <field name="name">Costcenter 3</field>
+        <field name="group_id" ref="analytic_group_costcenter"/>
+    </record>
+
+</odoo>
