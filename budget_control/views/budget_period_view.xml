@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <record model="ir.ui.view" id="budget_management_view_tree">
-        <field name="name">budget.management.view.tree</field>
-        <field name="model">budget.management</field>
+    <record model="ir.ui.view" id="budget_period_view_tree">
+        <field name="name">budget.period.view.tree</field>
+        <field name="model">budget.period</field>
         <field name="arch" type="xml">
-            <tree string="Budget Management">
+            <tree string="Budget Period">
                 <field name="name"/>
                 <field name="bm_date_from"/>
                 <field name="bm_date_to"/>
@@ -13,11 +13,11 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="budget_management_view_form">
-        <field name="name">budget.management.view.form</field>
-        <field name="model">budget.management</field>
+    <record model="ir.ui.view" id="budget_period_view_form">
+        <field name="name">budget.period.view.form</field>
+        <field name="model">budget.period</field>
         <field name="arch" type="xml">
-            <form string="Budget Management">
+            <form string="Budget Period">
                 <sheet>
                     <div class="oe_right oe_button_box" name="buttons">
                         <button type="object" name="budget_preview" string="Preview" icon="fa-search" />
@@ -53,6 +53,7 @@
                             <field name="control_all_analytic_accounts"/>
                             <field name="control_analytic_account_ids" widget="many2many_tags"
                                 attrs="{'invisible': [('control_all_analytic_accounts', '=', True)]}"/>
+                            <field name="control_level"/>
                         </group>
                     </group>
                 </sheet>
@@ -60,17 +61,17 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="budget_management_action">
-        <field name="name">Budget Management</field>
-        <field name="view_id" ref="budget_management_view_tree"/>
-        <field name="res_model">budget.management</field>
+    <record model="ir.actions.act_window" id="budget_period_action">
+        <field name="name">Budget Period</field>
+        <field name="view_id" ref="budget_period_view_tree"/>
+        <field name="res_model">budget.period</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem id="budget_menu" name="Budgeting" sequence="300" groups="group_budget_control_user"/>
 
-    <menuitem id="budget_management_conf_menu" parent="budget_menu" name="Budget Management" sequence="10"/>
-    <menuitem id="budget_management_menu" parent="budget_management_conf_menu" name="Budget Management" action="budget_management_action" sequence="10"/>
+    <menuitem id="budget_period_conf_menu" parent="budget_menu" name="Budgeting" sequence="10"/>
+    <menuitem id="budget_period_menu" parent="budget_period_conf_menu" name="Budget Period" action="budget_period_action" sequence="10"/>
 
 </odoo>

@@ -5,7 +5,7 @@
         <field name="model">generate.budget.control</field>
         <field name="arch" type="xml">
             <form string="Generate Budget Control Sheet">
-                <field name="budget_mgnt_id" invisible="1"/>
+                <field name="budget_period_id" invisible="1"/>
                 <field name="budget_id" invisible="1"/>
                 <field name="state" invisible="1"/>
                 <div states="choose">
@@ -47,7 +47,7 @@
     <act_window id="action_generate_budget_control"
         name="Generate Budget Control Sheet"
         res_model="generate.budget.control"
-        src_model="budget.management"
+        src_model="budget.period"
         view_mode="form"
         target="new"
         key2="client_action_relate"

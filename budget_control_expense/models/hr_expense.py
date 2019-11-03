@@ -31,9 +31,9 @@ class HRExpenseSheet(models.Model):
     @api.multi
     def approve_expense_sheets(self):
         res = super().approve_expense_sheets()
-        BudgetManagement = self.env['budget.management']
+        BudgetPeriod = self.env['budget.period']
         for doc in self:
-            BudgetManagement.check_budget(doc.budget_move_ids,
+            BudgetPeriod.check_budget(doc.budget_move_ids,
                                           doc_type='expense')
         return res
 
@@ -75,7 +75,7 @@ class HRExpense(models.Model):
                     'company_id': company.id,
                     })
                 if reverse:  # On reverse, make sure not over returned
-                    self.env['budget.management'].\
+                    self.env['budget.period'].\
                         check_over_returned_budget(self.sheet_id)
             else:
                 expense.budget_move_ids.unlink()

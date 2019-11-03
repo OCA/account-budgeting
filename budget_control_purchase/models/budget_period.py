@@ -3,31 +3,31 @@
 from odoo import fields, models, api
 
 
-class BudgetManagement(models.Model):
-    _inherit = 'budget.management'
+class BudgetPeriod(models.Model):
+    _inherit = 'budget.period'
 
-    sale = fields.Boolean(
-        string='On Sales',
+    purchase = fields.Boolean(
+        string='On Purchase',
         default=False,
-        help="Control budget on sales order confirmation",
+        help="Control budget on purchase order confirmation",
     )
 
     @api.multi
     def _create_budget_move_periods(self):
         periods = super()._create_budget_move_periods()
-        if self.sale:
+        if self.purchase:
             Period = self.env['mis.report.instance.period']
-            model = self.env.ref('budget_control_sale.'
-                                 'model_sale_budget_move')
-            sale = Period.create({
-                'name': 'Sales',
+            model = self.env.ref('budget_control_purchase.'
+                                 'model_purchase_budget_move')
+            purchase = Period.create({
+                'name': 'Purchase',
                 'report_instance_id': self.report_instance_id.id,
-                'sequence': 20,
+                'sequence': 40,
                 'source': 'actuals_alt',
                 'source_aml_model_id': model.id,
                 'mode': 'fix',
                 'manual_date_from': self.bm_date_from,
                 'manual_date_to': self.bm_date_to,
             })
-            periods.update({sale: '-'})
+            periods.update({purchase: '-'})
         return periods

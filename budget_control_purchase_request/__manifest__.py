@@ -13,7 +13,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'views/budget_management_view.xml',
+        'views/budget_period_view.xml',
         'views/purchase_request_view.xml',
         'views/budget_move_forward_view.xml',
     ],

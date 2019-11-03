@@ -31,10 +31,10 @@ class PurchaseOrder(models.Model):
     @api.multi
     def button_confirm(self):
         res = super().button_confirm()
-        BudgetManagement = self.env['budget.management']
+        BudgetPeriod = self.env['budget.period']
         for doc in self:
-            BudgetManagement.check_budget(doc.budget_move_ids,
-                                          doc_type='purchase')
+            BudgetPeriod.check_budget(doc.budget_move_ids,
+                                      doc_type='purchase')
         return res
 
 
@@ -87,7 +87,7 @@ class PurchaseOrderLine(models.Model):
                 'invoice_line_id': invoice_line_id,
                 })
             if reverse:  # On reverse, make sure not over returned
-                self.env['budget.management'].\
+                self.env['budget.period'].\
                     check_over_returned_budget(self.order_id)
         else:
             self.budget_move_ids.unlink()

@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <tree string="Budget Transfer">
                 <field name="name"/>
-                <field name="budget_management_id"/>
+                <field name="budget_period_id"/>
             </tree>
         </field>
     </record>
@@ -34,7 +34,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="budget_management_id"/>
+                            <field name="budget_period_id"/>
                         </group>
                         <group>
                             <field name="mis_budget_id"/>
@@ -66,7 +66,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_budget_transfer" parent="budget_control.budget_management_conf_menu"
+    <menuitem id="menu_budget_transfer" parent="budget_control.budget_period_conf_menu"
         name="Budget Transfer"
         action="action_budget_transfer" sequence="100"/>
 

@@ -11,14 +11,14 @@ class BudgetTransfer(models.Model):
     name = fields.Char(
         required=True,
     )
-    budget_management_id = fields.Many2one(
-        comodel_name='budget.management',
+    budget_period_id = fields.Many2one(
+        comodel_name='budget.period',
         string='Budget Year',
         required=True,
     )
     mis_budget_id = fields.Many2one(
         comodel_name='mis.budget',
-        related='budget_management_id.mis_budget_id',
+        related='budget_period_id.mis_budget_id',
         readonly=True,
     )
     transfer_item_ids = fields.One2many(

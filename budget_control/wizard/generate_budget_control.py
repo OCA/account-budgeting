@@ -7,16 +7,16 @@ class GenerateBudgetControl(models.TransientModel):
     _name = 'generate.budget.control'
     _description = 'Generate Budget Control Sheets'
 
-    budget_mgnt_id = fields.Many2one(
-        comodel_name='budget.management',
+    budget_period_id = fields.Many2one(
+        comodel_name='budget.period',
         required=True,
         default=lambda self:
-        self.env['budget.management'].browse(self._context.get('active_id')),
+        self.env['budget.period'].browse(self._context.get('active_id')),
         ondelete='cascade',
     )
     budget_id = fields.Many2one(
         comodel_name='mis.budget',
-        related='budget_mgnt_id.mis_budget_id',
+        related='budget_period_id.mis_budget_id',
         readonly=True,
     )
     state = fields.Selection(
@@ -81,11 +81,11 @@ class GenerateBudgetControl(models.TransientModel):
         vals = []
         for analytic in (self.analytic_account_ids - existing_analytics):
             vals.append({
-                'name': '%s :: %s' % (self.budget_mgnt_id.name, analytic.name),
+                'name': '%s :: %s' % (self.budget_period_id.name, analytic.name),
                 'budget_id': self.budget_id.id,
                 'analytic_account_id': analytic.id,
                 'plan_date_range_type_id':
-                self.budget_mgnt_id.plan_date_range_type_id.id,
+                self.budget_period_id.plan_date_range_type_id.id,
             })
         budget_controls = BudgetControl.create(vals)
         budget_controls.do_init_budget_commit(self.init_budget_commit)

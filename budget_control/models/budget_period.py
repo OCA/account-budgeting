@@ -5,8 +5,8 @@ from odoo.tools import float_compare
 from odoo.exceptions import ValidationError, UserError
 
 
-class BudgetManagement(models.Model):
-    _name = 'budget.management'
+class BudgetPeriod(models.Model):
+    _name = 'budget.period'
     _inherits = {'mis.report.instance': 'report_instance_id'}
     _description = 'For each fiscal year, manage how budget is controlled'
 
@@ -16,7 +16,7 @@ class BudgetManagement(models.Model):
         readonly=False,
         ondelete='restrict',
         required=True,
-        help="Automatically created report instance for this budget mgnt",
+        help="Automatically created report instance for this budget period",
     )
     mis_budget_id = fields.Many2one(
         comodel_name='mis.budget',
@@ -44,8 +44,18 @@ class BudgetManagement(models.Model):
     )
     control_analytic_account_ids = fields.Many2many(
         comodel_name='account.analytic.account',
-        relation='budget_management_analytic_account_rel',
+        relation='budget_period_analytic_account_rel',
         string='Controlled Analytics',
+    )
+    control_level = fields.Selection(
+        selection=[('analytic', 'Analytic'),
+                   ('analytic_kpi', 'Analytic & KPI')],
+        string='Level of Control (TBD)',
+        required=True,
+        default='analytic',
+        help="Level of budget check.\n"
+        "1. Based on Analytic Account only\n"
+        "2. Based on Analytic Account & KPI (more fine granied)"
     )
     plan_date_range_type_id = fields.Many2one(
         comodel_name='date.range.type',
@@ -67,9 +77,9 @@ class BudgetManagement(models.Model):
         vals.update({'comparison_mode': True,
                      'target_move': 'posted',
                      'mis_budget_id': mis_budget.id, })
-        budget_mgnt = super().create(vals)
-        budget_mgnt._recompute_report_instance_periods()
-        return budget_mgnt
+        budget_period = super().create(vals)
+        budget_period._recompute_report_instance_periods()
+        return budget_period
 
     @api.multi
     def write(self, vals):
@@ -104,11 +114,11 @@ class BudgetManagement(models.Model):
 
     @api.multi
     def _recompute_report_instance_periods(self):
-        for budget_mgnt in self:
-            budget_mgnt.report_instance_id.period_ids.\
+        for budget_period in self:
+            budget_period.report_instance_id.period_ids.\
                 mapped('source_sumcol_ids').unlink()
-            budget_mgnt.report_instance_id.period_ids.unlink()
-            budget_mgnt._create_report_instance_period()
+            budget_period.report_instance_id.period_ids.unlink()
+            budget_period._create_report_instance_period()
 
     @api.multi
     def _create_budget_move_periods(self):
@@ -158,10 +168,10 @@ class BudgetManagement(models.Model):
     @api.model
     def check_budget(self, budget_moves, doc_type='account'):
         """Based in input budget_moves, i.e., account_move_line
-        1. Get a valid budget.management (how budget is being controlled)
+        1. Get a valid budget.period (how budget is being controlled)
         2. (1) and budget_moves, determine what account(kpi)+analytic to ctrl
         3. Prepare kpis (kpi by account_id)
-        4. Get report instance as created by budget.management
+        4. Get report instance as created by budget.period
         5. (2) + (3) + (4) -> kpi_matrix -> negative budget -> warnings
         """
         if self._context.get('force_no_budget_check'):
@@ -169,19 +179,19 @@ class BudgetManagement(models.Model):
         if not budget_moves:
             return
         self = self.sudo()
-        # Find active budget.management based on budget_moves date
+        # Find active budget.period based on budget_moves date
         date = set(budget_moves.mapped('date'))
         if len(date) != 1:
             raise ValidationError(_("Budget moves' date not unified"))
-        budget_mgnt = self._get_eligible_budget_mgnt(date.pop(), doc_type)
-        if not budget_mgnt:
+        budget_period = self._get_eligible_budget_period(date.pop(), doc_type)
+        if not budget_period:
             return
         # Find combination of account(kpi) + analytic(i.e.,project) to control
-        controls = self._prepare_controls(budget_mgnt, budget_moves)
+        controls = self._prepare_controls(budget_period, budget_moves)
         if not controls:
             return
         # Prepare kpis by account_id
-        instance = budget_mgnt.report_instance_id
+        instance = budget_period.report_instance_id
         company = self.env.user.company_id
         kpis = instance.report_id.get_kpis_by_account_id(company)
         if not kpis:
@@ -206,22 +216,22 @@ class BudgetManagement(models.Model):
                 doc.display_name)
 
     @api.model
-    def _get_eligible_budget_mgnt(self, date, doc_type):
-        BudgetMgnt = self.env['budget.management']
-        budget_mgnt = BudgetMgnt.search([('bm_date_from', '<=', date),
-                                         ('bm_date_to', '>=', date)])
-        if budget_mgnt and len(budget_mgnt) > 1:
+    def _get_eligible_budget_period(self, date, doc_type):
+        BudgetPeriod = self.env['budget.period']
+        budget_period = BudgetPeriod.search([('bm_date_from', '<=', date),
+                                           ('bm_date_to', '>=', date)])
+        if budget_period and len(budget_period) > 1:
             raise ValidationError(
-                _('Multiple Budget Management found for date %s.\nPlease '
-                  'ensure one Budget Management valid for this date') % date)
-        return budget_mgnt.filtered(doc_type)  # Only if to control
+                _('Multiple Budget Period found for date %s.\nPlease '
+                  'ensure one Budget Period valid for this date') % date)
+        return budget_period.filtered(doc_type)  # Only if to control
 
     @api.model
-    def _prepare_controls(self, budget_mgnt, budget_moves):
+    def _prepare_controls(self, budget_period, budget_moves):
         controls = set()
-        control_analytics = budget_mgnt.control_analytic_account_ids
+        control_analytics = budget_period.control_analytic_account_ids
         for i in budget_moves:
-            if budget_mgnt.control_all_analytic_accounts:
+            if budget_period.control_all_analytic_accounts:
                 if i.analytic_account_id and i.account_id:
                     controls.add((i.analytic_account_id.id, i.account_id.id))
             else:  # Only analtyic in control

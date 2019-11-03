@@ -12,7 +12,7 @@ class TestBudgetControl(TransactionCase):
         super(TestBudgetControl, self).setUp()
         self.obj_purchase = self.env['purchase.order']
         self.obj_invoice = self.env['account.invoice']
-        self.obj_budget_mgnt = self.env['budget.management']
+        self.obj_budget_period = self.env['budget.period']
         self.obj_budget_ctrl = self.env['budget.control']
         self.obj_budget_forward = self.env['budget.move.forward']
         self.obj_budget_transfer = self.env['budget.transfer']
@@ -20,8 +20,7 @@ class TestBudgetControl(TransactionCase):
         self.prev_year = str(datetime.now().year-1)
         self.this_year = str(datetime.now().year)
         self.budget_report = self.env.ref(
-            'budget_control_demo_full_cycle.'
-            'budget_control_expenses_kpi_expr_exp')
+            'budget_control_demo_full_cycle.budget_control_1_kpi')
         self.type_quarter = self.env.ref('budget_control_demo_full_cycle.'
                                          'date_range_type_quarter')
         self.group_costcenter = self.env.ref('budget_control_demo_full_cycle.'
@@ -33,9 +32,9 @@ class TestBudgetControl(TransactionCase):
         self.costcenter3 = self.env.ref('budget_control_demo_full_cycle.'
                                         'analytic_costcenter_3')
 
-    def create_budget_management(self, year, costcenter_ids=[]):
+    def create_budget_period(self, year, costcenter_ids=[]):
         all_analytic = not costcenter_ids and True or False
-        budget_mgnt = self.obj_budget_mgnt.create(
+        budget_period = self.obj_budget_period.create(
             {
                 'name': 'FY%s' % year,
                 'report_id': self.budget_report.id,
@@ -50,12 +49,12 @@ class TestBudgetControl(TransactionCase):
                 'control_analytic_account_ids': [(6, 0, costcenter_ids)]
             }
         )
-        return budget_mgnt
+        return budget_period
 
-    def create_budget_control_by_group(self, budget_mgnt_id,
+    def create_budget_control_by_group(self, budget_period_id,
                                        analytic_group_ids, init_budget=False):
         view_id = "budget_control.view_generate_budget_control"
-        ctx = {'active_id': budget_mgnt_id,
+        ctx = {'active_id': budget_period_id,
                'default_analytic_group_ids': analytic_group_ids,
                'default_all_analytic_accounts': True,
                'default_init_budget_commit': init_budget, }
@@ -108,10 +107,10 @@ class TestBudgetControl(TransactionCase):
         return invoice
 
     def test_01_no_budget_control_sheet(self):
-        """If budget mgnt is set to control any analytic, I excpect that,
+        """If budget period is set to control any analytic, I excpect that,
         system will check budget even there is no budget control sheet for it.
         """
-        self.create_budget_management(self.this_year, [self.costcenter1.id,
+        self.create_budget_period(self.this_year, [self.costcenter1.id,
                                                        self.costcenter2.id])
         purchase = self.create_purchase_order(self.costcenter1, 100.0)
         with self.assertRaises(UserError) as e:
@@ -122,15 +121,15 @@ class TestBudgetControl(TransactionCase):
         """If budget control has allocated budget for an analytic,
         but the usage exceed, I expece warning"""
         # For budget to a KPI is set to 4,000, PO > 4000 will raise warning
-        # Create budget management, then create budget control sheets
-        budget_mgnt = self.create_budget_management(self.this_year,
+        # Create budget period, then create budget control sheets
+        budget_period = self.create_budget_period(self.this_year,
                                                     [self.costcenter1.id])
-        self.create_budget_control_by_group(budget_mgnt.id,
+        self.create_budget_control_by_group(budget_period.id,
                                             [self.group_costcenter.id],
                                             init_budget=True)
         # Find budget control sheet of this year for costcenter 1
         budget_ctrl = self.obj_budget_ctrl.search([
-            ('budget_id', '=', budget_mgnt.mis_budget_id.id),
+            ('budget_id', '=', budget_period.mis_budget_id.id),
             ('analytic_account_id', '=', self.costcenter1.id)])
         # According to 1 KPIs x 4 quarter, this result in 4 budget items
         self.assertEqual(len(budget_ctrl.item_ids), 4)
@@ -170,16 +169,16 @@ class TestBudgetControl(TransactionCase):
                     'amount': amount}
 
         # To simulate, first create budget of last year.
-        budget_mgnt = self.create_budget_management(self.this_year,
+        budget_period = self.create_budget_period(self.this_year,
                                                     [self.costcenter1.id,
                                                      self.costcenter2.id])
-        self.create_budget_control_by_group(budget_mgnt.id,
+        self.create_budget_control_by_group(budget_period.id,
                                             [self.group_costcenter.id])
         budget_ctrl_1 = self.obj_budget_ctrl.search([
-            ('budget_id', '=', budget_mgnt.mis_budget_id.id),
+            ('budget_id', '=', budget_period.mis_budget_id.id),
             ('analytic_account_id', '=', self.costcenter1.id)])
         budget_ctrl_2 = self.obj_budget_ctrl.search([
-            ('budget_id', '=', budget_mgnt.mis_budget_id.id),
+            ('budget_id', '=', budget_period.mis_budget_id.id),
             ('analytic_account_id', '=', self.costcenter2.id)])
         budget_ctrl_1.item_ids.write({'amount': 1000.0})
 
@@ -195,7 +194,7 @@ class TestBudgetControl(TransactionCase):
 
         # 1) Test transfer that result in negative source amount
         budget_transfer = self.obj_budget_transfer.create({
-            'name': 'Transfer 1', 'budget_management_id': budget_mgnt.id})
+            'name': 'Transfer 1', 'budget_period_id': budget_period.id})
         budget_transfer.write({'transfer_item_ids': [(0, 0, _tranfer(500)),
                                                      (0, 0, _tranfer(501))]})
         with self.assertRaises(ValidationError) as e:
@@ -208,7 +207,7 @@ class TestBudgetControl(TransactionCase):
 
         # 2) Do a successful transfer, and check balance
         budget_transfer = self.obj_budget_transfer.create({
-            'name': 'Transfer 1', 'budget_management_id': budget_mgnt.id})
+            'name': 'Transfer 1', 'budget_period_id': budget_period.id})
         budget_transfer.write({'transfer_item_ids': [(0, 0, _tranfer(100)),
                                                      (0, 0, _tranfer(200))]})
         budget_transfer.action_transfer()
@@ -217,7 +216,7 @@ class TestBudgetControl(TransactionCase):
 
         # 3) Do another transfer, which make balance negative
         budget_transfer = self.obj_budget_transfer.create({
-            'name': 'Transfer 1', 'budget_management_id': budget_mgnt.id})
+            'name': 'Transfer 1', 'budget_period_id': budget_period.id})
         budget_transfer.write({'transfer_item_ids': [(0, 0, _tranfer(201))]})
         with self.assertRaises(ValidationError) as e:
             budget_transfer.action_transfer()
@@ -239,12 +238,12 @@ class TestBudgetControl(TransactionCase):
         #     - Note that on new year, budget balance will be 0.0
         #
         # To simulate, first create budget of last year.
-        prev_budget_mgnt = self.create_budget_management(self.prev_year,
+        prev_budget_period = self.create_budget_period(self.prev_year,
                                                          [self.costcenter1.id])
-        self.create_budget_control_by_group(prev_budget_mgnt.id,
+        self.create_budget_control_by_group(prev_budget_period.id,
                                             [self.group_costcenter.id])
         budget_ctrl = self.obj_budget_ctrl.search([
-            ('budget_id', '=', prev_budget_mgnt.mis_budget_id.id),
+            ('budget_id', '=', prev_budget_period.mis_budget_id.id),
             ('analytic_account_id', '=', self.costcenter1.id)])
         budget_ctrl.item_ids.write({'amount': 1000.0})
         # Make Actual on previous year -> 3000
@@ -259,10 +258,10 @@ class TestBudgetControl(TransactionCase):
 
         # Now, it it is time to close year end and carry forward
         # Create new budget year
-        this_budget_mgnt = self.create_budget_management(self.this_year,
+        this_budget_period = self.create_budget_period(self.this_year,
                                                          [self.costcenter1.id])
         # Carry commitment forward
-        budget_year = this_budget_mgnt.mis_budget_id
+        budget_year = this_budget_period.mis_budget_id
         budget_forward = self.create_budget_move_forward(budget_year)
         budget_forward.get_budget_move_forward()
         # Check on forward line, they are still on previous year
@@ -278,13 +277,13 @@ class TestBudgetControl(TransactionCase):
         # Check again, now the date commit of budget moves are in new year
         date_commit = budget_forward.forward_line_ids.mapped('date_commit')
         self.assertEqual(str(date_commit[0].year), self.this_year)
-        # Back to budget management, and generate budget control for this year
+        # Back to budget period, and generate budget control for this year
         # with init_budget_commit = True, commited amount will be budget intial
-        self.create_budget_control_by_group(this_budget_mgnt.id,
+        self.create_budget_control_by_group(this_budget_period.id,
                                             [self.group_costcenter.id],
                                             init_budget=True)
         budget_ctrl = self.obj_budget_ctrl.search([
-            ('budget_id', '=', this_budget_mgnt.mis_budget_id.id),
+            ('budget_id', '=', this_budget_period.mis_budget_id.id),
             ('analytic_account_id', '=', self.costcenter1.id)])
         # New inital commit is 500, equal to the carry forward amount
         self.assertEquals(sum(budget_ctrl.item_ids.mapped('amount')), 500.0)

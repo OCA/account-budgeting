@@ -9,10 +9,7 @@ class AccountMove(models.Model):
     @api.multi
     def post(self, invoice=False):
         res = super().post(invoice=invoice)
-        # Force no budget check, if not Vendor Bill
-        no_check = invoice and invoice.type != 'in_invoice' and True or False
-        ctx = {'force_no_budget_check': no_check}
-        BudgetManagement = self.env['budget.management'].with_context(ctx)
+        BudgetPeriod = self.env['budget.period']
         for doc in self:
-            BudgetManagement.check_budget(doc.line_ids)
+            BudgetPeriod.check_budget(doc.line_ids)
         return res

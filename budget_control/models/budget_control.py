@@ -27,7 +27,7 @@ class BudgetControl(models.Model):
         required=True,
         ondelete='restrict',
         domain=lambda self: self._get_mis_budget_domain(),
-        help="List of mis.budget created by and linked to budget.management",
+        help="List of mis.budget created by and linked to budget.period",
     )
     date_from = fields.Date(
         related='budget_id.date_from',
@@ -78,16 +78,16 @@ class BudgetControl(models.Model):
 
     @api.model
     def _get_mis_budget_domain(self):
-        all_budget_mgnts = self.env['budget.management'].search([])
-        return [('id', 'in', all_budget_mgnts.mapped('mis_budget_id').ids)]
+        all_budget_periods = self.env['budget.period'].search([])
+        return [('id', 'in', all_budget_periods.mapped('mis_budget_id').ids)]
 
     @api.multi
     def get_report_amount(self, kpi_names=[], col_names=[]):
         self.ensure_one()
-        Mgnt = self.env['budget.management']
-        budget_mgnt = Mgnt.search([('mis_budget_id', '=', self.budget_id.id)])
-        budget_mgnt.ensure_one()
-        return budget_mgnt._get_amount(budget_mgnt.report_instance_id.id,
+        BudgetPeriod = self.env['budget.period']
+        budget_period = BudgetPeriod.search([('mis_budget_id', '=', self.budget_id.id)])
+        budget_period.ensure_one()
+        return budget_period._get_amount(budget_period.report_instance_id.id,
                                        kpi_names=kpi_names,
                                        col_names=col_names,
                                        analytic_id=self.analytic_account_id.id)
@@ -171,14 +171,14 @@ class BudgetControl(models.Model):
     @api.multi
     def _report_instance(self):
         self.ensure_one()
-        budget_mgnt = self.env['budget.management'].search([
+        budget_period = self.env['budget.period'].search([
             ('mis_budget_id', '=', self.budget_id.id)])
         ctx = {'mis_report_filters': {}}
         if self.analytic_account_id:
             ctx['mis_report_filters']['analytic_account_id'] = {
                 'value': self.analytic_account_id.id,
             }
-        return budget_mgnt.report_instance_id.with_context(ctx)
+        return budget_period.report_instance_id.with_context(ctx)
 
     @api.multi
     def preview(self):

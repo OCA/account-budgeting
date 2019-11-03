@@ -1,5 +1,5 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-manage_budget_management,manage_budget_management,model_budget_management,budget_control.group_budget_control_manager,1,1,1,1
+manage_budget_period,manage_budget_period,model_budget_period,budget_control.group_budget_control_manager,1,1,1,1
 manage_budget_control,manage_budget_control,model_budget_control,budget_control.group_budget_control_user,1,1,1,1
 budget_monitor_report,budget_monitor_report,model_budget_monitor_report,budget_control.group_budget_control_user,1,1,1,1
 manage_budget_move_forward,manage_budget_move_forward,model_budget_move_forward,budget_control.group_budget_control_manager,1,1,1,1

@@ -3,8 +3,8 @@
 from odoo import fields, models, api
 
 
-class BudgetManagement(models.Model):
-    _inherit = 'budget.management'
+class BudgetPeriod(models.Model):
+    _inherit = 'budget.period'
 
     purchase_request = fields.Boolean(
         string='On Purchase Request',

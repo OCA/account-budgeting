@@ -21,14 +21,14 @@ class TestMisBudget(TransactionCase):
         self._create_date_range_quarter()
         # Create budget kpi
         self.report = self._create_mis_report_kpi()
-        # Create budget.management for current year
-        self.budget_mgnt = self._create_budget_mgnt_fy(self.report.id)
+        # Create budget.period for current year
+        self.budget_period = self._create_budget_period_fy(self.report.id)
         # Create budget.control for CostCenter1,
         #  by selected budget_id and date range (by quarter)
         self.costcenter1 = Analytic.create({'name': 'CostCenter1'})
         self.budget_control = BudgetControl.create({
             'name': 'CostCenter1/%s',
-            'budget_id': self.budget_mgnt.mis_budget_id.id,
+            'budget_id': self.budget_period.mis_budget_id.id,
             'analytic_account_id': self.costcenter1.id,
             'plan_date_range_type_id': self.date_range_type.id})
         # Test item created for 3 kpi x 4 quarters = 12 budget items
@@ -91,14 +91,14 @@ class TestMisBudget(TransactionCase):
         ))
         return report
 
-    def _create_budget_mgnt_fy(self, report_id):
-        BudgetMgnt = self.env['budget.management']
-        budget_bgmt = BudgetMgnt.create({
+    def _create_budget_period_fy(self, report_id):
+        BudgetPeriod = self.env['budget.period']
+        budget_period = BudgetPeriod.create({
             'name': 'Budget for FY%s' % self.year,
             'report_id': report_id,
             'bm_date_from': '%s-01-01' % self.year,
             'bm_date_to': '%s-12-31' % self.year})
-        return budget_bgmt
+        return budget_period
 
     def _create_invoice(self, inv_type, vendor, analytic, invoice_lines):
         Invoice = self.env['account.invoice']
@@ -115,11 +115,11 @@ class TestMisBudget(TransactionCase):
         return invoice
 
     def test_vendor_blll_budget_check(self):
-        """If budget.management is set to check budget, KPI1=400.0 allocated
+        """If budget.period is set to check budget, KPI1=400.0 allocated
         - First 400.0 will used all budget allocated
         - Second 1.0 will make it exceed"""
         # Check budget
-        self.budget_mgnt.account = True
+        self.budget_period.account = True
         bill1 = self._create_invoice('in_invoice', self.vendor,
                                      self.costcenter1,
                                      [{'product': self.product_kpi1,
@@ -134,9 +134,9 @@ class TestMisBudget(TransactionCase):
             bill2.action_invoice_open()
 
     def test_vendor_blll_no_budget_check(self):
-        """If budget.management is not set to check budget, no budget check"""
+        """If budget.period is not set to check budget, no budget check"""
         # No budget check
-        self.budget_mgnt.account = False
+        self.budget_period.account = False
         bill1 = self._create_invoice('in_invoice', self.vendor,
                                      self.costcenter1,
                                      [{'product': self.product_kpi1,
@@ -146,14 +146,14 @@ class TestMisBudget(TransactionCase):
     def test_refund_budget_check(self):
         """For refund, always not checking"""
         # First, make budget actual to exceed budget first
-        self.budget_mgnt.account = False  # No budget check first
+        self.budget_period.account = False  # No budget check first
         bill1 = self._create_invoice('in_invoice', self.vendor,
                                      self.costcenter1,
                                      [{'product': self.product_kpi1,
                                        'price_unit': 100000.0}])  # big amount
         bill1.action_invoice_open()
         # Check budget, for in_refund, force no budget check
-        self.budget_mgnt.account = True
+        self.budget_period.account = True
         invoice = self._create_invoice('in_refund', self.vendor,
                                        self.costcenter1,
                                        [{'product': self.product_kpi1,

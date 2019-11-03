@@ -76,6 +76,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_budget_move_forward" parent="budget_management_conf_menu" name="Budget Carry Forward" action="action_budget_move_forward" sequence="100"/>
+    <menuitem id="menu_budget_move_forward" parent="budget_period_conf_menu" name="Budget Carry Forward" action="action_budget_move_forward" sequence="100"/>
 
 </odoo>
