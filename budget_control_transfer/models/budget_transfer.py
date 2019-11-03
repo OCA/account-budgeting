@@ -41,6 +41,7 @@ class BudgetTransfer(models.Model):
     @api.multi
     def action_transfer(self):
         self.mapped('transfer_item_ids').transfer()
+
         self._check_budget_control()
         self.write({'state': 'transfer'})
 
@@ -52,13 +53,16 @@ class BudgetTransfer(models.Model):
 
     @api.multi
     def _check_budget_control(self):
-        """Ensure no budget control will result in negative amount."""
+        """Ensure no budget control will result in negative balance."""
         transfers = self.mapped('transfer_item_ids')
         budget_controls = transfers.mapped('source_budget_control_id') | \
             transfers.mapped('target_budget_control_id')
-        # TODO:
-        # Test that, after the transfer,
-        # no one analytic will be negative amount
+        for budget_ctrl in budget_controls:
+            balance = budget_ctrl.get_report_amount(['total'], ['Available'])
+            if balance < 0.0:
+                raise ValidationError(
+                    _('This transfer will result in negative budget balance '
+                      'for %s') % budget_ctrl.name)
 
 
 class BudgetTransferItem(models.Model):
@@ -134,19 +138,21 @@ class BudgetTransferItem(models.Model):
                     transfer.target_budget_control_id:
                 raise UserError(_(
                     'You can transfer from the same budget control sheet!'))
-            if transfer.amount > transfer.source_amount:
-                raise UserError(_('Transfer amount exceed source amount!'))
+            if transfer.amount < 0.0:
+                raise UserError(_('Transfer amount must be positive!'))
             transfer.source_item_id.amount -= transfer.amount
             transfer.target_item_id.amount += transfer.amount
             transfer.state = 'transfer'
+        # Final check
+        source_amounts = self.mapped('source_item_id').mapped('amount')
+        if list(filter(lambda a: a < 0, source_amounts)):
+            raise ValidationError(_('Negative source amount after transfer!'))
 
     @api.multi
     def reverse(self):
         for transfer in self:
             if transfer.state != 'transfer':
                 raise ValidationError(_('Invalid state!'))
-            if transfer.amount > transfer.source_amount:
-                raise UserError(_('Transfer amount exceed source amount!'))
             transfer.source_item_id.amount += transfer.amount
             transfer.target_item_id.amount -= transfer.amount
             transfer.state = 'reverse'
