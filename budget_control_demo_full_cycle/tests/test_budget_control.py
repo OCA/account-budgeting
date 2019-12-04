@@ -238,8 +238,8 @@ class TestBudgetControl(TransactionCase):
         #     - Note that on new year, budget balance will be 0.0
         #
         # To simulate, first create budget of last year.
-        prev_budget_period = self.create_budget_period(self.prev_year,
-                                                         [self.costcenter1.id])
+        prev_budget_period = self.create_budget_period(
+            self.prev_year, [self.costcenter1.id])
         self.create_budget_control_by_group(prev_budget_period.id,
                                             [self.group_costcenter.id])
         budget_ctrl = self.obj_budget_ctrl.search([
