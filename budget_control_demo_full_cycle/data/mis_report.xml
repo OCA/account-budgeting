@@ -2,10 +2,16 @@
 <!-- Copyright 2019 Ecosoft Co., Ltd. (http://ecosoft.co.th)
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo noupdate="1">
+    <record id="budget_style_decimal" model="mis.report.style">
+      <field name="name">2 Decimal</field>
+      <field name="dp_inherit" eval="False"/>
+      <field name="dp">2</field>
+    </record>
 
     <!-- 1 KPI - Expense -->
     <record id="budget_control_1_kpi" model="mis.report">
         <field name="name">KPI - Expenses</field>
+        <field name="style_id" ref="budget_style_decimal"/>
     </record>
 
     <record id="budget_control_1_kpi_exp" model="mis.report.kpi">
@@ -35,6 +41,7 @@
     <!--- 3 KPIs -->
     <record id="budget_control_3_kpi" model="mis.report">
         <field name="name">KPI - Expenses, Equipment, Other</field>
+        <field name="style_id" ref="budget_style_decimal"/>
     </record>
 
     <record id="budget_control_3_kpi_exp" model="mis.report.kpi">

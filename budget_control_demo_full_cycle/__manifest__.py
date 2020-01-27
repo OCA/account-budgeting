@@ -19,6 +19,7 @@
         'data/date_range.xml',
         'data/mis_report.xml',
         'data/analytic_account.xml',
+        'data/res_users_demo.xml',
     ],
     'installable': True,
     'maintainers': ['kittiu'],
