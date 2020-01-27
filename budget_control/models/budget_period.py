@@ -264,10 +264,23 @@ class BudgetPeriod(models.Model):
         return 0.0
 
     @api.model
+    def _get_kpis_value(self, kpi_matrix, kpi_lines, period):
+        value = 0.0
+        details_kpi = False
+        for row in kpi_matrix.iter_rows():
+            if row.kpi in kpi_lines and row.kpi != details_kpi:
+                for cell in row.iter_cells():
+                    if cell.subcol.col.key == period.id:
+                        value += cell.val
+            details_kpi = row.kpi
+        return value
+
+    @api.model
     def _check_budget_available(self, instance, controls, kpis):
         warnings = []
         Account = self.env['account.account']
         Analytic = self.env['account.analytic.account']
+        BudgetPeriod = self.env['budget.period']
         # Prepare result matrix for all analytic_id to be tested
         analytic_ids = [x[0] for x in list(controls)]
         kpi_matrix = self._prepare_matrix_by_analytic(instance, analytic_ids)
@@ -284,8 +297,18 @@ class BudgetPeriod(models.Model):
                     _('KPI Template "%s" has more than one KPI being '
                       'refereced by same account code %s') %
                     (instance.report_id.name, account.code))
-            amount = self._get_kpi_value(kpi_matrix[analytic_id],
-                                         list(kpi)[0], period)
+
+            # Checl Level of Control in Budget
+            budget_period = BudgetPeriod.search([
+                ('report_instance_id', '=', instance.id)
+            ])
+            if budget_period.control_level == 'analytic':
+                kpi_lines = set([list(kpis.get(x))[0] for x in kpis])
+                amount = self._get_kpis_value(kpi_matrix[analytic_id],
+                                              kpi_lines, period)
+            else:
+                amount = self._get_kpi_value(kpi_matrix[analytic_id],
+                                             list(kpi)[0], period)
             if amount < 0:
                 analytic = Analytic.browse(analytic_id).display_name
                 kpi_name = list(kpi)[0].display_name
