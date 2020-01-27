@@ -1,3 +1,7 @@
+Before start using this module, following access right must be set.
+  - Budget User for Budget Control Sheet, Budget Report
+  - Budget Manager for Budget Period, Budget Carry Forward
+
 Followings are sample steps to start with,
 
 1. Create new Budget Period
@@ -26,7 +30,7 @@ Followings are sample steps to start with,
    Each analytic account will have its own sheet. Form Budget Period, click on the
    icon "Budget Control Sheets" or by Menu > Budgeting > Budget Control Sheet, to open them.
 
-    - Based on "Plan Date Range" period, Plan table will show all KPI split by Pan Date Range
+    - Based on "Plan Date Range" period, Plan table will show all KPI split by Plan Date Range
     - Allocate budget amount as appropriate.
     - Click Control button, state will change to Controlled.
 
@@ -45,6 +49,6 @@ Followings are sample steps to start with,
    As we have checked Budget Control - On Account = True in first step, checking will occur
    every time an invoice is validated. You can test by validate invoice with big amount to exceed.
 
-6. Budget Move Forward
+6. Budget Carry Forward
 
    Use this function only if there are budget commitments, which want to push the commit date to next fiscal year.
