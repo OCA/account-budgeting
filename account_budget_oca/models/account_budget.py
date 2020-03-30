@@ -56,7 +56,6 @@ class AccountBudgetPost(models.Model):
         self._check_account_ids(vals)
         return super(AccountBudgetPost, self).create(vals)
 
-    @api.multi
     def write(self, vals):
         self._check_account_ids(vals)
         return super(AccountBudgetPost, self).write(vals)
@@ -113,23 +112,18 @@ class CrossoveredBudget(models.Model):
         ),
     )
 
-    @api.multi
     def action_budget_confirm(self):
         self.write({"state": "confirm"})
 
-    @api.multi
     def action_budget_draft(self):
         self.write({"state": "draft"})
 
-    @api.multi
     def action_budget_validate(self):
         self.write({"state": "validate"})
 
-    @api.multi
     def action_budget_cancel(self):
         self.write({"state": "cancel"})
 
-    @api.multi
     def action_budget_done(self):
         self.write({"state": "done"})
 
@@ -156,9 +150,7 @@ class CrossoveredBudgetLines(models.Model):
     paid_date = fields.Date()
     planned_amount = fields.Float(required=True, digits=0)
     practical_amount = fields.Float(compute="_compute_practical_amount", digits=0)
-    theoretical_amount = fields.Float(
-        compute="_compute_theoretical_amount", oldname="theoritical_amount", digits=0
-    )
+    theoretical_amount = fields.Float(compute="_compute_theoretical_amount", digits=0)
     percentage = fields.Float(compute="_compute_percentage", string="Achievement")
     company_id = fields.Many2one(
         related="crossovered_budget_id.company_id",
@@ -168,7 +160,6 @@ class CrossoveredBudgetLines(models.Model):
         readonly=True,
     )
 
-    @api.multi
     def _compute_practical_amount(self):
         for line in self:
             result = 0.0
@@ -189,7 +180,6 @@ class CrossoveredBudgetLines(models.Model):
                 result = self.env.cr.fetchone()[0] or 0.0
             line.practical_amount = result
 
-    @api.multi
     def _compute_theoretical_amount(self):
         today = fields.Datetime.now()
         for line in self:
@@ -222,7 +212,6 @@ class CrossoveredBudgetLines(models.Model):
 
             line.theoretical_amount = theo_amt
 
-    @api.multi
     def _compute_percentage(self):
         for line in self:
             if line.theoretical_amount != 0.00:
