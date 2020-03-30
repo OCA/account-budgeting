@@ -29,7 +29,7 @@ class TestAccountBudgetCommon(AccountingTestCase):
                 }
             ).ids
         self.account_budget_post_sales0 = self.env["account.budget.post"].create(
-            {"name": "Sales", "account_ids": [(6, None, account_ids)],}
+            {"name": "Sales", "account_ids": [(6, None, account_ids)]}
         )
 
         self.budget_lines_model.create(
@@ -166,7 +166,7 @@ class TestAccountBudgetCommon(AccountingTestCase):
                 }
             ).ids
         self.account_budget_post_purchase0 = self.env["account.budget.post"].create(
-            {"name": "Purchases", "account_ids": [(6, None, account_ids)],}
+            {"name": "Purchases", "account_ids": [(6, None, account_ids)]}
         )
 
         self.budget_lines_model.create(

@@ -10,7 +10,6 @@ except ImportError:
     from mock import patch
 
 
-
 # ---------------------------------------------------------
 # Tests
 # ---------------------------------------------------------
@@ -35,13 +34,13 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
                 "tag_ids": [(4, tag_id, 0)],
             }
         )
-        buget_post = self.env["account.budget.post"].create(
-            {"name": "Sales", "account_ids": [(4, account_rev.id, 0)],}
+        budget_post = self.env["account.budget.post"].create(
+            {"name": "Sales", "account_ids": [(4, account_rev.id, 0)]}
         )
         self.line = crossovered_budget_line_obj.create(
             {
                 "crossovered_budget_id": crossovered_budget.id,
-                "general_budget_id": buget_post.id,
+                "general_budget_id": budget_post.id,
                 "date_from": "2014-01-01",
                 "date_to": "2014-12-31",
                 "planned_amount": -364,
