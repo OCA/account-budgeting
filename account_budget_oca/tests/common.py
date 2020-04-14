@@ -7,7 +7,7 @@ from odoo.addons.account.tests.account_test_classes import AccountingTestCase
 
 class TestAccountBudgetCommon(AccountingTestCase):
     def setUp(self):
-        super(TestAccountBudgetCommon, self).setUp()
+        super().setUp()
         self.budget_lines_model = self.env["crossovered.budget.lines"]
         self.account_model = self.env["account.account"]
         # In order to check account budget module in Odoo I created a budget
