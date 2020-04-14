@@ -39,12 +39,12 @@
         <field name="search_view_id" ref="view_budget_post_search" />
     </record>
     <menuitem
-        action="open_budget_post_form"
         id="menu_budget_post_form"
+        action="open_budget_post_form"
         parent="account.account_management_menu"
         sequence="5"
     />
-    <record model="ir.ui.view" id="view_budget_post_form">
+    <record id="view_budget_post_form" model="ir.ui.view">
         <field name="name">account.budget.post.form</field>
         <field name="model">account.budget.post</field>
         <field name="arch" type="xml">
@@ -70,7 +70,7 @@
             </form>
         </field>
     </record>
-    <record model="ir.ui.view" id="crossovered_budget_view_form">
+    <record id="crossovered_budget_view_form" model="ir.ui.view">
         <field name="name">crossovered.budget.view.form</field>
         <field name="model">crossovered.budget</field>
         <field name="arch" type="xml">
@@ -351,7 +351,7 @@
             </search>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="act_crossovered_budget_view">
+    <record id="act_crossovered_budget_view" model="ir.actions.act_window">
         <field name="name">Budgets</field>
         <field name="res_model">crossovered.budget</field>
         <field name="view_mode">tree,kanban,form</field>
@@ -393,7 +393,7 @@
             </search>
         </field>
     </record>
-    <record model="ir.ui.view" id="view_crossovered_budget_line_tree">
+    <record id="view_crossovered_budget_line_tree" model="ir.ui.view">
         <field name="name">crossovered.budget.line.tree</field>
         <field name="model">crossovered.budget.lines</field>
         <field name="arch" type="xml">
@@ -414,7 +414,7 @@
             </tree>
         </field>
     </record>
-    <record model="ir.ui.view" id="view_crossovered_budget_line_form">
+    <record id="view_crossovered_budget_line_form" model="ir.ui.view">
         <field name="name">crossovered.budget.line.form</field>
         <field name="model">crossovered.budget.lines</field>
         <field name="arch" type="xml">
@@ -452,13 +452,5 @@
         id="menu_act_crossovered_budget_lines_view"
         action="act_crossovered_budget_lines_view"
         sequence="20"
-    />
-    <!--  Shortcuts -->
-    <act_window
-        name="Budget Items"
-        context="{'search_default_analytic_account_id': [active_id], 'default_analytic_account_id': active_id}"
-        res_model="crossovered.budget.lines"
-        binding_model="account.analytic.account"
-        id="act_account_analytic_account_cb_lines"
     />
 </odoo>
