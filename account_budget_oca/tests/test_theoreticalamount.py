@@ -15,7 +15,7 @@ except ImportError:
 # ---------------------------------------------------------
 class TestTheoreticalAmount(TestAccountBudgetCommon):
     def setUp(self):
-        super(TestTheoreticalAmount, self).setUp()
+        super().setUp()
         crossovered_budget = self.env["crossovered.budget"].create(
             {
                 "name": "test budget name",
@@ -48,7 +48,7 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
         )
 
         self.patcher = patch(
-            "odoo.addons.account_budget_oca.models." "account_budget.fields.Datetime",
+            "odoo.addons.account_budget_oca.models.account_budget.fields.Datetime",
             wraps=Datetime,
         )
         self.mock_datetime = self.patcher.start()
@@ -116,4 +116,4 @@ class TestTheoreticalAmount(TestAccountBudgetCommon):
 
     def tearDown(self):
         self.patcher.stop()
-        super(TestTheoreticalAmount, self).tearDown()
+        super().tearDown()
