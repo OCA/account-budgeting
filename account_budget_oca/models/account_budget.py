@@ -21,7 +21,7 @@ class AccountBudgetPost(models.Model):
         column1="budget_id",
         column2="account_id",
         string="Accounts",
-        domain=[("deprecated", "=", False)],
+        domain="[('deprecated', '=', False), ('company_id', '=', company_id)]",
     )
     crossovered_budget_line_ids = fields.One2many(
         comodel_name="crossovered.budget.lines",
@@ -30,11 +30,8 @@ class AccountBudgetPost(models.Model):
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
         required=True,
-        default=lambda self: self.env["res.company"]._company_default_get(
-            "account.budget.post"
-        ),
+        default=lambda self: self.env.company,
     )
 
     def _check_account_ids(self, vals):
@@ -54,11 +51,11 @@ class AccountBudgetPost(models.Model):
     @api.model
     def create(self, vals):
         self._check_account_ids(vals)
-        return super(AccountBudgetPost, self).create(vals)
+        return super().create(vals)
 
     def write(self, vals):
         self._check_account_ids(vals)
-        return super(AccountBudgetPost, self).write(vals)
+        return super().write(vals)
 
 
 class CrossoveredBudget(models.Model):
@@ -105,11 +102,8 @@ class CrossoveredBudget(models.Model):
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
         required=True,
-        default=lambda self: self.env["res.company"]._company_default_get(
-            "account.budget.post"
-        ),
+        default=lambda self: self.env.company,
     )
 
     def action_budget_confirm(self):
@@ -139,9 +133,7 @@ class CrossoveredBudgetLines(models.Model):
         index=True,
         required=True,
     )
-    analytic_account_id = fields.Many2one(
-        comodel_name="account.analytic.account", string="Analytic Account"
-    )
+    analytic_account_id = fields.Many2one(comodel_name="account.analytic.account",)
     general_budget_id = fields.Many2one(
         comodel_name="account.budget.post", string="Budgetary Position", required=True
     )
@@ -153,13 +145,12 @@ class CrossoveredBudgetLines(models.Model):
     theoretical_amount = fields.Float(compute="_compute_theoretical_amount", digits=0)
     percentage = fields.Float(compute="_compute_percentage", string="Achievement")
     company_id = fields.Many2one(
-        related="crossovered_budget_id.company_id",
-        comodel_name="res.company",
-        string="Company",
-        store=True,
-        readonly=True,
+        related="crossovered_budget_id.company_id", store=True, readonly=True,
     )
 
+    @api.depends(
+        "general_budget_id.account_ids", "date_from", "date_to", "analytic_account_id"
+    )
     def _compute_practical_amount(self):
         for line in self:
             result = 0.0
@@ -180,6 +171,7 @@ class CrossoveredBudgetLines(models.Model):
                 result = self.env.cr.fetchone()[0] or 0.0
             line.practical_amount = result
 
+    @api.depends("paid_date", "date_from", "date_to", "planned_amount")
     def _compute_theoretical_amount(self):
         today = fields.Datetime.now()
         for line in self:
@@ -192,7 +184,7 @@ class CrossoveredBudgetLines(models.Model):
                     theo_amt = line.planned_amount
             else:
                 line_timedelta = from_string(line.date_to) - from_string(line.date_from)
-                elapsed_timedelta = from_string(today) - (from_string(line.date_from))
+                elapsed_timedelta = from_string(today) - from_string(line.date_from)
 
                 if elapsed_timedelta.days < 0:
                     # If the budget line has not started yet, theoretical
@@ -212,6 +204,7 @@ class CrossoveredBudgetLines(models.Model):
 
             line.theoretical_amount = theo_amt
 
+    @api.depends("theoretical_amount", "practical_amount")
     def _compute_percentage(self):
         for line in self:
             if line.theoretical_amount != 0.00:
