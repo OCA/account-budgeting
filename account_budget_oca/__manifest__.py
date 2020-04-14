@@ -5,7 +5,7 @@
     "version": "13.0.1.0.0",
     "category": "Accounting",
     "license": "LGPL-3",
-    "author": "Odoo S.A., " "Odoo Community Association (OCA)",
+    "author": "Odoo S.A., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-budgeting",
     "depends": ["account"],
     "excludes": ["account_budget"],
