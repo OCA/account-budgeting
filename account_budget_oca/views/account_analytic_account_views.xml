@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record model="ir.ui.view" id="view_account_analytic_account_form_inherit_budget">
+    <record id="view_account_analytic_account_form_inherit_budget" model="ir.ui.view">
         <field name="name">account.analytic.account.form.inherit.budget</field>
         <field name="model">account.analytic.account</field>
         <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
@@ -16,7 +16,7 @@
                             nolabel="1"
                             mode="tree"
                         >
-                            <tree string="Budget Items" editable="top">
+                            <tree editable="top">
                                 <field name="crossovered_budget_id" />
                                 <field name="general_budget_id" />
                                 <field name="date_from" />
@@ -35,7 +35,7 @@
                                 />
                                 <field name="percentage" />
                             </tree>
-                            <form string="Budget Items">
+                            <form>
                                 <field name="crossovered_budget_id" />
                                 <field name="general_budget_id" />
                                 <field name="date_from" />
