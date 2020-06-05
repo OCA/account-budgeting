@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2019-08-26 14:01+0000\n"
-"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"PO-Revision-Date: 2020-06-05 19:19+0000\n"
+"Last-Translator: Fernando Colus <fcolus1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/odoo/teams/"
 "41243/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
@@ -36,10 +36,10 @@ msgid ""
 "represent\n"
 "                projects, departments, categories of products, etc.)"
 msgstr ""
-"Um orçamento é uma previsão de receitas e/ou despesas\n"
-"esperadas para um período no futuro. Um orçamento é definido em algumas\n"
-"contas financeiras e/ou contas analíticas (que podem representar\n"
-"projetos, departamentos, categorias de produtos, etc.)"
+"Um orçamento é uma previsão de receitas e/ou despesas esperadas para um "
+"período no futuro. Um orçamento é definido em algumas contas financeiras e/"
+"ou contas analíticas (que podem representar projetos, departamentos, "
+"categorias de produtos, etc.)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
@@ -50,7 +50,7 @@ msgstr "Contas"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
 msgid "Achievement"
-msgstr "Obtenção"
+msgstr "Realização"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
@@ -71,7 +71,7 @@ msgstr "Aprovar"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
 msgid "Attachment Count"
-msgstr "Conta de anexos"
+msgstr "Contagem de anexos"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
@@ -145,12 +145,11 @@ msgid ""
 "actuals\n"
 "                realised during that period."
 msgstr ""
-"Ao manter o controle de onde vai o seu dinheiro, você pode ser menos\n"
-"propenso a gastar mais, e mais propenso a cumprir o seu objetivo "
-"financeiro.\n"
-"Prevê um orçamento, detalhando a receita esperada por\n"
-"conta analítica e monitora sua evolução com base nos valores reais\n"
-"realizados durante esse período."
+"Ao manter o controle de onde vai o seu dinheiro, você pode ser menos "
+"propenso a gastar mais, e mais propenso a cumprir o seu objetivo financeiro. "
+"Prevê um orçamento, detalhando a receita esperada por conta analítica e "
+"monitora sua evolução com base nos valores reais realizados durante esse "
+"período."
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
