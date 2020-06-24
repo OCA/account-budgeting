@@ -25,6 +25,11 @@ class MisBudgetItem(models.Model):
         index=True,
     )
 
+    def _compute_name(self):
+        """ Overwrite name using KPI only """
+        for rec in self:
+            rec.name = rec.kpi_expression_id.kpi_id.display_name
+
     @api.multi
     @api.depends('budget_control_id.active')
     def _compute_active(self):

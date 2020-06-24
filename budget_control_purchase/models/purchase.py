@@ -68,24 +68,20 @@ class PurchaseOrderLine(models.Model):
             fpos = self.order_id.fiscal_position_id
             account = self.product_id.product_tmpl_id.\
                 get_product_accounts(fpos)['expense']
-            company = self.env.user.company_id
+            analytic_account = self.account_analytic_id
+            doc_date = self.order_id.date_order
             amount_currency = product_qty * self.price_unit
-            date_order = self.order_id.date_order
-            amount = self.currency_id._convert(
-                amount_currency, company.currency_id, company, date_order)
-            self.env['purchase.budget.move'].create({
+            currency = self.currency_id
+            vals = self._prepare_budget_commitment(
+                account, analytic_account, doc_date, amount_currency,
+                currency, reverse=reverse)
+            # Document specific vals
+            vals.update({
                 'purchase_line_id': self.id,
-                'account_id': account.id,
-                'analytic_account_id': self.account_analytic_id.id,
                 'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
-                'date': (self._context.get('commit_by_docdate') and
-                         date_order or fields.Date.today()),
-                'amount_currency': amount_currency,
-                'debit': not reverse and amount or 0.0,
-                'credit': reverse and amount or 0.0,
-                'company_id': company.id,
                 'invoice_line_id': invoice_line_id,
-                })
+            })
+            self.env['purchase.budget.move'].create(vals)
             if reverse:  # On reverse, make sure not over returned
                 self.env['budget.period'].\
                     check_over_returned_budget(self.order_id)

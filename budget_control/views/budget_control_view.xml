@@ -105,8 +105,14 @@
                             </div>
                             <field name="item_ids" widget="x2many_2d_matrix"
                                 field_x_axis="date_range_id"
-                                field_y_axis="kpi_expression_id"
-                                field_value="amount"/>
+                                field_y_axis="name"
+                                field_value="amount">
+                                <tree>
+                                    <field name="date_range_id"/>
+                                    <field name="name"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
@@ -127,6 +133,6 @@
         <field name="context">{'active_test': False}</field>
     </record>
 
-    <menuitem id="budget_control_menu" parent="budget_period_conf_menu" name="Budget Control Sheet" action="budget_control_action" sequence="20"/>
+    <menuitem id="budget_control_menu" parent="budget_budget_menu" name="Budget Control Sheet" action="budget_control_action" sequence="20"/>
 
 </odoo>

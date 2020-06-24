@@ -58,22 +58,19 @@ class HRExpense(models.Model):
         """Create budget commit for each expense."""
         for expense in self:
             if expense.state in ('approved', 'done'):
-                company = self.env.user.company_id
-                amount = expense.currency_id._convert(
-                    expense.untaxed_amount, company.currency_id,
-                    company, expense.date)
-                self.env['expense.budget.move'].create({
+                account = expense.account_id
+                analytic_account = expense.analytic_account_id
+                doc_date = expense.date
+                amount_currency = expense.untaxed_amount
+                currency = expense.currency_id
+                vals = self._prepare_budget_commitment(
+                    account, analytic_account, doc_date, amount_currency,
+                    currency, reverse=reverse)
+                # Document specific vals
+                vals.update({
                     'expense_id': expense.id,
-                    'account_id': expense.account_id.id,
-                    'analytic_account_id': expense.analytic_account_id.id,
                     'analytic_tag_ids': [(6, 0, expense.analytic_tag_ids.ids)],
-                    'date': (self._context.get('commit_by_docdate') and
-                             expense.date or fields.Date.today()),
-                    'amount_currency': expense.untaxed_amount,
-                    'debit': not reverse and amount or 0.0,
-                    'credit': reverse and amount or 0.0,
-                    'company_id': company.id,
-                    })
+                })
                 if reverse:  # On reverse, make sure not over returned
                     self.env['budget.period'].\
                         check_over_returned_budget(self.sheet_id)

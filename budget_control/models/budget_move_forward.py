@@ -127,27 +127,3 @@ class BudgetMoveForwardLine(models.Model):
         string='Commitment',
         required=True,
     )
-
-
-class BudgetDoclineMixin(models.AbstractModel):
-    _name = 'budget.docline.mixin'
-    _description = 'Mixin used in each document line model that commit budget'
-
-    amount_commit = fields.Float(
-        compute='_compute_commit',
-        store=True,
-    )
-    date_commit = fields.Date(
-        compute='_compute_commit',
-        store=True,
-    )
-
-    @api.depends('budget_move_ids', 'budget_move_ids.date')
-    def _compute_commit(self):
-        for rec in self:
-            if not rec.budget_move_ids:
-                continue
-            debit = sum(rec.budget_move_ids.mapped('debit'))
-            credit = sum(rec.budget_move_ids.mapped('credit'))
-            rec.amount_commit = debit - credit
-            rec.date_commit = min(rec.budget_move_ids.mapped('date'))

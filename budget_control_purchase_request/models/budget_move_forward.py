@@ -8,7 +8,7 @@ class BudgetMoveForward(models.Model):
     forward_purchase_request_ids = fields.One2many(
         comodel_name='budget.move.forward.line',
         inverse_name='forward_id',
-        string='Expenses',
+        string='Purchase Request',
         domain=[('res_model', '=', 'purchase.request.line')],
     )
 

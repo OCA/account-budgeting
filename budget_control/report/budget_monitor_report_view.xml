@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
+
     <record id="view_budget_monitor_report_tree" model="ir.ui.view">
          <field name="name">budget.monitor.report.tree</field>
          <field name="model">budget.monitor.report</field>
@@ -71,7 +71,6 @@
         <field name="search_view_id" ref="view_budget_monitor_report_search"/>
     </record>
 
-    <menuitem name="Budget Monitoring" action="action_budget_monitor_report_all" id="menu_action_budget_monitor_report_all" parent="budget_period_conf_menu" sequence="30"/>
+    <menuitem name="Budget Monitoring" action="action_budget_monitor_report_all" id="menu_action_budget_monitor_report_all" parent="budget_report_menu" sequence="10"/>
 
-</data>
 </odoo>

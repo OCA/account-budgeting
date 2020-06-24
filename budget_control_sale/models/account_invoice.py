@@ -26,7 +26,7 @@ class AccountInvoiceLine(models.Model):
             inv_type = inv_line.invoice_id.type
             if inv_type in ('out_invoice', 'out_refund'):
                 if inv_state in ('open', 'in_payment', 'paid'):
-                    rev = inv_type == 'out_invoice' and True or False
+                    rev = inv_type == 'out_refund' and True or False
                     sale_line = inv_line.sale_line_ids
                     if not sale_line:
                         continue

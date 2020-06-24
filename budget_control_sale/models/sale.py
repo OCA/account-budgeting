@@ -60,7 +60,7 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     def commit_budget(self, product_qty=False,
-                      reverse=False, invoice_line_id=False):
+                      reverse=True, invoice_line_id=False):
         """Create budget commit for each sale.order.line."""
         self.ensure_one()
         if self.state in ('sale', 'done'):
@@ -69,25 +69,21 @@ class SaleOrderLine(models.Model):
             fpos = self.order_id.fiscal_position_id
             account = self.product_id.product_tmpl_id.\
                 get_product_accounts(fpos)['income']
-            company = self.env.user.company_id
+            analytic_account = self.order_id.analytic_account_id
+            doc_date = self.order_id.date_order
             amount_currency = product_qty * self.price_unit
-            date_order = self.order_id.date_order
-            amount = self.currency_id._convert(
-                amount_currency, company.currency_id, company, date_order)
-            self.env['sale.budget.move'].create({
+            currency = self.currency_id
+            vals = self._prepare_budget_commitment(
+                account, analytic_account, doc_date, amount_currency,
+                currency, reverse=reverse)
+            # Document specific vals
+            vals.update({
                 'sale_line_id': self.id,
-                'account_id': account.id,
-                'analytic_account_id': self.order_id.analytic_account_id.id,
                 'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
-                'date': (self._context.get('commit_by_docdate') and
-                         date_order or fields.Date.today()),
-                'amount_currency': amount_currency,
-                'credit': not reverse and amount or 0.0,  # switch dr/cr
-                'debit': reverse and amount or 0.0,
-                'company_id': company.id,
                 'invoice_line_id': invoice_line_id,
-                })
-            if reverse:  # On reverse, make sure not over returned
+            })
+            self.env['sale.budget.move'].create(vals)
+            if not reverse:  # On reverse, make sure not over returned
                 self.env['budget.period'].\
                     check_over_returned_budget(self.order_id)
         else:

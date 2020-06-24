@@ -71,7 +71,10 @@
 
     <menuitem id="budget_menu" name="Budgeting" sequence="300" groups="group_budget_control_user"/>
 
-    <menuitem id="budget_period_conf_menu" parent="budget_menu" name="Budgeting" sequence="10"/>
-    <menuitem id="budget_period_menu" parent="budget_period_conf_menu" name="Budget Period" action="budget_period_action" sequence="10"/>
+    <menuitem id="budget_budget_menu" parent="budget_menu" name="Budgeting" sequence="10"/>
+    <menuitem id="budget_report_menu" parent="budget_menu" name="Reports" sequence="20"/>
+    <menuitem id="budget_config_menu" parent="budget_menu" name="Configurations" sequence="30"/>
+
+    <menuitem id="budget_period_menu" parent="budget_config_menu" name="Budget Period" action="budget_period_action" sequence="10"/>
 
 </odoo>

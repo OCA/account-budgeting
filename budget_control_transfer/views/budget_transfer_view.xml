@@ -66,7 +66,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_budget_transfer" parent="budget_control.budget_period_conf_menu"
+    <menuitem id="menu_budget_transfer" parent="budget_control.budget_budget_menu"
         name="Budget Transfer"
         action="action_budget_transfer" sequence="100"/>
 

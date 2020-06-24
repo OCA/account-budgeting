@@ -64,22 +64,19 @@ class PurchaseRequestLine(models.Model):
         if self.request_id.state in ('approved', 'done'):
             account = self.product_id.product_tmpl_id.\
                 get_product_accounts()['expense']
-            company = self.env.user.company_id
-            # Purchase request has no currency to _convert()
-            amount_currency = amount = self.estimated_cost
-            date_start = self.request_id.date_start
-            self.env['purchase.request.budget.move'].create({
+            analytic_account = self.analytic_account_id
+            doc_date = self.request_id.date_start
+            amount_currency = self.estimated_cost
+            currency = False  # no currency, amount = amount_currency
+            vals = self._prepare_budget_commitment(
+                account, analytic_account, doc_date, amount_currency,
+                currency, reverse=reverse)
+            # Document specific vals
+            vals.update({
                 'purchase_request_line_id': self.id,
-                'account_id': account.id,
-                'analytic_account_id': self.analytic_account_id.id,
-                'date': (self._context.get('commit_by_docdate') and
-                         date_start or fields.Date.today()),
-                'amount_currency': amount_currency,
-                'debit': not reverse and amount or 0.0,
-                'credit': reverse and amount or 0.0,
-                'company_id': company.id,
                 'purchase_line_id': purchase_line_id,
-                })
+            })
+            self.env['purchase.request.budget.move'].create(vals)
             if reverse:  # On reverse, make sure not over returned
                 self.env['budget.period'].\
                     check_over_returned_budget(self.request_id)
