@@ -17,7 +17,7 @@ class CrossoveredBudgetTemplate(models.Model):
         column2='tmpl_id', string='Budgetary Positions')
     periodicity = fields.Selection(
         selection=[('monthly', 'Monthly'),
-                   ('quaterly', 'Quaterly'),
+                   ('quaterly', 'Quarterly'),
                    ('sixmonthly', 'Six-monthly'),
                    ('yearly', 'Yearly')],
         default='monthly', string='Periodicity')
