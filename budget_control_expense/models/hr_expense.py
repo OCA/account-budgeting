@@ -63,7 +63,7 @@ class HRExpense(models.Model):
                 doc_date = expense.date
                 amount_currency = expense.untaxed_amount
                 currency = expense.currency_id
-                vals = self._prepare_budget_commitment(
+                vals = expense._prepare_budget_commitment(
                     account, analytic_account, doc_date, amount_currency,
                     currency, reverse=reverse)
                 # Document specific vals
@@ -71,6 +71,7 @@ class HRExpense(models.Model):
                     'expense_id': expense.id,
                     'analytic_tag_ids': [(6, 0, expense.analytic_tag_ids.ids)],
                 })
+                self.env['expense.budget.move'].create(vals)
                 if reverse:  # On reverse, make sure not over returned
                     self.env['budget.period'].\
                         check_over_returned_budget(self.sheet_id)
