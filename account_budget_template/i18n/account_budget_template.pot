@@ -101,7 +101,7 @@ msgstr ""
 
 #. module: account_budget_template
 #: selection:crossovered.budget.template,periodicity:0
-msgid "Quaterly"
+msgid "Quarterly"
 msgstr ""
 
 #. module: account_budget_template
