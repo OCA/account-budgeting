@@ -153,6 +153,17 @@ class CrossoveredBudgetLines(models.Model):
                     (line.analytic_account_id.id, date_from, date_to, acc_ids,)
                 )
                 result = self.env.cr.fetchone()[0] or 0.0
+            else:
+                self.env.cr.execute(
+                    """
+                    SELECT SUM(credit - debit)
+                    FROM account_move_line
+                    WHERE (date between %s
+                        AND %s)
+                        AND account_id=ANY(%s)""",
+                    (date_from, date_to, acc_ids,)
+                )
+                result = self.env.cr.fetchone()[0] or 0.0
             line.practical_amount = result
 
     @api.multi
