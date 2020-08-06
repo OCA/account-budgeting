@@ -2,7 +2,7 @@
 
 {
     'name': 'Budgets Management',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.1.0',
     'category': 'Accounting',
     'license': 'LGPL-3',
     'author': 'Odoo S.A., '
