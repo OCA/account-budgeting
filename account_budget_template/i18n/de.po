@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_budget_template
+# 	* account_budget_template
 #
 msgid ""
 msgstr ""
@@ -104,7 +104,9 @@ msgstr "Wiederholung"
 
 #. module: account_budget_template
 #: selection:crossovered.budget.template,periodicity:0
-msgid "Quaterly"
+#, fuzzy
+#| msgid "Quaterly"
+msgid "Quarterly"
 msgstr "Quartalsweise"
 
 #. module: account_budget_template

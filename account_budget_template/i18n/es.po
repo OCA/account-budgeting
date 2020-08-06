@@ -105,7 +105,9 @@ msgstr "Periodicidad"
 
 #. module: account_budget_template
 #: selection:crossovered.budget.template,periodicity:0
-msgid "Quaterly"
+#, fuzzy
+#| msgid "Quaterly"
+msgid "Quarterly"
 msgstr "Trimestral"
 
 #. module: account_budget_template
