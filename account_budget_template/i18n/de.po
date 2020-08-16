@@ -105,7 +105,6 @@ msgstr "Wiederholung"
 #. module: account_budget_template
 #: selection:crossovered.budget.template,periodicity:0
 #, fuzzy
-#| msgid "Quaterly"
 msgid "Quarterly"
 msgstr "Quartalsweise"
 
