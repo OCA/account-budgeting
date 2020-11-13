@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="budget_period_view_tree">
+        <field name="name">budget.period.view.tree</field>
+        <field name="model">budget.period</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Period">
+                <field name="name" />
+                <field name="bm_date_from" />
+                <field name="bm_date_to" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="budget_period_view_form" model="ir.ui.view">
+        <field name="name">budget.period.view.form</field>
+        <field name="model">budget.period</field>
+        <field name="arch" type="xml">
+            <form string="Budget Period">
+                <sheet>
+                    <div class="oe_right" name="buttons">
+                        <button
+                            type="object"
+                            name="budget_preview"
+                            string="Preview"
+                            icon="fa-search"
+                        />
+                        <button
+                            type="object"
+                            name="budget_print_pdf"
+                            string="Print"
+                            icon="fa-print"
+                        />
+                        <button
+                            type="object"
+                            name="budget_export_xls"
+                            string="Export"
+                            icon="fa-download"
+                        />
+                        <button
+                            type="object"
+                            name="action_view_budget_control"
+                            string="Budget Control Sheets"
+                            icon="fa-bars"
+                            context="{'default_budget_id': mis_budget_id, 'default_plan_date_range_type_id': plan_date_range_type_id}"
+                        />
+                    </div>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" />
+                        </div>
+                        <h1>
+                            <field name="name" placeholder="Name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_id" string="KPI Template" />
+                            <field
+                                name="mis_budget_id"
+                                attrs="{'invisible': [('mis_budget_id', '=', False)]}"
+                            />
+                        </group>
+                        <group>
+                            <field name="bm_date_from" />
+                            <field name="bm_date_to" />
+                            <field name="plan_date_range_type_id" />
+                        </group>
+                    </group>
+                    <group string="Budget Control">
+                        <group>
+                            <field name="account" />
+                        </group>
+                        <group>
+                            <field name="control_all_analytic_accounts" />
+                            <field
+                                name="control_analytic_account_ids"
+                                widget="many2many_tags"
+                                attrs="{'invisible': [('control_all_analytic_accounts', '=', True)]}"
+                            />
+                            <field name="control_level" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="budget_period_action" model="ir.actions.act_window">
+        <field name="name">Budget Period</field>
+        <field name="view_id" ref="budget_period_view_tree" />
+        <field name="res_model">budget.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Sub Header menu -->
+    <menuitem
+        id="budget_period_menu"
+        parent="budget_config_menu"
+        name="Budget Period"
+        action="budget_period_action"
+        sequence="10"
+    />
+
+</odoo>

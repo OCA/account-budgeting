@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mis_budget_item_tree_view_readonly" model="ir.ui.view">
+        <field name="name">mis.budget.item.tree.view.readonly</field>
+        <field name="model">mis.budget.item</field>
+        <field name="priority" eval="100" />
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="kpi_expression_id" />
+                <field name="date_range_id" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="amount" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+        id="mis_budget_item_from_budget_control_action"
+        model="ir.actions.act_window"
+    >
+        <field name="name">MIS Budget Items</field>
+        <field name="res_model">mis.budget.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('budget_control_id', '=', active_id)]</field>
+        <field name="view_id" ref="mis_budget_item_tree_view_readonly" />
+    </record>
+</odoo>

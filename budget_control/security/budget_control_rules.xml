@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="rule_budget_control_budget_user" model="ir.rule">
+        <field name="name">Budget Control Rule For Budget Users</field>
+        <field name="model_id" ref="budget_control.model_budget_control" />
+        <field name="domain_force">[('assignee_id', '=', user.id)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('budget_control.group_budget_control_user'))]"
+        />
+        <field eval="0" name="perm_unlink" />
+        <field eval="1" name="perm_write" />
+        <field eval="1" name="perm_read" />
+        <field eval="0" name="perm_create" />
+    </record>
+
+    <record id="rule_budget_control_budget_manager" model="ir.rule">
+        <field name="name">Budget Control Rule For Budget Manager</field>
+        <field name="model_id" ref="budget_control.model_budget_control" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('budget_control.group_budget_control_manager'))]"
+        />
+        <field eval="1" name="perm_unlink" />
+        <field eval="1" name="perm_write" />
+        <field eval="1" name="perm_read" />
+        <field eval="1" name="perm_create" />
+    </record>
+</odoo>
