@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_budget_move_forward_form" model="ir.ui.view">
+        <field name="name">view.budget.move.forward.form</field>
+        <field name="model">budget.move.forward</field>
+        <field name="inherit_id" ref="budget_control.view_budget_move_forward_form" />
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Expense">
+                    <div class="oe_read_only oe_right" name="buttons">
+                        <button
+                            type="object"
+                            name="get_budget_move_forward"
+                            string="List expense commitment"
+                            icon="fa-refresh"
+                            context="{'res_model': 'hr.expense'}"
+                        />
+                    </div>
+                    <field
+                        name="forward_expense_ids"
+                        tree_view_ref="budget_control.view_budget_move_forward_line_tree"
+                    />
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>
