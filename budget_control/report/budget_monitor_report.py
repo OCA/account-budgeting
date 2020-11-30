@@ -71,7 +71,7 @@ class BudgetMonitorReport(models.Model):
         return """
             from account_move_line aml
             left outer join account_move am on aml.move_id = am.id
-            where am.state = 'posted' and aml.analytic_account_id is not null
+            where am.state = 'posted'
         """
 
     def _get_sql(self):

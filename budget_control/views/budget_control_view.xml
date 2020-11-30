@@ -117,13 +117,13 @@
                         </h1>
                     </div>
                     <group>
-                        <group>
+                        <group name="budget_control_left">
                             <field name="budget_id" />
                             <field name="analytic_account_id" />
                             <field name="plan_date_range_type_id" />
                             <field name="init_budget_commit" />
                         </group>
-                        <group>
+                        <group name="budget_control_right">
                             <field name="active" />
                             <field name="assignee_id" />
                             <field name="date_from" />
