@@ -13,6 +13,7 @@
                 <field name="budget_control_id" />
                 <field name="amount" />
                 <field name="spent" />
+                <field name="active" />
                 <field name="state" invisible="1" />
                 <field name="company_currency_id" invisible="1" />
             </tree>

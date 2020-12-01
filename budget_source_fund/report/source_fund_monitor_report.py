@@ -37,5 +37,14 @@ class SourceFundMonitorReport(models.Model):
             on sf.fund_group_id = sf_group.id
         """
 
+    def _where_source_fund(self):
+        return """
+            where sf.active is true
+        """
+
     def _get_sql(self):
-        return "{} {}".format(self._select_source_fund(), self._from_source_fund())
+        return "{} {} {}".format(
+            self._select_source_fund(),
+            self._from_source_fund(),
+            self._where_source_fund(),
+        )

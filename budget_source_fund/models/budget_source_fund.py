@@ -34,6 +34,7 @@ class BudgetSourceFundLine(models.Model):
     _description = "Source of Fund Line"
 
     fund_id = fields.Many2one(comodel_name="budget.source.fund", readonly=True)
+    active = fields.Boolean(related="fund_id.active")
     date_range_id = fields.Many2one(
         comodel_name="date.range",
         readonly=True,
