@@ -73,7 +73,7 @@
     <record id="action_budget_monitor_report_all" model="ir.actions.act_window">
         <field name="name">Budget Monitoring</field>
         <field name="res_model">budget.monitor.report</field>
-        <field name="view_mode">graph,pivot,tree</field>
+        <field name="view_mode">pivot,tree,graph</field>
         <field name="context">{'group_by':[], 'group_by_no_leaf':1}</field>
         <field name="search_view_id" ref="view_budget_monitor_report_search" />
     </record>

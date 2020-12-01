@@ -89,6 +89,15 @@ These modules extend base.budget.move for other document budget commitment.
 * budget_control_purchase_request
 * budget_control_sale
 
+**Budget Source of Fund**
+
+This module allow create Master Data source of fund.
+there is relation between source of fund and budget control sheet
+for allocated source of fund from one budget control sheet to many source of fund.
+Users can view source of fund monitoring report
+
+* budget_source_fund
+
 **Tier Validation**
 
 Extend base_tier_validation for budget control sheet
