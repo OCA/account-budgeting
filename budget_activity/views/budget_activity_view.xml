@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="budget_activity_view_tree" model="ir.ui.view">
+        <field name="name">budget.activity.view.tree</field>
+        <field name="model">budget.activity</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Activity">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_budget_activity_filter" model="ir.ui.view">
+        <field name="name">view.budget.activity.filter</field>
+        <field name="model">budget.activity</field>
+        <field name="priority" eval="15" />
+        <field name="arch" type="xml">
+            <search string="Search Budget activity">
+                <field
+                    name="name"
+                    string="Budget Activity"
+                    filter_domain="[('name','ilike',self)]"
+                />
+           </search>
+        </field>
+    </record>
+
+    <record id="budget_activity_view_form" model="ir.ui.view">
+        <field name="name">budget.activity.view.form</field>
+        <field name="model">budget.activity</field>
+        <field name="arch" type="xml">
+            <form string="Budget activity Sheet">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="account_id" />
+                        </group>
+                        <group>
+                            <field name="active" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="budget_activity_action" model="ir.actions.act_window">
+        <field name="name">Budget Activity</field>
+        <field name="view_id" ref="budget_activity_view_tree" />
+        <field name="res_model">budget.activity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'active_test': False}</field>
+    </record>
+
+    <menuitem
+        id="budget_activity_menu"
+        parent="budget_control.budget_config_menu"
+        name="Budget Activity"
+        action="budget_activity_action"
+        sequence="20"
+    />
+
+</odoo>
