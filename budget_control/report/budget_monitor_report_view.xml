@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_budget_monitor_report_tree" model="ir.ui.view">
+         <field name="name">budget.monitor.report.tree</field>
+         <field name="model">budget.monitor.report</field>
+         <field name="arch" type="xml">
+             <tree string="Budget Monitoring">
+                 <field name="amount_type" />
+                 <field name="res_id" />
+                 <field name="date" />
+                 <field name="amount" />
+             </tree>
+         </field>
+    </record>
+
+    <record id="view_budget_monitor_report_pivot" model="ir.ui.view">
+         <field name="name">budget.monitor.report.pivot</field>
+         <field name="model">budget.monitor.report</field>
+         <field name="arch" type="xml">
+             <pivot string="Budget Monitoring">
+                 <field name="analytic_account_id" type="row" />
+                 <field name="amount_type" type="col" />
+                 <field name="amount" type="measure" />
+             </pivot>
+         </field>
+    </record>
+
+    <record id="view_budget_monitor_report_graph" model="ir.ui.view">
+         <field name="name">budget.monitor.report.graph</field>
+         <field name="model">budget.monitor.report</field>
+         <field name="arch" type="xml">
+             <graph string="Budget Monitoring">
+                 <field name="analytic_account_id" />
+                 <field name="amount" type="measure" />
+             </graph>
+         </field>
+    </record>
+
+    <!-- Custom reports (aka filters) -->
+    <record id="filter_budget_report_quarterly" model="ir.filters">
+        <field name="name">By Quarter</field>
+        <field name="model_id">budget.monitor.report</field>
+        <field name="domain">[]</field>
+        <field name="user_id" eval="False" />
+        <field name="context">{'pivot_column_groupby': ['date:quarter']}</field>
+    </record>
+
+    <record id="view_budget_monitor_report_search" model="ir.ui.view">
+        <field name="name">budget.monitor.report.search</field>
+        <field name="model">budget.monitor.report</field>
+        <field name="arch" type="xml">
+            <search string="Budget Monitoring">
+                <field name="analytic_account_id" />
+                <filter
+                    name="used_analytic"
+                    string="Used Analytic"
+                    domain="[('analytic_account_id', '!=', False)]"
+                />
+                <filter
+                    name="kpi_name"
+                    string="KPI"
+                    domain="[('kpi_name', '!=', False)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Resource ID"
+                        name="res_id"
+                        context="{'group_by':'res_id'}"
+                    />
+                    <filter
+                        string="Analytic Account"
+                        name="analytic_account_id"
+                        context="{'group_by':'analytic_account_id'}"
+                    />
+                    <filter
+                        string="Reference"
+                        name="reference"
+                        context="{'group_by':'reference'}"
+                    />
+                    <filter
+                        string="KPI"
+                        name="kpi_name"
+                        context="{'group_by':'kpi_name'}"
+                    />
+                    <separator orientation="vertical" />
+                    <filter string="Date" name="date" context="{'group_by':'date'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_budget_monitor_report_all" model="ir.actions.act_window">
+        <field name="name">Budget Monitoring</field>
+        <field name="res_model">budget.monitor.report</field>
+        <field name="view_mode">pivot,tree,graph</field>
+        <field name="context">{'group_by':[], 'group_by_no_leaf':1}</field>
+        <field name="search_view_id" ref="view_budget_monitor_report_search" />
+    </record>
+
+    <menuitem
+        name="Budget Monitoring"
+        action="action_budget_monitor_report_all"
+        id="menu_action_budget_monitor_report_all"
+        parent="budget_report_menu"
+        sequence="10"
+    />
+
+</odoo>

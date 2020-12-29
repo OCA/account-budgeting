@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Main menu -->
+    <menuitem
+        id="budget_menu"
+        name="Budgeting"
+        sequence="300"
+        groups="group_budget_control_user"
+    />
+    <!-- Header menu -->
+    <menuitem
+        id="budget_budget_menu"
+        parent="budget_menu"
+        name="Budgeting"
+        sequence="10"
+    />
+    <menuitem
+        id="budget_report_menu"
+        parent="budget_menu"
+        name="Reports"
+        sequence="20"
+    />
+    <menuitem
+        id="budget_config_menu"
+        parent="budget_menu"
+        name="Configurations"
+        sequence="30"
+    />
+</odoo>

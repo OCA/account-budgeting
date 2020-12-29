@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_purchase_request_form" model="ir.ui.view">
+        <field name="name">purchase.request.form</field>
+        <field name="model">purchase.request</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field['line_ids']/tree/field['product_id']" position="after">
+                <field name="activity_id" />
+            </xpath>
+            <xpath
+                expr="//field['line_ids']/form//field['product_id']"
+                position="after"
+            >
+                <field
+                    name="activity_id"
+                    attrs="{'readonly': [('is_editable','=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_request_line_form" model="ir.ui.view">
+        <field name="name">purchase.request.line.form</field>
+        <field name="model">purchase.request.line</field>
+        <field name="inherit_id" ref="purchase_request.purchase_request_line_form" />
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group/group/field['product_id']" position="after">
+                <field
+                    name="activity_id"
+                    attrs="{'readonly': [('is_editable','=', False)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

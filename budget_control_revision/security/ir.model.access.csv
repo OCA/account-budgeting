@@ -1,0 +1,2 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+budget_monitor_revision_report,budget_monitor_revision_report,model_budget_monitor_revision_report,budget_control.group_budget_control_user,1,1,1,1

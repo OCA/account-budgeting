@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_budget_control_fund_line_tree" model="ir.ui.view">
+        <field name="name">budget.control.fund.line.tree</field>
+        <field name="model">budget.source.fund.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" delete="0" create="0">
+                <field name="fund_id" />
+                <field name="date_range_id" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="budget_control_id" />
+                <field name="amount" sum="Total Amount" />
+                <field name="spent" sum="Spent" />
+                <field name="active" />
+                <field name="state" invisible="1" />
+                <field name="company_currency_id" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="budget_control_view_form" model="ir.ui.view">
+        <field name="name">budget.control.view.form</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.budget_control_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='budget_control_left']" position="inside">
+                <field name="fund_ids" widget="many2many_tags" />
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="source_fund" string="Funds">
+                    <field
+                        name="fund_line_ids"
+                        context="{'tree_view_ref': 'view_budget_control_fund_line_tree'}"
+                    />
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

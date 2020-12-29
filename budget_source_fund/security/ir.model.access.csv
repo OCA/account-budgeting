@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_budget_source_fund_group,access_budget_source_fund_group,model_budget_source_fund_group,budget_control.group_budget_control_manager,1,1,1,1
+access_budget_source_fund,access_budget_source_fund,model_budget_source_fund,budget_control.group_budget_control_manager,1,1,1,1
+access_budget_source_fund_line,access_budget_source_fund_line,model_budget_source_fund_line,budget_control.group_budget_control_manager,1,1,1,1
+source_fund_monitor_report,source_fund_monitor_report,model_source_fund_monitor_report,budget_control.group_budget_control_user,1,1,1,1

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- Test Budget Control Exceptions Scheduler-->
+    <record
+        id="ir_cron_test_budget_control_order_except"
+        model="ir.cron"
+        forcecreate="True"
+    >
+        <field name="name">Budget Control: Test Draft Orders Exception</field>
+        <field name="model_id" ref="budget_control.model_budget_control" />
+        <field name="state">code</field>
+        <field name="code">model.test_all_draft_orders()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">20</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="False" />
+    </record>
+    <record id="bc_excep_assignee_check" model="exception.rule">
+        <field name="name">Assignee not set</field>
+        <field name="description">Budget Control should be set</field>
+        <field name="sequence">50</field>
+        <field name="model">budget.control</field>
+        <field name="code">if not self.assignee_id:
+            failed=True</field>
+        <field name="active" eval="False" />
+    </record>
+    <record id="bc_excep_amount_plan_check" model="exception.rule">
+        <field name="name">Plan is negative</field>
+        <field name="description">Some plan is negative</field>
+        <field name="sequence">50</field>
+        <field name="model">mis.budget.item</field>
+        <field name="code">if self.amount &lt; 0:
+            failed=True</field>
+        <field name="active" eval="False" />
+    </record>
+</odoo>

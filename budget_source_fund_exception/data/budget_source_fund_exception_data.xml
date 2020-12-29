@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="bsf_excep_plan_amount_check" model="exception.rule">
+        <field name="name">Plan Amount and Funds is not equal</field>
+        <field
+            name="description"
+        >Sum amount of budget plan is not equal Sum amount of Funds</field>
+        <field name="sequence">50</field>
+        <field name="model">budget.control</field>
+        <field name="code">if self.fund_ids:
+            amount_plans = self._get_amount_plan()
+            amount_funds = self._get_amount_fund()
+            if amount_plans != amount_funds:
+                failed=True
+        </field>
+        <field name="active" eval="True" />
+    </record>
+</odoo>

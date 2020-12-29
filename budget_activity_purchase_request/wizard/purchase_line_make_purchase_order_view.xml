@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_purchase_request_line_make_purchase_order" model="ir.ui.view">
+        <field name="name">Purchase Request Line Make Purchase Order</field>
+        <field name="model">purchase.request.line.make.purchase.order</field>
+        <field
+            name="inherit_id"
+            ref="purchase_request.view_purchase_request_line_make_purchase_order"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='item_ids']/tree/field[@name='product_id']"
+                position="after"
+            >
+                <field name="activity_id" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

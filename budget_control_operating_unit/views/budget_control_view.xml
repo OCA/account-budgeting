@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl) -->
+<odoo>
+    <record id="budget_control_view_tree" model="ir.ui.view">
+        <field name="name">budget.control.view.tree</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.budget_control_view_tree" />
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="after">
+                <field name="operating_unit_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_budget_control_filter" model="ir.ui.view">
+        <field name="name">view.budget.control.filter</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.view_budget_control_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter
+                    name="operating_unit"
+                    string="Operating Unit"
+                    context="{'group_by': 'operating_unit_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="budget_control_view_form" model="ir.ui.view">
+        <field name="name">budget.control.view.form</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.budget_control_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='budget_control_right']" position="inside">
+                <field name="operating_unit_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

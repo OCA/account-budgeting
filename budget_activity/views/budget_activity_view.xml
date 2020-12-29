@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="budget_activity_view_tree" model="ir.ui.view">
+        <field name="name">budget.activity.view.tree</field>
+        <field name="model">budget.activity</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Activity">
+                <field name="name" />
+                <field name="account_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_budget_activity_filter" model="ir.ui.view">
+        <field name="name">view.budget.activity.filter</field>
+        <field name="model">budget.activity</field>
+        <field name="priority" eval="15" />
+        <field name="arch" type="xml">
+            <search string="Search Budget activity">
+                <field
+                    name="name"
+                    string="Budget Activity"
+                    filter_domain="[('name','ilike',self)]"
+                />
+                <filter
+                    name="active"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group string="Group By" name="groupby">
+                    <filter
+                        string="Account"
+                        name="groupby_account"
+                        context="{'group_by': 'account_id'}"
+                    />
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="budget_activity_view_form" model="ir.ui.view">
+        <field name="name">budget.activity.view.form</field>
+        <field name="model">budget.activity</field>
+        <field name="arch" type="xml">
+            <form string="Budget activity Sheet">
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="account_id" />
+                        </group>
+                        <group>
+                            <field name="active" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="budget_activity_action" model="ir.actions.act_window">
+        <field name="name">Budget Activity</field>
+        <field name="view_id" ref="budget_activity_view_tree" />
+        <field name="res_model">budget.activity</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="budget_activity_menu"
+        parent="budget_control.budget_config_menu"
+        name="Budget Activity"
+        action="budget_activity_action"
+        sequence="20"
+    />
+
+</odoo>

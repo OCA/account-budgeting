@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="budget_control_view_form" model="ir.ui.view">
+        <field name="name">budget.control.view.form</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.budget_control_view_form" />
+        <field name="arch" type="xml">
+            <sheet position="before">
+                <div
+                    class="alert alert-danger"
+                    role="alert"
+                    style="margin-bottom:0px;"
+                    attrs="{'invisible': [('exceptions_summary','=',False)]}"
+                >
+                    <p>
+                        <strong
+                        >There are exceptions blocking the confirmation of this Budget Control:</strong>
+                    </p>
+                    <field name="exceptions_summary" />
+                    <button
+                        name="action_ignore_exceptions"
+                        type="object"
+                        class="btn-danger"
+                        string="Ignore Exceptions"
+                        help="Click here to be able to confirm this Budget Control regardless of the exceptions."
+                        groups="base_exception.group_exception_rule_manager"
+                    />
+                </div>
+            </sheet>
+            <xpath expr="//group[@name='budget_control_right']" position="inside">
+                <field name="ignore_exception" states="done" />
+            </xpath>
+            <xpath expr="//field[@name='item_ids']/tree" position="inside">
+                <field name="ignore_exception" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+    <record id="budget_control_view_tree" model="ir.ui.view">
+        <field name="name">budget.control.view.tree</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.budget_control_view_tree" />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="main_exception_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_budget_control_filter" model="ir.ui.view">
+        <field name="name">view.budget.control.filter</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.view_budget_control_filter" />
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <separator orientation="vertical" />
+                <filter
+                    icon="terp-emblem-important"
+                    name="tofix"
+                    string="Blocked in draft"
+                    domain="[('main_exception_id','!=',False)]"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_budget_control_test_tree" model="ir.actions.act_window">
+        <field name="name">Budget Control Exception Rules</field>
+        <field name="res_model">exception.rule</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="base_exception.view_exception_rule_tree" />
+        <field
+            name="domain"
+        >[('model', 'in', ['budget.control', 'mis.budget.item'])]</field>
+        <field
+            name="context"
+        >{'active_test': False, 'default_model' : 'budget.control'}</field>
+    </record>
+    <menuitem
+        action="action_budget_control_test_tree"
+        id="menu_budget_control_test"
+        sequence="90"
+        parent="budget_control.budget_config_menu"
+        groups="base_exception.group_exception_rule_manager"
+    />
+</odoo>

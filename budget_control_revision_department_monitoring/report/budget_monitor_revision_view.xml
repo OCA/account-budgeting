@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_budget_monitor_revision_report_search" model="ir.ui.view">
+        <field name="name">budget.monitor.revision.report.search</field>
+        <field name="model">budget.monitor.revision.report</field>
+        <field
+            name="inherit_id"
+            ref="budget_control_revision.view_budget_monitor_revision_report_search"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//group/separator[@orientation='vertical']" position="before">
+                <filter
+                    string="Department"
+                    name="group_by_department"
+                    context="{'group_by':'department_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

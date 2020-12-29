@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_expense_view_form" model="ir.ui.view">
+        <field name="name">hr.expense.view.form</field>
+        <field name="model">hr.expense</field>
+        <field
+            name="inherit_id"
+            ref="hr_expense_advance_clearing.hr_expense_view_form"
+        />
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [False]}
+                </attribute>
+            </field>
+            <field name="analytic_tag_ids" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [False]}
+                </attribute>
+            </field>
+            <xpath expr="//label[@for='advance']" position="after">
+                <field name="is_clearing" />
+                <label for="is_clearing" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_expense_sheet_form" model="ir.ui.view">
+        <field name="name">view.hr.expense.sheet.form</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form" />
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page[last()]" position="after">
+                <page string="Advance Budget Commitment" name="advance_budget_commit">
+                    <div class="oe_read_only oe_right" name="buttons">
+                        <button
+                            type="object"
+                            name="recompute_advance_budget_move"
+                            string="Recompute"
+                            icon="fa-refresh"
+                        />
+                    </div>
+                    <field name="advance_budget_move_ids" readonly="1">
+                        <tree>
+                            <field name="expense_id" />
+                            <field name="write_uid" />
+                            <field name="write_date" />
+                            <field name="debit" sum="Total Debit" />
+                            <field name="credit" sum="Total Credit" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

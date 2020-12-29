@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mis_budget_item_tree_view_readonly" model="ir.ui.view">
+        <field name="name">mis.budget.item.tree.view.readonly</field>
+        <field name="model">mis.budget.item</field>
+        <field
+            name="inherit_id"
+            ref="budget_control.mis_budget_item_tree_view_readonly"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="is_readonly" />
+            </xpath>
+            <field name="amount" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'readonly': [('is_readonly', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

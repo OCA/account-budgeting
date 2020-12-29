@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="budget_activity_view_tree" model="ir.ui.view">
+        <field name="name">budget.activity.view.tree</field>
+        <field name="model">budget.activity</field>
+        <field name="inherit_id" ref="budget_activity.budget_activity_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="activity_group_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_budget_activity_filter" model="ir.ui.view">
+        <field name="name">view.budget.activity.filter</field>
+        <field name="model">budget.activity</field>
+        <field name="inherit_id" ref="budget_activity.view_budget_activity_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//search/group" position="inside">
+                <filter
+                    string="Activity Group"
+                    name="groupby_activity_group"
+                    context="{'group_by': 'activity_group_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="budget_activity_view_form" model="ir.ui.view">
+        <field name="name">budget.activity.view.form</field>
+        <field name="model">budget.activity</field>
+        <field name="inherit_id" ref="budget_activity.budget_activity_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <h4>
+                    <field
+                        name="activity_group_id"
+                        placeholder="Group of Activity"
+                        options="{'no_create': True}"
+                    />
+                </h4>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
