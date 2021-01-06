@@ -14,3 +14,8 @@ class BudgetActivityGroup(models.Model):
     activity_ids = fields.One2many(
         comodel_name="budget.activity", inverse_name="activity_group_id"
     )
+    account_id = fields.Many2one(
+        comodel_name="account.account",
+        string="Default Account",
+        domain=[("deprecated", "=", False)],
+    )
