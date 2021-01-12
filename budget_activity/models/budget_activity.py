@@ -17,3 +17,10 @@ class BudgetActivity(models.Model):
         domain=[("deprecated", "=", False)],
         required=True,
     )
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        default=lambda self: self.env.company,
+        required=True,
+    )
+    code = fields.Char(related="account_id.code")
