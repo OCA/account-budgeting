@@ -20,7 +20,7 @@ class AccountMoveLine(models.Model):
                     qty = ml.product_uom_id._compute_quantity(
                         ml.quantity, purchase_line.product_uom
                     )
-                    # Confirm vendor bill, do uncommit budget)
+                    # Confirm vendor bill, do uncommit budget
                     qty_bf_invoice = purchase_line.qty_invoiced - qty
                     qty_balance = purchase_line.product_qty - qty_bf_invoice
                     qty = qty > qty_balance and qty_balance or qty

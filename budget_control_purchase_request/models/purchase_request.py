@@ -69,7 +69,7 @@ class PurchaseRequestLine(models.Model):
     def commit_budget(self, reverse=False, purchase_line_id=False):
         """Create budget commit for each purchase.request.line."""
         self.ensure_one()
-        if self.request_id.state in ("to_approve", "done"):
+        if self.request_id.state in ("to_approve", "approved", "done"):
             account = self._get_pr_line_account()
             analytic_account = self.analytic_account_id
             doc_date = self.request_id.date_start
