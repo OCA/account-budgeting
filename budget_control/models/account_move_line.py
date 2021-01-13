@@ -21,6 +21,7 @@ class AccountMoveLine(models.Model):
             invoice_line.commit_budget()
 
     def _check_amount_currency_tax(self, date, doc_type="account"):
+        self.ensure_one()
         budget_period = self.env["budget.period"]._get_eligible_budget_period(
             date, doc_type
         )
