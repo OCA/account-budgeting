@@ -74,6 +74,7 @@
                         </group>
                         <group>
                             <field name="control_all_analytic_accounts" />
+                            <field name="include_tax" />
                             <field
                                 name="control_analytic_account_ids"
                                 widget="many2many_tags"
