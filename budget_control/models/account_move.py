@@ -34,6 +34,8 @@ class AccountMove(models.Model):
             )
             if any(state != "done" for state in budget_control.mapped("state")):
                 raise UserError(_("Analytic Account is not Controlled"))
+            if self.move_type == "entry":
+                invoice_line = invoice_line.filtered(lambda l: l.analytic_account_id)
             for line in invoice_line:
                 line.commit_budget()
         return res

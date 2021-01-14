@@ -42,6 +42,16 @@ class HRExpense(models.Model):
         self.ensure_one()
         self.budget_move_ids.unlink()
 
+    def _check_amount_currency_tax(self, date, doc_type="expense"):
+        self.ensure_one()
+        budget_period = self.env["budget.period"]._get_eligible_budget_period(
+            date, doc_type
+        )
+        amount_currency = (
+            budget_period.include_tax and self.total_amount or self.untaxed_amount
+        )
+        return amount_currency
+
     def commit_budget(self, reverse=False):
         """Create budget commit for each expense."""
         for expense in self:
@@ -49,7 +59,7 @@ class HRExpense(models.Model):
                 account = expense.account_id
                 analytic_account = expense.analytic_account_id
                 doc_date = expense.date
-                amount_currency = expense.untaxed_amount
+                amount_currency = expense._check_amount_currency_tax(doc_date)
                 currency = expense.currency_id
                 vals = expense._prepare_budget_commitment(
                     account,

@@ -32,13 +32,17 @@ class AccountMoveLine(models.Model):
         )
         return amount_currency
 
+    def _get_date_budget_commitment(self):
+        doc_date = self.move_id.invoice_date or self.move_id.date
+        return doc_date
+
     def commit_budget(self, reverse=False):
         """Create budget commit for each move line."""
         self.ensure_one()
         if self.move_id.state == "posted":
             account = self.account_id
             analytic_account = self.analytic_account_id
-            doc_date = self.move_id.invoice_date
+            doc_date = self._get_date_budget_commitment()
             amount_currency = self._check_amount_currency_tax(doc_date)
             currency = self.currency_id
             vals = self._prepare_budget_commitment(

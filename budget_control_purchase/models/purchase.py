@@ -87,7 +87,6 @@ class PurchaseOrderLine(models.Model):
             analytic_account = self.account_analytic_id
             doc_date = self.order_id.date_order
             amount_currency = self._check_amount_currency_tax(product_qty, doc_date)
-            # amount_currency = product_qty * self.price_unit
             currency = self.currency_id
             vals = self._prepare_budget_commitment(
                 account,
