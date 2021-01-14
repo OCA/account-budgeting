@@ -305,7 +305,7 @@ class BudgetPeriod(models.Model):
             kpi = kpis.get(account_id, False)
             if not kpi:
                 continue
-            if len(kpi) != 1:
+            if len(kpi) != 1 and not instance.report_id.is_activity:
                 account = Account.browse(account_id)
                 raise UserError(
                     _(

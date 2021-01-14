@@ -79,7 +79,7 @@
         parent="budget_control.budget_config_menu"
         name="Budget Activity Group"
         action="budget_activity_group_action"
-        sequence="25"
+        sequence="20"
     />
 
 </odoo>

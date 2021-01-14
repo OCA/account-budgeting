@@ -47,7 +47,7 @@
         parent="budget_control.budget_config_menu"
         name="Source of Fund Groups"
         action="budget_source_fund_group_action"
-        sequence="26"
+        sequence="25"
     />
 
 </odoo>
