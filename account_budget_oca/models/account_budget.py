@@ -201,7 +201,8 @@ class CrossoveredBudgetLines(models.Model):
                     ) * line.planned_amount
                 else:
                     theo_amt = line.planned_amount
-
+            else:
+                theo_amt = 0.00
             line.theoretical_amount = theo_amt
 
     @api.depends("theoretical_amount", "practical_amount")
