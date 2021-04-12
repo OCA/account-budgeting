@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-02-24 13:13+0000\n"
+"PO-Revision-Date: 2021-04-12 16:46+0000\n"
 "Last-Translator: alvarorib <alvaro.ribeiro@exo.pt>\n"
 "Language-Team: none\n"
 "Language: pt\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_budget_template
 #: model_terms:ir.ui.view,arch_db:account_budget_template.crossovered_budget_form_view
@@ -104,9 +104,8 @@ msgstr "Periodicidade"
 
 #. module: account_budget_template
 #: selection:crossovered.budget.template,periodicity:0
-#, fuzzy
 msgid "Quarterly"
-msgstr "Quadrimestral"
+msgstr "Trimestral"
 
 #. module: account_budget_template
 #: selection:crossovered.budget.template,periodicity:0
