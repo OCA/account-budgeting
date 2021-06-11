@@ -2,13 +2,18 @@
 
 import time
 
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+
+# account.tests.common import AccountTestInvoicingCommon
 
 
-class TestAccountBudgetCommon(AccountingTestCase):
+class TestAccountBudgetCommon(AccountTestInvoicingCommon):
     def setUp(self):
         super().setUp()
-        self.budget_lines_model = self.env["crossovered.budget.lines"]
+        self.user = self.env.ref("base.user_root")
+        self.budget_lines_model = self.env["crossovered.budget.lines"].with_user(
+            self.user
+        )
         self.account_model = self.env["account.account"]
         # In order to check account budget module in Odoo I created a budget
         # with few budget positions
@@ -46,7 +51,7 @@ class TestAccountBudgetCommon(AccountingTestCase):
                 ),
             }
         )
-        self.budget_lines_model.create(
+        self.budget_lines_model.sudo().create(
             {
                 "analytic_account_id": self.ref(
                     "analytic.analytic_partners_camp_to_camp"

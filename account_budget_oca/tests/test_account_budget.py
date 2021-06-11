@@ -12,7 +12,6 @@ from .common import TestAccountBudgetCommon
 # ---------------------------------------------------------
 class TestAccountBudget(TestAccountBudgetCommon):
     def test_account_budget(self):
-
         # Creating a crossovered.budget record
         budget = self.env["crossovered.budget"].create(
             {
