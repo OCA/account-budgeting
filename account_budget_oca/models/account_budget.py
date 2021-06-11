@@ -29,9 +29,7 @@ class AccountBudgetPost(models.Model):
         string="Budget Lines",
     )
     company_id = fields.Many2one(
-        comodel_name="res.company",
-        required=True,
-        default=lambda self: self.env.company,
+        comodel_name="res.company", required=True, default=lambda self: self.env.company
     )
 
     def _check_account_ids(self, vals):
@@ -40,9 +38,7 @@ class AccountBudgetPost(models.Model):
         # This check is done on create because require=True doesn't work on
         # Many2many fields.
         if "account_ids" in vals:
-            account_ids = self.resolve_2many_commands(
-                "account_ids", vals["account_ids"]
-            )
+            account_ids = self.new({"account_ids": vals["account_ids"]}).account_ids
         else:
             account_ids = self.account_ids
         if not account_ids:
@@ -91,7 +87,7 @@ class CrossoveredBudget(models.Model):
         required=True,
         readonly=True,
         copy=False,
-        track_visibility="always",
+        tracking=True,
     )
     crossovered_budget_line_ids = fields.One2many(
         comodel_name="crossovered.budget.lines",
@@ -101,9 +97,7 @@ class CrossoveredBudget(models.Model):
         copy=True,
     )
     company_id = fields.Many2one(
-        comodel_name="res.company",
-        required=True,
-        default=lambda self: self.env.company,
+        comodel_name="res.company", required=True, default=lambda self: self.env.company
     )
 
     def action_budget_confirm(self):
@@ -133,7 +127,7 @@ class CrossoveredBudgetLines(models.Model):
         index=True,
         required=True,
     )
-    analytic_account_id = fields.Many2one(comodel_name="account.analytic.account",)
+    analytic_account_id = fields.Many2one(comodel_name="account.analytic.account")
     general_budget_id = fields.Many2one(
         comodel_name="account.budget.post", string="Budgetary Position", required=True
     )
@@ -145,7 +139,7 @@ class CrossoveredBudgetLines(models.Model):
     theoretical_amount = fields.Float(compute="_compute_theoretical_amount", digits=0)
     percentage = fields.Float(compute="_compute_percentage", string="Achievement")
     company_id = fields.Many2one(
-        related="crossovered_budget_id.company_id", store=True, readonly=True,
+        related="crossovered_budget_id.company_id", store=True, readonly=True
     )
 
     @api.depends(
@@ -166,7 +160,7 @@ class CrossoveredBudgetLines(models.Model):
                         AND (date between %s
                         AND %s)
                         AND general_account_id=ANY(%s)""",
-                    (line.analytic_account_id.id, date_from, date_to, acc_ids,),
+                    (line.analytic_account_id.id, date_from, date_to, acc_ids),
                 )
                 result = self.env.cr.fetchone()[0] or 0.0
             line.practical_amount = result
