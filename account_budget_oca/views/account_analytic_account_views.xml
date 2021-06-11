@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_account_analytic_account_form_inherit_budget" model="ir.ui.view">
         <field name="name">account.analytic.account.form.inherit.budget</field>
