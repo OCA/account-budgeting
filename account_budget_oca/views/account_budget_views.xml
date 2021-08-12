@@ -1,0 +1,455 @@
+<odoo>
+    <!--
+    Budgets
+    -->
+    <record id="view_budget_post_search" model="ir.ui.view">
+        <field name="name">account.budget.post.search</field>
+        <field name="model">account.budget.post</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="name"
+                    filter_domain="[('name','ilike',self)]"
+                    string="Budgetary Position"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </search>
+        </field>
+    </record>
+    <record id="view_budget_post_tree" model="ir.ui.view">
+        <field name="name">account.budget.post.tree</field>
+        <field name="model">account.budget.post</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field
+                    name="company_id"
+                    options="{'no_create': True}"
+                    groups="base.group_multi_company"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="open_budget_post_form" model="ir.actions.act_window">
+        <field name="name">Budgetary Positions</field>
+        <field name="res_model">account.budget.post</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="view_budget_post_tree" />
+        <field name="search_view_id" ref="view_budget_post_search" />
+    </record>
+    <menuitem
+        id="menu_budget_post_form"
+        action="open_budget_post_form"
+        parent="account.account_management_menu"
+        sequence="5"
+    />
+    <record id="view_budget_post_form" model="ir.ui.view">
+        <field name="name">account.budget.post.form</field>
+        <field name="model">account.budget.post</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="name" />
+                    <field
+                        name="company_id"
+                        groups="base.group_multi_company"
+                        options="{'no_create': True}"
+                    />
+                </group>
+                <notebook>
+                    <page string="Accounts">
+                        <field name="account_ids">
+                            <tree>
+                                <field name="code" />
+                                <field name="name" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+    <record id="crossovered_budget_view_form" model="ir.ui.view">
+        <field name="name">crossovered.budget.view.form</field>
+        <field name="model">crossovered.budget</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        string="Confirm"
+                        name="action_budget_confirm"
+                        states="draft"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        string="Approve"
+                        name="action_budget_validate"
+                        states="confirm"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        string="Done"
+                        name="action_budget_done"
+                        states="validate"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        string="Reset to Draft"
+                        name="action_budget_draft"
+                        states="cancel"
+                        type="object"
+                    />
+                    <button
+                        string="Cancel Budget"
+                        name="action_budget_cancel"
+                        states="confirm,validate"
+                        type="object"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirm"
+                    />
+                </header>
+                <sheet string="Budget">
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field
+                                name="name"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                                placeholder="Budget Name"
+                            />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field
+                                name="creating_user_id"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            />
+                        </group>
+                        <group>
+                            <label for="date_from" string="Period" />
+                            <div>
+                                    <field
+                                    name="date_from"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                /> -
+                                    <field
+                                    name="date_to"
+                                    class="oe_inline"
+                                    attrs="{'readonly':[('state','!=','draft')]}"
+                                    nolabel="1"
+                                />
+                                </div>
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                options="{'no_create': True}"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Budget Lines">
+                            <field
+                                name="crossovered_budget_line_ids"
+                                context="{'default_date_from': date_from,'default_date_to': date_to}"
+                                colspan="4"
+                                nolabel="1"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            >
+                                <tree>
+                                    <field name="general_budget_id" />
+                                    <field
+                                        name="analytic_account_id"
+                                        groups="analytic.group_analytic_accounting"
+                                        required="1"
+                                    />
+                                    <field name="date_from" />
+                                    <field name="date_to" />
+                                    <field
+                                        name="paid_date"
+                                        groups="base.group_no_one"
+                                    />
+                                    <field
+                                        name="planned_amount"
+                                        sum="Planned Amount"
+                                        widget="monetary"
+                                    />
+                                    <field
+                                        name="practical_amount"
+                                        sum="Practical Amount"
+                                        widget="monetary"
+                                    />
+                                    <field
+                                        name="theoretical_amount"
+                                        sum="Theoretical Amount"
+                                        widget="monetary"
+                                    />
+                                    <field name="percentage" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="general_budget_id" />
+                                            <field
+                                                name="planned_amount"
+                                                widget="monetary"
+                                            />
+                                            <field
+                                                name="analytic_account_id"
+                                                groups="analytic.group_analytic_accounting"
+                                                required="1"
+                                            />
+                                        </group>
+                                        <group>
+                                            <label for="date_from" string="Period" />
+                                            <div>
+                                                    <field
+                                                    name="date_from"
+                                                    class="oe_inline"
+                                                /> -
+                                                    <field
+                                                    name="date_to"
+                                                    class="oe_inline"
+                                                />
+                                                </div>
+                                            <field
+                                                name="paid_date"
+                                                groups="base.group_no_one"
+                                            />
+                                            <field
+                                                name="company_id"
+                                                options="{'no_create': True}"
+                                                groups="base.group_multi_company"
+                                            />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field
+                        name="message_follower_ids"
+                        widget="mail_followers"
+                        groups="base.group_user"
+                    />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="crossovered_budget_view_tree" model="ir.ui.view">
+        <field name="name">crossovered.budget.view.tree</field>
+        <field name="model">crossovered.budget</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-info="state == 'draft'"
+                decoration-muted="state in ('done','cancel')"
+                string="Budget"
+            >
+                <field name="name" colspan="1" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field
+                    name="company_id"
+                    options="{'no_create': True}"
+                    groups="base.group_multi_company"
+                />
+                <field name="creating_user_id" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_crossovered_budget_kanban" model="ir.ui.view">
+        <field name="name">crossovered.budget.kanban</field>
+        <field name="model">crossovered.budget</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="creating_user_id" />
+                <field name="state" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top mb16">
+                                <div class="o_kanban_record_headings mt4">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name" />
+                                    </strong>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span class="oe_kanban_top_right">
+                                        <field
+                                            name="state"
+                                            widget="label_selection"
+                                            options="{'classes': {'draft': 'default', 'done': 'success'}}"
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left text-muted">
+                                        <i class="fa fa-clock-o" /> <t
+                                        t-esc="record.date_from.value"
+                                    />-<t t-esc="record.date_to.value" />
+                                    </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <span class="pull-right">
+                                        <img
+                                            t-att-src="kanban_image('res.users', 'image_small', record.creating_user_id.raw_value)"
+                                            t-att-title="record.creating_user_id.value"
+                                            t-att-alt="record.creating_user_id.value"
+                                            width="24"
+                                            height="24"
+                                            class="oe_kanban_avatar pull-right"
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_crossovered_budget_search" model="ir.ui.view">
+        <field name="name">crossovered.budget.search</field>
+        <field name="model">crossovered.budget</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="name"
+                    filter_domain="[('name','ilike',self)]"
+                    string="Budget"
+                />
+                <field name="date_from" />
+                <field name="date_to" />
+                <filter
+                    string="Draft"
+                    name="draft"
+                    domain="[('state','=','draft')]"
+                    help="Draft Budgets"
+                />
+                <filter
+                    string="To Approve"
+                    name="to_approve"
+                    domain="[('state','=','confirm')]"
+                    help="To Approve Budgets"
+                />
+                <field name="state" />
+            </search>
+        </field>
+    </record>
+    <record id="act_crossovered_budget_view" model="ir.actions.act_window">
+        <field name="name">Budgets</field>
+        <field name="res_model">crossovered.budget</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="crossovered_budget_view_tree" />
+        <field name="search_view_id" ref="view_crossovered_budget_search" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new budget.
+              </p>
+            <p>
+                A budget is a forecast of your company's income and/or expenses
+                expected for a period in the future. A budget is defined on some
+                financial accounts and/or analytic accounts (that may represent
+                projects, departments, categories of products, etc.)
+              </p>
+            <p>
+                By keeping track of where your money goes, you may be less
+                likely to overspend, and more likely to meet your financial
+                goals. Forecast a budget by detailing the expected revenue per
+                analytic account and monitor its evolution based on the actuals
+                realised during that period.
+              </p>
+        </field>
+    </record>
+    <menuitem
+        id="menu_act_crossovered_budget_view"
+        parent="account.menu_finance_entries_management"
+        name="Budgets"
+        action="act_crossovered_budget_view"
+        sequence="60"
+        groups="account.group_account_user"
+    />
+    <record id="view_crossovered_budget_line_search" model="ir.ui.view">
+        <field name="name">account.budget.line.search</field>
+        <field name="model">crossovered.budget.lines</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="analytic_account_id" />
+            </search>
+        </field>
+    </record>
+    <record id="view_crossovered_budget_line_tree" model="ir.ui.view">
+        <field name="name">crossovered.budget.line.tree</field>
+        <field name="model">crossovered.budget.lines</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="crossovered_budget_id" invisible="1" />
+                <field name="general_budget_id" />
+                <field
+                    name="analytic_account_id"
+                    groups="analytic.group_analytic_accounting"
+                />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="paid_date" groups="base.group_no_one" />
+                <field name="planned_amount" widget="monetary" />
+                <field name="practical_amount" widget="monetary" />
+                <field name="theoretical_amount" widget="monetary" />
+                <field name="percentage" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_crossovered_budget_line_form" model="ir.ui.view">
+        <field name="name">crossovered.budget.line.form</field>
+        <field name="model">crossovered.budget.lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group col="4">
+                        <field name="crossovered_budget_id" />
+                        <field name="analytic_account_id" />
+                        <field name="general_budget_id" />
+                        <field name="date_from" />
+                        <field name="date_to" />
+                        <field name="paid_date" />
+                        <field name="planned_amount" widget="monetary" />
+                        <field name="practical_amount" widget="monetary" />
+                        <field name="theoretical_amount" widget="monetary" />
+                        <field name="percentage" />
+                        <field
+                            name="company_id"
+                            options="{'no_create': True}"
+                            groups="base.group_multi_company"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="act_crossovered_budget_lines_view" model="ir.actions.act_window">
+        <field name="name">Budgets</field>
+        <field name="res_model">crossovered.budget.lines</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_crossovered_budget_line_tree" />
+    </record>
+    <menuitem
+        id="menu_act_crossovered_budget_lines_view"
+        parent="account.account_reports_management_menu"
+        action="act_crossovered_budget_lines_view"
+        sequence="20"
+    />
+</odoo>
