@@ -17,9 +17,9 @@ TODO: add repo description.
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[account_budget_oca](account_budget_oca/) | 14.0.1.0.0 | Budgets Management
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_budget_oca](account_budget_oca/) | 14.0.1.0.0 |  | Budgets Management
 
 [//]: # (end addons)
 
