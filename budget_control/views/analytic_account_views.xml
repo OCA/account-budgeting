@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_analytic_account_search" model="ir.ui.view">
+        <field name="name">account.analytic.account.search</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//search/group" position="inside">
+                <filter
+                    name="budget_period"
+                    string="Budget Period"
+                    context="{'group_by': 'budget_period_id'}"
+                />
+                <filter
+                    name="group_id"
+                    string="Group"
+                    context="{'group_by': 'group_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_analytic_account_list" model="ir.ui.view">
+        <field name="name">account.analytic.account.list</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_list" />
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="budget_period_id" optional="show" />
+                <field name="bm_date_from" optional="hide" />
+                <field name="bm_date_to" optional="hide" />
+                <field
+                    name="budget_control_ids"
+                    widget="many2many_tags"
+                    optional="show"
+                />
+                <field name="initial_available" optional="show" />
+                <field name="initial_commit" optional="show" />
+            </field>
+        </field>
+    </record>
+    <record id="view_account_analytic_account_form" model="ir.ui.view">
+        <field name="name">analytic.analytic.account.form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="budget_period_id" />
+                <field name="bm_date_from" />
+                <field name="bm_date_to" />
+                <field name="budget_control_ids" widget="many2many_tags" />
+            </field>
+            <xpath expr="//group[@name='main']/group[2]" position="inside">
+                <field name="auto_adjust_date_commit" />
+                <field name="initial_available" />
+                <field name="initial_commit" />
+            </xpath>
+        </field>
+    </record>
+    <!-- Show Analytic Accounting on Budgeting-->
+    <record id="view_budget_analytic_list" model="ir.ui.view">
+        <field name="name">view.budget.analytic.list</field>
+        <field name="model">account.analytic.account</field>
+        <field name="arch" type="xml">
+            <tree string="Analytic Accounts">
+                <field name="name" string="Name" />
+                <field name="code" />
+                <field name="budget_period_id" optional="show" />
+                <field name="bm_date_from" optional="hide" />
+                <field name="bm_date_to" optional="hide" />
+                <field
+                    name="budget_control_ids"
+                    widget="many2many_tags"
+                    optional="show"
+                />
+                <field name="partner_id" optional="hide" />
+                <field name="active" invisible="1" />
+                <field
+                    name="company_id"
+                    groups="base.group_multi_company"
+                    optional="show"
+                />
+                <field
+                    name="currency_id"
+                    groups="base.group_multi_currency"
+                    optional="show"
+                />
+                <field
+                    name="initial_available"
+                    sum="Total Available Initial"
+                    optional="show"
+                />
+                <field
+                    name="initial_commit"
+                    sum="Total Commit Initial"
+                    optional="show"
+                />
+                <field name="amount_budget" sum="Total Budget" />
+                <field name="amount_consumed" sum="Total Consumed" />
+                <field name="amount_balance" sum="Balance" />
+            </tree>
+        </field>
+    </record>
+    <record id="action_budget_analytic_form" model="ir.actions.act_window">
+        <field name="name">Analytic Accounts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.analytic.account</field>
+        <field
+            name="search_view_id"
+            ref="analytic.view_account_analytic_account_search"
+        />
+        <field name="view_id" ref="view_budget_analytic_list" />
+        <field name="context">{'search_default_active':1}</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Add a new analytic account
+            </p>
+        </field>
+    </record>
+    <menuitem
+        id="budget_menu_analytic_accounting"
+        name="Analytic Accounting"
+        parent="budget_control.budget_config_menu"
+        sequence="20"
+        groups="analytic.group_analytic_accounting,analytic.group_analytic_tags"
+    />
+    <menuitem
+        id="budget_menu_analytic_account"
+        name="Analytic Accounts"
+        parent="budget_control.budget_menu_analytic_accounting"
+        sequence="1"
+        action="budget_control.action_budget_analytic_form"
+        groups="analytic.group_analytic_accounting"
+    />
+    <menuitem
+        id="budget_menu_analytic_account_group"
+        name="Analytic Account Groups"
+        parent="budget_control.budget_menu_analytic_accounting"
+        sequence="2"
+        action="analytic.account_analytic_group_action"
+        groups="analytic.group_analytic_accounting"
+    />
+    <menuitem
+        id="budget_menu_analytic_account_tag"
+        name="Analytic Tags"
+        parent="budget_control.budget_menu_analytic_accounting"
+        sequence="3"
+        action="analytic.account_analytic_tag_action"
+        groups="analytic.group_analytic_tags"
+    />
+</odoo>

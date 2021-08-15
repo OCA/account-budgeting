@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_budget_monitor_report_tree" model="ir.ui.view">
+        <field name="name">budget.monitor.report.tree</field>
+        <field name="model">budget.monitor.report</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Monitoring">
+                <field name="amount_type" />
+                <field name="res_id" />
+                <field name="date" />
+                <field name="analytic_account_id" />
+                <field name="amount" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_budget_monitor_report_pivot" model="ir.ui.view">
+        <field name="name">budget.monitor.report.pivot</field>
+        <field name="model">budget.monitor.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Budget Monitoring">
+                <field name="analytic_account_id" type="row" />
+                <field name="amount_type" type="col" />
+                <field name="amount" type="measure" />
+            </pivot>
+        </field>
+    </record>
+    <record id="view_budget_monitor_report_graph" model="ir.ui.view">
+        <field name="name">budget.monitor.report.graph</field>
+        <field name="model">budget.monitor.report</field>
+        <field name="arch" type="xml">
+            <graph string="Budget Monitoring">
+                <field name="analytic_account_id" />
+                <field name="amount" type="measure" />
+            </graph>
+        </field>
+    </record>
+    <record id="view_budget_monitor_report_search" model="ir.ui.view">
+        <field name="name">budget.monitor.report.search</field>
+        <field name="model">budget.monitor.report</field>
+        <field name="arch" type="xml">
+            <search string="Budget Monitoring">
+                <field name="analytic_account_id" />
+                <filter
+                    name="budget_state_draft"
+                    string="Budget Draft"
+                    domain="[('budget_state', 'in', ['draft', False])]"
+                />
+                <filter
+                    name="budget_state_submit"
+                    string="Budget Submitted"
+                    domain="[('budget_state', 'in', ['submit', False])]"
+                />
+                <filter
+                    name="budget_state_done"
+                    string="Budget Controlled"
+                    domain="[('budget_state', 'in', ['done', False])]"
+                />
+                <filter
+                    name="budget_state_cancel"
+                    string="Budget Cancelled"
+                    domain="[('budget_state', 'in', ['cancel', False])]"
+                />
+                <separator orientation="vertical" />
+                <filter
+                    name="active"
+                    string="Unarchived"
+                    domain="[('active', '!=', False)]"
+                />
+                <filter
+                    name="inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Budget Period"
+                        name="group_by_res_id"
+                        context="{'group_by':'budget_period_id'}"
+                    />
+                    <filter
+                        string="Analytic Group"
+                        name="group_by_analytic_group"
+                        context="{'group_by':'analytic_group'}"
+                    />
+                    <filter
+                        string="Analytic Account"
+                        name="group_by_analytic_account"
+                        context="{'group_by':'analytic_account_id'}"
+                    />
+                    <filter
+                        string="Reference"
+                        name="group_by_reference"
+                        context="{'group_by':'reference'}"
+                    />
+                    <separator orientation="vertical_groupby" />
+                    <filter
+                        string="Date"
+                        name="group_by_date"
+                        context="{'group_by':'date'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_budget_monitor_report_all" model="ir.actions.act_window">
+        <field name="name">Budget Monitoring</field>
+        <field name="res_model">budget.monitor.report</field>
+        <field name="view_mode">pivot,tree,graph</field>
+        <field name="context">{
+            'group_by':[],
+            'group_by_no_leaf':1,
+            'search_default_budget_state_done': True
+        }</field>
+        <field name="search_view_id" ref="view_budget_monitor_report_search" />
+    </record>
+    <menuitem
+        name="Budget Monitoring"
+        action="action_budget_monitor_report_all"
+        id="menu_action_budget_monitor_report_all"
+        parent="budget_report_menu"
+        sequence="10"
+    />
+</odoo>

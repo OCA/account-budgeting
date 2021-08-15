@@ -1,0 +1,65 @@
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_left_group']" position="inside">
+                <field
+                    name="not_affect_budget"
+                    attrs="{'invisible':[('move_type', 'in', ('in_invoice', 'in_receipt', 'in_refund', 'out_invoice', 'out_refund'))]}"
+                />
+            </xpath>
+            <xpath
+                expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[last()]"
+                position="after"
+            >
+                <field name="auto_adjust_date_commit" optional="hide" />
+                <field name="date_commit" optional="hide" />
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[last()]" position="after">
+                <page
+                    string="Budget Commitment"
+                    name="budget_commit"
+                    attrs="{'invisible': [('budget_move_ids', '=', [])]}"
+                >
+                    <div class="oe_read_only oe_right" name="buttons">
+                        <button
+                            type="object"
+                            name="recompute_budget_move"
+                            string="Recompute"
+                            icon="fa-refresh"
+                            groups="budget_control.group_budget_control_manager"
+                        />
+                        <button
+                            type="object"
+                            name="close_budget_move"
+                            string="Close Budget"
+                            icon="fa-times-circle"
+                            groups="budget_control.group_budget_control_manager"
+                        />
+                    </div>
+                    <field name="budget_move_ids" readonly="1">
+                        <tree>
+                            <field name="move_line_id" />
+                            <field name="move_id" />
+                            <field name="date" />
+                            <field name="analytic_group" optional="show" />
+                            <field name="analytic_account_id" optional="show" />
+                            <field
+                                name="analytic_tag_ids"
+                                optional="hide"
+                                widget="many2many_tags"
+                            />
+                            <field name="write_uid" optional="show" />
+                            <field name="write_date" optional="show" />
+                            <field name="note" optionl="hide" />
+                            <field name="debit" sum="Total Debit" />
+                            <field name="credit" sum="Total Credit" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

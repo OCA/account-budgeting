@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_expenses_form" model="ir.ui.view">
+        <field name="name">hr.expense.form</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="auto_post" invisible="1" />
+            </field>
+        </field>
+    </record>
+    <record id="view_hr_expense_sheet_form" model="ir.ui.view">
+        <field name="name">view.hr.expense.sheet.form</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='expenses']/field[@name='expense_line_ids']/tree/field[last()]"
+                position="after"
+            >
+                <field name="auto_adjust_date_commit" optional="hide" />
+                <field
+                    name="date_commit"
+                    optional="hide"
+                    attrs="{'readonly': [('state', '!=', 'draft')]}"
+                />
+            </xpath>
+            <xpath expr="/form/sheet/notebook/page[last()]" position="after">
+                <page
+                    string="Budget Commitment"
+                    name="budget_commit"
+                    attrs="{'invisible': [('budget_move_ids', '=', [])]}"
+                >
+                    <div class="oe_read_only oe_right" name="buttons">
+                        <button
+                            type="object"
+                            name="recompute_budget_move"
+                            string="Recompute"
+                            icon="fa-refresh"
+                            groups="budget_control.group_budget_control_manager"
+                        />
+                        <button
+                            type="object"
+                            name="close_budget_move"
+                            string="Close Budget"
+                            icon="fa-times-circle"
+                            groups="budget_control.group_budget_control_manager"
+                        />
+                    </div>
+                    <field name="budget_move_ids" readonly="1">
+                        <tree>
+                            <field name="expense_id" optional="show" />
+                            <field name="date" />
+                            <field name="analytic_group" optional="show" />
+                            <field name="analytic_account_id" optional="show" />
+                            <field
+                                name="analytic_tag_ids"
+                                optional="hide"
+                                widget="many2many_tags"
+                            />
+                            <field name="write_uid" optional="show" />
+                            <field name="write_date" optional="show" />
+                            <field name="note" optionl="hide" />
+                            <field name="debit" sum="Total Debit" />
+                            <field name="credit" sum="Total Credit" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
