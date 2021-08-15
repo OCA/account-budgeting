@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="budget_control_view_tree" model="ir.ui.view">
+        <field name="name">budget.control.view.tree</field>
+        <field name="model">budget.control</field>
+        <field name="arch" type="xml">
+            <tree
+                string="Budget Control Sheet"
+                create="0"
+                decoration-danger="diff_amount != 0.0"
+            >
+                <field name="name" />
+                <field name="analytic_account_id" />
+                <field name="analytic_group" optional="show" />
+                <field name="assignee_id" optional="show" />
+                <field name="allocated_amount" optional="show" />
+                <field name="released_amount" optional="show" />
+                <field name="diff_amount" optional="hide" />
+                <field name="amount_budget" optional="show" />
+                <field name="amount_commit" optional="show" />
+                <field name="amount_actual" optional="hide" />
+                <field name="amount_consumed" optional="show" />
+                <field name="amount_balance" optional="show" />
+                <field
+                    name="state"
+                    widget='badge'
+                    decoration-success="state == 'done'"
+                    decoration-info="state in ['draft', 'submit']"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="view_budget_control_filter" model="ir.ui.view">
+        <field name="name">view.budget.control.filter</field>
+        <field name="model">budget.control</field>
+        <field name="priority" eval="15" />
+        <field name="arch" type="xml">
+            <search string="Search Budget Control">
+                <field
+                    name="name"
+                    string="Budget Control"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+                <field name="analytic_account_id" />
+                <separator />
+                <filter
+                    name="my_budget_control_sheet"
+                    string="My Budget Control Sheet"
+                    domain="[('assignee_id', '=', uid)]"
+                />
+                <filter
+                    name="current_period"
+                    string="Current Period"
+                    domain="[('date_to', '&gt;=', context_today().strftime('%Y-%m-%d')), ('date_from', '&lt;=', context_today().strftime('%Y-%m-%d'))]"
+                />
+                <separator />
+                <filter
+                    name="inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        name="analytic"
+                        string="Analytic Account"
+                        context="{'group_by': 'analytic_account_id'}"
+                    />
+                    <filter
+                        name="analytic_group"
+                        string="Analytic Group"
+                        context="{'group_by': 'analytic_group'}"
+                    />
+                    <filter
+                        name="mis_budget"
+                        string="Budget Period"
+                        context="{'group_by': 'budget_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="budget_control_view_form" model="ir.ui.view">
+        <field name="name">budget.control.view.form</field>
+        <field name="model">budget.control</field>
+        <field name="arch" type="xml">
+            <form string="Budget Control Sheet" create="0">
+                <header>
+                    <button
+                        id="action_submit"
+                        name="action_submit"
+                        string="Submit"
+                        class="btn-primary"
+                        type="object"
+                        states="draft"
+                    />
+                    <button
+                        id="action_done"
+                        name="action_done"
+                        string="Control"
+                        class="btn-primary"
+                        type="object"
+                        states="submit"
+                    />
+                    <button
+                        id="action_draft"
+                        name="action_draft"
+                        string="Set to Draft"
+                        type="object"
+                        states="submit,done,cancel"
+                    />
+                    <button
+                        id="action_cancel"
+                        name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        states="draft,submit"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,submit,done"
+                    />
+                </header>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_monitoring"
+                            class="oe_stat_button"
+                            string="Monitoring"
+                            icon="fa-bar-chart-o"
+                            type="object"
+                        />
+                    </div>
+                    <div class="oe_right" name="buttons">
+                        <button
+                            name="preview"
+                            type="object"
+                            string="Preview"
+                            icon="fa-search"
+                        />
+                        <button
+                            name="print_pdf"
+                            type="object"
+                            string="Print"
+                            icon="fa-print"
+                        />
+                        <button
+                            name="export_xls"
+                            type="object"
+                            string="Export"
+                            icon="fa-download"
+                        />
+                        <button
+                            name="%(mis_budget_item_from_budget_control_action)d"
+                            type="action"
+                            string="Budget items"
+                            icon="fa-bars"
+                        />
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="budget_control_left">
+                            <field name="analytic_account_id" />
+                            <field name="assignee_id" />
+                        </group>
+                        <group name="budget_control_right">
+                            <field name="active" invisible="1" />
+                            <field
+                                name="budget_period_id"
+                                attrs="{'invisible': [('budget_period_id', '=', False)]}"
+                            />
+                            <label for="date_from" string="Date Range" />
+                            <div>
+                                <field name="date_from" /> - <field name="date_to" />
+                            </div>
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                            <field
+                                name="currency_id"
+                                groups="base.group_multi_currency"
+                            />
+                            <field name="amount_initial" />
+                            <field name="allocated_amount" />
+                            <field name="released_amount" />
+                            <field
+                                name="diff_amount"
+                                decoration-danger="diff_amount != 0.0"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="items" string="Plan">
+                            <div class="oe_right" name="buttons">
+                                <button
+                                    id="reset_plan"
+                                    name="prepare_budget_control_matrix"
+                                    class="btn-danger"
+                                    type="object"
+                                    string="Reset Plan"
+                                    icon="fa-refresh"
+                                    confirm="This operation cannot be undone. Are you sure to continue?"
+                                />
+                                <button
+                                    id="refresh"
+                                    name="prepare_budget_control_matrix"
+                                    type="object"
+                                    string="Refresh"
+                                    icon="fa-refresh"
+                                    context="{'keep_item_amount': True, 'edit_amount': True}"
+                                    confirm="This operation cannot be undone. Are you sure to continue?"
+                                />
+                            </div>
+                            <field
+                                name="item_ids"
+                                widget="x2many_2d_matrix"
+                                field_x_axis="date_range_id"
+                                field_y_axis="name"
+                                field_value="amount"
+                            >
+                                <tree>
+                                    <field name="date_range_id" />
+                                    <field name="name" />
+                                    <field name="amount" />
+                                </tree>
+                            </field>
+                            <!-- Totals Amount -->
+                            <group
+                                name="amount_budget"
+                                class="oe_subtotal_footer oe_right"
+                            >
+                                <div
+                                    class="oe_subtotal_footer_separator oe_inline o_td_label"
+                                >
+                                    <label for="amount_budget" />
+                                </div>
+                                <field
+                                    name="amount_budget"
+                                    nolabel="1"
+                                    class="oe_subtotal_footer_separator"
+                                />
+                                <field
+                                    name="amount_commit"
+                                    class="oe_subtotal_footer_separator"
+                                />
+                                <field name="amount_actual" />
+                                <field
+                                    name="amount_consumed"
+                                    class="oe_subtotal_footer_separator"
+                                />
+                                <div
+                                    class="oe_subtotal_footer_separator oe_inline o_td_label"
+                                >
+                                    <label for="amount_balance" />
+                                </div>
+                                <field
+                                    name="amount_balance"
+                                    nolabel="1"
+                                    class="oe_subtotal_footer_separator"
+                                />
+                            </group>
+                        </page>
+                        <page name="options" string="Reset Options">
+                            <group>
+                                <group>
+                                    <field
+                                        name="use_all_kpis"
+                                        widget="boolean_toggle"
+                                    />
+                                    <field name="init_budget_commit" />
+                                </group>
+                                <group>
+                                    <field name="mis_report_id" invisible="1" />
+                                    <field name="kpi_ids" widget="many2many_tags" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="budget_control_action" model="ir.actions.act_window">
+        <field name="name">Budget Control Sheet</field>
+        <field name="view_id" ref="budget_control_view_tree" />
+        <field name="res_model">budget.control</field>
+        <field name="context">{'search_default_current_period': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_submit_budget_control" model="ir.actions.server">
+        <field name="name">Submit</field>
+        <field name="model_id" ref="budget_control.model_budget_control" />
+        <field name="binding_model_id" ref="budget_control.model_budget_control" />
+        <field name="state">code</field>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+ctx = records._context.copy()
+ctx.update({"state": "submit"})
+action = records.with_context(ctx).action_confirm_state()
+        </field>
+    </record>
+    <record id="action_control_budget_control" model="ir.actions.server">
+        <field name="name">Control</field>
+        <field name="model_id" ref="budget_control.model_budget_control" />
+        <field name="binding_model_id" ref="budget_control.model_budget_control" />
+        <field name="state">code</field>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+ctx = records._context.copy()
+ctx.update({"state": "done"})
+action = records.with_context(ctx).action_confirm_state()
+        </field>
+    </record>
+    <record id="action_cancel_budget_control" model="ir.actions.server">
+        <field name="name">Cancel</field>
+        <field name="model_id" ref="budget_control.model_budget_control" />
+        <field name="binding_model_id" ref="budget_control.model_budget_control" />
+        <field name="state">code</field>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+ctx = records._context.copy()
+ctx.update({"state": "cancel"})
+action = records.with_context(ctx).action_confirm_state()
+        </field>
+    </record>
+    <menuitem
+        id="budget_control_menu"
+        parent="budget_control.budget_budget_menu"
+        name="Budget Control"
+        sequence="20"
+    />
+    <menuitem
+        id="budget_control_sheet_menu"
+        parent="budget_control_menu"
+        name="Budget Control Sheet"
+        action="budget_control_action"
+        sequence="20"
+    />
+</odoo>

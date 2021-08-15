@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Ecosoft Co., Ltd (https://ecosoft.co.th)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html) -->
+<odoo>
+    <record id="mis_report_view_kpi_tree" model="ir.ui.view">
+        <field name="name">mis.report.view.kpi.tree</field>
+        <field name="model">mis.report.kpi</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="description" />
+                <field name="name" />
+                <field name="budgetable" />
+            </tree>
+        </field>
+    </record>
+</odoo>

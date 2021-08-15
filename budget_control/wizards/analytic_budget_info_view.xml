@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Ecosoft - (http://ecosoft.co.th)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_analytic_budget_info_form" model="ir.ui.view">
+        <field name="name">analytic.budget.info.form</field>
+        <field name="model">analytic.budget.info</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field
+                            name="budget_period_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True}"
+                        />
+                        <field name="budget_control_ids" invisible="1" />
+                    </group>
+                    <group />
+                </group>
+                <group>
+                    <field name="filtered_control_ids" nolabel="1">
+                        <tree>
+                            <field name="name" />
+                            <field name="analytic_group" optional="hide" />
+                            <field name="amount_budget" optional="show" sum="Total" />
+                            <field name="released_amount" optional="hide" sum="Total" />
+                            <field name="amount_commit" optional="hide" sum="Total" />
+                            <field name="amount_actual" optional="hide" sum="Total" />
+                            <field name="amount_consumed" optional="show" sum="Total" />
+                            <field name="amount_balance" optional="show" sum="Total" />
+                            <field
+                                name="state"
+                                widget="badge"
+                                decoration-success="state == 'done'"
+                                decoration-info="state in ['draft', 'submit']"
+                            />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button special="cancel" string="Close" class="oe_link" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="view_analytic_budget_info_action" model="ir.actions.act_window">
+        <field name="name">View Budget Info</field>
+        <field name="res_model">analytic.budget.info</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_analytic_account" />
+        <field name="binding_view_types">list,form</field>
+    </record>
+</odoo>
