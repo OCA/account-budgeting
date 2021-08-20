@@ -13,6 +13,11 @@ class MisBudgetItem(models.Model):
         index=True,
         required=True,
     )
+    kpi_id = fields.Many2one(
+        comodel_name="mis.report.kpi",
+        related="kpi_expression_id.kpi_id",
+        store=True,
+    )
     active = fields.Boolean(
         compute="_compute_active",
         readonly=True,

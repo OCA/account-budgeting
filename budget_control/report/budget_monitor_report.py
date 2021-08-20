@@ -16,6 +16,10 @@ class BudgetMonitorReport(models.Model):
         + self._get_budget_docline_model(),
         string="Resource ID",
     )
+    kpi_id = fields.Many2one(
+        comodel_name="mis.report.kpi",
+        string="KPI",
+    )
     reference = fields.Char()
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
@@ -95,6 +99,7 @@ class BudgetMonitorReport(models.Model):
                 0: """
                 %s000000000 + a.id as id,
                 '%s,' || a.%s as res_id,
+                a.kpi_id,
                 a.analytic_account_id,
                 a.analytic_group,
                 a.date as date,
@@ -134,6 +139,7 @@ class BudgetMonitorReport(models.Model):
             0: """
             1000000000 + a.id as id,
             'mis.budget.item,' || a.id as res_id,
+            a.kpi_id,
             a.analytic_account_id,
             b.analytic_group,
             a.date_to as date,  -- approx date
