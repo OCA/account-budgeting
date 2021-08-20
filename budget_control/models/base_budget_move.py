@@ -10,6 +10,9 @@ class BaseBudgetMove(models.AbstractModel):
     _name = "base.budget.move"
     _description = "Document Budget Moves"
 
+    kpi_id = fields.Many2one(
+        comodel_name="mis.report.kpi",
+    )
     date = fields.Date(
         required=True,
         index=True,
@@ -231,6 +234,19 @@ class BudgetDoclineMixin(models.AbstractModel):
         budget_vals.update(res)
         return budget_vals
 
+    def _update_kpi(self, budget_vals):
+        self.ensure_one()
+        BudgetPeriod = self.env["budget.period"]
+        budget_period = BudgetPeriod._get_eligible_budget_period(self.date_commit)
+        controls = BudgetPeriod._prepare_controls(budget_period, self)
+        instance = budget_period.report_instance_id
+        kpis = instance.report_id.get_kpis(self.env.user.company_id)
+        # Get KPI
+        kpi = BudgetPeriod._get_kpi_by_control_key(instance, kpis, controls[0])
+        if kpi:
+            budget_vals["kpi_id"] = list(kpi)[0].id
+        return budget_vals
+
     def commit_budget(self, reverse=False, **vals):
         """Create budget commit for each docline"""
         self.prepare_commit()
@@ -245,6 +261,8 @@ class BudgetDoclineMixin(models.AbstractModel):
             budget_vals = self._budget_include_tax(budget_vals)
             # Complete budget commitment dict
             budget_vals = self._update_budget_commitment(budget_vals, reverse=reverse)
+            # Update KPI
+            budget_vals = self._update_kpi(budget_vals)
             # Final note
             budget_vals["note"] = self.env.context.get("commit_note")
             # Create budget move

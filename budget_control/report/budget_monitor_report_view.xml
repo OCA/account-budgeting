@@ -9,6 +9,7 @@
                 <field name="res_id" />
                 <field name="date" />
                 <field name="analytic_account_id" />
+                <field name="kpi_id" />
                 <field name="amount" />
             </tree>
         </field>
@@ -86,6 +87,11 @@
                         string="Analytic Account"
                         name="group_by_analytic_account"
                         context="{'group_by':'analytic_account_id'}"
+                    />
+                    <filter
+                        string="KPI"
+                        name="group_by_kpi"
+                        context="{'group_by':'kpi_id'}"
                     />
                     <filter
                         string="Reference"
