@@ -122,20 +122,11 @@ class AccountAnalyticAccount(models.Model):
 
     def next_year_analytic(self):
         """ Find next analytic from analytic date_to + 1 """
-        auto_create_analytic = self.env.company.budget_carry_forward_analytic
         next_analytics = self.env["account.analytic.account"]
         for rec in self:
             next_date_range = rec.bm_date_to + relativedelta(days=1)
             next_analytic = rec._find_next_analytic(next_date_range)
             if not next_analytic:
-                if not auto_create_analytic:
-                    raise UserError(
-                        _(
-                            "{}, No analytic for the next date {}.".format(
-                                rec.display_name, next_date_range
-                            )
-                        )
-                    )
                 # Auto create analytic next year
                 next_analytic = rec._auto_create_next_analytic(next_date_range)
             next_analytics |= next_analytic
