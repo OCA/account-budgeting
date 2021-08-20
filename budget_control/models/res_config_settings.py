@@ -9,9 +9,6 @@ class ResConfigSettings(models.TransientModel):
     budget_include_tax = fields.Boolean(
         related="company_id.budget_include_tax", readonly=False
     )
-    budget_carry_forward_analytic = fields.Boolean(
-        related="company_id.budget_carry_forward_analytic", readonly=False
-    )
     budget_kpi_template_id = fields.Many2one(
         comodel_name="mis.report",
         related="company_id.budget_kpi_template_id",

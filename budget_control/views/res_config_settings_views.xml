@@ -115,21 +115,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="col-12 col-lg-6 o_setting_box"
-                            id="budget_carry_forward_analytic"
-                        >
-                            <div class="o_setting_left_pane">
-                                <field name="budget_carry_forward_analytic" />
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="budget_carry_forward_analytic" />
-                                <div class="text-muted">
-                                    By default, carry forward will be create analytic next year before.
-                                    If checked, carry forward will auto create analytic next year.
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </xpath>

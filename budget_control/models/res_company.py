@@ -11,11 +11,6 @@ class ResCompany(models.Model):
         string="Budget Included Tax",
         help="If checked, all budget moves amount will include tax",
     )
-    budget_carry_forward_analytic = fields.Boolean(
-        string="Carry Forward - Auto Create Analytic",
-        help="If checked, all analytic will auto create next year "
-        "when you carry forward",
-    )
     budget_kpi_template_id = fields.Many2one(
         comodel_name="mis.report",
         string="Budget KPI Template",
