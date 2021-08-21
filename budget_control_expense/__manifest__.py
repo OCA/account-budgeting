@@ -14,7 +14,6 @@
         "views/hr_expense_view.xml",
         "views/budget_control_view.xml",
         "views/budget_move_forward_view.xml",
-        "views/res_config_settings_views.xml",
     ],
     "installable": True,
     "maintainers": ["kittiu"],

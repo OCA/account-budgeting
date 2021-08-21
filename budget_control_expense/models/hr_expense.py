@@ -61,14 +61,6 @@ class HRExpense(models.Model):
         comodel_name="expense.budget.move",
         inverse_name="expense_id",
     )
-    auto_post = fields.Boolean(
-        string="Post Automatically",
-        default=True,
-        copy=False,
-        readonly=True,
-        help="If this checkbox is ticked, "
-        "journal entry will be automatically posted at its date.",
-    )
 
     def recompute_budget_move(self):
         MoveLine = self.env["account.move.line"]

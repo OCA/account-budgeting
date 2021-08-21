@@ -19,7 +19,6 @@ class BudgetMoveForward(models.Model):
         return super()._get_document_number(doc)
 
     def _get_domain_search(self, model):
-        """ Filter Purchase used analytic account"""
         domain_search = super()._get_domain_search(model)
         if model == "hr.expense":
             domain_search.extend(
@@ -29,11 +28,6 @@ class BudgetMoveForward(models.Model):
                 ]
             )
         return domain_search
-
-    def _hooks_document_carry_forward(self, docline):
-        if docline._name == "hr.expense":
-            docline.write({"auto_post": self.env.company.auto_post_journal})
-        return super()._hooks_document_carry_forward(docline)
 
 
 class BudgetMoveForwardLine(models.Model):
