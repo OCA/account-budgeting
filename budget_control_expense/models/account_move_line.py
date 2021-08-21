@@ -18,9 +18,7 @@ class AccountMoveLine(models.Model):
                     # Because this is not invoice, we need to compare account
                     if not expense or ml.account_id != expense.account_id:
                         continue
-                    expense.with_context(uncommit=True).commit_budget(
-                        reverse=True, move_line_id=ml.id
-                    )
+                    expense.commit_budget(reverse=True, move_line_id=ml.id)
                 else:  # Cancel or draft, not commitment line
                     self.env[Expense._budget_model()].search(
                         [("move_line_id", "=", ml.id)]

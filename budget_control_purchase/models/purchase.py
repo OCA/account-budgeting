@@ -67,10 +67,9 @@ class PurchaseOrderLine(models.Model):
     def recompute_budget_move(self):
         for purchase_line in self:
             purchase_line.budget_move_ids.unlink()
-            # Commit on purchase order
             purchase_line.commit_budget()
-            # Uncommitted on invoice confirm
             purchase_line.invoice_lines.uncommit_purchase_budget()
+            purchase_line.forward_commit()
 
     def _get_po_line_account(self):
         fpos = self.order_id.fiscal_position_id
@@ -96,3 +95,10 @@ class PurchaseOrderLine(models.Model):
     def _valid_commit_state(self):
         states = ["purchase", "done"]
         return self.state in states
+
+    def _prepare_account_move_line(self, move=False):
+        self.ensure_one()
+        res = super()._prepare_account_move_line(move)
+        if res.get("analytic_account_id") and self.fwd_analytic_account_id:
+            res["analytic_account_id"] = self.fwd_analytic_account_id.id
+        return res
