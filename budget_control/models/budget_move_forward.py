@@ -236,9 +236,6 @@ class BudgetMoveForward(models.Model):
             ]
             Line.create(vals)
 
-    def _hooks_document_carry_forward(self, docline):
-        return
-
     def carry_forward_accumulate(self, accumulate_lines):
         self.ensure_one()
         for line in accumulate_lines:
@@ -345,7 +342,6 @@ class BudgetMoveForward(models.Model):
                         }
                     )
                     next_analytic.initial_commit += line.amount_commit
-                    rec._hooks_document_carry_forward(docline)
         self.write({"state": "done"})
 
     def action_cancel(self):
@@ -361,6 +357,7 @@ class BudgetMoveForwardLine(models.Model):
         index=True,
         required=True,
         readonly=True,
+        ondelete="cascade",
     )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",

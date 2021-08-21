@@ -19,7 +19,6 @@ class BudgetMoveForward(models.Model):
         return super()._get_document_number(doc)
 
     def _get_domain_search(self, model):
-        """ Filter Purchase used analytic account"""
         domain_search = super()._get_domain_search(model)
         if model == "purchase.order.line":
             domain_search.extend(

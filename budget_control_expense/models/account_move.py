@@ -12,19 +12,3 @@ class AccountMove(models.Model):
         if vals.get("state") in ("draft", "posted", "cancel"):
             self.mapped("line_ids").uncommit_expense_budget()
         return res
-
-    def _post(self, soft=True):
-        """
-        In odoo auto post journal, when you post journal entry from expense
-        but analytic on invoice is from expense.
-        this function will not auto post,
-        you can change analytic and manual post.
-        """
-        model = self._context.get("active_model", False)
-        active_ids = self._context.get("active_ids", False)
-        if model == "hr.expense":
-            expense_ids = self.env[model].browse(active_ids)
-            for exp in expense_ids:
-                if not exp.auto_post:
-                    return False
-        return super()._post(soft)

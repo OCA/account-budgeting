@@ -13,6 +13,7 @@ class BudgetMoveForwardInfo(models.TransientModel):
         index=True,
         required=True,
         readonly=True,
+        ondelete="cascade",
     )
     forward_info_line_ids = fields.One2many(
         comodel_name="budget.move.forward.info.line",
@@ -42,6 +43,7 @@ class BudgetMoveForwardInfoLine(models.TransientModel):
         index=True,
         required=True,
         readonly=True,
+        ondelete="cascade",
     )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
