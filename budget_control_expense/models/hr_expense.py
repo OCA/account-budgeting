@@ -49,6 +49,14 @@ class HRExpenseSheet(models.Model):
             )
         return res
 
+    def action_sheet_move_create(self):
+        res = super().action_sheet_move_create()
+        self.flush()
+        BudgetPeriod = self.env["budget.period"]
+        for doc in self:
+            BudgetPeriod.check_budget(doc.account_move_id.line_ids)
+        return res
+
 
 class HRExpense(models.Model):
     _name = "hr.expense"
@@ -69,6 +77,7 @@ class HRExpense(models.Model):
             expense.commit_budget()
             move_lines = MoveLine.search([("expense_id", "in", expense.ids)])
             move_lines.uncommit_expense_budget()
+            expense.forward_commit()
 
     def _init_docline_budget_vals(self, budget_vals):
         self.ensure_one()
@@ -87,3 +96,11 @@ class HRExpense(models.Model):
     def _valid_commit_state(self):
         states = ["approved", "done"]
         return self.state in states
+
+    def _get_account_move_line_values(self):
+        move_line_values_by_expense = super()._get_account_move_line_values()
+        for expense in self:
+            for ml in move_line_values_by_expense[expense.id]:
+                if ml.get("analytic_account_id") and expense.fwd_analytic_account_id:
+                    ml["analytic_account_id"] = expense.fwd_analytic_account_id.id
+        return move_line_values_by_expense

@@ -10,7 +10,7 @@ class PurchaseOrder(models.Model):
         """Uncommit budget for source purchase request document."""
         res = super().write(vals)
         if vals.get("state") in ("purchase", "cancel"):
-            self.mapped("order_line").uncommit_purchase_request_budget()
+            self.mapped("order_line.purchase_request_lines").recompute_budget_move()
         return res
 
 
@@ -23,9 +23,7 @@ class PurchaseOrderLine(models.Model):
             po_state = po_line.order_id.state
             if po_state in ("purchase", "done"):
                 for pr_line in po_line.purchase_request_lines:
-                    pr_line.with_context(uncommit=True).commit_budget(
-                        reverse=True, purchase_line_id=po_line.id
-                    )
+                    pr_line.commit_budget(reverse=True, purchase_line_id=po_line.id)
             else:  # Cancel or draft, not commitment line
                 self.env["purchase.request.budget.move"].search(
                     [("purchase_line_id", "=", po_line.id)]

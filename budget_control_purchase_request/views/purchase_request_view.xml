@@ -11,8 +11,17 @@
             >
                 <field name="auto_adjust_date_commit" optional="hide" />
                 <field name="date_commit" optional="hide" />
+                <field
+                    name="fwd_analytic_account_id"
+                    optional="hide"
+                    groups="budget_control.group_budget_control_manager"
+                />
+                <field
+                    name="fwd_date_commit"
+                    optional="hide"
+                    groups="budget_control.group_budget_control_manager"
+                />
             </xpath>
-
             <xpath expr="/form/sheet/notebook/page[last()]" position="after">
                 <page
                     string="Budget Commitment"

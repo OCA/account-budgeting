@@ -10,5 +10,6 @@ class AccountMove(models.Model):
         """Uncommit budget for source purchase document."""
         res = super().write(vals)
         if vals.get("state") in ("draft", "posted", "cancel"):
-            self.mapped("invoice_line_ids").uncommit_purchase_budget()
+            purchase_lines = self.mapped("invoice_line_ids.purchase_line_id")
+            purchase_lines.recompute_budget_move()
         return res

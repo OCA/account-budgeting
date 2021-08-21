@@ -26,7 +26,7 @@ class AccountMoveLine(models.Model):
                     qty = qty > qty_balance and qty_balance or qty
                     if qty <= 0:
                         continue
-                    purchase_line.with_context(uncommit=True).commit_budget(
+                    purchase_line.commit_budget(
                         reverse=rev, move_line_id=ml.id, product_qty=qty
                     )
                 else:  # Cancel or draft, not commitment line

@@ -110,6 +110,20 @@ class BudgetDoclineMixin(models.AbstractModel):
         compute="_compute_auto_adjust_date_commit",
         readonly=True,
     )
+    fwd_analytic_account_id = fields.Many2one(
+        comodel_name="account.analytic.account",
+        string="Carry Forward Analytic",
+        copy=False,
+        readonly=False,
+        index=True,
+        help="If specified, recompute budget will take this into account",
+    )
+    fwd_date_commit = fields.Date(
+        string="Carry Forward Date Commit",
+        copy=False,
+        readonly=False,
+        help="If specified, recompute budget will take this into account",
+    )
 
     def _budget_model(self):
         return self.env.context.get("alt_budget_move_model") or self._budget_move_model
@@ -119,6 +133,10 @@ class BudgetDoclineMixin(models.AbstractModel):
 
     def _valid_commit_state(self):
         raise ValidationError(_("No implementation error!"))
+
+    @api.onchange("fwd_analytic_account_id")
+    def _onchange_fwd_analytic_account_id(self):
+        self.fwd_date_commit = self.fwd_analytic_account_id.bm_date_from
 
     @api.depends(lambda self: [self._budget_analytic_field])
     def _compute_auto_adjust_date_commit(self):
@@ -212,12 +230,6 @@ class BudgetDoclineMixin(models.AbstractModel):
         # this is correct for normal case, but may require different date
         # in case of budget that carried to new period/year
         today = fields.Date.context_today(self)
-        # In case of budget carried, returning commit budget
-        # date_commit and analytic should first date of next year
-        uncommit = self._context.get("uncommit", False)
-        if uncommit and date_commit > self.date_commit:
-            self.date_commit = date_commit
-            analytic_account = analytic_account.next_year_analytic()
         res = {
             "product_id": self.product_id.id,
             "account_id": account.id,
@@ -246,6 +258,28 @@ class BudgetDoclineMixin(models.AbstractModel):
         if kpi:
             budget_vals["kpi_id"] = list(kpi)[0].id
         return budget_vals
+
+    def forward_commit(self):
+        self.ensure_one()
+        docline = self
+        if not docline.fwd_analytic_account_id or not docline.fwd_date_commit:
+            return
+        budget_move = docline.with_context(
+            use_amount_commit=True,
+            commit_note=_("Commitment carry forward"),
+        ).commit_budget(reverse=True)
+        if budget_move:
+            fwd_budget_move = budget_move.copy()
+            debit = fwd_budget_move.debit
+            credit = fwd_budget_move.credit
+            fwd_budget_move.write(
+                {
+                    "analytic_account_id": docline.fwd_analytic_account_id.id,
+                    "date": docline.fwd_date_commit,
+                    "credit": debit,
+                    "debit": credit,
+                }
+            )
 
     def commit_budget(self, reverse=False, **vals):
         """Create budget commit for each docline"""
@@ -318,23 +352,13 @@ class BudgetDoclineMixin(models.AbstractModel):
         self.ensure_one()
         docline = self
         analytic = docline[self._budget_analytic_field]
-        budget_moves = self[self._budget_field()]
-        date_commit = (
-            max(budget_moves.mapped("date")) if budget_moves else docline.date_commit
-        )
-        uncommit = docline._context.get("uncommit", False)
         if analytic:
             if not docline.date_commit:
                 raise UserError(_("No budget commitment date"))
             date_from = analytic.bm_date_from
             date_to = analytic.bm_date_to
-            # For case carry forward, skip check date.
-            check_date = True
-            if uncommit and date_commit > docline.date_commit:
-                check_date = False
-            if check_date and (
-                (date_from and date_from > docline.date_commit)
-                or (date_to and date_to < docline.date_commit)
+            if (date_from and date_from > docline.date_commit) or (
+                date_to and date_to < docline.date_commit
             ):
                 raise UserError(
                     _("Budget date commit is not within date range of - %s")
