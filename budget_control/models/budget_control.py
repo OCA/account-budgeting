@@ -284,11 +284,16 @@ class BudgetControl(models.Model):
         analytic_ids = self.mapped("analytic_account_id").ids
         budget_period_ids = self.mapped("budget_period_id").ids
         # Retrieve budgeting data for a list of budget_control
+        domain = [
+            ("analytic_account_id", "in", analytic_ids),
+            ("budget_period_id", "in", budget_period_ids),
+        ]
+        # Optional filters by context
+        if self.env.context.get("no_fwd_commit"):
+            domain.append(("fwd_commit", "=", False))
+        # --
         dataset_all = MonitorReport.read_group(
-            domain=[
-                ("analytic_account_id", "in", analytic_ids),
-                ("budget_period_id", "in", budget_period_ids),
-            ],
+            domain=domain,
             fields=query["fields"],
             groupby=query["groupby"],
             lazy=False,

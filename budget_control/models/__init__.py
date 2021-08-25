@@ -7,7 +7,8 @@ from . import budget_period
 from . import budget_control
 from . import analytic_account
 from . import mis_budget_item
-from . import budget_move_forward
+from . import budget_balance_forward
+from . import budget_commit_forward
 from . import mis_report_instance
 from . import mis_report
 from . import res_company

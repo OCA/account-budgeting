@@ -67,7 +67,7 @@ Budget Control Core Features:
 
   In case budget commitment is being used. Sometime user has committed budget withing this year
   but not ready to use it and want to move the commitment amount to next year budget.
-  Budget Move Forward can be use to change the budget move's date to the designated year.
+  Budget Commitment Forward can be use to change the budget move's date to the designated year.
 
 Extended Modules:
 ~~~~~~~~~~~~~~~~~

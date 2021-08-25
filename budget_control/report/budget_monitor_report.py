@@ -55,6 +55,7 @@ class BudgetMonitorReport(models.Model):
         ],
         string="Budget State",
     )
+    fwd_commit = fields.Boolean()
     active = fields.Boolean()
 
     @property
@@ -109,6 +110,7 @@ class BudgetMonitorReport(models.Model):
                 a.account_id,
                 b.name as reference,
                 null::char as budget_state,
+                a.fwd_commit,
                 1::boolean as active
                 """
                 % (amount_type[:1], res_model, res_field, amount_type)
@@ -149,6 +151,7 @@ class BudgetMonitorReport(models.Model):
             null::integer as account_id,
             b.name as reference,
             b.state as budget_state,
+            0::boolean as fwd_commit,
             a.active as active
         """
         }

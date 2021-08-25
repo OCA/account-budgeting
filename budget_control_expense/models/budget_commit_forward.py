@@ -3,19 +3,30 @@
 from odoo import fields, models
 
 
-class BudgetMoveForward(models.Model):
-    _inherit = "budget.move.forward"
+class BudgetCommitForward(models.Model):
+    _inherit = "budget.commit.forward"
 
+    expense = fields.Boolean(
+        string="Expense",
+        default=True,
+        help="If checked, click review budget commitment will pull expense commitment",
+    )
     forward_expense_ids = fields.One2many(
-        comodel_name="budget.move.forward.line",
+        comodel_name="budget.commit.forward.line",
         inverse_name="forward_id",
         string="Expenses",
         domain=[("res_model", "=", "hr.expense")],
     )
 
+    def _get_budget_docline_model(self):
+        res = super()._get_budget_docline_model()
+        if self.expense:
+            res.append("hr.expense")
+        return res
+
     def _get_document_number(self, doc):
         if doc._name == "hr.expense":
-            return doc.name
+            return ("{},{}".format(doc.sheet_id._name, doc.sheet_id.id),)
         return super()._get_document_number(doc)
 
     def _get_domain_search(self, model):
@@ -30,8 +41,8 @@ class BudgetMoveForward(models.Model):
         return domain_search
 
 
-class BudgetMoveForwardLine(models.Model):
-    _inherit = "budget.move.forward.line"
+class BudgetCommitForwardLine(models.Model):
+    _inherit = "budget.commit.forward.line"
 
     res_model = fields.Selection(
         selection_add=[("hr.expense", "Expense")],

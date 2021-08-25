@@ -82,10 +82,17 @@ class AccountAnalyticAccount(models.Model):
         query = BudgetPeriod._budget_info_query()
         analytic_ids = self.ids
         # Retrieve budgeting data for a list of budget_control
+        domain = [("analytic_account_id", "in", analytic_ids)]
+        # Optional filters by context
+        if self.env.context.get("ิbudget_period_ids"):
+            domain.append(
+                ("ิbudget_period_ids", "in", self.env.context["ิbudget_period_ids"])
+            )
+        if self.env.context.get("no_fwd_commit"):
+            domain.append(("fwd_commit", "=", False))
+        # --
         dataset_all = MonitorReport.read_group(
-            domain=[
-                ("analytic_account_id", "in", analytic_ids),
-            ],
+            domain=domain,
             fields=["analytic_account_id", "amount_type", "amount"],
             groupby=["analytic_account_id", "amount_type"],
             lazy=False,
@@ -120,17 +127,17 @@ class AccountAnalyticAccount(models.Model):
         self._update_val_analytic(next_analytic, next_date_range)
         return next_analytic
 
-    def next_year_analytic(self):
-        """ Find next analytic from analytic date_to + 1 """
-        next_analytics = self.env["account.analytic.account"]
-        for rec in self:
-            next_date_range = rec.bm_date_to + relativedelta(days=1)
-            next_analytic = rec._find_next_analytic(next_date_range)
-            if not next_analytic:
-                # Auto create analytic next year
-                next_analytic = rec._auto_create_next_analytic(next_date_range)
-            next_analytics |= next_analytic
-        return next_analytics
+    def next_year_analytic(self, auto_create=True):
+        """Find next analytic from analytic date_to + 1,
+        if bm_date_to = False, this is an open end analytic, always return False"""
+        self.ensure_one()
+        if not self.bm_date_to:
+            return False
+        next_date_range = self.bm_date_to + relativedelta(days=1)
+        next_analytic = self._find_next_analytic(next_date_range)
+        if not next_analytic and auto_create:
+            next_analytic = self._auto_create_next_analytic(next_date_range)
+        return next_analytic
 
     def _check_budget_control_status(self, budget_period_id=False):
         """ Warning for budget_control on budget_period, but not in controlled """
