@@ -65,6 +65,9 @@ class BaseBudgetMove(models.AbstractModel):
     note = fields.Char(
         readonly=True,
     )
+    fwd_commit = fields.Boolean(
+        help="This budget move line is the result of 'Forward Budget Commitment'",
+    )
 
 
 class BudgetDoclineMixinBase(models.AbstractModel):
@@ -254,9 +257,10 @@ class BudgetDoclineMixin(models.AbstractModel):
         instance = budget_period.report_instance_id
         kpis = instance.report_id.get_kpis(self.env.user.company_id)
         # Get KPI
-        kpi = BudgetPeriod._get_kpi_by_control_key(instance, kpis, controls[0])
-        if kpi:
-            budget_vals["kpi_id"] = list(kpi)[0].id
+        if controls:
+            kpi = BudgetPeriod._get_kpi_by_control_key(instance, kpis, controls[0])
+            if kpi:
+                budget_vals["kpi_id"] = list(kpi)[0].id
         return budget_vals
 
     def forward_commit(self):
@@ -264,9 +268,17 @@ class BudgetDoclineMixin(models.AbstractModel):
         docline = self
         if not docline.fwd_analytic_account_id or not docline.fwd_date_commit:
             return
+        if (
+            docline[self._budget_analytic_field] == docline.fwd_analytic_account_id
+            and docline.date_commit == docline.fwd_date_commit
+        ):  # no forward to same date
+            docline.fwd_analytic_account_id = False
+            docline.fwd_date_commit = False
+            return
         budget_move = docline.with_context(
             use_amount_commit=True,
             commit_note=_("Commitment carry forward"),
+            fwd_commit=True,
         ).commit_budget(reverse=True)
         if budget_move:
             fwd_budget_move = budget_move.copy()
@@ -299,6 +311,8 @@ class BudgetDoclineMixin(models.AbstractModel):
             budget_vals = self._update_kpi(budget_vals)
             # Final note
             budget_vals["note"] = self.env.context.get("commit_note")
+            # Is Forward Commit
+            budget_vals["fwd_commit"] = self.env.context.get("fwd_commit")
             # Create budget move
             if not budget_vals["amount_currency"]:
                 return False

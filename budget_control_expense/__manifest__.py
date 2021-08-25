@@ -13,7 +13,7 @@
         "views/budget_period_view.xml",
         "views/hr_expense_view.xml",
         "views/budget_control_view.xml",
-        "views/budget_move_forward_view.xml",
+        "views/budget_commit_forward_view.xml",
     ],
     "installable": True,
     "maintainers": ["kittiu"],

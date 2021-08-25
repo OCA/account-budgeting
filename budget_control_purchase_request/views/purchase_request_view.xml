@@ -10,6 +10,7 @@
                 position="after"
             >
                 <field name="auto_adjust_date_commit" optional="hide" />
+                <field name="amount_commit" optional="hide" readonly="1" />
                 <field name="date_commit" optional="hide" />
                 <field
                     name="fwd_analytic_account_id"
