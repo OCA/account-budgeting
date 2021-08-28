@@ -10,6 +10,12 @@ from odoo.exceptions import UserError
 class AccountAnalyticAccount(models.Model):
     _inherit = "account.analytic.account"
 
+    name_with_budget_period = fields.Char(
+        compute="_compute_name_with_budget_period",
+        store=True,
+        help="This field hold analytic name with budget period indicator.\n"
+        "This name will work with name_get() and name_search() to ensure usability",
+    )
     budget_period_id = fields.Many2one(comodel_name="budget.period")
     budget_control_ids = fields.One2many(
         string="Budget Control(s)",
@@ -70,6 +76,44 @@ class AccountAnalyticAccount(models.Model):
         help="Initial Balance from carry forward commitment",
     )
 
+    @api.depends("name", "budget_period_id")
+    def _compute_name_with_budget_period(self):
+        for rec in self:
+            if rec.budget_period_id:
+                rec.name_with_budget_period = "{}: {}".format(
+                    rec.budget_period_id.name, rec.name
+                )
+            else:
+                rec.name_with_budget_period = rec.name
+
+    def name_get(self):
+        res = []
+        for analytic in self:
+            name = analytic.name_with_budget_period
+            if analytic.code:
+                name = ("[%(code)s] %(name)s") % {"code": analytic.code, "name": name}
+            if analytic.partner_id:
+                name = _("%(name)s - %(partner)s") % {
+                    "name": name,
+                    "partner": analytic.partner_id.commercial_partner_id.name,
+                }
+            res.append((analytic.id, name))
+        return res
+
+    @api.model
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
+        # Make a search with default criteria
+        names1 = super(models.Model, self).name_search(
+            name=name, args=args, operator=operator, limit=limit
+        )
+        # Make search with name_with_budget_period
+        names2 = []
+        if name:
+            domain = [("name_with_budget_period", "=ilike", name + "%")]
+            names2 = self.search(domain, limit=limit).name_get()
+        # Merge both results
+        return list(set(names1) | set(names2))[:limit]
+
     def _filter_by_analytic_account(self, val):
         if val["analytic_account_id"][0] == self.id:
             return True
@@ -118,7 +162,13 @@ class AccountAnalyticAccount(models.Model):
 
     def _update_val_analytic(self, next_analytic, next_date_range):
         BudgetPeriod = self.env["budget.period"]
-        period_id = BudgetPeriod.search([("bm_date_from", "=", next_date_range)])
+        type_id = next_analytic.budget_period_id.plan_date_range_type_id
+        period_id = BudgetPeriod.search(
+            [
+                ("bm_date_from", "=", next_date_range),
+                ("plan_date_range_type_id", "=", type_id.id),
+            ]
+        )
         next_analytic.write({"budget_period_id": period_id.id})
 
     def _auto_create_next_analytic(self, next_date_range):
