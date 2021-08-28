@@ -127,10 +127,7 @@
                     <group>
                         <group>
                             <field name="to_budget_period_id" />
-                            <label
-                                for="forward_line_ids"
-                                string="Forward Budget Commitment"
-                            />
+                            <label for="name" string="Forward Budget Commitment" />
                             <div name="docs">
                             </div>
                         </group>
