@@ -67,20 +67,30 @@ class BudgetCommitForward(models.Model):
                 )
             )
 
-    def _get_domain_search(self, model):
+    def _get_base_domain(self):
+        """ For module extension """
         self.ensure_one()
-        domain_search = [
+        domain = [
             ("amount_commit", ">", 0.0),
             ("date_commit", "<", self.to_date_commit),
             ("fwd_date_commit", "!=", self.to_date_commit),
         ]
-        return domain_search
+        return domain
+
+    def _get_commit_docline(self, res_model):
+        """ For module extension """
+        return []
 
     def _get_document_number(self, doc):
-        """ Hook """
+        """ For module extension """
         return False
 
-    def _prepare_vals_forward(self, docs, model):
+    def _get_budget_docline_model(self):
+        """ _compute_missing_analytic """
+        self.ensure_one()
+        return []
+
+    def _prepare_vals_forward(self, docs, res_model):
         self.ensure_one()
         value_dict = []
         for doc in docs:
@@ -96,9 +106,9 @@ class BudgetCommitForward(models.Model):
                     "forward_id": self.id,
                     "analytic_account_id": analytic_account.id,
                     "method_type": method_type,
-                    "res_model": model,
+                    "res_model": res_model,
                     "res_id": doc.id,
-                    "document_id": "{},{}".format(model, doc.id),
+                    "document_id": "{},{}".format(doc._name, doc.id),
                     "document_number": self._get_document_number(doc),
                     "amount_commit": doc.amount_commit,
                     "date_commit": doc.date_commit,
@@ -106,25 +116,19 @@ class BudgetCommitForward(models.Model):
             )
         return value_dict
 
-    def _get_budget_docline_model(self):
-        """ Hook """
-        self.ensure_one()
-        return []
-
     def action_review_budget_commit(self):
         for rec in self:
-            for model in rec._get_budget_docline_model():
-                rec.get_budget_commit_forward(model)
+            for res_model in rec._get_budget_docline_model():
+                rec.get_budget_commit_forward(res_model)
         self.write({"state": "review"})
 
-    def get_budget_commit_forward(self, model):
+    def get_budget_commit_forward(self, res_model):
         """Get budget commitment forward for each new commit document type."""
         self = self.sudo()
         Line = self.env["budget.commit.forward.line"]
         for rec in self:
-            domain_search = rec._get_domain_search(model)
-            docs = self.env[model].search(domain_search)
-            vals = rec._prepare_vals_forward(docs, model)
+            docs = rec._get_commit_docline(res_model)
+            vals = rec._prepare_vals_forward(docs, res_model)
             Line.create(vals)
 
     def create_missing_analytic(self):

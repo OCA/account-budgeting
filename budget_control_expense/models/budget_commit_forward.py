@@ -26,19 +26,21 @@ class BudgetCommitForward(models.Model):
 
     def _get_document_number(self, doc):
         if doc._name == "hr.expense":
-            return ("{},{}".format(doc.sheet_id._name, doc.sheet_id.id),)
+            return "{},{}".format(doc.sheet_id._name, doc.sheet_id.id)
         return super()._get_document_number(doc)
 
-    def _get_domain_search(self, model):
-        domain_search = super()._get_domain_search(model)
-        if model == "hr.expense":
-            domain_search.extend(
+    def _get_commit_docline(self, res_model):
+        if res_model == "hr.expense":
+            domain = self._get_base_domain()
+            domain.extend(
                 [
+                    ("advance", "=", False),
                     ("analytic_account_id", "!=", False),
                     ("state", "!=", "cancel"),
                 ]
             )
-        return domain_search
+            return self.env[res_model].search(domain)
+        return super()._get_commit_docline(res_model)
 
 
 class BudgetCommitForwardLine(models.Model):
@@ -51,4 +53,8 @@ class BudgetCommitForwardLine(models.Model):
     document_id = fields.Reference(
         selection_add=[("hr.expense", "Expense")],
         ondelete={"hr.expense": "cascade"},
+    )
+    document_number = fields.Reference(
+        selection_add=[("hr.expense.sheet", "Expense Sheet")],
+        ondelete={"hr.expense.sheet": "cascade"},
     )

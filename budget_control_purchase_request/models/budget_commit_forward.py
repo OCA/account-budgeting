@@ -14,7 +14,7 @@ class BudgetCommitForward(models.Model):
     forward_purchase_request_ids = fields.One2many(
         comodel_name="budget.commit.forward.line",
         inverse_name="forward_id",
-        string="Purchase Request",
+        string="Purchase Requests",
         domain=[("res_model", "=", "purchase.request.line")],
     )
 
@@ -26,29 +26,34 @@ class BudgetCommitForward(models.Model):
 
     def _get_document_number(self, doc):
         if doc._name == "purchase.request.line":
-            return ("{},{}".format(doc.request_id._name, doc.request_id.name),)
+            return "{},{}".format(doc.request_id._name, doc.request_id.id)
         return super()._get_document_number(doc)
 
-    def _get_domain_search(self, model):
-        domain_search = super()._get_domain_search(model)
-        if model == "purchase.request.line":
-            domain_search.extend(
+    def _get_commit_docline(self, res_model):
+        if res_model == "purchase.request.line":
+            domain = self._get_base_domain()
+            domain.extend(
                 [
                     ("analytic_account_id", "!=", False),
                     ("request_state", "!=", "rejected"),
                 ]
             )
-        return domain_search
+            return self.env[res_model].search(domain)
+        return super()._get_commit_docline(res_model)
 
 
 class BudgetCommitForwardLine(models.Model):
     _inherit = "budget.commit.forward.line"
 
     res_model = fields.Selection(
-        selection_add=[("purchase.request.line", "Purchase Request")],
+        selection_add=[("purchase.request.line", "Purchase Request Line")],
         ondelete={"purchase.request.line": "cascade"},
     )
     document_id = fields.Reference(
-        selection_add=[("purchase.request.line", "Purchase Request")],
+        selection_add=[("purchase.request.line", "Purchase Request Line")],
         ondelete={"purchase.request.line": "cascade"},
+    )
+    document_number = fields.Reference(
+        selection_add=[("purchase.request", "Purchase Request")],
+        ondelete={"purchase.request": "cascade"},
     )

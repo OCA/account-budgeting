@@ -15,7 +15,7 @@
                     <label for="expense" />
                 </div>
             </div>
-            <notebook position="inside">
+            <page name="help" position="before">
                 <page string="Expense" attrs="{'invisible': [('expense', '=', False)]}">
                     <field
                         name="forward_expense_ids"
@@ -24,7 +24,7 @@
                         form_view_ref="budget_control.view_budget_commit_forward_line_form"
                     />
                 </page>
-            </notebook>
+            </page>
         </field>
     </record>
 </odoo>
