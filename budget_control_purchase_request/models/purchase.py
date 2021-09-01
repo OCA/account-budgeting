@@ -22,7 +22,7 @@ class PurchaseOrderLine(models.Model):
         for po_line in self.filtered("can_commit"):
             po_state = po_line.order_id.state
             if po_state in ("purchase", "done"):
-                for pr_line in po_line.purchase_request_lines:
+                for pr_line in po_line.purchase_request_lines.filtered("amount_commit"):
                     pr_line.commit_budget(reverse=True, purchase_line_id=po_line.id)
             else:  # Cancel or draft, not commitment line
                 self.env["purchase.request.budget.move"].search(

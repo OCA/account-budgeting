@@ -343,47 +343,50 @@ class BudgetControl(models.Model):
     def _onchange_init_budget_commit(self):
         self.do_init_budget_commit(self.init_budget_commit)
 
-    def _compare_plan_fund(self, amount_budget, released_amount):
-        """ Check total amount plan have to equal released amount """
-        amount_compare = (
-            float_compare(
-                amount_budget,
-                released_amount,
-                precision_rounding=self.currency_id.rounding,
-            )
-            != 0
-        )
-        message = _(
-            "Planning amount should equal to the released amount {:,.2f} {}".format(
-                released_amount, self.currency_id.symbol
-            )
-        )
-        return amount_compare, message
-
     def action_draft(self):
         self.write({"state": "draft"})
 
     def action_submit(self):
         self.write({"state": "submit"})
 
-    def action_done(self):
+    def _check_budget_amount(self):
         for rec in self:
-            amount_budget = rec.amount_budget
-            released_amount = rec.released_amount
-            if rec.amount_initial > released_amount:
+            # Check plan vs released
+            if (
+                float_compare(
+                    rec.amount_budget,
+                    rec.released_amount,
+                    precision_rounding=rec.currency_id.rounding,
+                )
+                != 0
+            ):
+                raise UserError(
+                    _(
+                        "Planning amount should equal to the released amount {:,.2f} {}".format(
+                            rec.released_amount, rec.currency_id.symbol
+                        )
+                    )
+                )
+            # Check plan vs intial
+            if (
+                float_compare(
+                    rec.amount_initial,
+                    rec.amount_budget,
+                    precision_rounding=rec.currency_id.rounding,
+                )
+                == 1
+            ):
                 raise UserError(
                     _(
                         "Planning amount should more than "
                         "initial balance {:,.2f} {}".format(
-                            rec.amount_initial, self.currency_id.symbol
+                            rec.amount_initial, rec.currency_id.symbol
                         )
                     )
                 )
-            amount_compare, message = rec._compare_plan_fund(
-                amount_budget, released_amount
-            )
-            if amount_compare:
-                raise UserError(message)
+
+    def action_done(self):
+        self._check_budget_amount()
         self.write({"state": "done"})
 
     def action_cancel(self):

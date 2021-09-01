@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
             if move_type in ("in_invoice", "in_refund"):
                 if inv_state == "posted":
                     rev = move_type == "in_invoice" and True or False
-                    purchase_line = ml.purchase_line_id
+                    purchase_line = ml.purchase_line_id.filtered("amount_commit")
                     if not purchase_line:
                         continue
                     qty = ml.product_uom_id._compute_quantity(

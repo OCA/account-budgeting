@@ -38,6 +38,7 @@ class TestBudgetControl(BudgetControlCommon):
         cls.budget_control.item_ids.filtered(
             lambda x: x.kpi_expression_id == cls.kpi2.expression_ids[0]
         )[:1].write({"amount": 200})
+        cls.budget_control.flush()  # Need to flush data into table, so it can be sql
         cls.budget_control.allocated_amount = 300
         cls.budget_control.action_done()
 

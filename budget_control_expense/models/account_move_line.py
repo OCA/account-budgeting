@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
             move_type = ml.move_id.move_type
             if move_type in ("entry"):
                 if inv_state == "posted":
-                    expense = ml.expense_id
+                    expense = ml.expense_id.filtered("amount_commit")
                     # Because this is not invoice, we need to compare account
                     if not expense or ml.account_id != expense.account_id:
                         continue
