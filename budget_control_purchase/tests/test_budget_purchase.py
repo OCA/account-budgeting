@@ -38,6 +38,7 @@ class TestBudgetControl(BudgetControlCommon):
         cls.budget_control.item_ids.filtered(
             lambda x: x.kpi_expression_id == cls.kpi2.expression_ids[0]
         )[:1].write({"amount": 200})
+        cls.budget_control.flush()  # Need to flush data into table, so it can be sql
         cls.budget_control.allocated_amount = 300
         cls.budget_control.action_done()
         # Purchase method
@@ -204,25 +205,27 @@ class TestBudgetControl(BudgetControlCommon):
         invoice.invoice_date = invoice.date
         invoice.action_post()
         # PO Commit = 25, INV Actual = 45
-        self.budget_control.invalidate_cache()
+        self.budget_control.flush()
         self.assertEqual(self.budget_control.amount_purchase, 25)
         self.assertEqual(self.budget_control.amount_actual, 45)
         # Test recompute, must be same
         purchase.recompute_budget_move()
-        self.budget_control.invalidate_cache()
+        self.budget_control.flush()
         self.assertEqual(self.budget_control.amount_purchase, 25)
         self.assertEqual(self.budget_control.amount_actual, 45)
         invoice.recompute_budget_move()
-        self.budget_control.invalidate_cache()
+        self.budget_control.flush()
         self.assertEqual(self.budget_control.amount_actual, 45)
         self.assertEqual(self.budget_control.amount_purchase, 25)
         # Test close budget move
         purchase.close_budget_move()
+        self.budget_control.flush()
         self.budget_control.invalidate_cache()
         self.assertEqual(self.budget_control.amount_purchase, 0)
         self.assertEqual(self.budget_control.amount_actual, 45)
         # Test close budget move
         invoice.close_budget_move()
+        self.budget_control.flush()
         self.budget_control.invalidate_cache()
         self.assertEqual(self.budget_control.amount_purchase, 0)
         self.assertEqual(self.budget_control.amount_actual, 0)

@@ -253,45 +253,49 @@ class BudgetDoclineMixin(models.AbstractModel):
         self.ensure_one()
         BudgetPeriod = self.env["budget.period"]
         budget_period = BudgetPeriod._get_eligible_budget_period(self.date_commit)
-        controls = BudgetPeriod._prepare_controls(budget_period, self)
+        if not budget_period:
+            return budget_vals
         instance = budget_period.report_instance_id
+        controls = BudgetPeriod._prepare_controls(budget_period, self)
         kpis = instance.report_id.get_kpis(self.env.user.company_id)
-        # Get KPI
-        if controls:
-            kpi = BudgetPeriod._get_kpi_by_control_key(instance, kpis, controls[0])
-            if kpi:
-                budget_vals["kpi_id"] = list(kpi)[0].id
+        # Get KPI, when possible.
+        if controls and kpis:
+            try:
+                kpi = BudgetPeriod._get_kpi_by_control_key(instance, kpis, controls[0])
+                if kpi:
+                    budget_vals["kpi_id"] = list(kpi)[0].id
+            except Exception:
+                pass
         return budget_vals
 
     def forward_commit(self):
-        self.ensure_one()
-        docline = self
-        if not docline.fwd_analytic_account_id or not docline.fwd_date_commit:
-            return
-        if (
-            docline[self._budget_analytic_field] == docline.fwd_analytic_account_id
-            and docline.date_commit == docline.fwd_date_commit
-        ):  # no forward to same date
-            docline.fwd_analytic_account_id = False
-            docline.fwd_date_commit = False
-            return
-        budget_move = docline.with_context(
-            use_amount_commit=True,
-            commit_note=_("Commitment carry forward"),
-            fwd_commit=True,
-        ).commit_budget(reverse=True)
-        if budget_move:
-            fwd_budget_move = budget_move.copy()
-            debit = fwd_budget_move.debit
-            credit = fwd_budget_move.credit
-            fwd_budget_move.write(
-                {
-                    "analytic_account_id": docline.fwd_analytic_account_id.id,
-                    "date": docline.fwd_date_commit,
-                    "credit": debit,
-                    "debit": credit,
-                }
-            )
+        for docline in self:
+            if not docline.fwd_analytic_account_id or not docline.fwd_date_commit:
+                return
+            if (
+                docline[self._budget_analytic_field] == docline.fwd_analytic_account_id
+                and docline.date_commit == docline.fwd_date_commit
+            ):  # no forward to same date
+                docline.fwd_analytic_account_id = False
+                docline.fwd_date_commit = False
+                return
+            budget_move = docline.with_context(
+                use_amount_commit=True,
+                commit_note=_("Commitment carry forward"),
+                fwd_commit=True,
+            ).commit_budget(reverse=True)
+            if budget_move:
+                fwd_budget_move = budget_move.copy()
+                debit = fwd_budget_move.debit
+                credit = fwd_budget_move.credit
+                fwd_budget_move.write(
+                    {
+                        "analytic_account_id": docline.fwd_analytic_account_id.id,
+                        "date": docline.fwd_date_commit,
+                        "credit": debit,
+                        "debit": credit,
+                    }
+                )
 
     def commit_budget(self, reverse=False, **vals):
         """Create budget commit for each docline"""

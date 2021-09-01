@@ -11,7 +11,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
         res = super().make_purchase_order()
         if res.get("domain"):
             purchase_id = res.get("domain")[0][2]
-            purchase = self.env["purchase.order"].browse(purchase_id)
+            purchase = self.env["purchase.order"].browse(list(set(purchase_id)))
             if purchase.state in ("purchase", "done"):
                 purchase.recompute_budget_move()
                 requests = self.item_ids.mapped("line_id.request_id")
