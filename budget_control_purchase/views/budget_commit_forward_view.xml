@@ -15,7 +15,7 @@
                     <label for="purchase" />
                 </div>
             </div>
-            <notebook position="inside">
+            <page name="help" position="before">
                 <page
                     string="Purchase Order"
                     attrs="{'invisible': [('purchase', '=', False)]}"
@@ -27,7 +27,7 @@
                         form_view_ref="budget_control.view_budget_commit_forward_line_form"
                     />
                 </page>
-            </notebook>
+            </page>
         </field>
     </record>
 </odoo>

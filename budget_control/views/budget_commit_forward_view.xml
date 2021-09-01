@@ -120,10 +120,6 @@
                             <field name="name" />
                         </h1>
                     </div>
-                    <p>
-                        This operation will change "date" of budget moves, to new budget control period's 1st date.
-                        Budget moves, will then commit to the new budget control period.
-                    </p>
                     <group>
                         <group>
                             <field name="to_budget_period_id" />
@@ -135,7 +131,38 @@
                             <field name="to_date_commit" />
                         </group>
                     </group>
-                    <notebook />
+                    <notebook>
+                        <page name="help" string="Help">
+                            <div name="help">
+                                <p>
+                                    This operation will move budget commitment of all documents below to the new commitment date.
+                                    The amount will be set in <b
+                                    >Initial Commitment</b> in Analytic.
+                                </p>
+                                <p>
+                                    <ol>
+                                        <li>Select document type to <b
+                                            >Forward Budget Commitment</b>.</li>
+                                        <li>Click <b
+                                            >Review Budget Commitment</b>, to pull all commited documents.</li>
+                                        <li>Review documement's <b
+                                            >method</b> to forward, if required, click Create Missing Analytic.
+                                            <ul>
+                                                <li
+                                                >Blank: Analytic is open end, use the same analytic</li>
+                                                <li
+                                                >New: To Analytic Account is next year analytic (need to create if missing)</li>
+                                                <li
+                                                >Extend: Use same analtyic but extend end date to next year</li>
+                                            </ul>
+                                        </li>
+                                        <li>When ready, click <b
+                                            >Forward Budget Commitment</b> to move commitment.</li>
+                                    </ol>
+                                </p>
+                            </div>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" />

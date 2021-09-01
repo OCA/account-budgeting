@@ -29,16 +29,17 @@ class BudgetCommitForward(models.Model):
             return "{},{}".format(doc.order_id._name, doc.order_id.id)
         return super()._get_document_number(doc)
 
-    def _get_domain_search(self, model):
-        domain_search = super()._get_domain_search(model)
-        if model == "purchase.order.line":
-            domain_search.extend(
+    def _get_commit_docline(self, res_model):
+        if res_model == "purchase.order.line":
+            domain = self._get_base_domain()
+            domain.extend(
                 [
                     ("account_analytic_id", "!=", False),
                     ("state", "!=", "cancel"),
                 ]
             )
-        return domain_search
+            return self.env[res_model].search(domain)
+        return super()._get_commit_docline(res_model)
 
 
 class BudgetCommitForwardLine(models.Model):
