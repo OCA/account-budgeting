@@ -1,6 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AccountMove(models.Model):
@@ -17,6 +17,18 @@ class AccountMove(models.Model):
         inverse_name="move_id",
         string="Account Budget Moves",
     )
+
+    @api.model
+    def default_get(self, field_list):
+        res = super().default_get(field_list)
+        if res.get("journal_id"):
+            journal = self.env["account.journal"].browse(res["journal_id"])
+            res["not_affect_budget"] = journal.not_affect_budget
+        return res
+
+    @api.onchange("journal_id")
+    def _onchange_not_affect_budget(self):
+        self.not_affect_budget = self.journal_id.not_affect_budget
 
     def recompute_budget_move(self):
         self.mapped("invoice_line_ids").recompute_budget_move()
