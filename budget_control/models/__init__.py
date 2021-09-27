@@ -13,3 +13,4 @@ from . import mis_report_instance
 from . import mis_report
 from . import res_company
 from . import res_config_settings
+from . import account_journal

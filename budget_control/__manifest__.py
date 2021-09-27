@@ -30,6 +30,7 @@
         "views/budget_control_view.xml",
         "views/analytic_account_views.xml",
         "views/account_move_views.xml",
+        "views/account_journal_view.xml",
         "views/budget_balance_forward_view.xml",
         "views/budget_commit_forward_view.xml",
         "report/budget_monitor_report_view.xml",
