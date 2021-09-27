@@ -10,5 +10,5 @@ class AccountJournal(models.Model):
 
     not_affect_budget = fields.Boolean(
         string="Not Affect Budget",
-        help="Default value for journal entry",
+        help="Default value for journal entry for this journal",
     )
