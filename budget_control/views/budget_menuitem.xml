@@ -5,6 +5,7 @@
         id="budget_menu"
         name="Budgeting"
         sequence="300"
+        web_icon="budget_control,static/description/icon.png"
         groups="group_budget_control_user"
     />
     <!-- Header menu -->

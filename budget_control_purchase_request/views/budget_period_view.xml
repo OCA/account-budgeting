@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="budget_control.budget_period_view_form" />
         <field name="arch" type="xml">
             <field name="account" position="after">
-                <field name="purchase_request" />
+                <field name="purchase_request" widget="boolean_toggle" />
             </field>
         </field>
     </record>
