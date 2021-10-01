@@ -68,7 +68,7 @@
                     </group>
                     <group string="Budget Control">
                         <group>
-                            <field name="account" />
+                            <field name="account" widget="boolean_toggle" />
                         </group>
                         <group>
                             <field name="control_all_analytic_accounts" />
