@@ -8,16 +8,17 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-11 22:07+0000\n"
-"PO-Revision-Date: 2017-08-21 07:22+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Croatian (http://www.transifex.com/oca/OCA-account-"
-"budgeting-8-0/language/hr/)\n"
+"PO-Revision-Date: 2021-10-08 12:34+0000\n"
+"Last-Translator: Matija Krolo <matija.krolo@ecodica.eu>\n"
+"Language-Team: Croatian (http://www.transifex.com/oca/"
+"OCA-account-budgeting-8-0/language/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -42,50 +43,50 @@ msgstr "Aktivno"
 #. module: budget
 #: field:budget.budget,active_version_id:0
 msgid "Active Version"
-msgstr ""
+msgstr "Aktivna verzija"
 
 #. module: budget
 #: field:budget.version,is_active:0
 msgid "Active version"
-msgstr ""
+msgstr "Aktivna verzija"
 
 #. module: budget
 #: view:budget.allocation.type:budget.budget_item_allocation_type_form
 #: view:budget.allocation.type:budget.budget_item_allocation_type_list
 #: view:budget.line:budget.view_budget_line_search
 msgid "Allocation"
-msgstr ""
+msgstr "Alokacija"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form field:budget.line,amount:0
 msgid "Amount"
-msgstr ""
+msgstr "Iznos"
 
 #. module: budget
 #: field:budget.line,analytic_account_id:0
 #: model:ir.model,name:budget.model_account_analytic_account
 msgid "Analytic Account"
-msgstr ""
+msgstr "Analitički konto"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
 msgid "Analytic Amounts"
-msgstr ""
+msgstr "Analitički iznosi"
 
 #. module: budget
 #: field:budget.line,analytic_currency_id:0
 msgid "Analytic Currency"
-msgstr ""
+msgstr "Analitička valuta"
 
 #. module: budget
 #: field:budget.line,analytic_diff_amount:0
 msgid "Analytic Difference Amount"
-msgstr ""
+msgstr "Analitički iznos razlike"
 
 #. module: budget
 #: field:budget.line,analytic_real_amount:0
 msgid "Analytic Real Amount"
-msgstr ""
+msgstr "Analitički stvarni iznos"
 
 #. module: budget
 #: selection:budget.item,style:0
@@ -99,27 +100,27 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_budget
 #: model:ir.ui.menu,name:budget.menu_budget
 msgid "Budget"
-msgstr ""
+msgstr "Budžet"
 
 #. module: budget
 #: field:budget.line,budget_currency_id:0
 msgid "Budget Currency"
-msgstr ""
+msgstr "Valuta budžeta"
 
 #. module: budget
 #: field:budget.line,budget_item_id:0
 msgid "Budget Item"
-msgstr ""
+msgstr "Stavka budžeta"
 
 #. module: budget
 #: field:budget.line,allocation:0
 msgid "Budget Item Allocation"
-msgstr ""
+msgstr "Alokacija stavaka budžeta"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Budget Item's name"
-msgstr ""
+msgstr "Naziv stavke budžeta"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -127,17 +128,17 @@ msgstr ""
 #: view:budget.item:budget.view_budget_item_search
 #: model:ir.ui.menu,name:budget.menu_budget_item_list
 msgid "Budget Items"
-msgstr ""
+msgstr "Stavke budžeta"
 
 #. module: budget
 #: model:ir.ui.menu,name:budget.menu_budget_item_tree
 msgid "Budget Items Structures"
-msgstr ""
+msgstr "Struktura stavaka budžeta"
 
 #. module: budget
 #: field:budget.item,allocation_id:0
 msgid "Budget Line Allocation Type"
-msgstr ""
+msgstr "Vrsta alokacije stavke budžeta"
 
 #. module: budget
 #: field:account.analytic.account,budget_line_ids:0
@@ -151,23 +152,23 @@ msgstr ""
 #: model:ir.model,name:budget.model_budget_line
 #: model:ir.ui.menu,name:budget.menu_budget_line_list
 msgid "Budget Lines"
-msgstr ""
+msgstr "Reci budžeta"
 
 #. module: budget
 #: model:res.groups,name:budget.group_budget_responsible
 msgid "Budget Responsible"
-msgstr ""
+msgstr "Odgovoran/na za budžet"
 
 #. module: budget
 #: field:budget.budget,budget_item_id:0
 #: view:budget.item:budget.view_budget_item_tree
 msgid "Budget Structure"
-msgstr ""
+msgstr "Struktura budžeta"
 
 #. module: budget
 #: field:budget.line,budget_version_id:0
 msgid "Budget Version"
-msgstr ""
+msgstr "Verzija budžeta"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -177,54 +178,54 @@ msgstr ""
 #: view:budget.version:budget.view_budget_version_search
 #: model:ir.ui.menu,name:budget.menu_budget_version_list
 msgid "Budget Versions"
-msgstr ""
+msgstr "Verzije budžeta"
 
 #. module: budget
 #: model:ir.model,name:budget.model_budget_item
 msgid "Budget items"
-msgstr ""
+msgstr "Stavke budžeta"
 
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
 msgid "Budget version's name"
-msgstr ""
+msgstr "Naziv verzije budžeta"
 
 #. module: budget
 #: model:ir.model,name:budget.model_budget_version
 msgid "Budget versions"
-msgstr ""
+msgstr "Verzije budžeta"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Budget's name"
-msgstr ""
+msgstr "Naziv budžeta"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_list
 #: model:ir.ui.menu,name:budget.menu_budget_list
 msgid "Budgets"
-msgstr ""
+msgstr "Budžeti"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_items_tree
 msgid "Budgets Structure"
-msgstr ""
+msgstr "Struktura budžeta"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 #: field:budget.item,calculation:0
 msgid "Calculation"
-msgstr ""
+msgstr "Izračun"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Children"
-msgstr ""
+msgstr "Potomci"
 
 #. module: budget
 #: field:budget.item,children_ids:0
 msgid "Children Items"
-msgstr ""
+msgstr "Stavke potomaka"
 
 #. module: budget
 #: field:budget.budget,code:0 field:budget.item,code:0
@@ -240,14 +241,14 @@ msgstr "Poduzeće"
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Contract"
-msgstr ""
+msgstr "Ugovor"
 
 #. module: budget
 #: field:budget.allocation.type,create_uid:0 field:budget.budget,create_uid:0
 #: field:budget.item,create_uid:0 field:budget.line,create_uid:0
 #: field:budget.version,create_uid:0
 msgid "Created by"
-msgstr "Kreirao"
+msgstr "Kreirao/la"
 
 #. module: budget
 #: field:budget.allocation.type,create_date:0 field:budget.item,create_date:0
@@ -258,17 +259,17 @@ msgstr "Kreirano"
 #. module: budget
 #: field:budget.budget,create_date:0 field:budget.version,create_date:0
 msgid "Creation Date"
-msgstr ""
+msgstr "Datum kreiranja"
 
 #. module: budget
 #: field:budget.line,currency_id:0 field:budget.version,currency_id:0
 msgid "Currency"
-msgstr ""
+msgstr "Valuta"
 
 #. module: budget
 #: constraint:budget.budget:0
 msgid "Date Error: The end date is defined before the start date"
-msgstr ""
+msgstr "Greška datuma: Konačni datum je prije početnog datuma"
 
 #. module: budget
 #: field:budget.line,name:0
@@ -278,7 +279,7 @@ msgstr "Opis"
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Difference"
-msgstr ""
+msgstr "Razlika"
 
 #. module: budget
 #: field:budget.allocation.type,display_name:0
@@ -290,12 +291,12 @@ msgstr "Naziv "
 #. module: budget
 #: help:budget.version,is_active:0
 msgid "Each budget can have no more than one active version."
-msgstr ""
+msgstr "Budžet ne može imati više od jedne aktivne verzije."
 
 #. module: budget
 #: field:budget.budget,end_date:0 field:budget.line,date_stop:0
 msgid "End Date"
-msgstr ""
+msgstr "Završni datum"
 
 #. module: budget
 #: constraint:budget.item:0
@@ -338,22 +339,22 @@ msgstr ""
 #. module: budget
 #: field:budget.line,budget_amount:0
 msgid "In Budget's Currency"
-msgstr ""
+msgstr "U valuti budžeta"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "In Contract's Currency"
-msgstr ""
+msgstr "U valuti ugovora"
 
 #. module: budget
 #: selection:budget.item,style:0
 msgid "Invisible"
-msgstr ""
+msgstr "Nevidljivo"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Item"
-msgstr ""
+msgstr "Stavka"
 
 #. module: budget
 #: field:budget.allocation.type,__last_update:0
@@ -367,7 +368,7 @@ msgstr "Zadnje modificirano"
 #: field:budget.item,write_uid:0 field:budget.line,write_uid:0
 #: field:budget.version,write_uid:0
 msgid "Last Updated by"
-msgstr "Zadnji ažurirao"
+msgstr "Zadnji ažurirao/la"
 
 #. module: budget
 #: field:budget.allocation.type,write_date:0 field:budget.budget,write_date:0
@@ -379,7 +380,7 @@ msgstr "Zadnje ažuriranje"
 #. module: budget
 #: view:budget.version:budget.view_budget_version_form
 msgid "Lines"
-msgstr ""
+msgstr "Reci"
 
 #. module: budget
 #: field:budget.allocation.type,name:0 field:budget.budget,name:0
@@ -390,7 +391,7 @@ msgstr "Naziv"
 #. module: budget
 #: selection:budget.item,style:0 selection:budget.item,type:0
 msgid "Normal"
-msgstr ""
+msgstr "Normalno"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
@@ -404,12 +405,12 @@ msgstr "Bilješke"
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_items_list
 msgid "Open Budget Items"
-msgstr ""
+msgstr "Otvorene stavke budžeta"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_lines_list
 msgid "Open Budget Lines"
-msgstr ""
+msgstr "Otvoreni reci budžeta"
 
 #. module: budget
 #: model:ir.actions.act_window,name:budget.open_budget_list
@@ -429,12 +430,12 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_form
 msgid "Periods"
-msgstr ""
+msgstr "Periodi"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Real"
-msgstr ""
+msgstr "Stvarno"
 
 #. module: budget
 #: field:budget.version,ref_date:0
@@ -444,7 +445,7 @@ msgstr ""
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
 msgid "Reports"
-msgstr ""
+msgstr "Izvještaji"
 
 #. module: budget
 #: field:budget.item,sequence:0
@@ -454,7 +455,7 @@ msgstr "Sekvenca"
 #. module: budget
 #: field:budget.budget,start_date:0 field:budget.line,date_start:0
 msgid "Start Date"
-msgstr ""
+msgstr "Početni datum"
 
 #. module: budget
 #: view:budget.item:budget.view_budget_item_form
@@ -468,17 +469,17 @@ msgstr ""
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Starting and Ending Dates"
-msgstr ""
+msgstr "Početni i završni datumi"
 
 #. module: budget
 #: field:budget.item,style:0
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
 #. module: budget
 #: constraint:budget.line:0
 msgid "The end date must be after the start date."
-msgstr ""
+msgstr "Završni datum mora biti nakon početnog datuma."
 
 #. module: budget
 #: constraint:budget.line:0
@@ -486,28 +487,31 @@ msgid ""
 "The line's bugdet item must belong to the budget structure defined in the "
 "budget"
 msgstr ""
+"Stavka budžeta retka mora pripadati strukturi budžeta definiranoj u budžetu"
 
 #. module: budget
 #: constraint:budget.line:0
 msgid "The line's dates must be within the budget's start and end dates"
 msgstr ""
+"Datumi redaka moraju biti unutar raspona od početnog do završnog datuma "
+"budžeta"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 #: view:budget.line:budget.view_budget_line_list
 #: view:budget.version:budget.view_budget_version_form
 msgid "Total Amount"
-msgstr ""
+msgstr "Ukupni iznos"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Total Difference"
-msgstr ""
+msgstr "Ukupna razlika"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
 msgid "Total Real Amount"
-msgstr ""
+msgstr "Ukupno stvarni iznos"
 
 #. module: budget
 #: field:budget.item,type:0
@@ -522,17 +526,17 @@ msgstr ""
 #. module: budget
 #: view:budget.line:budget.view_budget_line_search
 msgid "Version"
-msgstr ""
+msgstr "Verzija"
 
 #. module: budget
 #: field:budget.version,name:0
 msgid "Version Name"
-msgstr ""
+msgstr "Naziv verzije"
 
 #. module: budget
 #: view:budget.budget:budget.view_budget_budget_form
 msgid "Versions"
-msgstr ""
+msgstr "Verzije"
 
 #. module: budget
 #: selection:budget.item,type:0
