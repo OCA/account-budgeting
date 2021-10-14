@@ -10,6 +10,13 @@ class BaseBudgetMove(models.AbstractModel):
     _name = "base.budget.move"
     _description = "Document Budget Moves"
 
+    reference = fields.Char(
+        compute="_compute_reference",
+        store=True,
+        readonly=False,
+        index=True,
+        help="Reference to document number of extending model",
+    )
     kpi_id = fields.Many2one(
         comodel_name="mis.report.kpi",
     )
@@ -68,6 +75,10 @@ class BaseBudgetMove(models.AbstractModel):
     fwd_commit = fields.Boolean(
         help="This budget move line is the result of 'Forward Budget Commitment'",
     )
+
+    def _compute_reference(self):
+        """ Compute reference name of the budget move document """
+        self.update({"reference": False})
 
 
 class BudgetDoclineMixinBase(models.AbstractModel):

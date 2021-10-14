@@ -1,6 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class PurchaseBudgetMove(models.Model):
@@ -32,3 +32,10 @@ class PurchaseBudgetMove(models.Model):
         index=True,
         help="Uncommit budget from this move_line_id",
     )
+
+    @api.depends("purchase_id")
+    def _compute_reference(self):
+        for rec in self:
+            rec.reference = (
+                rec.reference if rec.reference else rec.purchase_id.display_name
+            )
