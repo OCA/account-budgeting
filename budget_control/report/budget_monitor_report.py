@@ -108,7 +108,7 @@ class BudgetMonitorReport(models.Model):
                 a.credit-a.debit as amount,
                 a.product_id,
                 a.account_id,
-                b.name as reference,
+                a.reference as reference,
                 null::char as budget_state,
                 a.fwd_commit,
                 1::boolean as active
@@ -173,9 +173,7 @@ class BudgetMonitorReport(models.Model):
         return self._get_from_amount_types()[amount_type]
 
     def _where_actual(self):
-        return """
-            where b.state = 'posted'
-        """
+        return ""
 
     def _get_sql(self):
         select_budget_query = self._select_budget()
