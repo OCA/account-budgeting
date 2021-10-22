@@ -8,6 +8,20 @@
                 <field name="not_affect_budget" />
             </xpath>
             <xpath
+                expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='analytic_account_id']"
+                position="after"
+            >
+                <field
+                    name="json_budget_popover"
+                    optional="show"
+                    nolabel="1"
+                    string="Budget Figure"
+                    width="10px"
+                    widget="popover_widget"
+                    attrs="{'invisible': [('analytic_account_id', '=', False)]}"
+                />
+            </xpath>
+            <xpath
                 expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[last()]"
                 position="after"
             >

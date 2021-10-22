@@ -1,6 +1,7 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from datetime import datetime
+from json import dumps
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
@@ -138,6 +139,10 @@ class BudgetDoclineMixin(models.AbstractModel):
         readonly=False,
         help="If specified, recompute budget will take this into account",
     )
+    json_budget_popover = fields.Char(
+        compute="_compute_json_budget_popover",
+        help="Show budget condition of selected Analytic",
+    )
 
     def _budget_model(self):
         return self.env.context.get("alt_budget_move_model") or self._budget_move_model
@@ -188,6 +193,31 @@ class BudgetDoclineMixin(models.AbstractModel):
                 rec.date_commit = min(rec.budget_move_ids.mapped("date"))
             else:
                 rec.date_commit = rec.date_commit
+
+    def _compute_json_budget_popover(self):
+        FloatConverter = self.env["ir.qweb.field.float"]
+        for rec in self:
+            analytic = rec[self._budget_analytic_field]
+            if not analytic:
+                rec.json_budget_popover = False
+                continue
+            rec.json_budget_popover = dumps(
+                {
+                    "title": _("Budget Figure"),
+                    "icon": "fa-area-chart",
+                    "popoverTemplate": "budget_control.budgetPopOver",
+                    "analytic": analytic.display_name,
+                    "budget": FloatConverter.value_to_html(
+                        analytic.amount_budget, {"decimal_precision": "Product Price"}
+                    ),
+                    "consumed": FloatConverter.value_to_html(
+                        analytic.amount_consumed, {"decimal_precision": "Product Price"}
+                    ),
+                    "balance": FloatConverter.value_to_html(
+                        analytic.amount_balance, {"decimal_precision": "Product Price"}
+                    ),
+                }
+            )
 
     def _set_date_commit(self):
         """Default implementation, use date from _doc_date_field
