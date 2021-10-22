@@ -35,6 +35,9 @@
         "views/budget_commit_forward_view.xml",
         "report/budget_monitor_report_view.xml",
     ],
+    "qweb": [
+        "static/src/xml/budget_popover.xml",
+    ],
     "demo": [
         "demo/budget_kpi.xml",
     ],

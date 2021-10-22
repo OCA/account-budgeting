@@ -326,14 +326,14 @@ class BudgetPeriod(models.Model):
     def _prepare_controls(self, budget_period, doclines):
         controls = set()
         control_analytics = budget_period.control_analytic_account_ids
-        _budget_analytic_field = doclines._budget_analytic_field
-        for i in doclines:
+        budget_moves = doclines.mapped(doclines._budget_field())
+        for i in budget_moves:
             if budget_period.control_all_analytic_accounts:
-                if i[_budget_analytic_field] and i.account_id:
-                    controls.add((i[_budget_analytic_field].id, i.account_id.id))
+                if i.analytic_account_id and i.account_id:
+                    controls.add((i.analytic_account_id.id, i.account_id.id))
             else:  # Only analtyic in control
-                if i[_budget_analytic_field] in control_analytics and i.account_id:
-                    controls.add((i[_budget_analytic_field].id, i.account_id.id))
+                if i.analytic_account_id in control_analytics and i.account_id:
+                    controls.add((i.analytic_account_id.id, i.account_id.id))
         # Convert to list of dict, for readibility
         return [{"analytic_id": x[0], "account_id": x[1]} for x in controls]
 

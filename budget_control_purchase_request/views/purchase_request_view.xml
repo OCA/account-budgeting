@@ -6,6 +6,20 @@
         <field name="inherit_id" ref="purchase_request.view_purchase_request_form" />
         <field name="arch" type="xml">
             <xpath
+                expr="//page/field[@name='line_ids']/tree/field[@name='analytic_account_id']"
+                position="after"
+            >
+                <field
+                    name="json_budget_popover"
+                    optional="show"
+                    nolabel="1"
+                    string="Budget Figure"
+                    width="10px"
+                    widget="popover_widget"
+                    attrs="{'invisible': [('analytic_account_id', '=', False)]}"
+                />
+            </xpath>
+            <xpath
                 expr="//page/field[@name='line_ids']/tree/field[last()]"
                 position="after"
             >

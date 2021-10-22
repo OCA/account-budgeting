@@ -18,6 +18,20 @@
                 <attribute name="optional">show</attribute>
             </xpath>
             <xpath
+                expr="//page[@name='products']/field[@name='order_line']/tree/field[@name='account_analytic_id']"
+                position="after"
+            >
+                <field
+                    name="json_budget_popover"
+                    optional="show"
+                    nolabel="1"
+                    string="Budget Figure"
+                    width="10px"
+                    widget="popover_widget"
+                    attrs="{'invisible': [('account_analytic_id', '=', False)]}"
+                />
+            </xpath>
+            <xpath
                 expr="//page[@name='products']/field[@name='order_line']/tree/field[last()]"
                 position="after"
             >
