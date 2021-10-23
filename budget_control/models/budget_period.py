@@ -37,9 +37,14 @@ class BudgetPeriod(models.Model):
         string="Date To",
         required=True,
     )
+    control_budget = fields.Boolean(
+        string="Control Budget",
+        help="Block document transaction if budget is not enough",
+    )
     account = fields.Boolean(
         string="On Account",
-        default=False,
+        default=True,
+        readonly=True,
         help="Control budget on journal document(s), i.e., vendor bill",
     )
     control_all_analytic_accounts = fields.Boolean(
@@ -107,7 +112,6 @@ class BudgetPeriod(models.Model):
     def write(self, vals):
         vals.update({"comparison_mode": True, "target_move": "posted"})
         res = super().write(vals)
-        self._recompute_report_instance_periods()
         if "report_id" in vals:
             mis_budgets = self.mapped("mis_budget_id")
             mis_budgets.write({"report_id": vals["report_id"]})
@@ -318,7 +322,7 @@ class BudgetPeriod(models.Model):
                 % date
             )
         if doc_type:
-            return budget_period.filtered(doc_type)  # Only if to control
+            return budget_period.filtered("control_budget")  # Only if to control
         else:
             return budget_period
 

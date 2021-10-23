@@ -1,4 +1,4 @@
-# Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
+# Copyright 2021 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -18,4 +18,6 @@
     "installable": True,
     "maintainers": ["kittiu"],
     "development_status": "Beta",
+    "uninstall_hook": "uninstall_hook",
+    "post_init_hook": "post_init_hook",
 }

@@ -5,9 +5,13 @@
         <field name="model">budget.period</field>
         <field name="inherit_id" ref="budget_control.budget_period_view_form" />
         <field name="arch" type="xml">
-            <field name="account" position="after">
-                <field name="purchase" widget="boolean_toggle" />
-            </field>
+            <div name="account" position="after">
+                <label for="purchase" invisible="1" />
+                <div name="purchase" class="o_row">
+                    <field name="purchase" />
+                    <span>On Purchase</span>
+                </div>
+            </div>
         </field>
     </record>
 </odoo>

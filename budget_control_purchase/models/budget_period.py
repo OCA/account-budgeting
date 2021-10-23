@@ -8,7 +8,8 @@ class BudgetPeriod(models.Model):
 
     purchase = fields.Boolean(
         string="On Purchase",
-        default=False,
+        default=True,
+        readonly=True,
         help="Control budget on purchase order confirmation",
     )
 
