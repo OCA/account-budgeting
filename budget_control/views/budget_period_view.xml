@@ -68,7 +68,15 @@
                     </group>
                     <group string="Budget Control">
                         <group>
-                            <field name="account" widget="boolean_toggle" />
+                            <label for="control_budget" />
+                            <div name="control_budget" class="o_row">
+                                <field name="control_budget" widget="boolean_toggle" />
+                            </div>
+                            <label for="account" invisible="1" />
+                            <div name="account" class="o_row">
+                                <field name="account" />
+                                <span>On Invoice / Journal Entry</span>
+                            </div>
                         </group>
                         <group>
                             <field name="control_all_analytic_accounts" />

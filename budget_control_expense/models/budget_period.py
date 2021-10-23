@@ -8,7 +8,8 @@ class BudgetPeriod(models.Model):
 
     expense = fields.Boolean(
         string="On Expense",
-        default=False,
+        default=True,
+        readonly=True,
         help="Control budget on expense approved",
     )
 
