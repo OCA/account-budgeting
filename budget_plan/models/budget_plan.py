@@ -232,7 +232,7 @@ class BudgetPlanLine(models.Model):
     released_amount = fields.Float(string="Released", readonly=True)
     amount = fields.Float(string="New Amount")
     amount_consumed = fields.Float(string="Consumed", readonly=True)
-    active_status = fields.Boolean(default=True)
+    active_status = fields.Boolean()
 
     def _domain_budget_control(self):
         self.ensure_one()
