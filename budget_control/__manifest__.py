@@ -44,5 +44,6 @@
     "installable": True,
     "maintainers": ["kittiu"],
     "post_init_hook": "update_data_hooks",
+    "uninstall_hook": "uninstall_hook",
     "development_status": "Alpha",
 }

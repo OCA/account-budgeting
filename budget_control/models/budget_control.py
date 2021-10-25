@@ -36,7 +36,7 @@ class BudgetControl(models.Model):
         comodel_name="mis.budget",
         string="MIS Budget",
         required=True,
-        ondelete="restrict",
+        ondelete="cascade",
         domain=lambda self: self._get_mis_budget_domain(),
         readonly=True,
         states={"draft": [("readonly", False)]},

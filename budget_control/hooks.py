@@ -13,3 +13,17 @@ def update_data_hooks(cr, registry):
         env.ref("base.group_user").write(
             {"implied_ids": [(4, env.ref("analytic.group_analytic_accounting").id)]}
         )
+
+
+def uninstall_hook(cr, registry):
+    """Delete all data related to budget control"""
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    periods = env["budget.period"].search([])
+    instances = periods.mapped("report_instance_id")
+    buget_controls = env["budget.control"].search([])
+    budgets = buget_controls.mapped("budget_id")
+    periods.unlink()
+    budgets.unlink()
+    buget_controls.unlink()
+    instances.unlink()
+    env.ref("budget_control.budget_kpi").unlink()

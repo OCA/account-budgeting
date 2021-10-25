@@ -159,7 +159,7 @@ class BudgetMonitorReport(models.Model):
     def _from_budget(self):
         return """
             from mis_budget_item a
-            left outer join budget_control b on a.budget_control_id = b.id
+            join budget_control b on a.budget_control_id = b.id
         """
 
     def _where_budget(self):
