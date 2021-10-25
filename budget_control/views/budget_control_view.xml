@@ -7,7 +7,8 @@
             <tree
                 string="Budget Control Sheet"
                 create="0"
-                decoration-danger="diff_amount != 0.0"
+                decoration-muted="active == False"
+                decoration-danger="diff_amount != 0.0 and active == True"
             >
                 <field name="name" />
                 <field name="analytic_account_id" />
@@ -27,6 +28,7 @@
                     decoration-success="state == 'done'"
                     decoration-info="state in ['draft', 'submit']"
                 />
+                <field name="active" invisible="1" />
             </tree>
         </field>
     </record>
