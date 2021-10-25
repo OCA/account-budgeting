@@ -2,4 +2,4 @@
 from . import models
 from . import report
 from . import wizards
-from .hooks import update_data_hooks
+from .hooks import update_data_hooks, uninstall_hook

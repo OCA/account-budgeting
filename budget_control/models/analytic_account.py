@@ -109,7 +109,7 @@ class AccountAnalyticAccount(models.Model):
         # Make search with name_with_budget_period
         names2 = []
         if name:
-            domain = [("name_with_budget_period", "=ilike", name + "%")]
+            domain = args + [("name_with_budget_period", "=ilike", name + "%")]
             names2 = self.search(domain, limit=limit).name_get()
         # Merge both results
         return list(set(names1) | set(names2))[:limit]
