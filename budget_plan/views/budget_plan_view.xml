@@ -143,7 +143,7 @@
                     <button
                         name="action_draft"
                         string="Reset to Draft"
-                        states="cancel"
+                        states="confirm,cancel"
                         type="object"
                     />
                     <button
@@ -152,7 +152,11 @@
                         states="draft,confirm,done"
                         type="object"
                     />
-                    <field name="state" widget="statusbar" />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirm,done"
+                    />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">

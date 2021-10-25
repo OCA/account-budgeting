@@ -13,6 +13,8 @@ class GenerateBudgetControl(models.TransientModel):
     def _get_existing_budget(self):
         """ Update allocated amount from budget plan """
         if self.budget_plan_id:  # create from budget plan
-            return self.budget_plan_id.budget_control_ids
+            return self.budget_plan_id.with_context(
+                active_test=False
+            ).budget_control_ids
         else:  # create from budget period
             return super()._get_existing_budget()

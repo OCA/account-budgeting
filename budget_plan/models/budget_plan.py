@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
 
 
@@ -74,14 +74,14 @@ class BudgetPlan(models.Model):
 
     def _compute_budget_control(self):
         """ Find all budget controls of the same period """
-        for rec in self:
+        for rec in self.with_context(active_test=False):
             rec.budget_control_ids = rec.plan_line.mapped("budget_control_ids")
             rec.budget_control_count = len(rec.budget_control_ids)
 
     def action_update_amount_consumed(self):
         for rec in self:
             for line in rec.plan_line:
-                budget_control = line.budget_control_ids
+                budget_control = line.with_context(active_test=False).budget_control_ids
                 if len(budget_control) > 1:
                     raise UserError(
                         _("%s should have only 1 active budget control")
@@ -92,25 +92,26 @@ class BudgetPlan(models.Model):
     def button_open_budget_control(self):
         self.ensure_one()
         ctx = self._context.copy()
-        ctx.update({"create": False, "active_test": True})
+        ctx.update({"create": False, "active_test": False})
         action = {
             "name": _("Budget Control Sheet"),
             "type": "ir.actions.act_window",
             "res_model": "budget.control",
             "context": ctx,
         }
-        if len(self.budget_control_ids) == 1:
+        budget_controls = self.with_context(active_test=False).budget_control_ids
+        if len(budget_controls) == 1:
             action.update(
                 {
                     "view_mode": "form",
-                    "res_id": self.budget_control_ids.id,
+                    "res_id": budget_controls.id,
                 }
             )
         else:
             action.update(
                 {
                     "view_mode": "list,form",
-                    "domain": [("id", "in", self.budget_control_ids.ids)],
+                    "domain": [("id", "in", budget_controls.ids)],
                 }
             )
         return action
@@ -170,7 +171,6 @@ class BudgetPlan(models.Model):
         analytic_plan = self._get_analytic_plan()
         budget_control_view = self._generate_budget_control(analytic_plan)
         self.plan_line._update_budget_control_data()
-        # self._update_active_budget_control(analytic_plan)
         return budget_control_view
 
     def action_confirm(self):
@@ -232,22 +232,27 @@ class BudgetPlanLine(models.Model):
     released_amount = fields.Float(string="Released", readonly=True)
     amount = fields.Float(string="New Amount")
     amount_consumed = fields.Float(string="Consumed", readonly=True)
-    active_status = fields.Boolean()
+    active_status = fields.Boolean(
+        default=True, help="Activate/Deactivate when create/Update Budget Control"
+    )
 
     def _domain_budget_control(self):
         self.ensure_one()
+        if not self.budget_period_id:
+            raise ValidationError(_("Please select 'Budget Period'"))
         return [
             ("date_from", "<=", self.budget_period_id.bm_date_from),
             ("date_to", ">=", self.budget_period_id.bm_date_to),
             ("analytic_account_id", "=", self.analytic_account_id.id),
-            ("active", "=", True),
         ]
 
     def _compute_budget_control_ids(self):
         """ It is expected this to contain only """
         analytics = self.mapped("analytic_account_id")
-        budget_controls = self.env["budget.control"].search(
-            [("analytic_account_id", "in", analytics.ids)]
+        budget_controls = (
+            self.env["budget.control"]
+            .with_context(active_test=False)
+            .search([("analytic_account_id", "in", analytics.ids)])
         )
         for rec in self:
             rec.budget_control_ids = budget_controls.filtered_domain(
@@ -258,9 +263,18 @@ class BudgetPlanLine(models.Model):
         """ Push data budget control, i.e., alloc amount, active status """
         self.invalidate_cache()
         for rec in self:
-            rec.budget_control_ids.write(
-                {
-                    "allocated_amount": rec.allocated_amount,
-                    "active": rec.active_status,
-                }
-            )
+            for budget_control in rec.with_context(
+                active_test=False
+            ).budget_control_ids:
+                # Only if changes
+                if (
+                    budget_control.allocated_amount != rec.allocated_amount
+                    or budget_control.active != rec.active_status
+                ):
+                    budget_control.write(
+                        {
+                            "allocated_amount": rec.allocated_amount,
+                            "active": rec.active_status,
+                        }
+                    )
+                    budget_control.action_draft()
