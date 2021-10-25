@@ -95,7 +95,27 @@
                             </div>
                         </div>
                     </div>
-                    <h2>Controls</h2>
+                    <h2>Budget Plan / Allocation</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="budget_plan_setting_container"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="module_budget_plan"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="module_budget_plan" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_budget_plan" />
+                                <div class="text-muted">
+                                    Use budget plan to allocate amount and create budget control sheet.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Budget Control</h2>
                     <div
                         class="row mt16 o_settings_container"
                         name="budget_control_setting_container"
