@@ -181,14 +181,36 @@ class BudgetControl(models.Model):
         default="draft",
         tracking=True,
     )
-    # _sql_constraints = [
-    #     ("name_uniq", "UNIQUE(name)", "Name must be unique!"),
-    #     (
-    #         "budget_control_uniq",
-    #         "UNIQUE(budget_id, analytic_account_id)",
-    #         "Duplicated analytic account for the same budget!",
-    #     ),
-    # ]
+
+    @api.constrains("active", "state", "analytic_account_id", "budget_period_id")
+    def _check_budget_control_unique(self):
+        """ Not allow multiple active budget control on same period """
+        self.flush()
+        self.env.cr.execute(
+            """
+            select analytic_account_id, budget_period_id, count(*)
+            from budget_control
+            where active = true and state != 'cancel'
+                and analytic_account_id in %s
+                and budget_period_id in %s
+            group by analytic_account_id, budget_period_id
+        """,
+            (
+                tuple(self.mapped("analytic_account_id").ids),
+                tuple(self.mapped("budget_period_id").ids),
+            ),
+        )
+        res = self.env.cr.dictfetchall()
+        analytic_ids = [
+            x["analytic_account_id"]
+            for x in list(filter(lambda x: x["count"] > 1, res))
+        ]
+        if analytic_ids:
+            analytics = self.env["account.analytic.account"].browse(analytic_ids)
+            raise UserError(
+                _("Multiple budget control on the same peirod for: %s")
+                % ", ".join(analytics.mapped("name"))
+            )
 
     @api.model
     def name_search(self, name, args=None, operator="ilike", limit=100):
