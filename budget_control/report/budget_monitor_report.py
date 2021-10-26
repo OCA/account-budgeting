@@ -160,11 +160,8 @@ class BudgetMonitorReport(models.Model):
         return """
             from mis_budget_item a
             join budget_control b on a.budget_control_id = b.id
+            and b.active = true
         """
-
-    def _where_budget(self):
-        return ""
-        # return """ where a.active = true """
 
     def _select_statement(self, amount_type):
         return self._get_select_amount_types()[amount_type]
@@ -186,14 +183,14 @@ class BudgetMonitorReport(models.Model):
         select_actual = ", ".join(
             select_actual_query[x] for x in key_select_actual_list
         )
-        return "(select {} {} {}) union (select {} {} {})".format(
+        return "(select {} {}) union (select {} {} {})".format(
             select_budget,
             self._from_budget(),
-            self._where_budget(),
             select_actual,
             self._from_statement("8_actual"),
             self._where_actual(),
         )
 
     def _get_where_sql(self):
+        """ Hook """
         return ""

@@ -81,13 +81,13 @@ class BudgetPlan(models.Model):
     def action_update_amount_consumed(self):
         for rec in self:
             for line in rec.plan_line:
-                budget_control = line.with_context(active_test=False).budget_control_ids
-                if len(budget_control) > 1:
+                active_control = line.budget_control_ids
+                if len(active_control) > 1:
                     raise UserError(
                         _("%s should have only 1 active budget control")
                         % line.analytic_account_id.display_name
                     )
-                line.amount_consumed = budget_control.amount_consumed
+                line.amount_consumed = active_control.amount_consumed
 
     def button_open_budget_control(self):
         self.ensure_one()
@@ -263,18 +263,21 @@ class BudgetPlanLine(models.Model):
         """ Push data budget control, i.e., alloc amount, active status """
         self.invalidate_cache()
         for rec in self:
-            for budget_control in rec.with_context(
-                active_test=False
-            ).budget_control_ids:
-                # Only if changes
-                if (
-                    budget_control.allocated_amount != rec.allocated_amount
-                    or budget_control.active != rec.active_status
-                ):
-                    budget_control.write(
-                        {
-                            "allocated_amount": rec.allocated_amount,
-                            "active": rec.active_status,
-                        }
-                    )
-                    budget_control.action_draft()
+            all_controls = rec.with_context(active_test=False).budget_control_ids
+            # First, update the active budget_control
+            budget_control = all_controls.filtered("active")
+            # If no active budget control, find the newest inactive one
+            if not budget_control:
+                budget_control = all_controls.sorted("id")[-1:]  # last one
+            # Update on if changed
+            if (
+                budget_control.allocated_amount != rec.allocated_amount
+                or budget_control.active != rec.active_status
+            ):
+                budget_control.write(
+                    {
+                        "allocated_amount": rec.allocated_amount,
+                        "active": rec.active_status,
+                    }
+                )
+                budget_control.action_draft()
