@@ -125,6 +125,7 @@
                         string="Create/Update Budget Control"
                         type="object"
                         attrs="{'invisible': ['|', ('active', '=', False), ('state', '!=', 'confirm')]}"
+                        title="Create new budget control if not already exists, otherwise update the currently active/latest one"
                     />
                     <button
                         name="action_confirm"
@@ -214,13 +215,15 @@
                                     icon="fa-refresh"
                                     type="object"
                                     states="draft"
+                                    title="Auto create plan line for analytic account set for this budget period"
                                 />
                                 <button
-                                    name="action_update_amount_consumed"
-                                    string="Update Consumed"
+                                    name="action_update_amount"
+                                    string="Refresh"
                                     icon="fa-refresh"
                                     type="object"
                                     states="draft,confirm,done"
+                                    title="Refresh released and consumed amount"
                                 />
                             </div>
                             <field name="plan_line" />

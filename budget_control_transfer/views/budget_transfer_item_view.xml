@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_budget_transfer_item_tree" model="ir.ui.view">
+        <field name="name">view.budget.transfer.item.tree</field>
+        <field name="model">budget.transfer.item</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" string="Budget Transfer Item">
+                <field name="transfer_id" invisible="1" />
+                <field name="mis_budget_id" invisible="1" />
+                <field name="budget_period_id" invisible="1" />
+                <field name="source_budget_control_id" />
+                <field name="source_state" optional="hide" />
+                <field name="source_amount_available" string="Available" />
+                <field name="target_budget_control_id" />
+                <field name="target_state" optional="hide" />
+                <field name="target_amount_available" string="Available" />
+                <field name="amount" />
+                <field name="state" invisible="1" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_budget_transfer_item_form" model="ir.ui.view">
+        <field name="name">view.budget.transfer.item.form</field>
+        <field name="model">budget.transfer.item</field>
+        <field name="arch" type="xml">
+            <form string="Budget Transfer Item">
+                <sheet>
+                    <group>
+                        <group name="budget_transfer_item_left">
+                            <field name="transfer_id" invisible="1" />
+                            <field name="mis_budget_id" invisible="1" />
+                            <field name="budget_period_id" invisible="1" />
+                            <field name="source_budget_control_id" />
+                            <field name="source_state" />
+                            <field name="source_amount_available" string="Available" />
+                        </group>
+                        <group name="budget_transfer_item_right">
+                            <field name="target_budget_control_id" />
+                            <field name="target_state" />
+                            <field name="target_amount_available" string="Available" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
