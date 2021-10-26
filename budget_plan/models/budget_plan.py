@@ -78,7 +78,7 @@ class BudgetPlan(models.Model):
             rec.budget_control_ids = rec.plan_line.mapped("budget_control_ids")
             rec.budget_control_count = len(rec.budget_control_ids)
 
-    def action_update_amount_consumed(self):
+    def action_update_amount(self):
         for rec in self:
             for line in rec.plan_line:
                 active_control = line.budget_control_ids
@@ -88,6 +88,7 @@ class BudgetPlan(models.Model):
                         % line.analytic_account_id.display_name
                     )
                 line.amount_consumed = active_control.amount_consumed
+                line.released_amount = active_control.released_amount
 
     def button_open_budget_control(self):
         self.ensure_one()
@@ -174,7 +175,7 @@ class BudgetPlan(models.Model):
         return budget_control_view
 
     def action_confirm(self):
-        self.action_update_amount_consumed()
+        self.action_update_amount()
         prec_digits = self.env.user.company_id.currency_id.decimal_places
         lines = self.mapped("plan_line")
         for line in lines:

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_budget_transfer_user,access_budget_transfer_user,model_budget_transfer,,1,1,1,1
+access_budget_transfer_item_user,access_budget_transfer_item_user,model_budget_transfer_item,,1,1,1,1

@@ -34,7 +34,6 @@ class BudgetCommitForward(models.Model):
             domain = self._get_base_domain()
             domain.extend(
                 [
-                    ("advance", "=", False),
                     ("analytic_account_id", "!=", False),
                     ("state", "!=", "cancel"),
                 ]

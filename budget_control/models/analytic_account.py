@@ -128,10 +128,6 @@ class AccountAnalyticAccount(models.Model):
         # Retrieve budgeting data for a list of budget_control
         domain = [("analytic_account_id", "in", analytic_ids)]
         # Optional filters by context
-        if self.env.context.get("budget_period_ids"):
-            domain.append(
-                ("budget_period_ids", "in", self.env.context["budget_period_ids"])
-            )
         if self.env.context.get("no_fwd_commit"):
             domain.append(("fwd_commit", "=", False))
         # --
@@ -202,7 +198,7 @@ class AccountAnalyticAccount(models.Model):
             no_bc_analytics = self.browse(no_bc_analytic_ids)
             names = no_bc_analytics.mapped("display_name")
             raise UserError(
-                _("Following analytics has no budget control " "sheet:\n%s")
+                _("Following analytics has no budget control sheet:\n%s")
                 % ", ".join(names)
             )
         budget_not_controlled = budget_controls.filtered_domain(
