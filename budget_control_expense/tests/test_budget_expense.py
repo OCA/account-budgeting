@@ -95,7 +95,7 @@ class TestBudgetControl(BudgetControlCommon):
             ]
         )
         # (1) No budget check first
-        self.budget_period.expense = False
+        self.budget_period.control_budget = False
         self.budget_period.control_level = "analytic_kpi"
         # force date commit, as freeze_time not work for write_date
         expense = expense.with_context(
@@ -104,7 +104,7 @@ class TestBudgetControl(BudgetControlCommon):
         expense.action_submit_sheet()  # No budget check no error
         # (2) Check Budget with analytic_kpi -> Error
         expense.reset_expense_sheets()
-        self.budget_period.expense = True  # Set to check budget
+        self.budget_period.control_budget = True  # Set to check budget
         # kpi 1 (kpi1) & CostCenter1, will result in $ -1.00
         with self.assertRaises(UserError):
             expense.action_submit_sheet()
@@ -131,14 +131,14 @@ class TestBudgetControl(BudgetControlCommon):
         expense = self._create_expense_sheet(
             [
                 {
-                    "product_id": self.product1,  # KPI1 = 101 -> error
+                    "product_id": self.product1,  # KPI1
                     "product_qty": 3,
                     "price_unit": 10,
                     "analytic_id": self.costcenter1,
                 },
             ]
         )
-        self.budget_period.expense = True
+        self.budget_period.control_budget = True
         self.budget_period.control_level = "analytic"
         expense = expense.with_context(
             force_date_commit=expense.expense_line_ids[:1].date
@@ -158,12 +158,18 @@ class TestBudgetControl(BudgetControlCommon):
         self.assertEqual(self.budget_control.amount_expense, 0)
         self.assertEqual(self.budget_control.amount_actual, 30)
         self.assertEqual(self.budget_control.amount_balance, 270)
-        # # Cancel journal entry
-        move.button_cancel()
+        # Set to draft
+        move.button_draft()
         self.budget_control.invalidate_cache()
         self.assertEqual(self.budget_control.amount_expense, 30)
         self.assertEqual(self.budget_control.amount_actual, 0)
         self.assertEqual(self.budget_control.amount_balance, 270)
+        # Cancel journal entry, expense will also be cancelled
+        move.button_cancel()
+        self.budget_control.invalidate_cache()
+        self.assertEqual(self.budget_control.amount_expense, 0)
+        self.assertEqual(self.budget_control.amount_actual, 0)
+        self.assertEqual(self.budget_control.amount_balance, 300)
 
     @freeze_time("2001-02-01")
     def test_03_budget_recompute_and_close_budget_move(self):
@@ -189,7 +195,7 @@ class TestBudgetControl(BudgetControlCommon):
                 },
             ]
         )
-        self.budget_period.expense = True
+        self.budget_period.control_budget = True
         self.budget_period.control_level = "analytic"
         expense = expense.with_context(
             force_date_commit=expense.expense_line_ids[:1].date
