@@ -48,7 +48,7 @@ class TestBudgetControl(BudgetControlCommon):
         - If analytic in control_analytic_account_ids -> Lock
         - Else -> No Lock
         """
-        self.budget_period.account = True
+        self.budget_period.control_budget = True
         # KPI not in control -> lock
         bill1 = self._create_simple_bill(self.costcenter1, self.account_kpiX, 100)
         with self.assertRaises(UserError):
@@ -81,7 +81,7 @@ class TestBudgetControl(BudgetControlCommon):
         - If budget_control for is not set allocated amount,
           invoice raise warning
         """
-        self.budget_period.account = True
+        self.budget_period.control_budget = True
         bill1 = self._create_simple_bill(self.costcenter1, self.account_kpi1, 400)
         # Now, budget_control is not yet set to Done, raise error when post invoice
         with self.assertRaises(UserError):
@@ -108,7 +108,7 @@ class TestBudgetControl(BudgetControlCommon):
         Budget Period set control_level to "analytic_kpi", check at KPI level
         If amount exceed 400, lock budget
         """
-        self.budget_period.account = True
+        self.budget_period.control_budget = True
         self.budget_period.control_level = "analytic_kpi"
         # Budget Controlled
         self.budget_control.allocated_amount = 2400
@@ -124,7 +124,7 @@ class TestBudgetControl(BudgetControlCommon):
         Budget Period set control_level to "analytic", check at Analytic level
         If amount exceed 400, not lock budget and still has balance after that
         """
-        self.budget_period.account = True
+        self.budget_period.control_budget = True
         self.budget_period.control_level = "analytic"
         # Budget Controlled
         self.budget_control.allocated_amount = 2400
@@ -139,7 +139,7 @@ class TestBudgetControl(BudgetControlCommon):
     def test_05_no_account_budget_check(self):
         """If budget.period is not set to check budget, no budget check in all cases"""
         # No budget check
-        self.budget_period.account = False
+        self.budget_period.control_budget = False
         # Budget Controlled
         self.budget_control.allocated_amount = 2400
         self.budget_control.action_done()
@@ -151,7 +151,7 @@ class TestBudgetControl(BudgetControlCommon):
     def test_06_refund_no_budget_check(self):
         """For refund, always not checking"""
         # First, make budget actual to exceed budget first
-        self.budget_period.account = False  # No budget check first
+        self.budget_period.control_budget = False  # No budget check first
         self.budget_control.allocated_amount = 2400
         self.budget_control.action_done()
         self.assertEqual(self.budget_control.amount_balance, 2400)
@@ -159,7 +159,7 @@ class TestBudgetControl(BudgetControlCommon):
         bill1.action_post()
         self.assertEqual(self.budget_control.amount_balance, -97600)
         # Check budget, for in_refund, force no budget check
-        self.budget_period.account = True
+        self.budget_period.control_budget = True
         self.budget_control.action_draft()
         invoice = self._create_invoice(
             "in_refund",
@@ -179,7 +179,7 @@ class TestBudgetControl(BudgetControlCommon):
         - Use the auto date_commit to create budget move
         - On cancel of document (unlink budget moves), date_commit is set to False
         """
-        self.budget_period.account = False
+        self.budget_period.control_budget = False
         # First setup self.costcenterX valid date range and auto adjust
         self.costcenterX.bm_date_from = "2001-01-01"
         self.costcenterX.bm_date_to = "2001-12-31"
@@ -215,7 +215,7 @@ class TestBudgetControl(BudgetControlCommon):
         """
         - If date_commit is not inline with analytic date range, show error
         """
-        self.budget_period.account = False
+        self.budget_period.control_budget = False
         # First setup self.costcenterX valid date range and auto adjust
         self.costcenterX.bm_date_from = "2001-01-01"
         self.costcenterX.bm_date_to = "2001-12-31"
@@ -234,7 +234,7 @@ class TestBudgetControl(BudgetControlCommon):
         """
         By passing context["force_no_budget_check"] = True, no check in all case
         """
-        self.budget_period.account = True
+        self.budget_period.control_budget = True
         # Budget Controlled
         self.budget_control.allocated_amount = 2400
         self.budget_control.action_done()
@@ -246,7 +246,7 @@ class TestBudgetControl(BudgetControlCommon):
         """
         - Date budget commit should be the same after recompute
         """
-        self.budget_period.account = False
+        self.budget_period.control_budget = False
         self.costcenterX.auto_adjust_date_commit = True
         # Ma
         bill1 = self._create_simple_bill(self.costcenterX, self.account_kpiX, 10)
