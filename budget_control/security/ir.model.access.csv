@@ -1,8 +1,8 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 manage_budget_period_manager,manage_budget_period_manager,model_budget_period,budget_control.group_budget_control_manager,1,1,1,1
-manage_budget_period_user,manage_budget_period_user,model_budget_period,budget_control.group_budget_control_user,1,0,0,0
+manage_budget_period_user,manage_budget_period_user,model_budget_period,base.group_user,1,0,0,0
 manage_budget_control,manage_budget_control,model_budget_control,budget_control.group_budget_control_user,1,1,1,1
-budget_monitor_report,budget_monitor_report,model_budget_monitor_report,budget_control.group_budget_control_user,1,1,1,1
+budget_monitor_report,budget_monitor_report,model_budget_monitor_report,base.group_user,1,1,1,1
 manage_generate_budget_control,manage_generate_budget_control,model_generate_budget_control,budget_control.group_budget_control_manager,1,1,1,1
 manage_budget_commit_forward,manage_budget_commit_forward,model_budget_commit_forward,budget_control.group_budget_control_manager,1,1,1,1
 manage_budget_commit_forward_info,manage_budget_commit_forward_info,model_budget_commit_forward_info,budget_control.group_budget_control_manager,1,1,1,1
