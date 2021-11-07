@@ -31,13 +31,19 @@ class PurchaseOrder(models.Model):
             if vals.get("state") in ("cancel", "draft"):
                 doclines.write({"date_commit": False})
             doclines.recompute_budget_move()
+        # Special for purchase, as line can change even on state purchase
+        # make sure budget is checked when line changes
+        if "order_line" in vals:
+            BudgetPeriod = self.env["budget.period"]
+            for doc in self:
+                BudgetPeriod.check_budget(doc.order_line, doc_type="purchase")
         return res
 
     def button_confirm(self):
         res = super().button_confirm()
         self.flush()
         BudgetPeriod = self.env["budget.period"]
-        for doc in self:
+        for doc in self.filtered(lambda l: l.state == "purchase"):
             BudgetPeriod.check_budget(doc.order_line, doc_type="purchase")
         return res
 
@@ -102,3 +108,8 @@ class PurchaseOrderLine(models.Model):
         if res.get("analytic_account_id") and self.fwd_analytic_account_id:
             res["analytic_account_id"] = self.fwd_analytic_account_id.id
         return res
+
+    # def write(self, vals):
+    #     res = super().write(vals)
+    #     x = 1/0
+    #     return res
