@@ -201,10 +201,15 @@ class BudgetDoclineMixin(models.AbstractModel):
             if not analytic:
                 rec.json_budget_popover = False
                 continue
+            # Budget Period is required, even a False one
+            budget_period = self.env["budget.period"]._get_eligible_budget_period(
+                date=rec.date_commit
+            )
+            analytic = analytic.with_context(budget_period_ids=[budget_period.id])
             rec.json_budget_popover = dumps(
                 {
                     "title": _("Budget Figure"),
-                    "icon": "fa-area-chart",
+                    "icon": "fa-info-circle",
                     "popoverTemplate": "budget_control.budgetPopOver",
                     "analytic": analytic.display_name,
                     "budget": FloatConverter.value_to_html(
