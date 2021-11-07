@@ -87,7 +87,7 @@ class TestBudgetControl(BudgetControlCommon):
             ]
         )
         # (1) No budget check first
-        self.budget_period.purchase_request = False
+        self.budget_period.control_budget = False
         self.budget_period.control_level = "analytic_kpi"
         # force date commit, as freeze_time not work for write_date
         purchase_request = purchase_request.with_context(
@@ -99,7 +99,7 @@ class TestBudgetControl(BudgetControlCommon):
         # (2) Check Budget with analytic_kpi -> Error
         purchase_request.button_draft()
         self.assertEqual(self.budget_control.amount_balance, 300)
-        self.budget_period.purchase_request = True  # Set to check budget
+        self.budget_period.control_budget = True  # Set to check budget
         # kpi 1 (kpi1) & CostCenter1, will result in $ -1.00
         with self.assertRaises(UserError):
             purchase_request.button_to_approve()
@@ -134,7 +134,7 @@ class TestBudgetControl(BudgetControlCommon):
             ]
         )
         # Check budget as analytic
-        self.budget_period.purchase_request = True
+        self.budget_period.control_budget = True
         self.budget_period.purchase = True
         self.budget_period.control_level = "analytic"
 
@@ -201,7 +201,7 @@ class TestBudgetControl(BudgetControlCommon):
             ]
         )
         # Check budget as analytic
-        self.budget_period.purchase_request = True
+        self.budget_period.control_budget = True
         self.budget_period.purchase = True
         self.budget_period.control_level = "analytic"
         purchase_request = purchase_request.with_context(
