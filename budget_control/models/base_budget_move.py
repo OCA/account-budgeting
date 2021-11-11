@@ -228,7 +228,9 @@ class BudgetDoclineMixin(models.AbstractModel):
         """Default implementation, use date from _doc_date_field
         which is mostly write_date during budget commitment"""
         self.ensure_one()
-        docline = self
+        # skip_account_move_synchronization = True, as this can be account.move.line
+        # skipping to avoid warning error when update date_commit
+        docline = self.with_context(skip_account_move_synchronization=True)
         if self.env.context.get("force_date_commit"):
             docline.date_commit = self.env.context["force_date_commit"]
         if not self._budget_date_commit_fields:

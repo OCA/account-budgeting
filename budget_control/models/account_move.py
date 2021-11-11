@@ -45,7 +45,11 @@ class AccountMove(models.Model):
         if vals.get("state") in ("posted", "cancel", "draft"):
             doclines = self.mapped("invoice_line_ids")
             if vals.get("state") in ("cancel", "draft"):
-                doclines.write({"date_commit": False})
+                # skip_account_move_synchronization = True, as this is account.move.line
+                # skipping to avoid warning error when update date_commit
+                doclines.with_context(skip_account_move_synchronization=True).write(
+                    {"date_commit": False}
+                )
             doclines.recompute_budget_move()
         return res
 
