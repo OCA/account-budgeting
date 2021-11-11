@@ -8,7 +8,7 @@ class AccountMoveLine(models.Model):
 
     def uncommit_purchase_budget(self):
         """For vendor bill in valid state, do uncommit for related purchase."""
-        for ml in self.filtered("can_commit"):
+        for ml in self:
             inv_state = ml.move_id.state
             move_type = ml.move_id.move_type
             if move_type in ("in_invoice", "in_refund"):

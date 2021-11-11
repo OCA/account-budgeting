@@ -19,7 +19,7 @@ class PurchaseOrderLine(models.Model):
 
     def uncommit_purchase_request_budget(self):
         """For purchase in valid state, do uncommit for related PR."""
-        for po_line in self.filtered("can_commit"):
+        for po_line in self:
             po_state = po_line.order_id.state
             if po_state in ("purchase", "done"):
                 for pr_line in po_line.purchase_request_lines.filtered("amount_commit"):
