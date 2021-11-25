@@ -74,6 +74,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="module_budget_control_advance_clearing"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="module_budget_control_advance_clearing" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_budget_control_advance_clearing" />
+                                <div class="text-muted">
+                                    Enable budget commitment on employee advance and also on clearing.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <h2>Budget Period</h2>
                     <div

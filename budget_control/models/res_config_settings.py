@@ -23,5 +23,6 @@ class ResConfigSettings(models.TransientModel):
     module_budget_control_purchase_request = fields.Boolean(string="Purchase Request")
     module_budget_control_purchase = fields.Boolean(string="Purchase")
     module_budget_control_expense = fields.Boolean(string="Expense")
+    module_budget_control_advance_clearing = fields.Boolean(string="Advance/Clearing")
     module_budget_plan = fields.Boolean(string="Budget Plan")
     module_budget_control_transfer = fields.Boolean(string="Budget Transfer")
