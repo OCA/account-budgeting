@@ -110,3 +110,8 @@ class HRExpense(models.Model):
         journal = self.env["account.journal"].browse(move_values["journal_id"])
         move_values["not_affect_budget"] = journal.not_affect_budget
         return move_values
+
+    def _get_included_tax(self):
+        if self._name == "hr.expense":
+            return self.env.company.budget_include_tax_expense
+        return super()._get_included_tax()

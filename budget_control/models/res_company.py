@@ -11,6 +11,31 @@ class ResCompany(models.Model):
         string="Budget Included Tax",
         help="If checked, all budget moves amount will include tax",
     )
+    budget_include_tax_method = fields.Selection(
+        selection=[
+            ("all", "All documents & taxes"),
+            ("specific", "Specific document & taxes"),
+        ],
+        default="all",
+    )
+    budget_include_tax_account = fields.Many2many(
+        comodel_name="account.tax",
+        relation="company_budget_include_tax_account_rel",
+        column1="company_id",
+        column2="tax_id",
+    )
+    budget_include_tax_purchase = fields.Many2many(
+        comodel_name="account.tax",
+        relation="company_budget_include_tax_purchase_rel",
+        column1="company_id",
+        column2="tax_id",
+    )
+    budget_include_tax_expense = fields.Many2many(
+        comodel_name="account.tax",
+        relation="company_budget_include_tax_expense_rel",
+        column1="company_id",
+        column2="tax_id",
+    )
     budget_kpi_template_id = fields.Many2one(
         comodel_name="mis.report",
         string="Budget KPI Template",

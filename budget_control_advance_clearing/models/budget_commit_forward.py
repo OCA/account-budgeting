@@ -14,7 +14,7 @@ class BudgetCommitForward(models.Model):
     forward_advance_ids = fields.One2many(
         comodel_name="budget.commit.forward.line",
         inverse_name="forward_id",
-        string="Advance",
+        string="Fwd Advances",
         domain=[("res_model", "=", "hr.expense.advance")],
     )
 

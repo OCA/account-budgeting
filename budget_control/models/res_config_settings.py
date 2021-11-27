@@ -6,9 +6,23 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    # Tax Included
     budget_include_tax = fields.Boolean(
         related="company_id.budget_include_tax", readonly=False
     )
+    budget_include_tax_method = fields.Selection(
+        related="company_id.budget_include_tax_method", readonly=False
+    )
+    budget_include_tax_account = fields.Many2many(
+        related="company_id.budget_include_tax_account", readonly=False
+    )
+    budget_include_tax_purchase = fields.Many2many(
+        related="company_id.budget_include_tax_purchase", readonly=False
+    )
+    budget_include_tax_expense = fields.Many2many(
+        related="company_id.budget_include_tax_expense", readonly=False
+    )
+    # --
     budget_kpi_template_id = fields.Many2one(
         comodel_name="mis.report",
         related="company_id.budget_kpi_template_id",

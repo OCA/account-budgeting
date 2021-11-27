@@ -51,3 +51,9 @@ class AccountMoveLine(models.Model):
     def _valid_commit_state(self):
         states = ["posted"]
         return self.move_id.state in states
+
+    def _get_included_tax(self):
+        """ Prepare for hook with extended modules """
+        if self._name == "account.move.line":
+            return self.env.company.budget_include_tax_account
+        return self.env["account.tax"]

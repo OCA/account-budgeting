@@ -109,7 +109,7 @@ class PurchaseOrderLine(models.Model):
             res["analytic_account_id"] = self.fwd_analytic_account_id.id
         return res
 
-    # def write(self, vals):
-    #     res = super().write(vals)
-    #     x = 1/0
-    #     return res
+    def _get_included_tax(self):
+        if self._name == "purchase.order.line":
+            return self.env.company.budget_include_tax_purchase
+        return super()._get_included_tax()

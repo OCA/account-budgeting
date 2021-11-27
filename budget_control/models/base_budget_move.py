@@ -384,6 +384,18 @@ class BudgetDoclineMixin(models.AbstractModel):
             raise ValidationError(_("No amount_currency passed in!"))
         return budget_vals
 
+    def _taxes_included(self, taxes):
+        """ Check configuration, both document and tax type """
+        if not self.env.company.budget_include_tax:
+            return False
+        else:
+            if self.env.company.budget_include_tax_method == "all":
+                return taxes
+            if self.env.company.budget_include_tax_method == "specific":
+                included_taxes = self._get_included_tax()
+                return taxes & included_taxes
+            return False
+
     def _budget_include_tax(self, budget_vals):
         if "tax_ids" not in budget_vals:
             return budget_vals
@@ -395,11 +407,18 @@ class BudgetDoclineMixin(models.AbstractModel):
                 "out_refund",
             ):
                 is_refund = True
-            taxes = self.env["account.tax"].browse(tax_ids)
-            res = taxes.compute_all(budget_vals["amount_currency"], is_refund=is_refund)
-            if self.env.company.budget_include_tax:
+            all_taxes = self.env["account.tax"].browse(tax_ids)
+            # For included taxes case
+            included_taxes = self._taxes_included(all_taxes)
+            if included_taxes:
+                res = included_taxes.compute_all(
+                    budget_vals["amount_currency"], is_refund=is_refund
+                )
                 budget_vals["amount_currency"] = res["total_included"]
             else:
+                res = all_taxes.compute_all(
+                    budget_vals["amount_currency"], is_refund=is_refund
+                )
                 budget_vals["amount_currency"] = res["total_excluded"]
         return budget_vals
 
