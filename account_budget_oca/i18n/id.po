@@ -1,0 +1,428 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_budget_oca
+#
+# Translators:
+# Bonny Useful <bonny.useful@gmail.com>, 2017
+# Wahyu Setiawan <wahyusetiaaa@gmail.com>, 2017
+# Martin Trigaux <mat@odoo.com>, 2017
+# William Surya Permana <zarambie_game@yahoo.com>, 2017
+# Hendro Yulianto <hyulianto@gmail.com>, 2017
+# Lorenz Damara <lorenzrenz@gmail.com>, 2017
+# Gusti Rini <gustirini@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-10 11:34+0000\n"
+"PO-Revision-Date: 2017-10-10 11:34+0000\n"
+"Last-Translator: Gusti Rini <gustirini@gmail.com>, 2017\n"
+"Language-Team: Indonesian (https://www.transifex.com/odoo/teams/41243/id/)\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"A budget is a forecast of your company's income and/or expenses\n"
+"                expected for a period in the future. A budget is defined on "
+"some\n"
+"                financial accounts and/or analytic accounts (that may "
+"represent\n"
+"                projects, departments, categories of products, etc.)"
+msgstr ""
+"Anggaran belanja adalah ramalan dari pendapatan dan/atau beban perusahaan "
+"Anda\n"
+"yang diharapkan untuk periode mendatang. Anggaran belanja didefinisikan "
+"sebagai akun finansial dan/atau akun analitik (yang mungkin mewakili\n"
+"proyek, departemen, kategori dari produk, dll.)"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+msgid "Accounts"
+msgstr "Akun"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
+msgid "Achievement"
+msgstr "Pencapaian"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_analytic_account
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__analytic_account_id
+msgid "Analytic Account"
+msgstr "Akun Analitik"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Approve"
+msgstr "Setuju"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__crossovered_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Budget"
+msgstr "Anggaran"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Budget Items"
+msgstr "Pos anggaran"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
+msgid "Budget Line"
+msgstr "garis anggaran belanja"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_analytic_account__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__crossovered_budget_line_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
+msgid "Budget Lines"
+msgstr "garis Anggaran belanja"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__name
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Budget Name"
+msgstr "Nama Anggaran"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_budget_post
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__general_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
+msgid "Budgetary Position"
+msgstr "Posisi anggaran"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.open_budget_post_form
+#: model:ir.ui.menu,name:account_budget_oca.menu_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
+msgid "Budgetary Positions"
+msgstr "Posisi anggaran"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
+msgid "Budgets"
+msgstr "Anggaran"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"By keeping track of where your money goes, you may be less\n"
+"                likely to overspend, and more likely to meet your financial\n"
+"                goals. Forecast a budget by detailing the expected revenue "
+"per\n"
+"                analytic account and monitor its evolution based on the "
+"actuals\n"
+"                realised during that period."
+msgstr ""
+"Dengan selalu mengetahui kemana uang yg keluar, anda akan cenderung tidak "
+"melakukan pengeluaran berlebihan, dan berpeluang lebih besar untuk mencapai "
+"target keuangan anda.\n"
+"Peramalan anggaran dengan memperinci pendapatan yang diharapkan untuk setiap "
+"akun analitik dan memonitor perubahannya berdasarkan aktual yang di "
+"realisasikan dalam perioda tersebut"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Cancel Budget"
+msgstr "Membatalkan anggaran"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Cancelled"
+msgstr "Dibatalkan"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid "Click to create a new budget."
+msgstr "Klik untuk membuat anggaran baru"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__company_id
+msgid "Company"
+msgstr "Perusahaan"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Confirm"
+msgstr "Konfirmasi"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Confirmed"
+msgstr "Ditetapkan"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_uid
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_date
+msgid "Created on"
+msgstr "Dibuat pada"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__display_name
+msgid "Display Name"
+msgstr "Nama Tampilan"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Done"
+msgstr "selesai"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft"
+msgstr "Draft"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft Budgets"
+msgstr "Rancangan anggaran"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_to
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_to
+msgid "End Date"
+msgstr "Tanggal berakhir"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines____last_update
+msgid "Last Modified on"
+msgstr "Terakhir diubah pada"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_uid
+msgid "Last Updated by"
+msgstr "Terakhir diperbarui oleh"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_date
+msgid "Last Updated on"
+msgstr "Terakhir diperbarui pada"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
+msgid "Name"
+msgstr "Nama"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
+msgid "Paid Date"
+msgstr "Tanggal Dibayar"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Period"
+msgstr "Periode"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Planned Amount"
+msgstr "Jumlah yang direncanakan"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Practical Amount"
+msgstr "Jumlah praktis"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Reset to Draft"
+msgstr "Reset ke Draft"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__creating_user_id
+msgid "Responsible"
+msgstr "bertanggung jawab"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_from
+msgid "Start Date"
+msgstr "Tanggal Mulai"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__state
+msgid "Status"
+msgstr "Status"
+
+#. module: account_budget_oca
+#: code:addons/account_budget_oca/models/account_budget.py:42
+#, python-format
+msgid "The budget must have at least one account."
+msgstr "Anggaran harus memiliki setidaknya satu akun."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Theoretical Amount"
+msgstr "Jumlah teoritis"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve"
+msgstr "Untuk Disetujui"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve Budgets"
+msgstr "Untuk menyetujui anggaran"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Validated"
+msgstr "Sudah Divalidasi"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website communication history"
+msgstr ""
