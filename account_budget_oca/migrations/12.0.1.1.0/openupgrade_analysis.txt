@@ -1,0 +1,71 @@
+---Models in module 'account_budget_oca'---
+---Fields in module 'account_budget_oca'---
+account_budget / account.analytic.account / crossovered_budget_line (one2many): DEL relation: crossovered.budget.lines
+account_budget / account.budget.post      / crossovered_budget_line (one2many): DEL relation: crossovered.budget.lines
+account_budget / crossovered.budget       / crossovered_budget_line (one2many): DEL relation: crossovered.budget.lines
+account_budget / crossovered.budget       / message_last_post (datetime)  : DEL
+account_budget / crossovered.budget.lines / theoritical_amount (float)    : was renamed to theoretical_amount [nothing to do]
+account_budget_oca / account.analytic.account / crossovered_budget_line_ids (one2many): NEW relation: crossovered.budget.lines
+account_budget_oca / account.budget.post      / _order (False)                : NEW
+account_budget_oca / account.budget.post      / crossovered_budget_line_ids (one2many): NEW relation: crossovered.budget.lines
+account_budget_oca / crossovered.budget       / _order (False)                : NEW
+account_budget_oca / crossovered.budget       / crossovered_budget_line_ids (one2many): NEW relation: crossovered.budget.lines
+account_budget_oca / crossovered.budget       / message_main_attachment_id (many2one): NEW relation: ir.attachment
+account_budget_oca / crossovered.budget.lines / _order (False)                : NEW
+---XML records in module 'account_budget_oca'---
+NEW ir.actions.act_window: account_budget_oca.act_account_analytic_account_cb_lines [renamed from account_budget module]
+NEW ir.actions.act_window: account_budget_oca.act_crossovered_budget_lines_view [renamed from account_budget module]
+NEW ir.actions.act_window: account_budget_oca.act_crossovered_budget_view [renamed from account_budget module]
+NEW ir.actions.act_window: account_budget_oca.open_budget_post_form [renamed from account_budget module]
+DEL ir.actions.act_window: account_budget.act_account_analytic_account_cb_lines [renamed to account_budget_oca module]
+DEL ir.actions.act_window: account_budget.act_crossovered_budget_lines_view [renamed to account_budget_oca module]
+DEL ir.actions.act_window: account_budget.act_crossovered_budget_view [renamed to account_budget_oca module]
+DEL ir.actions.act_window: account_budget.open_budget_post_form [renamed to account_budget_oca module]
+NEW ir.model.access: account_budget_oca.access_account_budget_post [renamed from account_budget module]
+NEW ir.model.access: account_budget_oca.access_account_budget_post_accountant [renamed from account_budget module]
+NEW ir.model.access: account_budget_oca.access_budget [renamed from account_budget module]
+NEW ir.model.access: account_budget_oca.access_crossovered_budget [renamed from account_budget module]
+NEW ir.model.access: account_budget_oca.access_crossovered_budget_accountant [renamed from account_budget module]
+NEW ir.model.access: account_budget_oca.access_crossovered_budget_lines_accountant [renamed from account_budget module]
+DEL ir.model.access: account_budget.access_account_budget_post [renamed to account_budget_oca module]
+DEL ir.model.access: account_budget.access_account_budget_post_accountant [renamed to account_budget_oca module]
+DEL ir.model.access: account_budget.access_budget [renamed to account_budget_oca module]
+DEL ir.model.access: account_budget.access_crossovered_budget [renamed to account_budget_oca module]
+DEL ir.model.access: account_budget.access_crossovered_budget_accountant [renamed to account_budget_oca module]
+DEL ir.model.access: account_budget.access_crossovered_budget_lines_accountant [renamed to account_budget_oca module]
+NEW ir.rule: account_budget_oca.budget_comp_rule [renamed from account_budget module] (noupdate)
+NEW ir.rule: account_budget_oca.budget_lines_comp_rule [renamed from account_budget module] (noupdate)
+NEW ir.rule: account_budget_oca.budget_post_comp_rule [renamed from account_budget module] (noupdate)
+DEL ir.rule: account_budget.budget_comp_rule [renamed to account_budget_oca module] (noupdate)
+DEL ir.rule: account_budget.budget_lines_comp_rule [renamed to account_budget_oca module] (noupdate)
+DEL ir.rule: account_budget.budget_post_comp_rule [renamed to account_budget_oca module] (noupdate)
+NEW ir.ui.menu: account_budget_oca.menu_act_crossovered_budget_lines_view [renamed from account_budget module]
+NEW ir.ui.menu: account_budget_oca.menu_act_crossovered_budget_view [renamed from account_budget module]
+NEW ir.ui.menu: account_budget_oca.menu_budget_post_form [renamed from account_budget module]
+DEL ir.ui.menu: account_budget.menu_act_crossovered_budget_lines_view [renamed to account_budget_oca module]
+DEL ir.ui.menu: account_budget.menu_act_crossovered_budget_view [renamed to account_budget_oca module]
+DEL ir.ui.menu: account_budget.menu_budget_post_form [renamed to account_budget_oca module]
+NEW ir.ui.view: account_budget_oca.crossovered_budget_view_form
+NEW ir.ui.view: account_budget_oca.crossovered_budget_view_tree
+NEW ir.ui.view: account_budget_oca.res_config_settings_view_form
+NEW ir.ui.view: account_budget_oca.view_account_analytic_account_form_inherit_budget
+NEW ir.ui.view: account_budget_oca.view_budget_post_form
+NEW ir.ui.view: account_budget_oca.view_budget_post_search
+NEW ir.ui.view: account_budget_oca.view_budget_post_tree
+NEW ir.ui.view: account_budget_oca.view_crossovered_budget_kanban
+NEW ir.ui.view: account_budget_oca.view_crossovered_budget_line_form
+NEW ir.ui.view: account_budget_oca.view_crossovered_budget_line_search
+NEW ir.ui.view: account_budget_oca.view_crossovered_budget_line_tree
+NEW ir.ui.view: account_budget_oca.view_crossovered_budget_search
+DEL ir.ui.view: account_budget.crossovered_budget_view_form
+DEL ir.ui.view: account_budget.crossovered_budget_view_tree
+DEL ir.ui.view: account_budget.res_config_settings_view_form
+DEL ir.ui.view: account_budget.view_account_analytic_account_form_inherit_budget
+DEL ir.ui.view: account_budget.view_budget_post_form
+DEL ir.ui.view: account_budget.view_budget_post_search
+DEL ir.ui.view: account_budget.view_budget_post_tree
+DEL ir.ui.view: account_budget.view_crossovered_budget_kanban
+DEL ir.ui.view: account_budget.view_crossovered_budget_line_form
+DEL ir.ui.view: account_budget.view_crossovered_budget_line_search
+DEL ir.ui.view: account_budget.view_crossovered_budget_line_tree
+DEL ir.ui.view: account_budget.view_crossovered_budget_search
