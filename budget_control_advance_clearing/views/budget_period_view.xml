@@ -8,7 +8,7 @@
             <div name="account" position="after">
                 <label for="advance" invisible="1" />
                 <div name="advance" class="o_row">
-                    <field name="advance" />
+                    <field name="advance" invisible="1" />
                     <span>On Advance</span>
                 </div>
             </div>

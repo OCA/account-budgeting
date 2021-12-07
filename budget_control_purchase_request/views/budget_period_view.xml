@@ -8,7 +8,7 @@
             <div name="account" position="after">
                 <label for="purchase_request" invisible="1" />
                 <div name="purchase_request" class="o_row">
-                    <field name="purchase_request" />
+                    <field name="purchase_request" invisible="1" />
                     <span>On Purchase Request</span>
                 </div>
             </div>

@@ -8,7 +8,7 @@
             <div name="account" position="after">
                 <label for="expense" invisible="1" />
                 <div name="expense" class="o_row">
-                    <field name="expense" />
+                    <field name="expense" invisible="1" />
                     <span>On Expense</span>
                 </div>
             </div>
