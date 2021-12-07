@@ -278,7 +278,7 @@ class BudgetBalanceForwardLine(models.Model):
         readonly=True,
     )
     bm_date_to = fields.Date(
-        related="to_analytic_account_id.bm_date_to",
+        related="analytic_account_id.bm_date_to",
         readonly=True,
     )
     currency_id = fields.Many2one(

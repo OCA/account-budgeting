@@ -171,13 +171,8 @@ class BudgetCommitForward(models.Model):
         self.ensure_one()
         forwards = self.env["budget.commit.forward.line"].read_group(
             [
-                "|",
-                "&",
                 ("forward_id", "=", self.id),
                 ("forward_id.state", "in", ["review", "done"]),
-                "&",
-                ("forward_id.to_budget_period_id", "=", self.to_budget_period_id.id),
-                ("forward_id.state", "=", "done"),
             ],
             ["to_analytic_account_id", "amount_commit"],
             ["to_analytic_account_id"],
@@ -279,7 +274,7 @@ class BudgetCommitForwardLine(models.Model):
         readonly=True,
     )
     bm_date_to = fields.Date(
-        related="to_analytic_account_id.bm_date_to",
+        related="analytic_account_id.bm_date_to",
         readonly=True,
     )
     res_model = fields.Selection(
