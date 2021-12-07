@@ -139,6 +139,24 @@
                             icon="fa-bar-chart-o"
                             type="object"
                         />
+                        <button
+                            type="object"
+                            name="action_open_budget_transfer_item"
+                            class="oe_stat_button"
+                            icon="fa-exchange"
+                        >
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="currency_id" invisible="1" />
+                                    <field
+                                        name="transferred_amount"
+                                        widget='monetary'
+                                        options="{'currency_field': 'currency_id'}"
+                                    />
+                                </span>
+                                <span class="o_stat_text">Transferred</span>
+                            </div>
+                        </button>
                     </div>
                     <div class="oe_right" name="buttons">
                         <button

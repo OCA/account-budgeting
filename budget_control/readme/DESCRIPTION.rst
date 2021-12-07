@@ -69,16 +69,15 @@ Budget Control Core Features:
   but not ready to use it and want to move the commitment amount to next year budget.
   Budget Commitment Forward can be use to change the budget move's date to the designated year.
 
+* **Budget Transfer**
+
+  This module allow transferring allocated budget from one budget control sheet to other
+
+
 Extended Modules:
 ~~~~~~~~~~~~~~~~~
 
 Following are brief explanation of what the extended module will do.
-
-**Budget Transfer**
-
-This module allow transferring allocated budget from one budget control sheet to other
-
-* budget_control_transfer
 
 **Budget Move extension**
 

@@ -14,6 +14,7 @@
         "web_widget_x2many_2d_matrix",
     ],
     "data": [
+        "data/budget_transfer_sequence.xml",
         "security/budget_control_security_groups.xml",
         "security/budget_control_rules.xml",
         "security/ir.model.access.csv",
@@ -33,6 +34,8 @@
         "views/account_journal_view.xml",
         "views/budget_balance_forward_view.xml",
         "views/budget_commit_forward_view.xml",
+        "views/budget_transfer_view.xml",
+        "views/budget_transfer_item_view.xml",
         "report/budget_monitor_report_view.xml",
     ],
     "qweb": [

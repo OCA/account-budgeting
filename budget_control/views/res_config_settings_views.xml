@@ -223,20 +223,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="col-12 col-lg-6 o_setting_box"
-                            id="module_budget_control_transfer"
-                        >
-                            <div class="o_setting_left_pane">
-                                <field name="module_budget_control_transfer" />
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="module_budget_control_transfer" />
-                                <div class="text-muted">
-                                    Allow transferring budget between budget control sheet.
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </xpath>

@@ -14,3 +14,5 @@ from . import mis_report
 from . import res_company
 from . import res_config_settings
 from . import account_journal
+from . import budget_transfer
+from . import budget_transfer_item
