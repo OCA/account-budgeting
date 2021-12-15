@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_budget_move_adjustment_search" model="ir.ui.view">
+        <field name="name">view.budget.move.adjustment.search</field>
+        <field name="model">budget.move.adjustment</field>
+        <field name="arch" type="xml">
+            <search string="Search Budget Move Adjustment">
+                <field name="name" />
+                <separator />
+                <filter
+                    string="Draft"
+                    name="draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter
+                    string="Adjusted"
+                    name="transfer"
+                    domain="[('state', '=', 'done')]"
+                />
+                <filter
+                    string="Cancelled"
+                    name="transfer"
+                    domain="[('state', '=', 'cancel')]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Status"
+                        name="groupby_state"
+                        context="{'group_by':'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_budget_move_adjustment_tree" model="ir.ui.view">
+        <field name="name">view.budget.move.adjustment.tree</field>
+        <field name="model">budget.move.adjustment</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Moves Adjustment">
+                <field name="name" />
+                <field name="description" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'done'"
+                    decoration-info="state == 'draft'"
+                    optional="show"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="view_budget_move_adjustment_form" model="ir.ui.view">
+        <field name="name">view.budget.move.adjustment.form</field>
+        <field name="model">budget.move.adjustment</field>
+        <field name="arch" type="xml">
+            <form string="Budget Moves Adjustment">
+                <header>
+                    <button
+                        name="action_adjust"
+                        states="draft"
+                        string="Adjust"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="action_cancel"
+                        states="done"
+                        string="Cancel"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="action_draft"
+                        states="cancel"
+                        string="Set to Draft"
+                        type="object"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,done"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_right oe_button_box" name="buttons">
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="budget_move_adjustment_left">
+                            <field name="date_commit" />
+                            <field
+                                name="description"
+                                placeholder="Reason of adjustment..."
+                            />
+                        </group>
+                        <group name="budget_move_adjustment_right">
+                            <field name="create_uid" readonly="1" />
+                            <field name="create_date" readonly="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="adjust_item_ids" string="Adjustments">
+                            <field name="adjust_item_ids" nolabel="1">
+                                <tree
+                                    editable="bottom"
+                                    string="Budget Moves Adjustment Item"
+                                >
+                                    <field name="adjust_type" />
+                                    <field name="product_id" optional="hide" />
+                                    <field name="account_id" optional="show" />
+                                    <field name="analytic_account_id" />
+                                    <field
+                                        name="json_budget_popover"
+                                        optional="show"
+                                        nolabel="1"
+                                        string="Budget Figure"
+                                        width="10px"
+                                        widget="popover_widget"
+                                        attrs="{'invisible': [('analytic_account_id', '=', False)]}"
+                                        groups="budget_control.group_budget_control_user"
+                                    />
+                                    <field
+                                        name="analytic_tag_ids"
+                                        widget="many2many_tags"
+                                        optional="hide"
+                                    />
+                                    <field name="amount" />
+                                    <field name="amount_commit" optional="hide" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="adjust_type" />
+                                            <field name="product_id" />
+                                            <field name="account_id" />
+                                        </group>
+                                        <group>
+                                            <field name="analytic_account_id" />
+                                            <field
+                                                name="analytic_tag_ids"
+                                                widget="many2many_tags"
+                                                optional="hide"
+                                            />
+                                            <field name="amount" />
+                                            <field
+                                                name="amount_commit"
+                                                optional="hide"
+                                            />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page
+                            string="Budget Commitment"
+                            name="budget_commit"
+                            attrs="{'invisible': [('budget_move_ids', '=', [])]}"
+                        >
+                            <div class="oe_read_only oe_right" name="buttons">
+                                <button
+                                    type="object"
+                                    name="recompute_budget_move"
+                                    string="Recompute"
+                                    icon="fa-refresh"
+                                    groups="budget_control.group_budget_control_manager"
+                                />
+                                <button
+                                    type="object"
+                                    name="close_budget_move"
+                                    string="Close Budget"
+                                    icon="fa-times-circle"
+                                    groups="budget_control.group_budget_control_manager"
+                                />
+                            </div>
+                            <field name="budget_move_ids" readonly="1">
+                                <tree>
+                                    <field name="adjust_item_id" />
+                                    <field name="adjust_id" />
+                                    <field name="date" />
+                                    <field name="analytic_group" optional="show" />
+                                    <field name="analytic_account_id" optional="show" />
+                                    <field
+                                        name="analytic_tag_ids"
+                                        optional="hide"
+                                        widget="many2many_tags"
+                                    />
+                                    <field name="write_uid" optional="show" />
+                                    <field name="write_date" optional="show" />
+                                    <field name="note" optionl="hide" />
+                                    <field name="debit" sum="Total Debit" />
+                                    <field name="credit" sum="Total Credit" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="help" string="Help">
+                            <div name="help">
+                                <p>
+                                    Create actual budget commitment (account.budget.move)
+                                    in order to adjust overall budget balance for any selected analytic account.
+                                    Typically, this process is useful when start using budgeting system in middle
+                                    of the year, and that not all the initial figure are stable.
+                                </p>
+                                <p>
+                                    To use this, add adjustment lines with amount you want to adjust.
+                                    Then click Adjust button, and system will create account.budget.move.
+                                </p>
+                                <p>
+                                    There are 2 adjust types,
+                                    <ol>
+                                        <li><b
+                                            >Consume:</b> Create acutal budget commitment as debit amount, to lower the budget balance.</li>
+                                        <li><b
+                                            >Release:</b> Create acutal budget commitment as credit amont, to increase the budget balance.</li>
+                                    </ol>
+                                </p>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_budget_move_adjustment" model="ir.actions.act_window">
+        <field name="name">Budget Moves Adjustment</field>
+        <field name="view_id" ref="view_budget_move_adjustment_tree" />
+        <field name="res_model">budget.move.adjustment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_budget_move_adjustment"
+        parent="budget_control.budget_control_menu"
+        name="Budget Moves Adjustment"
+        action="action_budget_move_adjustment"
+        sequence="100"
+    />
+</odoo>

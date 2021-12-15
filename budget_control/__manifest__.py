@@ -36,7 +36,9 @@
         "views/budget_commit_forward_view.xml",
         "views/budget_transfer_view.xml",
         "views/budget_transfer_item_view.xml",
+        "views/budget_move_adjustment_view.xml",
         "report/budget_monitor_report_view.xml",
+        "report/budget_move_views.xml",
     ],
     "qweb": [
         "static/src/xml/budget_popover.xml",

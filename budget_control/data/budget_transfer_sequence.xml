@@ -8,5 +8,12 @@
             <field name="padding">5</field>
             <field name="company_id" eval="False" />
         </record>
+        <record id="seq_budget_move_adjust" model="ir.sequence">
+            <field name="name">Budget Move Adjustment</field>
+            <field name="code">budget.move.adjustment</field>
+            <field name="prefix">BA/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False" />
+        </record>
     </data>
 </odoo>
