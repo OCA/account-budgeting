@@ -134,7 +134,8 @@ class AccountAnalyticAccount(models.Model):
         if ctx.get("budget_period_ids"):
             domain.append(("budget_period_id", "in", ctx["budget_period_ids"]))
         # --
-        dataset_all = MonitorReport.read_group(
+        admin_uid = self.env.ref("base.user_admin").id
+        dataset_all = MonitorReport.with_user(admin_uid).read_group(
             domain=domain,
             fields=["analytic_account_id", "amount_type", "amount"],
             groupby=["analytic_account_id", "amount_type"],
