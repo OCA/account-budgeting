@@ -8,7 +8,8 @@ class AccountMove(models.Model):
 
     not_affect_budget = fields.Boolean(
         string="Not Affect Budget",
-        readonly=True,
+        compute="_compute_not_affect_budget",
+        store=True,
         states={"draft": [("readonly", False)]},
         help="If checked, lines does not create budget move",
     )
@@ -18,13 +19,10 @@ class AccountMove(models.Model):
         string="Account Budget Moves",
     )
 
-    @api.model
-    def default_get(self, field_list):
-        res = super().default_get(field_list)
-        if res.get("journal_id"):
-            journal = self.env["account.journal"].browse(res["journal_id"])
-            res["not_affect_budget"] = journal.not_affect_budget
-        return res
+    @api.depends("journal_id")
+    def _compute_not_affect_budget(self):
+        for rec in self:
+            rec.not_affect_budget = rec.journal_id.not_affect_budget
 
     @api.onchange("journal_id")
     def _onchange_not_affect_budget(self):
