@@ -8,8 +8,7 @@ class AccountMove(models.Model):
 
     not_affect_budget = fields.Boolean(
         string="Not Affect Budget",
-        compute="_compute_not_affect_budget",
-        store=True,
+        readonly=True,
         states={"draft": [("readonly", False)]},
         help="If checked, lines does not create budget move",
     )
@@ -19,10 +18,13 @@ class AccountMove(models.Model):
         string="Account Budget Moves",
     )
 
-    @api.depends("journal_id")
-    def _compute_not_affect_budget(self):
-        for rec in self:
-            rec.not_affect_budget = rec.journal_id.not_affect_budget
+    @api.model
+    def default_get(self, field_list):
+        res = super().default_get(field_list)
+        if res.get("journal_id"):
+            journal = self.env["account.journal"].browse(res["journal_id"])
+            res["not_affect_budget"] = journal.not_affect_budget
+        return res
 
     @api.onchange("journal_id")
     def _onchange_not_affect_budget(self):
@@ -33,6 +35,18 @@ class AccountMove(models.Model):
 
     def close_budget_move(self):
         self.mapped("invoice_line_ids").close_budget_move()
+
+    @api.model
+    def create(self, vals):
+        """The default value of "Not affect budget" depends on journal.
+        except in the case of a manaully created journal entry.
+        """
+        not_affect_budget = vals.get("not_affect_budget", "None")
+        journal_id = vals.get("journal_id")
+        if not_affect_budget == "None" and journal_id:
+            journal = self.env["account.journal"].browse(journal_id)
+            vals["not_affect_budget"] = journal.not_affect_budget
+        return super().create(vals)
 
     def write(self, vals):
         """

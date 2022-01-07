@@ -111,6 +111,7 @@
                                 >
                                     <field name="adjust_type" />
                                     <field name="product_id" optional="hide" />
+                                    <field name="name" optional="show" />
                                     <field name="account_id" optional="show" />
                                     <field name="analytic_account_id" />
                                     <field
@@ -136,6 +137,7 @@
                                         <group>
                                             <field name="adjust_type" />
                                             <field name="product_id" />
+                                            <field name="name" />
                                             <field name="account_id" />
                                         </group>
                                         <group>

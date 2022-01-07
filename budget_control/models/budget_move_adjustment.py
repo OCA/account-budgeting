@@ -109,6 +109,7 @@ class BudgetMoveAdjustmentItem(models.Model):
         ondelete="cascade",
         index=True,
     )
+    name = fields.Char(string="Description")
     budget_move_ids = fields.One2many(
         comodel_name="account.budget.move",
         inverse_name="adjust_item_id",
@@ -148,6 +149,7 @@ class BudgetMoveAdjustmentItem(models.Model):
     @api.onchange("product_id")
     def _onchange_product_id(self):
         self.account_id = self.product_id._get_product_accounts()["expense"]
+        self.name = self.product_id.name
 
     @api.depends("amount")
     def _compute_amount_balance(self):
