@@ -61,7 +61,7 @@ class BudgetMonitorReport(models.Model):
     @property
     def _table_query(self):
         return """
-            select a.*, d.id as date_range_id, p.id as budget_period_id
+            select a.*, p.id as budget_period_id
             from ({}) a
             left outer join date_range d
                 on a.date between d.date_start and d.date_end
@@ -111,7 +111,8 @@ class BudgetMonitorReport(models.Model):
                 a.reference as reference,
                 null::char as budget_state,
                 a.fwd_commit,
-                1::boolean as active
+                1::boolean as active,
+                null::integer as date_range_id
                 """
                 % (amount_type[:1], res_model, res_field, amount_type)
             }
@@ -152,7 +153,8 @@ class BudgetMonitorReport(models.Model):
             b.name as reference,
             b.state as budget_state,
             0::boolean as fwd_commit,
-            a.active as active
+            a.active as active,
+            a.date_range_id as date_range_id
         """
         }
 
@@ -192,5 +194,4 @@ class BudgetMonitorReport(models.Model):
         )
 
     def _get_where_sql(self):
-        """ Hook """
-        return ""
+        return "where (d.id = a.date_range_id or a.date_range_id is null)"
