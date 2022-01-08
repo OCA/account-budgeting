@@ -29,6 +29,27 @@
                 <field name="auto_adjust_date_commit" optional="hide" />
                 <field name="date_commit" optional="hide" />
             </xpath>
+            <xpath
+                expr="//page[@id='aml_tab']/field[@name='line_ids']/tree/field[@name='analytic_account_id']"
+                position="attributes"
+            >
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath
+                expr="//page[@id='aml_tab']/field[@name='line_ids']/tree/field[@name='analytic_account_id']"
+                position="after"
+            >
+                <field
+                    name="json_budget_popover"
+                    optional="show"
+                    nolabel="1"
+                    string="Budget Figure"
+                    width="10px"
+                    widget="popover_widget"
+                    attrs="{'invisible': [('analytic_account_id', '=', False)]}"
+                    groups="budget_control.group_budget_control_user"
+                />
+            </xpath>
             <xpath expr="/form/sheet/notebook/page[last()]" position="after">
                 <page
                     string="Budget Commitment"
