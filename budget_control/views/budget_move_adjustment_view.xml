@@ -127,7 +127,8 @@
                                     <field
                                         name="analytic_tag_ids"
                                         widget="many2many_tags"
-                                        optional="hide"
+                                        optional="show"
+                                        groups="analytic.group_analytic_tags"
                                     />
                                     <field name="amount" />
                                     <field name="amount_commit" optional="hide" />
@@ -145,13 +146,10 @@
                                             <field
                                                 name="analytic_tag_ids"
                                                 widget="many2many_tags"
-                                                optional="hide"
+                                                groups="analytic.group_analytic_tags"
                                             />
                                             <field name="amount" />
-                                            <field
-                                                name="amount_commit"
-                                                optional="hide"
-                                            />
+                                            <field name="amount_commit" />
                                         </group>
                                     </group>
                                 </form>
