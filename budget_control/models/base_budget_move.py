@@ -430,7 +430,8 @@ class BudgetDoclineMixin(models.AbstractModel):
             "force_commit"
         ):  # precommit case
             self._set_date_commit()
-            self._check_date_commit()  # Testing only, can be removed when stable
+            if self.can_commit:  # Check only the can_commit lines
+                self._check_date_commit()  # Testing only, can be removed when stable
 
     def _check_date_commit(self):
         """ Commit date must inline with analytic account """
