@@ -6,10 +6,6 @@ from odoo import models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    def _hook_advance_extension(self, expense):
-        self.ensure_one()
-        return
-
     def uncommit_expense_budget(self):
         """For vendor bill in valid state, do uncommit for related expense."""
         Expense = self.env["hr.expense"]
@@ -24,7 +20,6 @@ class AccountMoveLine(models.Model):
                         continue
                     # Also test for future advance extension, never uncommit for advance
                     if hasattr(expense, "advance") and expense["advance"]:
-                        ml._hook_advance_extension(expense)
                         continue
                     expense.commit_budget(reverse=True, move_line_id=ml.id)
                 else:  # Cancel or draft, not commitment line

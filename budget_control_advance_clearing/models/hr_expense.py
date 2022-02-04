@@ -62,6 +62,14 @@ class HRExpense(models.Model):
         return move_grouped_by_sheet
 
     def recompute_budget_move(self):
+        # Keep value return advance (if any)
+        budget_moves = self.env["advance.budget.move"]
+        return_advances = budget_moves.search(
+            [("sheet_id", "=", self.sheet_id.id), ("move_line_id", "!=", False)]
+        )
+        return_budget_moves = [
+            (x.move_line_id, x.amount_currency) for x in return_advances
+        ]
         # Expenses
         expenses = self.filtered(lambda l: not l.advance)
         super(HRExpense, expenses).recompute_budget_move()
@@ -75,6 +83,11 @@ class HRExpense(models.Model):
         adv_sheets = advances.mapped("sheet_id")
         clearings = self.search([("sheet_id.advance_sheet_id", "in", adv_sheets.ids)])
         clearings.uncommit_advance_budget()
+        # Return advance, commit again because it will lose from clearing uncommit
+        for move_line, amount in return_budget_moves:
+            self.commit_budget(
+                reverse=True, amount_currency=amount, move_line_id=move_line.id
+            )
 
     def close_budget_move(self):
         # Expenses
