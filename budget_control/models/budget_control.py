@@ -547,12 +547,8 @@ class BudgetControl(models.Model):
         ctx = self.env.context.copy()
         ctx.update({"create": False, "edit": False})
         items = self.transfer_item_ids
-        list_view = self.env.ref(
-            "budget_control_transfer.view_budget_transfer_item_tree"
-        ).id
-        form_view = self.env.ref(
-            "budget_control_transfer.view_budget_transfer_item_form"
-        ).id
+        list_view = self.env.ref("budget_control.view_budget_transfer_item_tree").id
+        form_view = self.env.ref("budget_control.view_budget_transfer_item_form").id
         return {
             "name": _("Budget Transfer Items"),
             "type": "ir.actions.act_window",
