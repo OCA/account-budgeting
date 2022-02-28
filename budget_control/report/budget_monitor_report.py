@@ -111,8 +111,7 @@ class BudgetMonitorReport(models.Model):
                 a.reference as reference,
                 null::char as budget_state,
                 a.fwd_commit,
-                1::boolean as active,
-                null::integer as date_range_id
+                1::boolean as active
                 """
                 % (amount_type[:1], res_model, res_field, amount_type)
             }
@@ -153,8 +152,7 @@ class BudgetMonitorReport(models.Model):
             b.name as reference,
             b.state as budget_state,
             0::boolean as fwd_commit,
-            a.active as active,
-            a.date_range_id as date_range_id
+            a.active as active
         """
         }
 
@@ -194,4 +192,4 @@ class BudgetMonitorReport(models.Model):
         )
 
     def _get_where_sql(self):
-        return "where (d.id = a.date_range_id or a.date_range_id is null)"
+        return "where d.type_id = p.plan_date_range_type_id"
