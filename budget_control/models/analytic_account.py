@@ -195,27 +195,26 @@ class AccountAnalyticAccount(models.Model):
         if budget_period_id:
             domain.append(("budget_period_id", "=", budget_period_id))
         budget_controls = self.env["budget.control"].search(domain)
-        # Find analytics has no budget_contol
-        bc_analytic_ids = budget_controls.mapped("analytic_account_id").ids
-        no_bc_analytic_ids = list(set(self.ids) - set(bc_analytic_ids))
-        if no_bc_analytic_ids:
-            no_bc_analytics = self.browse(no_bc_analytic_ids)
-            names = no_bc_analytics.mapped("display_name")
+        # Find analytics has no budget control sheet
+        bc_analytics = budget_controls.mapped("analytic_account_id")
+        no_bc_analytics = set(self) - set(bc_analytics)
+        if no_bc_analytics:
+            names = ", ".join([analytic.display_name for analytic in no_bc_analytics])
             raise UserError(
-                _("Following analytics has no budget control sheet:\n%s")
-                % ", ".join(names)
+                _("Following analytics has no budget control sheet:\n%s") % names
             )
-        budget_not_controlled = budget_controls.filtered_domain(
-            [("state", "!=", "done")]
-        )
-        if budget_not_controlled:
-            names = budget_not_controlled.mapped("analytic_account_id.display_name")
+        # Find analytics has no controlled budget control sheet
+        budget_controlled = budget_controls.filtered_domain([("state", "=", "done")])
+        cbc_analytics = budget_controlled.mapped("analytic_account_id")
+        no_cbc_analytics = set(self) - set(cbc_analytics)
+        if no_cbc_analytics:
+            names = ", ".join([analytic.display_name for analytic in no_cbc_analytics])
             raise UserError(
                 _(
                     "Budget control sheet for following analytics are not in "
                     "control:\n%s"
                 )
-                % ", ".join(names)
+                % names
             )
 
     @api.depends("budget_period_id")
