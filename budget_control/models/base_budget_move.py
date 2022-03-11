@@ -352,11 +352,11 @@ class BudgetDoclineMixin(models.AbstractModel):
         if self.can_commit and to_commit:
             # Set amount_currency
             budget_vals = self._init_docline_budget_vals(vals)
-            # Case force use use_amount_commit = True
-            if self.env.context.get("use_amount_commit"):
-                budget_vals["amount_currency"] = self.amount_commit
             # Case budget_include_tax = True
             budget_vals = self._budget_include_tax(budget_vals)
+            # Case force use_amount_commit, this should overwrite tax compute
+            if self.env.context.get("use_amount_commit"):
+                budget_vals["amount_currency"] = self.amount_commit
             # Complete budget commitment dict
             budget_vals = self._update_budget_commitment(budget_vals, reverse=reverse)
             # Update KPI
