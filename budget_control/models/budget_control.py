@@ -221,24 +221,6 @@ class BudgetControl(models.Model):
                 % ", ".join(analytics.mapped("name"))
             )
 
-    @api.model
-    def name_search(self, name, args=None, operator="ilike", limit=100):
-        if self._context.get("access_sudo", False):
-            self = self.sudo()
-        return super().name_search(name, args, operator, limit)
-
-    @api.model
-    def search(self, args, offset=0, limit=None, order=None, count=False):
-        if self._context.get("access_sudo", False):
-            self = self.sudo()
-        return super().search(args, offset, limit, order, count)
-
-    def _read(self, fields):
-        """ Add permission to read budget control for do something. """
-        if self._context.get("access_sudo", False):
-            self = self.sudo()
-        return super()._read(fields)
-
     def get_move_commit(self, domain):
         """
         this function will return budget move list following your installed module

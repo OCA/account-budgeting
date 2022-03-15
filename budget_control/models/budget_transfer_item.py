@@ -66,7 +66,7 @@ class BudgetTransferItem(models.Model):
         )
         return balance
 
-    def _get_source_transfer_budget_control(self):
+    def _get_budget_control_transfer(self):
         source_budget_ctrl = self.source_budget_control_id
         target_budget_ctrl = self.target_budget_control_id
         return source_budget_ctrl, target_budget_ctrl
@@ -77,7 +77,7 @@ class BudgetTransferItem(models.Model):
             (
                 source_budget_ctrl,
                 target_budget_ctrl,
-            ) = transfer._get_source_transfer_budget_control()
+            ) = transfer._get_budget_control_transfer()
             transfer.source_amount_available = source_budget_ctrl.amount_balance
             transfer.target_amount_available = target_budget_ctrl.amount_balance
 

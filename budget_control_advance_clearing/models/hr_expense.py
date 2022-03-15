@@ -1,5 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import api, fields, models
 
 
@@ -62,14 +63,17 @@ class HRExpense(models.Model):
         return move_grouped_by_sheet
 
     def recompute_budget_move(self):
-        # Keep value return advance (if any)
+        # Keep value return advance (Not include case carry commitment)
         budget_moves = self.env["advance.budget.move"]
-        return_advances = budget_moves.search(
-            [("sheet_id", "=", self.sheet_id.id), ("move_line_id", "!=", False)]
-        )
-        return_budget_moves = [
-            (x.move_line_id, x.amount_currency, x.expense_id) for x in return_advances
-        ]
+        return_budget_moves = []
+        if self._context.get("model") != "budget.commit.forward":
+            return_advances = budget_moves.search(
+                [("sheet_id", "=", self.sheet_id.id), ("move_line_id", "!=", False)]
+            )
+            return_budget_moves = [
+                (x.move_line_id, x.amount_currency, x.expense_id)
+                for x in return_advances
+            ]
         # Expenses
         expenses = self.filtered(lambda l: not l.advance)
         super(HRExpense, expenses).recompute_budget_move()

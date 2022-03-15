@@ -40,9 +40,6 @@ class BudgetMonitorReport(models.Model):
     account_id = fields.Many2one(
         comodel_name="account.account",
     )
-    date_range_id = fields.Many2one(
-        comodel_name="date.range",
-    )
     budget_period_id = fields.Many2one(
         comodel_name="budget.period",
     )

@@ -8,10 +8,16 @@
                 <field name="transfer_id" invisible="1" />
                 <field name="mis_budget_id" invisible="1" />
                 <field name="budget_period_id" invisible="1" />
-                <field name="source_budget_control_id" />
+                <field
+                    name="source_budget_control_id"
+                    options="{'no_create_edit': True, 'no_open': True, 'no_create': True}"
+                />
                 <field name="source_state" optional="hide" />
                 <field name="source_amount_available" string="Available" />
-                <field name="target_budget_control_id" />
+                <field
+                    name="target_budget_control_id"
+                    options="{'no_create_edit': True, 'no_open': True, 'no_create': True}"
+                />
                 <field name="target_state" optional="hide" />
                 <field name="target_amount_available" string="Available" />
                 <field name="amount" />
