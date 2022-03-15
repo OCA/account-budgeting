@@ -303,6 +303,7 @@ class BudgetPeriod(models.Model):
                 use_amount_commit=True,
                 commit_note=_("Over returned auto adjustment, %s")
                 % docline.display_name,
+                adj_commit=True,
             ).commit_budget(reverse=True)
 
     @api.model

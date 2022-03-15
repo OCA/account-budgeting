@@ -73,6 +73,9 @@ class BaseBudgetMove(models.AbstractModel):
     note = fields.Char(
         readonly=True,
     )
+    adj_commit = fields.Boolean(
+        help="This budget move line is the result of Over returned 'Automatic Adjustment'",
+    )
     fwd_commit = fields.Boolean(
         help="This budget move line is the result of 'Forward Budget Commitment'",
     )
@@ -368,6 +371,8 @@ class BudgetDoclineMixin(models.AbstractModel):
             budget_vals = self._update_kpi(budget_vals)
             # Final note
             budget_vals["note"] = self.env.context.get("commit_note")
+            # Is Adjustment Commit
+            budget_vals["adj_commit"] = self.env.context.get("adj_commit")
             # Is Forward Commit
             budget_vals["fwd_commit"] = self.env.context.get("fwd_commit")
             # Create budget move
@@ -465,4 +470,5 @@ class BudgetDoclineMixin(models.AbstractModel):
             docline.with_context(
                 use_amount_commit=True,
                 commit_note=_("Auto adjustment on close budget"),
+                adj_commit=True,
             ).commit_budget(reverse=True)
