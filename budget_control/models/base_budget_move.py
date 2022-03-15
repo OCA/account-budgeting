@@ -270,16 +270,18 @@ class BudgetDoclineMixin(models.AbstractModel):
             max(budget_moves.mapped("date")) if budget_moves else self.date_commit
         )
         currency = hasattr(self, "currency_id") and self.currency_id or False
-        amount = (
-            currency
-            and currency._convert(
+        amount = budget_vals["amount_currency"]  # init
+        if (
+            not self.env.context.get("use_amount_commit")
+            and currency
+            and currency != company.currency_id
+        ):
+            amount = currency._convert(
                 budget_vals["amount_currency"],
                 company.currency_id,
                 company,
                 date_commit,
             )
-            or budget_vals["amount_currency"]
-        )
         # By default, commit date is equal to document date
         # this is correct for normal case, but may require different date
         # in case of budget that carried to new period/year
