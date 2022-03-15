@@ -11,21 +11,6 @@ class HRExpenseSheet(models.Model):
         inverse_name="sheet_id",
     )
 
-    def recompute_budget_move(self):
-        super().recompute_budget_move()
-        # When advanced is over returned, do close_budget_move() to final adjust
-        # Note: now, we only found case in Advance / Return / Clearing case
-        for sheet in self.filtered("advance_budget_move_ids"):
-            adj_moves = sheet.advance_budget_move_ids.filtered("adj_commit")
-            if not adj_moves:
-                continue
-            moves = sheet.advance_budget_move_ids - adj_moves
-            # If adjust > over returned
-            adjusted = sum(adj_moves.mapped("debit"))
-            over_returned = sum(moves.mapped(lambda l: l.credit - l.debit))
-            if adjusted > over_returned:
-                sheet.close_budget_move()
-
     def write(self, vals):
         """ Clearing for its Advance """
         res = super().write(vals)
@@ -103,6 +88,18 @@ class HRExpense(models.Model):
             expense.commit_budget(
                 reverse=True, amount_currency=amount, move_line_id=move_line.id
             )
+        # Only when advance is over returned, do close_budget_move() to final adjust
+        # Note: now, we only found case in Advance / Return / Clearing case
+        advance_budget_moves = self.filtered("advance_budget_move_ids.adj_commit")
+        for sheet in advance_budget_moves.mapped("sheet_id"):
+            # And only if some adjustment has occured
+            adj_moves = sheet.advance_budget_move_ids.filtered("adj_commit")
+            moves = sheet.advance_budget_move_ids - adj_moves
+            # If adjust > over returned
+            adjusted = sum(adj_moves.mapped("debit"))
+            over_returned = sum(moves.mapped(lambda l: l.credit - l.debit))
+            if adjusted > over_returned:
+                sheet.close_budget_move()
 
     def close_budget_move(self):
         # Expenses
