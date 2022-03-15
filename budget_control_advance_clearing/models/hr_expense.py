@@ -26,6 +26,18 @@ class HRExpenseSheet(models.Model):
             doc_cancel.mapped("expense_line_ids").recompute_budget_move()
         return res
 
+    def _prepare_clear_advance(self, line):
+        """ Cleaing after carry forward Advance """
+        clearing_dict = super()._prepare_clear_advance(line)
+        if clearing_dict.get("analytic_account_id") and clearing_dict.get(
+            "fwd_analytic_account_id"
+        ):
+            clearing_dict["analytic_account_id"] = clearing_dict[
+                "fwd_analytic_account_id"
+            ]
+            clearing_dict["date_commit"] = False
+        return clearing_dict
+
 
 class HRExpense(models.Model):
     _inherit = "hr.expense"
