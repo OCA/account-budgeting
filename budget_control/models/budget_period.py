@@ -346,6 +346,8 @@ class BudgetPeriod(models.Model):
     def _prepare_matrix_by_analytic(self, instance, analytic_ids):
         """Return resulting matrix based on each analytic."""
         ctx = self._context.copy()
+        # Make sure that compute only active
+        ctx["active_test"] = True
         matrix = {}
         for analytic_id in analytic_ids:
             if not matrix.get(analytic_id):
