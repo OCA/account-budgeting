@@ -41,6 +41,7 @@ class AccountAnalyticAccount(models.Model):
     )
     auto_adjust_date_commit = fields.Boolean(
         string="Auto Adjust Commit Date",
+        default=True,
         help="Date From and Date To is used to determine valid date range of "
         "this analytic account when using with budgeting system. If this data range "
         "is setup, but the budget system set date_commit out of this date range "
