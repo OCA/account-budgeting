@@ -188,7 +188,7 @@ class BudgetCommitForward(models.Model):
         return res
 
     def _do_forward_commit(self, reverse=False):
-        """ Cerate carry forward budget move to all related documents """
+        """ Create carry forward budget move to all related documents """
         self = self.sudo()
         for rec in self:
             for line in rec.forward_line_ids:
