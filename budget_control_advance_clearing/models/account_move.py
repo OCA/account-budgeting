@@ -9,9 +9,9 @@ class AccountMove(models.Model):
     def button_draft(self):
         """ Unlink return advance budget """
         res = super().button_draft()
-        payment = self.payment_id
-        if payment and payment.payment_type == "inbound":
-            budget_moves = self.env["advance.budget.move"]
-            return_advances = budget_moves.search([("move_id", "=", self.id)])
+        BudgetMove = self.env["advance.budget.move"]
+        moves_inbound = self.filtered(lambda l: l.payment_id.payment_type == "inbound")
+        if moves_inbound:
+            return_advances = BudgetMove.search([("move_id", "in", moves_inbound.ids)])
             return_advances.unlink()
         return res
