@@ -13,4 +13,29 @@
             </tree>
         </field>
     </record>
+    <record id="mis_report_view_kpi_search" model="ir.ui.view">
+        <field name="name">mis.report.view.kpi.search</field>
+        <field name="model">mis.report.kpi</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="name"
+                    filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"
+                />
+                <separator />
+                <filter
+                    string="Budgetable"
+                    name="budgetable"
+                    domain="[('budgetable', '=', True)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Report"
+                        name="groupby_report_id"
+                        context="{'group_by':'report_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>
