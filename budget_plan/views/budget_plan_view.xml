@@ -210,15 +210,7 @@
                         <page name="plan_line" string="Plan Allocation">
                             <div class="oe_right" name="buttons">
                                 <button
-                                    name="action_generate_plan"
-                                    string="Generate Plan"
-                                    icon="fa-refresh"
-                                    type="object"
-                                    states="draft"
-                                    title="Auto create plan line for analytic account set for this budget period"
-                                />
-                                <button
-                                    name="action_update_amount"
+                                    name="action_update_plan"
                                     string="Refresh"
                                     icon="fa-refresh"
                                     type="object"

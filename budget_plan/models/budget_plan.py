@@ -78,9 +78,31 @@ class BudgetPlan(models.Model):
             rec.budget_control_ids = rec.plan_line.mapped("budget_control_ids")
             rec.budget_control_count = len(rec.budget_control_ids)
 
-    def action_update_amount(self):
+    def _update_plan(self):
+        Analytic = self.env["account.analytic.account"]
+        for rec in self:
+            plan_analytic = rec.plan_line.mapped("analytic_account_id")
+            new_analytic = Analytic.search(
+                [
+                    ("bm_date_from", "<=", rec.date_to),
+                    ("bm_date_to", ">=", rec.date_from),
+                    ("id", "not in", plan_analytic.ids),
+                ]
+            )
+            if new_analytic:
+                lines = list(
+                    map(
+                        lambda l: (0, 0, {"analytic_account_id": l.id}),
+                        new_analytic,
+                    )
+                )
+                rec.write({"plan_line": lines})
+
+    def _update_amount_consumed(self):
+        self.flush()  # update new line (if any)
         for rec in self:
             for line in rec.plan_line:
+                # find consumed amount from budget control
                 active_control = line.budget_control_ids
                 if len(active_control) > 1:
                     raise UserError(
@@ -89,6 +111,10 @@ class BudgetPlan(models.Model):
                     )
                 line.amount_consumed = active_control.amount_consumed
                 line.released_amount = active_control.released_amount
+
+    def action_update_plan(self):
+        self._update_plan()
+        self._update_amount_consumed()
 
     def button_open_budget_control(self):
         self.ensure_one()
@@ -116,27 +142,6 @@ class BudgetPlan(models.Model):
                 }
             )
         return action
-
-    def action_generate_plan(self):
-        self.ensure_one()
-        Analytic = self.env["account.analytic.account"]
-        plan_analytic = self.plan_line.mapped("analytic_account_id")
-        analytic_ids = Analytic.search(
-            [
-                ("bm_date_from", "<=", self.date_to),
-                ("bm_date_to", ">=", self.date_from),
-                ("id", "not in", plan_analytic.ids),
-            ]
-        )
-        if analytic_ids:
-            lines = list(
-                map(
-                    lambda l: (0, 0, {"analytic_account_id": l.id}),
-                    analytic_ids,
-                )
-            )
-            self.write({"plan_line": lines})
-        return True
 
     def _get_analytic_plan(self):
         return self.plan_line.mapped("analytic_account_id")
@@ -174,11 +179,10 @@ class BudgetPlan(models.Model):
         self.plan_line._update_budget_control_data()
         return budget_control_view
 
-    def action_confirm(self):
-        self.action_update_amount()
+    def check_plan_consumed(self):
+        self.action_update_plan()
         prec_digits = self.env.user.company_id.currency_id.decimal_places
-        lines = self.mapped("plan_line")
-        for line in lines:
+        for line in self.mapped("plan_line"):
             if (
                 float_compare(
                     line.amount,
@@ -195,6 +199,9 @@ class BudgetPlan(models.Model):
                     )
                 )
             line.allocated_amount = line.released_amount = line.amount
+
+    def action_confirm(self):
+        self.check_plan_consumed()
         self.write({"state": "confirm"})
 
     def action_done(self):
