@@ -331,7 +331,7 @@ class BudgetCommitForwardLine(models.Model):
                 and rec.analytic_account_id.bm_date_to >= rec.forward_id.to_date_commit
             ):
                 rec.to_analytic_account_id = rec.analytic_account_id
-                rec.method_type = False
+                rec.method_type = "extend"
                 continue
             # Case want to extend analytic to end of next budget period
             if rec.method_type == "extend":
