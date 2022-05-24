@@ -6,6 +6,11 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@id='header_left_group']" position="inside">
                 <field name="not_affect_budget" />
+                <field
+                    name="return_amount_commit"
+                    attrs="{'readonly': [('state', '!=', 'draft')]}"
+                    groups="base.group_no_one"
+                />
             </xpath>
             <xpath
                 expr="//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree/field[@name='analytic_account_id']"
