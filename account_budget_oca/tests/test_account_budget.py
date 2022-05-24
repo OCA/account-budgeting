@@ -3,13 +3,16 @@
 import datetime
 
 from odoo.fields import Date
+from odoo.tests.common import tagged
 
 from .common import TestAccountBudgetCommon
-
 
 # ---------------------------------------------------------
 # Tests
 # ---------------------------------------------------------
+
+
+@tagged("post_install", "-at_install")
 class TestAccountBudget(TestAccountBudgetCommon):
     def test_account_budget(self):
         # Creating a crossovered.budget record

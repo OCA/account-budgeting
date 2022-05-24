@@ -170,7 +170,6 @@ class CrossoveredBudgetLines(models.Model):
         today = fields.Datetime.now()
         for line in self:
             # Used for the report
-
             if line.paid_date:
                 if from_string(line.date_to) <= from_string(line.paid_date):
                     theo_amt = 0.00
