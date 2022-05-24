@@ -17,6 +17,14 @@ class AccountMove(models.Model):
         inverse_name="move_id",
         string="Account Budget Moves",
     )
+    return_amount_commit = fields.Boolean(
+        help="This technical field is used to determine how to return budget "
+        "to the original document (i.e., return back to PO).\n"
+        "By default, system will use quantity to calculated for the returning amount. "
+        "But with this flag, the amount commit of this document will be used instead.\n"
+        "This is good when we want to ignore the quantity.\n"
+        "This flag usually passed in when this invoice is created.",
+    )
 
     @api.model
     def default_get(self, field_list):

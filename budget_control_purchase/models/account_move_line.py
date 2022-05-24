@@ -26,6 +26,11 @@ class AccountMoveLine(models.Model):
                     qty = qty > qty_balance and qty_balance or qty
                     if qty <= 0:
                         continue
+                    # Only case reverse and want to return_amount_commit
+                    if rev and ml.return_amount_commit:
+                        purchase_line = purchase_line.with_context(
+                            return_amount_commit=ml.amount_commit
+                        )
                     purchase_line.commit_budget(
                         reverse=rev, move_line_id=ml.id, product_qty=qty
                     )

@@ -357,6 +357,11 @@ class BudgetDoclineMixin(models.AbstractModel):
             # Case force use_amount_commit, this should overwrite tax compute
             if self.env.context.get("use_amount_commit"):
                 budget_vals["amount_currency"] = self.amount_commit
+            # Only on case reverse, to force use return_amount_commit
+            if reverse and "return_amount_commit" in self.env.context:
+                budget_vals["amount_currency"] = self.env.context.get(
+                    "return_amount_commit"
+                )
             # Complete budget commitment dict
             budget_vals = self._update_budget_commitment(budget_vals, reverse=reverse)
             # Update KPI

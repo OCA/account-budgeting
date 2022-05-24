@@ -18,6 +18,9 @@ class AccountMoveLine(models.Model):
         inverse_name="move_line_id",
         string="Account Budget Moves",
     )
+    return_amount_commit = fields.Boolean(
+        related="move_id.return_amount_commit",
+    )
 
     @api.depends()
     def _compute_can_commit(self):
