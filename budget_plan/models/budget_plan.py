@@ -220,6 +220,8 @@ class BudgetPlanLine(models.Model):
 
     plan_id = fields.Many2one(
         comodel_name="budget.plan",
+        index=True,
+        ondelete="cascade",
     )
     budget_control_ids = fields.Many2many(
         comodel_name="budget.control",
