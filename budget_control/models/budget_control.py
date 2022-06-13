@@ -16,6 +16,7 @@ class BudgetControl(models.Model):
         required=True,
         readonly=True,
         states={"draft": [("readonly", False)]},
+        tracking=True,
     )
     assignee_id = fields.Many2one(
         comodel_name="res.users",
@@ -62,6 +63,7 @@ class BudgetControl(models.Model):
         required=True,
         readonly=True,
         states={"draft": [("readonly", False)]},
+        tracking=True,
         ondelete="restrict",
     )
     analytic_group = fields.Many2one(
@@ -108,12 +110,14 @@ class BudgetControl(models.Model):
     allocated_amount = fields.Monetary(
         string="Allocated",
         help="Initial total amount for plan",
+        tracking=True,
     )
     released_amount = fields.Monetary(
         string="Released",
         compute="_compute_allocated_released_amount",
         store=True,
         readonly=False,
+        tracking=True,
         help="Total amount for transfer current",
     )
     diff_amount = fields.Monetary(
