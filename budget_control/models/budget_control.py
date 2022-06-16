@@ -426,6 +426,7 @@ class BudgetControl(models.Model):
                 "date_from": date_range.date_start,
                 "date_to": date_range.date_end,
                 "analytic_account_id": self.analytic_account_id.id,
+                "budget_control_id": self.id,
             }
         ]
         return items
