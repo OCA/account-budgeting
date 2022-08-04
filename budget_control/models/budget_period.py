@@ -332,7 +332,12 @@ class BudgetPeriod(models.Model):
         controls = set()
         control_analytics = budget_period.control_analytic_account_ids
         budget_moves = doclines.mapped(doclines._budget_field())
-        for i in budget_moves:
+        # get budget move from period only
+        budget_moves_period = budget_moves.filtered(
+            lambda l: l.date >= budget_period.bm_date_from
+            and l.date <= budget_period.bm_date_to
+        )
+        for i in budget_moves_period:
             if budget_period.control_all_analytic_accounts:
                 if i.analytic_account_id and i.account_id:
                     controls.add((i.analytic_account_id.id, i.account_id.id))
