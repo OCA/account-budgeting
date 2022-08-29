@@ -6,6 +6,15 @@ from odoo import models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
+    def _init_docline_budget_vals(self, budget_vals):
+        self.ensure_one()
+        res = super()._init_docline_budget_vals(budget_vals)
+        if self.expense_id:  # case expense (support with include tax)
+            budget_vals["amount_currency"] = (
+                self.expense_id.unit_amount * self.expense_id.quantity
+            )
+        return res
+
     def uncommit_expense_budget(self):
         """For vendor bill in valid state, do uncommit for related expense."""
         Expense = self.env["hr.expense"]
