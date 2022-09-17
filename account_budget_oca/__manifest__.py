@@ -2,12 +2,12 @@
 
 {
     "name": "Budgets Management",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Accounting",
     "license": "LGPL-3",
     "author": "Odoo S.A., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-budgeting",
-    "depends": ["account"],
+    "depends": ["account", "analytic", "l10n_generic_coa"],
     "excludes": ["account_budget"],
     "data": [
         "security/ir.model.access.csv",
