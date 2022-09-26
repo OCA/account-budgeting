@@ -236,38 +236,41 @@ class BudgetPeriod(models.Model):
         if not doclines:
             return
         self = self.sudo()
-        # Find active budget.period based on latest doclines date_commit
-        date_commit = doclines.filtered("date_commit").mapped("date_commit")
-        if not date_commit:
-            return
-        date_commit = max(date_commit)
-        budget_period = self._get_eligible_budget_period(date_commit, doc_type=doc_type)
-        if not budget_period:
-            return
-        # Find combination of account(kpi) + analytic(i.e.,project) to control
-        controls = self._prepare_controls(budget_period, doclines)
-        if not controls:
-            return
-        # The budget_control of these analytics must active
-        analytic_ids = [x["analytic_id"] for x in controls]
-        analytics = self.env["account.analytic.account"].browse(analytic_ids)
-        analytics._check_budget_control_status(budget_period_id=budget_period.id)
-        # Prepare kpis by account_id
-        instance = budget_period.report_instance_id
-        company = self.env.user.company_id
-        kpis = instance.report_id.get_kpis(company)
-        # Check budget on each control elements against each kpi/avail(period)
-        currency = (
-            "currency_id" in doclines
-            and doclines.mapped("currency_id")[:1]
-            or self.env.context.get("doc_currency", False)
-        )
-        warnings = self.with_context(
-            date_commit=date_commit, doc_currency=currency
-        )._check_budget_available(instance, controls, kpis)
-        if warnings:
-            msg = "\n".join([_("Budget not sufficient,"), "\n".join(warnings)])
-            raise UserError(msg)
+        # Check budget by group analytic, For case many budget period in 1 document
+        for aa in doclines[doclines._budget_analytic_field]:
+            doclines = doclines.filtered(lambda l: l[doclines._budget_analytic_field] == aa)
+            # Find active budget.period based on latest doclines date_commit
+            date_commit = doclines.filtered("date_commit").mapped("date_commit")
+            if not date_commit:
+                return
+            date_commit = max(date_commit)
+            budget_period = self._get_eligible_budget_period(date_commit, doc_type=doc_type)
+            if not budget_period:
+                return
+            # Find combination of account(kpi) + analytic(i.e.,project) to control
+            controls = self._prepare_controls(budget_period, doclines)
+            if not controls:
+                return
+            # The budget_control of these analytics must active
+            analytic_ids = [x["analytic_id"] for x in controls]
+            analytics = self.env["account.analytic.account"].browse(analytic_ids)
+            analytics._check_budget_control_status(budget_period_id=budget_period.id)
+            # Prepare kpis by account_id
+            instance = budget_period.report_instance_id
+            company = self.env.user.company_id
+            kpis = instance.report_id.get_kpis(company)
+            # Check budget on each control elements against each kpi/avail(period)
+            currency = (
+                "currency_id" in doclines
+                and doclines.mapped("currency_id")[:1]
+                or self.env.context.get("doc_currency", False)
+            )
+            warnings = self.with_context(
+                date_commit=date_commit, doc_currency=currency
+            )._check_budget_available(instance, controls, kpis)
+            if warnings:
+                msg = "\n".join([_("Budget not sufficient,"), "\n".join(warnings)])
+                raise UserError(msg)
         return
 
     @api.model
