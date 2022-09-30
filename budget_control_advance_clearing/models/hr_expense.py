@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
+from odoo.tools import float_compare
 
 
 class HRExpenseSheet(models.Model):
@@ -105,9 +106,50 @@ class HRExpense(models.Model):
         clearings.uncommit_advance_budget()
         # Return advance, commit again because it will lose from clearing uncommit
         for move_line, amount, expense in return_budget_moves:
-            expense.commit_budget(
-                reverse=True, amount_currency=amount, move_line_id=move_line.id
-            )
+            origin_clearing_amount = amount
+            # Find new expense with amount_commit
+            if (
+                float_compare(
+                    expense.amount_commit,
+                    0.0,
+                    precision_rounding=2,
+                )
+                == -1
+            ):
+                next_ex = self.filtered(
+                    lambda l: l.advance and l.id != expense.id and l.amount_commit
+                )
+                expense = next_ex and next_ex[0] or expense
+            # Split line commit return advance
+            while (
+                float_compare(
+                    origin_clearing_amount,
+                    0.0,
+                    precision_rounding=2,
+                )
+                == 1
+            ):
+                # Last commit expense
+                if expense.amount_commit <= 0.0:
+                    expense.commit_budget(
+                        reverse=True,
+                        amount_currency=origin_clearing_amount,
+                        move_line_id=move_line.id,
+                    )
+                    break
+                return_advance_amount = min(
+                    expense.amount_commit, origin_clearing_amount
+                )
+                origin_clearing_amount -= return_advance_amount
+                expense.commit_budget(
+                    reverse=True,
+                    amount_currency=return_advance_amount,
+                    move_line_id=move_line.id,
+                )
+                next_ex = self.filtered(
+                    lambda l: l.advance and l.id != expense.id and l.amount_commit
+                )
+                expense = next_ex and next_ex[0] or expense
         # Only when advance is over returned, do close_budget_move() to final adjust
         # Note: now, we only found case in Advance / Return / Clearing case
         advance_budget_moves = self.filtered("advance_budget_move_ids.adj_commit")
@@ -162,10 +204,8 @@ class HRExpense(models.Model):
                     if not advances:
                         break
                     for advance in advances:
-                        clearing_amount = (
-                            advance.amount_commit
-                            if advance.amount_commit < origin_clearing_amount
-                            else origin_clearing_amount
+                        clearing_amount = min(
+                            advance.amount_commit, origin_clearing_amount
                         )
                         origin_clearing_amount -= clearing_amount
                         budget_move = advance.commit_budget(
