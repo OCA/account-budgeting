@@ -38,6 +38,7 @@ class BudgetCommitForward(models.Model):
                 [
                     ("advance", "=", True),
                     ("analytic_account_id", "!=", False),
+                    ("sheet_id.clearing_residual", ">", 0.0),
                     ("state", "!=", "cancel"),
                 ]
             )
