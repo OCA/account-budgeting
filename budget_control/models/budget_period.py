@@ -453,7 +453,7 @@ class BudgetPeriod(models.Model):
                     kpi_matrix[analytic_id], list(kpi)[0], balance_period
                 )
             # Show warning if budget not enough
-            if balance < 0:
+            if float_compare(balance, 0.0, precision_rounding=2) == -1:
                 # Convert to document currency
                 company = self.env.user.company_id
                 doc_currency = self.env.context.get("doc_currency")
