@@ -84,13 +84,14 @@ class HRExpense(models.Model):
         budget_moves = self.env["advance.budget.move"]
         return_budget_moves = []
         if self._context.get("model") != "budget.commit.forward":
-            return_advances = budget_moves.search(
-                [("sheet_id", "=", self.sheet_id.id), ("move_line_id", "!=", False)]
-            )
-            return_budget_moves = [
-                (x.move_line_id, x.amount_currency, x.expense_id)
-                for x in return_advances
-            ]
+            for av in self.filtered("advance"):
+                return_advances = budget_moves.search(
+                    [("sheet_id", "=", av.sheet_id.id), ("move_line_id", "!=", False)]
+                )
+                return_budget_moves += [
+                    (x.move_line_id, x.amount_currency, x.expense_id)
+                    for x in return_advances
+                ]
         # Expenses
         expenses = self.filtered(lambda l: not l.advance)
         super(HRExpense, expenses).recompute_budget_move()
@@ -117,7 +118,10 @@ class HRExpense(models.Model):
                 == -1
             ):
                 next_ex = self.filtered(
-                    lambda l: l.advance and l.id != expense.id and l.amount_commit
+                    lambda l: l.advance
+                    and l.id != expense.id
+                    and l.amount_commit
+                    and l.sheet_id == expense.sheet_id
                 )
                 expense = next_ex and next_ex[0] or expense
             # Split line commit return advance
@@ -147,7 +151,10 @@ class HRExpense(models.Model):
                     move_line_id=move_line.id,
                 )
                 next_ex = self.filtered(
-                    lambda l: l.advance and l.id != expense.id and l.amount_commit
+                    lambda l: l.advance
+                    and l.id != expense.id
+                    and l.amount_commit
+                    and l.sheet_id == expense.sheet_id
                 )
                 expense = next_ex and next_ex[0] or expense
         # Only when advance is over returned, do close_budget_move() to final adjust
