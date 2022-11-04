@@ -1,5 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import models
 
 
@@ -23,7 +24,11 @@ class PurchaseOrderLine(models.Model):
             po_state = po_line.order_id.state
             if po_state in ("purchase", "done"):
                 for pr_line in po_line.purchase_request_lines.filtered("amount_commit"):
-                    pr_line.commit_budget(reverse=True, purchase_line_id=po_line.id)
+                    pr_line.commit_budget(
+                        reverse=True,
+                        purchase_line_id=po_line.id,
+                        date=po_line.date_commit,
+                    )
             else:  # Cancel or draft, not commitment line
                 self.env["purchase.request.budget.move"].search(
                     [("purchase_line_id", "=", po_line.id)]

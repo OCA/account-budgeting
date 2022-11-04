@@ -94,7 +94,9 @@ class BudgetCommitForward(models.Model):
         self.ensure_one()
         value_dict = []
         for doc in docs:
-            analytic_account = doc[doc._budget_analytic_field]
+            analytic_account = (
+                doc.fwd_analytic_account_id or doc[doc._budget_analytic_field]
+            )
             method_type = False
             if (
                 analytic_account.bm_date_to
@@ -111,7 +113,7 @@ class BudgetCommitForward(models.Model):
                     "document_id": "{},{}".format(doc._name, doc.id),
                     "document_number": self._get_document_number(doc),
                     "amount_commit": doc.amount_commit,
-                    "date_commit": doc.date_commit,
+                    "date_commit": doc.fwd_date_commit or doc.date_commit,
                 }
             )
         return value_dict

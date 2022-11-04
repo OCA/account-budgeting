@@ -1,7 +1,9 @@
 # Copyright 2020 Ecosoft Co., Ltd (https://ecosoft.co.th/)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
-from odoo import models
+from datetime import datetime
+
+from odoo import fields, models
 
 
 class AccountPaymentRegister(models.TransientModel):
@@ -18,9 +20,22 @@ class AccountPaymentRegister(models.TransientModel):
             advance = reconcile.debit_move_id.expense_id
             amount_return = reconcile.debit_amount_currency
             payment_move_line_id = reconcile.credit_move_id
+            dates = [
+                payment_move_line_id.mapped(f)[0]
+                for f in payment_move_line_id._budget_date_commit_fields
+                if payment_move_line_id.mapped(f)[0]
+            ]
+            if dates:
+                if isinstance(dates[0], datetime):
+                    date_commit = fields.Datetime.context_timestamp(self, dates[0])
+                else:
+                    date_commit = dates[0]
+            else:
+                date_commit = False
             advance.commit_budget(
                 reverse=True,
                 amount_currency=amount_return,
                 move_line_id=payment_move_line_id.id,
+                date=date_commit,
             )
         return res

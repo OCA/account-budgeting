@@ -1,6 +1,8 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from datetime import datetime
+
 from odoo import api, fields, models
 from odoo.tools import float_compare
 
@@ -124,6 +126,19 @@ class HRExpense(models.Model):
                     and l.sheet_id == expense.sheet_id
                 )
                 expense = next_ex and next_ex[0] or expense
+            dates = [
+                move_line.mapped(f)[0]
+                for f in move_line._budget_date_commit_fields
+                if move_line.mapped(f)[0]
+            ]
+            if dates:
+                if isinstance(dates[0], datetime):
+                    date_commit = fields.Datetime.context_timestamp(self, dates[0])
+                else:
+                    date_commit = dates[0]
+            else:
+                date_commit = False
+
             # Split line commit return advance
             while (
                 float_compare(
@@ -139,6 +154,7 @@ class HRExpense(models.Model):
                         reverse=True,
                         amount_currency=origin_clearing_amount,
                         move_line_id=move_line.id,
+                        date=date_commit,
                     )
                     break
                 return_advance_amount = min(
@@ -149,6 +165,7 @@ class HRExpense(models.Model):
                     reverse=True,
                     amount_currency=return_advance_amount,
                     move_line_id=move_line.id,
+                    date=date_commit,
                 )
                 next_ex = self.filtered(
                     lambda l: l.advance
@@ -215,10 +232,25 @@ class HRExpense(models.Model):
                             advance.amount_commit, origin_clearing_amount
                         )
                         origin_clearing_amount -= clearing_amount
+                        dates = [
+                            clearing.mapped(f)[0]
+                            for f in clearing._budget_date_commit_fields
+                            if clearing.mapped(f)[0]
+                        ]
+                        if dates:
+                            if isinstance(dates[0], datetime):
+                                date_commit = fields.Datetime.context_timestamp(
+                                    self, dates[0]
+                                )
+                            else:
+                                date_commit = dates[0]
+                        else:
+                            date_commit = False
                         budget_move = advance.commit_budget(
                             reverse=True,
                             clearing_id=clearing.id,
                             amount_currency=clearing_amount,
+                            date=date_commit,
                         )
                         budget_moves |= budget_move
                         if origin_clearing_amount <= 0:

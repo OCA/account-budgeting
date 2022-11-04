@@ -1,6 +1,9 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import models
+
+from datetime import datetime
+
+from odoo import fields, models
 
 
 class AccountMoveLine(models.Model):
@@ -30,7 +33,23 @@ class AccountMoveLine(models.Model):
                     # Also test for future advance extension, never uncommit for advance
                     if hasattr(expense, "advance") and expense["advance"]:
                         continue
-                    expense.commit_budget(reverse=True, move_line_id=ml.id)
+                    dates = [
+                        ml.mapped(f)[0]
+                        for f in ml._budget_date_commit_fields
+                        if ml.mapped(f)[0]
+                    ]
+                    if dates:
+                        if isinstance(dates[0], datetime):
+                            date_commit = fields.Datetime.context_timestamp(
+                                self, dates[0]
+                            )
+                        else:
+                            date_commit = dates[0]
+                    else:
+                        date_commit = False
+                    expense.commit_budget(
+                        reverse=True, move_line_id=ml.id, date=date_commit
+                    )
                 else:  # Cancel or draft, not commitment line
                     self.env[Expense._budget_model()].search(
                         [("move_line_id", "=", ml.id)]

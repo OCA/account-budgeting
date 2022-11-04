@@ -266,8 +266,9 @@ class BudgetDoclineMixin(models.AbstractModel):
         account = self.account_id
         analytic_account = self[self._budget_analytic_field]
         budget_moves = self[self._budget_field()]
-        date_commit = (
-            max(budget_moves.mapped("date")) if budget_moves else self.date_commit
+        date_commit = budget_vals.get(
+            "date",
+            max(budget_moves.mapped("date")) if budget_moves else self.date_commit,
         )
         currency = hasattr(self, "currency_id") and self.currency_id or False
         amount = budget_vals["amount_currency"]  # init
@@ -329,8 +330,8 @@ class BudgetDoclineMixin(models.AbstractModel):
                 docline[self._budget_analytic_field] == docline.fwd_analytic_account_id
                 and docline.date_commit == docline.fwd_date_commit
             ):  # no forward to same date
-                docline.fwd_analytic_account_id = False
-                docline.fwd_date_commit = False
+                # docline.fwd_analytic_account_id = False
+                # docline.fwd_date_commit = False
                 return
             budget_move = docline.with_context(
                 use_amount_commit=True,
