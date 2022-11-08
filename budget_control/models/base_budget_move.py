@@ -268,7 +268,9 @@ class BudgetDoclineMixin(models.AbstractModel):
         self.ensure_one()
         company = self.env.user.company_id
         account = self.account_id
-        analytic_account = self[self._budget_analytic_field]
+        analytic_account = budget_vals.get(
+            "analytic_account_id", self[self._budget_analytic_field]
+        )
         budget_moves = self[self._budget_field()]
         date_commit = budget_vals.get(
             "date",

@@ -74,8 +74,9 @@ class PurchaseOrderLine(models.Model):
         for purchase_line in self:
             purchase_line.budget_move_ids.unlink()
             purchase_line.commit_budget()
-            purchase_line.invoice_lines.uncommit_purchase_budget()
+            # credit will not over debit (auto adjust)
             purchase_line.forward_commit()
+            purchase_line.invoice_lines.uncommit_purchase_budget()
 
     def _get_po_line_account(self):
         fpos = self.order_id.fiscal_position_id

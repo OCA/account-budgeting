@@ -35,6 +35,7 @@ class AccountMoveLine(models.Model):
                     purchase_line.commit_budget(
                         reverse=rev,
                         move_line_id=ml.id,
+                        analytic_account_id=ml.analytic_account_id,
                         product_qty=qty,
                         date=ml.date_commit,
                     )

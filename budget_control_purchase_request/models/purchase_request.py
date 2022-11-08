@@ -76,8 +76,9 @@ class PurchaseRequestLine(models.Model):
         for pr_line in self:
             pr_line.budget_move_ids.unlink()
             pr_line.commit_budget()
-            pr_line.purchase_lines.uncommit_purchase_request_budget()
+            # credit will not over debit (auto adjust)
             pr_line.forward_commit()
+            pr_line.purchase_lines.uncommit_purchase_request_budget()
 
     def _get_pr_line_account(self):
         account = self.product_id.product_tmpl_id.get_product_accounts()["expense"]

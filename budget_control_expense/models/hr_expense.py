@@ -79,8 +79,9 @@ class HRExpense(models.Model):
             expense.with_context(force_date_commit=ex_date_commit).commit_budget()
             # move_lines = MoveLine.search([("expense_id", "in", expense.ids)])
             move_lines = expense.sheet_id.account_move_id.line_ids
-            move_lines.uncommit_expense_budget()
+            # credit will not over debit (auto adjust)
             expense.forward_commit()
+            move_lines.uncommit_expense_budget()
 
     def _init_docline_budget_vals(self, budget_vals):
         self.ensure_one()
