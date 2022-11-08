@@ -80,6 +80,15 @@ class HRExpense(models.Model):
             move_grouped_by_sheet[sheet.id].not_affect_budget = True
         return move_grouped_by_sheet
 
+    def _find_next_av(self, advance):
+        next_av = self.filtered(
+            lambda l: l.advance
+            and l.id != advance.id
+            and l.amount_commit
+            and l.sheet_id == advance.sheet_id
+        )
+        return next_av and next_av[0] or advance
+
     def recompute_budget_move(self):
         # Keep value return advance (Not include case carry commitment)
         budget_moves = self.env["advance.budget.move"]
@@ -115,24 +124,18 @@ class HRExpense(models.Model):
         clearings = self.search([("sheet_id.advance_sheet_id", "in", adv_sheets.ids)])
         clearings.uncommit_advance_budget()
         # Return advance, commit again because it will lose from clearing uncommit
-        for move_line, amount, expense in return_budget_moves:
+        for move_line, amount, advance in return_budget_moves:
             origin_clearing_amount = amount
-            # Find new expense with amount_commit
+            # Find new advance if amount_commit <= 0.0
             if (
                 float_compare(
-                    expense.amount_commit,
+                    advance.amount_commit,
                     0.0,
                     precision_rounding=2,
                 )
-                == -1
+                != 1
             ):
-                next_ex = self.filtered(
-                    lambda l: l.advance
-                    and l.id != expense.id
-                    and l.amount_commit
-                    and l.sheet_id == expense.sheet_id
-                )
-                expense = next_ex and next_ex[0] or expense
+                advance = self._find_next_av(advance)
             # Get dates following _budget_date_commit_fields
             date_commit = move_line._get_budget_date_commit(move_line)
             # Split line commit return advance
@@ -144,9 +147,16 @@ class HRExpense(models.Model):
                 )
                 == 1
             ):
-                # Last commit expense
-                if expense.amount_commit <= 0.0:
-                    expense.commit_budget(
+                # Last commit advance
+                if (
+                    float_compare(
+                        advance.amount_commit,
+                        0.0,
+                        precision_rounding=2,
+                    )
+                    != 1
+                ):
+                    advance.commit_budget(
                         reverse=True,
                         amount_currency=origin_clearing_amount,
                         move_line_id=move_line.id,
@@ -154,22 +164,16 @@ class HRExpense(models.Model):
                     )
                     break
                 return_advance_amount = min(
-                    expense.amount_commit, origin_clearing_amount
+                    advance.amount_commit, origin_clearing_amount
                 )
                 origin_clearing_amount -= return_advance_amount
-                expense.commit_budget(
+                advance.commit_budget(
                     reverse=True,
                     amount_currency=return_advance_amount,
                     move_line_id=move_line.id,
                     date=date_commit,
                 )
-                next_ex = self.filtered(
-                    lambda l: l.advance
-                    and l.id != expense.id
-                    and l.amount_commit
-                    and l.sheet_id == expense.sheet_id
-                )
-                expense = next_ex and next_ex[0] or expense
+                advance = self._find_next_av(advance)
         # Only when advance is over returned, do close_budget_move() to final adjust
         # Note: now, we only found case in Advance / Return / Clearing case
         advance_budget_moves = self.filtered("advance_budget_move_ids.adj_commit")

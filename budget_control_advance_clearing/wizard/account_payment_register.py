@@ -24,4 +24,6 @@ class AccountPaymentRegister(models.TransientModel):
                 move_line_id=payment_move_line_id.id,
                 date=payment_move_line_id.date_commit,
             )
+            # make sure that return advance return budget is correct
+            advance.sheet_id.recompute_budget_move()
         return res
