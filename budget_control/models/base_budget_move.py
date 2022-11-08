@@ -227,6 +227,21 @@ class BudgetDoclineMixin(models.AbstractModel):
                 }
             )
 
+    def _get_budget_date_commit(self, docline):
+        dates = [
+            docline.mapped(f)[0]
+            for f in self._budget_date_commit_fields
+            if docline.mapped(f)[0]
+        ]
+        if dates:
+            if isinstance(dates[0], datetime):
+                date_commit = fields.Datetime.context_timestamp(self, dates[0])
+            else:
+                date_commit = dates[0]
+        else:
+            date_commit = False
+        return date_commit
+
     def _set_date_commit(self):
         """Default implementation, use date from _doc_date_field
         which is mostly write_date during budget commitment"""
@@ -245,18 +260,7 @@ class BudgetDoclineMixin(models.AbstractModel):
         if docline.date_commit:
             return
         # Get dates following _budget_date_commit_fields
-        dates = [
-            docline.mapped(f)[0]
-            for f in self._budget_date_commit_fields
-            if docline.mapped(f)[0]
-        ]
-        if dates:
-            if isinstance(dates[0], datetime):
-                docline.date_commit = fields.Datetime.context_timestamp(self, dates[0])
-            else:
-                docline.date_commit = dates[0]
-        else:
-            docline.date_commit = False
+        docline.date_commit = self._get_budget_date_commit(docline)
         # If the date_commit is not in analytic date range, use possible date.
         analytic._auto_adjust_date_commit(docline)
 
@@ -322,7 +326,14 @@ class BudgetDoclineMixin(models.AbstractModel):
                 pass
         return budget_vals
 
+    def _get_domain_fwd_line(self, docline):
+        return [
+            ("res_model", "=", docline._name),
+            ("res_id", "=", docline.id),
+        ]
+
     def forward_commit(self):
+        forward_line = self.env["budget.commit.forward.line"]
         for docline in self:
             if not docline.fwd_analytic_account_id or not docline.fwd_date_commit:
                 return
@@ -333,23 +344,29 @@ class BudgetDoclineMixin(models.AbstractModel):
                 # docline.fwd_analytic_account_id = False
                 # docline.fwd_date_commit = False
                 return
-            budget_move = docline.with_context(
-                use_amount_commit=True,
-                commit_note=_("Commitment carry forward"),
-                fwd_commit=True,
-            ).commit_budget(reverse=True)
-            if budget_move:
-                fwd_budget_move = budget_move.copy()
-                debit = fwd_budget_move.debit
-                credit = fwd_budget_move.credit
-                fwd_budget_move.write(
-                    {
-                        "analytic_account_id": docline.fwd_analytic_account_id.id,
-                        "date": docline.fwd_date_commit,
-                        "credit": debit,
-                        "debit": credit,
-                    }
-                )
+            domain_fwd_line = self._get_domain_fwd_line(docline)
+            fwd_lines = forward_line.search(domain_fwd_line)
+            # NOTE: we will use this function instead of fwd_<name> field because
+            # solved multi commit forward more than 1 time
+            for fwd in fwd_lines:
+                budget_move = docline.with_context(
+                    use_amount_commit=True,
+                    commit_note=_("Commitment carry forward"),
+                    fwd_commit=True,
+                    fwd_amount_commit=fwd.amount_commit,
+                ).commit_budget(reverse=True, date=fwd.date_commit)
+                if budget_move:
+                    fwd_budget_move = budget_move.copy()
+                    debit = fwd_budget_move.debit
+                    credit = fwd_budget_move.credit
+                    fwd_budget_move.write(
+                        {
+                            "analytic_account_id": docline.fwd_analytic_account_id.id,
+                            "date": docline.fwd_date_commit,
+                            "credit": debit,
+                            "debit": credit,
+                        }
+                    )
 
     def commit_budget(self, reverse=False, **vals):
         """Create budget commit for each docline"""
@@ -363,6 +380,10 @@ class BudgetDoclineMixin(models.AbstractModel):
             # Case force use_amount_commit, this should overwrite tax compute
             if self.env.context.get("use_amount_commit"):
                 budget_vals["amount_currency"] = self.amount_commit
+            if self.env.context.get("fwd_amount_commit"):
+                budget_vals["amount_currency"] = self.env.context.get(
+                    "fwd_amount_commit"
+                )
             # Only on case reverse, to force use return_amount_commit
             if reverse and "return_amount_commit" in self.env.context:
                 budget_vals["amount_currency"] = self.env.context.get(

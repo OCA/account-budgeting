@@ -71,11 +71,14 @@ class HRExpense(models.Model):
     )
 
     def recompute_budget_move(self):
-        MoveLine = self.env["account.move.line"]
+        # MoveLine = self.env["account.move.line"]
         for expense in self:
+            # Make sure that date_commit not recompute
+            ex_date_commit = expense.date_commit
             expense[self._budget_field()].unlink()
-            expense.commit_budget()
-            move_lines = MoveLine.search([("expense_id", "in", expense.ids)])
+            expense.with_context(force_date_commit=ex_date_commit).commit_budget()
+            # move_lines = MoveLine.search([("expense_id", "in", expense.ids)])
+            move_lines = expense.sheet_id.account_move_id.line_ids
             move_lines.uncommit_expense_budget()
             expense.forward_commit()
 

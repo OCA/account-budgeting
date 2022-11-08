@@ -1,7 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime
 
 from odoo import api, fields, models
 from odoo.tools import float_compare
@@ -86,9 +85,9 @@ class HRExpense(models.Model):
         budget_moves = self.env["advance.budget.move"]
         return_budget_moves = []
         if self._context.get("model") != "budget.commit.forward":
-            for av in self.filtered("advance"):
+            for av_sheet in self.filtered("advance").mapped("sheet_id"):
                 return_advances = budget_moves.search(
-                    [("sheet_id", "=", av.sheet_id.id), ("move_line_id", "!=", False)]
+                    [("sheet_id", "=", av_sheet.id), ("move_line_id", "!=", False)]
                 )
                 return_budget_moves += [
                     (x.move_line_id, x.amount_currency, x.expense_id)
@@ -134,19 +133,8 @@ class HRExpense(models.Model):
                     and l.sheet_id == expense.sheet_id
                 )
                 expense = next_ex and next_ex[0] or expense
-            dates = [
-                move_line.mapped(f)[0]
-                for f in move_line._budget_date_commit_fields
-                if move_line.mapped(f)[0]
-            ]
-            if dates:
-                if isinstance(dates[0], datetime):
-                    date_commit = fields.Datetime.context_timestamp(self, dates[0])
-                else:
-                    date_commit = dates[0]
-            else:
-                date_commit = False
-
+            # Get dates following _budget_date_commit_fields
+            date_commit = move_line._get_budget_date_commit(move_line)
             # Split line commit return advance
             while (
                 float_compare(
@@ -215,9 +203,16 @@ class HRExpense(models.Model):
         return super().commit_budget(reverse=reverse, **vals)
 
     def uncommit_advance_budget(self):
-        """For clearing in valid state, do uncommit for related Advance."""
+        """For clearing in valid state,
+        do uncommit for related Advance sorted by date commit."""
         budget_moves = self.env["advance.budget.move"]
-        for clearing in self:
+        # Sorted clearing by date_commit first. for case clearing > advance
+        # it should uncommit clearing that approved first
+        clearing_approved = self.filtered("date_commit")
+        clearing_not_approved = self - clearing_approved
+        clearing_sorted_commit = clearing_approved.sorted(key=lambda l: l.date_commit)
+        clearing_sorted = clearing_sorted_commit + clearing_not_approved
+        for clearing in clearing_sorted:
             cl_state = clearing.sheet_id.state
             if self.env.context.get("force_commit") or cl_state in (
                 "approve",
@@ -240,25 +235,11 @@ class HRExpense(models.Model):
                             advance.amount_commit, origin_clearing_amount
                         )
                         origin_clearing_amount -= clearing_amount
-                        dates = [
-                            clearing.mapped(f)[0]
-                            for f in clearing._budget_date_commit_fields
-                            if clearing.mapped(f)[0]
-                        ]
-                        if dates:
-                            if isinstance(dates[0], datetime):
-                                date_commit = fields.Datetime.context_timestamp(
-                                    self, dates[0]
-                                )
-                            else:
-                                date_commit = dates[0]
-                        else:
-                            date_commit = False
                         budget_move = advance.commit_budget(
                             reverse=True,
                             clearing_id=clearing.id,
                             amount_currency=clearing_amount,
-                            date=date_commit,
+                            date=clearing.date_commit,
                         )
                         budget_moves |= budget_move
                         if origin_clearing_amount <= 0:

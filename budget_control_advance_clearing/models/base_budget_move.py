@@ -19,3 +19,12 @@ class BudgetDoclineMixin(models.AbstractModel):
         ):
             budget_vals["analytic_account_id"] = self.fwd_analytic_account_id.id
         return budget_vals
+
+    def _get_domain_fwd_line(self, docline):
+        """Change res_model in forward advance to hr.expense.advance"""
+        if self._budget_model() == "advance.budget.move":
+            return [
+                ("res_model", "=", "hr.expense.advance"),
+                ("res_id", "=", docline.id),
+            ]
+        return super()._get_domain_fwd_line(docline)
