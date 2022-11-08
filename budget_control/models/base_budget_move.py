@@ -330,6 +330,7 @@ class BudgetDoclineMixin(models.AbstractModel):
         return [
             ("res_model", "=", docline._name),
             ("res_id", "=", docline.id),
+            ("forward_id.state", "in", ["review", "done"]),
         ]
 
     def forward_commit(self):
@@ -346,23 +347,35 @@ class BudgetDoclineMixin(models.AbstractModel):
                 return
             domain_fwd_line = self._get_domain_fwd_line(docline)
             fwd_lines = forward_line.search(domain_fwd_line)
-            # NOTE: we will use this function instead of fwd_<name> field because
-            # solved multi commit forward more than 1 time
-            for fwd in fwd_lines:
+            # NOTE: this function will support commit forward more than 1 time
+            # carry forward - get line with it self or other year
+            if self.env.context.get("active_model") == "budget.commit.forward":
+                active_id = self.env.context.get("active_id", False)
+                fwd_lines.filtered(
+                    lambda l: (
+                        l.forward_id.state == "review" and l.forward_id.id == active_id
+                    )
+                    or l.forward_id.state == "done"
+                )
+            else:  # recompute budget
+                fwd_lines.filtered(lambda l: l.forward_id.state == "done")
+            for fwd_line in fwd_lines:
+                # create commitment carry (credit)
                 budget_move = docline.with_context(
                     use_amount_commit=True,
                     commit_note=_("Commitment carry forward"),
                     fwd_commit=True,
-                    fwd_amount_commit=fwd.amount_commit,
-                ).commit_budget(reverse=True, date=fwd.date_commit)
+                    fwd_amount_commit=fwd_line.amount_commit,
+                ).commit_budget(reverse=True, date=fwd_line.date_commit)
+                # create commitment carry (debit)
                 if budget_move:
                     fwd_budget_move = budget_move.copy()
                     debit = fwd_budget_move.debit
                     credit = fwd_budget_move.credit
                     fwd_budget_move.write(
                         {
-                            "analytic_account_id": docline.fwd_analytic_account_id.id,
-                            "date": docline.fwd_date_commit,
+                            "analytic_account_id": fwd_line.to_analytic_account_id.id,
+                            "date": fwd_line.forward_id.to_date_commit,
                             "credit": debit,
                             "debit": credit,
                         }

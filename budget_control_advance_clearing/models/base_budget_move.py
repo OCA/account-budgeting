@@ -26,5 +26,6 @@ class BudgetDoclineMixin(models.AbstractModel):
             return [
                 ("res_model", "=", "hr.expense.advance"),
                 ("res_id", "=", docline.id),
+                ("forward_id.state", "in", ["review", "done"]),
             ]
         return super()._get_domain_fwd_line(docline)
