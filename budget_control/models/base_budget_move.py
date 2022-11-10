@@ -336,7 +336,8 @@ class BudgetDoclineMixin(models.AbstractModel):
         ]
 
     def forward_commit(self):
-        forward_line = self.env["budget.commit.forward.line"]
+        ForwardLine = self.env["budget.commit.forward.line"]
+        BudgetPeriod = self.env["budget.period"]
         for docline in self:
             if not docline.fwd_analytic_account_id or not docline.fwd_date_commit:
                 return
@@ -348,7 +349,7 @@ class BudgetDoclineMixin(models.AbstractModel):
                 # docline.fwd_date_commit = False
                 return
             domain_fwd_line = self._get_domain_fwd_line(docline)
-            fwd_lines = forward_line.search(domain_fwd_line)
+            fwd_lines = ForwardLine.search(domain_fwd_line)
             # NOTE: this function will support commit forward more than 1 time
             # carry forward - get line with it self or other year
             if self.env.context.get("active_model") == "budget.commit.forward":
@@ -362,13 +363,17 @@ class BudgetDoclineMixin(models.AbstractModel):
             else:  # recompute budget
                 fwd_lines.filtered(lambda l: l.forward_id.state == "done")
             for fwd_line in fwd_lines:
+                # find last date of carry forward
+                budget_period = BudgetPeriod._get_eligible_budget_period(
+                    fwd_line.date_commit
+                )
                 # create commitment carry (credit)
                 budget_move = docline.with_context(
                     use_amount_commit=True,
                     commit_note=_("Commitment carry forward"),
                     fwd_commit=True,
                     fwd_amount_commit=fwd_line.amount_commit,
-                ).commit_budget(reverse=True, date=fwd_line.date_commit)
+                ).commit_budget(reverse=True, date=budget_period.bm_date_to)
                 # create commitment carry (debit)
                 if budget_move:
                     fwd_budget_move = budget_move.copy()
