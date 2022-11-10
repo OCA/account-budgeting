@@ -238,13 +238,17 @@ class BudgetPeriod(models.Model):
         self = self.sudo()
         # Check budget by group analytic, For case many budget period in 1 document
         for aa in doclines[doclines._budget_analytic_field]:
-            doclines = doclines.filtered(lambda l: l[doclines._budget_analytic_field] == aa)
+            doclines = doclines.filtered(
+                lambda l: l[doclines._budget_analytic_field] == aa
+            )
             # Find active budget.period based on latest doclines date_commit
             date_commit = doclines.filtered("date_commit").mapped("date_commit")
             if not date_commit:
                 return
             date_commit = max(date_commit)
-            budget_period = self._get_eligible_budget_period(date_commit, doc_type=doc_type)
+            budget_period = self._get_eligible_budget_period(
+                date_commit, doc_type=doc_type
+            )
             if not budget_period:
                 return
             # Find combination of account(kpi) + analytic(i.e.,project) to control

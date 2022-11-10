@@ -28,7 +28,8 @@ class AccountMoveLine(models.Model):
                 if inv_state == "posted":
                     expense = ml.expense_id.filtered("amount_commit")
                     # Because this is not invoice, we need to compare account
-                    if not expense or ml.account_id != expense.account_id:
+                    # if not expense or ml.account_id != expense.account_id:
+                    if not expense:
                         continue
                     # Also test for future advance extension, never uncommit for advance
                     if hasattr(expense, "advance") and expense["advance"]:

@@ -102,7 +102,15 @@ class HRExpense(models.Model):
             alt_budget_move_model="advance.budget.move",
             alt_budget_move_field="advance_budget_move_ids",
         )
-        super(HRExpense, advances).recompute_budget_move()
+        # Force date commit in advance, if clear another day.
+        advance_date_commit = (
+            advances.mapped("date_commit")
+            and advances.mapped("date_commit")[0]
+            or False
+        )
+        super(
+            HRExpense, advances.with_context(force_date_commit=advance_date_commit)
+        ).recompute_budget_move()
         # If the advances has any clearing, uncommit them from advance
         adv_sheets = advances.mapped("sheet_id")
         clearings = self.search([("sheet_id.advance_sheet_id", "in", adv_sheets.ids)])
