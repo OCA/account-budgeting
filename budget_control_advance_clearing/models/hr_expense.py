@@ -220,6 +220,7 @@ class HRExpense(models.Model):
             cl_state = clearing.sheet_id.state
             if self.env.context.get("force_commit") or cl_state in (
                 "approve",
+                "post",  # clearing more than advance, it change to state post
                 "done",
             ):
                 # With possibility to have multiple advance lines,
