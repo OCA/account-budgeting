@@ -336,6 +336,8 @@ class BudgetDoclineMixin(models.AbstractModel):
         ]
 
     def forward_commit(self):
+        # allow all user can do it because this is common function
+        self = self.sudo()
         ForwardLine = self.env["budget.commit.forward.line"]
         BudgetPeriod = self.env["budget.period"]
         for docline in self:
