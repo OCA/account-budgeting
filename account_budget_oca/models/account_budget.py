@@ -2,6 +2,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
+from odoo.tools import float_is_zero
 
 from_string = fields.Datetime.from_string
 
@@ -129,7 +130,13 @@ class CrossoveredBudgetLines(models.Model):
         compute='_compute_theoretical_amount', oldname='theoritical_amount',
         digits=0)
     percentage = fields.Float(
-        compute='_compute_percentage', string='Achievement')
+        compute='_compute_percentage',
+        string='Practical/Theoretical',
+    )
+    practical_on_planned_percentage = fields.Float(
+        compute='_compute_practical_on_planned_percentage',
+        string='Practical/Planned',
+    )
     company_id = fields.Many2one(
         related='crossovered_budget_id.company_id', comodel_name='res.company',
         string='Company', store=True, readonly=True)
@@ -211,3 +218,18 @@ class CrossoveredBudgetLines(models.Model):
                           line.theoretical_amount) * 100)
             else:
                 line.percentage = 0.00
+
+    @api.multi
+    def _compute_practical_on_planned_percentage(self):
+        planned_digits = self._fields['planned_amount'].digits
+        for line in self:
+            planned_amount = line.planned_amount
+            if not float_is_zero(planned_amount,
+                                 precision_digits=planned_digits):
+                practical_amount = line.practical_amount or 0
+                practical_on_planned_percentage = \
+                    practical_amount / planned_amount * 100
+            else:
+                practical_on_planned_percentage = 0
+            line.practical_on_planned_percentage = \
+                practical_on_planned_percentage

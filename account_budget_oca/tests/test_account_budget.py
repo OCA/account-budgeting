@@ -2,6 +2,8 @@
 
 from .common import TestAccountBudgetCommon
 from odoo.fields import Date
+from odoo.tests import Form
+from odoo import fields
 
 import datetime
 
@@ -70,3 +72,41 @@ class TestAccountBudget(TestAccountBudgetCommon):
 
         # I check that budget is in "done" state
         self.assertEqual(budget.state, 'done')
+
+    def test_practical_on_planned_percentage(self):
+        """
+        Create a budget line for 1000 and use 100 of it in an invoice.
+        Check that Practical/Planned is 10.
+        """
+        # Arrange: Create a budget line for 1000
+        budget_post = self.account_budget_post_sales0
+        analytic_account = self.env.ref('analytic.analytic_partners_camp_to_camp')
+        today = fields.Date.today()
+        budget = self.env.ref(
+            'account_budget_oca.crossovered_budget_budgetoptimistic0')
+        budget_form = Form(budget)
+        with budget_form.crossovered_budget_line_ids.new() as line:
+            line.general_budget_id = budget_post
+            line.analytic_account_id = analytic_account
+            line.date_from = today
+            line.date_to = today + datetime.timedelta(days=7)
+            line.planned_amount = 1000
+        budget = budget_form.save()
+
+        # Act: Create an invoice on the same analytic account for 100
+        partner = self.env.ref('base.res_partner_1')
+        invoice_form = Form(self.env['account.invoice'])
+        invoice_form.partner_id = partner
+        with invoice_form.invoice_line_ids.new() as line:
+            line.name = 'Test line'
+            line.account_analytic_id = analytic_account
+            line.quantity = 1
+            line.price_unit = 100
+        invoice = invoice_form.save()
+        invoice.action_move_create()
+
+        # Assert: Practical/Planned is 10
+        budget_line = budget.crossovered_budget_line_ids[-1]
+        self.assertEqual(budget_line.planned_amount, 1000)
+        self.assertEqual(budget_line.practical_amount, 100)
+        self.assertEqual(budget_line.practical_on_planned_percentage, 10)
