@@ -175,7 +175,11 @@ class CrossoveredBudgetLines(models.Model):
 
     @api.multi
     def _compute_theoretical_amount(self):
-        today = fields.Datetime.now()
+        date = self.env.context.get('budget_date')
+        if date:
+            date = date
+        else:
+            date = fields.Datetime.now()
         for line in self:
             # Used for the report
 
@@ -190,14 +194,14 @@ class CrossoveredBudgetLines(models.Model):
                     from_string(line.date_to) -
                     from_string(line.date_from))
                 elapsed_timedelta = (
-                    from_string(today) - (from_string(line.date_from)))
+                    from_string(date) - (from_string(line.date_from)))
 
                 if elapsed_timedelta.days < 0:
                     # If the budget line has not started yet, theoretical
                     # amount should be zero
                     theo_amt = 0.00
                 elif (line_timedelta.days > 0 and
-                      from_string(today) < from_string(line.date_to)):
+                      from_string(date) < from_string(line.date_to)):
                     # If today is between the budget line date_from and
                     # date_to
                     theo_amt = (
