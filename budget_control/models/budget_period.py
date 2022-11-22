@@ -294,6 +294,7 @@ class BudgetPeriod(models.Model):
         # Remove commits
         for budget_move in budget_moves:
             budget_move.unlink()
+        doclines.write({"date_commit": False})
 
     @api.model
     def check_over_returned_budget(self, docline, reverse=False):
