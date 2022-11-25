@@ -309,12 +309,12 @@ class BudgetDoclineMixin(models.AbstractModel):
         budget_vals.update(res)
         return budget_vals
 
-    def _update_kpi(self, budget_vals):
+    def _update_kpi(self, budget_move):
         self.ensure_one()
         BudgetPeriod = self.env["budget.period"]
         budget_period = BudgetPeriod._get_eligible_budget_period(self.date_commit)
         if not budget_period:
-            return budget_vals
+            return budget_move
         instance = budget_period.report_instance_id
         controls = BudgetPeriod._prepare_controls(budget_period, self)
         kpis = instance.report_id.get_kpis(self.env.user.company_id)
@@ -323,10 +323,10 @@ class BudgetDoclineMixin(models.AbstractModel):
             try:
                 kpi = BudgetPeriod._get_kpi_by_control_key(instance, kpis, controls[0])
                 if kpi:
-                    budget_vals["kpi_id"] = list(kpi)[0].id
+                    budget_move.kpi_id = list(kpi)[0].id
             except Exception:
                 pass
-        return budget_vals
+        return budget_move
 
     def _get_domain_fwd_line(self, docline):
         return [
@@ -413,8 +413,6 @@ class BudgetDoclineMixin(models.AbstractModel):
                 )
             # Complete budget commitment dict
             budget_vals = self._update_budget_commitment(budget_vals, reverse=reverse)
-            # Update KPI
-            budget_vals = self._update_kpi(budget_vals)
             # Final note
             budget_vals["note"] = self.env.context.get("commit_note")
             # Is Adjustment Commit
@@ -425,6 +423,8 @@ class BudgetDoclineMixin(models.AbstractModel):
             if not budget_vals["amount_currency"]:
                 return False
             budget_move = self.env[self._budget_model()].create(budget_vals)
+            # Update KPI
+            budget_move = self._update_kpi(budget_move)
             if reverse:  # On reverse, make sure not over returned
                 self.env["budget.period"].check_over_returned_budget(self)
             return budget_move
