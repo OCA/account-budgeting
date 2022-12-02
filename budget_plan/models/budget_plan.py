@@ -74,9 +74,9 @@ class BudgetPlan(models.Model):
 
     def _compute_budget_control(self):
         """ Find all budget controls of the same period """
-        for rec in self.with_context(active_test=False):
+        for rec in self.with_context(active_test=False).sudo():
             rec.budget_control_ids = rec.plan_line.mapped("budget_control_ids")
-            rec.budget_control_count = len(rec.budget_control_ids)
+            rec.budget_control_count = len(rec.plan_line.mapped("budget_control_ids"))
 
     def _update_plan(self):
         Analytic = self.env["account.analytic.account"]
@@ -100,19 +100,19 @@ class BudgetPlan(models.Model):
 
     def _update_amount_consumed(self):
         self.flush()  # update new line (if any)
-        for rec in self:
-            for line in rec.plan_line:
-                # find consumed amount from budget control
-                active_control = line.budget_control_ids
-                if len(active_control) > 1:
-                    raise UserError(
-                        _("%s should have only 1 active budget control")
-                        % line.analytic_account_id.display_name
-                    )
-                line.amount_consumed = active_control.amount_consumed
-                line.released_amount = active_control.released_amount
+        for line in self.mapped("plan_line"):
+            # find consumed amount from budget control
+            active_control = line.budget_control_ids
+            if len(active_control) > 1:
+                raise UserError(
+                    _("%s should have only 1 active budget control")
+                    % line.analytic_account_id.display_name
+                )
+            line.amount_consumed = active_control.amount_consumed
+            line.released_amount = active_control.released_amount
 
     def action_update_plan(self):
+        """Add plan lines and update amount from budget control (if any)"""
         self._update_plan()
         self._update_amount_consumed()
 
@@ -258,16 +258,11 @@ class BudgetPlanLine(models.Model):
 
     def _compute_budget_control_ids(self):
         """ It is expected this to contain only """
-        analytics = self.mapped("analytic_account_id")
-        budget_controls = (
-            self.env["budget.control"]
-            .with_context(active_test=False)
-            .search([("analytic_account_id", "in", analytics.ids)])
+        BudgetControl = (
+            self.env["budget.control"].with_context(active_test=False).sudo()
         )
-        for rec in self:
-            rec.budget_control_ids = budget_controls.filtered_domain(
-                rec._domain_budget_control()
-            )
+        for rec in self.sudo():
+            rec.budget_control_ids = BudgetControl.search(rec._domain_budget_control())
 
     def _update_budget_control_data(self):
         """ Push data budget control, i.e., alloc amount, active status """
