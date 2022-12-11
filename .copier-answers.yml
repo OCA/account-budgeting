@@ -20,3 +20,4 @@ repo_slug: account-budgeting
 repo_website: https://github.com/OCA/account-budgeting
 travis_apt_packages: []
 travis_apt_sources: []
+
