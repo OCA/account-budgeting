@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Main menu -->
+    <menuitem
+        id="budget_menu"
+        name="Budgeting"
+        sequence="300"
+        web_icon="budget_control,static/description/icon.png"
+        groups="group_budget_control_user"
+    />
+    <!-- Header menu -->
+    <menuitem
+        id="budget_budget_menu"
+        parent="budget_menu"
+        name="Budgeting"
+        sequence="10"
+    />
+    <menuitem
+        id="budget_report_menu"
+        parent="budget_menu"
+        name="Reports"
+        sequence="20"
+    />
+    <menuitem
+        id="budget_config_menu"
+        parent="budget_menu"
+        name="Configurations"
+        groups="budget_control.group_budget_control_manager"
+        sequence="30"
+    />
+    <!-- Sub Header menu -->
+    <menuitem
+        id="budget_control_menu"
+        parent="budget_control.budget_budget_menu"
+        name="Budget Control"
+        sequence="20"
+    />
+    <menuitem
+        id="budget_menu_carry_forward"
+        name="Budget Carry Forward"
+        parent="budget_control.budget_budget_menu"
+        sequence="50"
+        groups="budget_control.group_budget_control_manager"
+    />
+    <menuitem
+        id="budget_config_sub_menu"
+        parent="budget_control.budget_config_menu"
+        name="Budget Configuration"
+        sequence="10"
+    />
+    <menuitem
+        id="budget_menu_analytic_accounting"
+        name="Analytic Accounting"
+        parent="budget_control.budget_config_menu"
+        sequence="20"
+        groups="analytic.group_analytic_accounting,analytic.group_analytic_tags"
+    />
+</odoo>

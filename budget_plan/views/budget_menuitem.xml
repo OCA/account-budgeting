@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Sub Header menu -->
+    <menuitem
+        id="budget_planning_menu"
+        parent="budget_control.budget_budget_menu"
+        name="Budget Planning"
+        sequence="40"
+        groups="budget_control.group_budget_control_manager"
+    />
+</odoo>

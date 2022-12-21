@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="budget_period_view_tree" model="ir.ui.view">
+        <field name="name">budget.period.view.tree</field>
+        <field name="model">budget.period</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="bm_date_from" />
+                <field name="bm_date_to" />
+            </tree>
+        </field>
+    </record>
+    <record id="budget_period_view_form" model="ir.ui.view">
+        <field name="name">budget.period.view.form</field>
+        <field name="model">budget.period</field>
+        <field name="arch" type="xml">
+            <form string="Budget Period">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_budget_control"
+                            class="oe_stat_button"
+                            string="Budget Control"
+                            icon="fa-bars"
+                            type="object"
+                        />
+                    </div>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" />
+                        </div>
+                        <h1>
+                            <field name="name" placeholder="Name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="template_id" />
+                        </group>
+                        <group>
+                            <field name="bm_date_from" />
+                            <field name="bm_date_to" />
+                            <field name="plan_date_range_type_id" />
+                        </group>
+                    </group>
+                    <group string="Budget Control">
+                        <group>
+                            <label for="control_budget" />
+                            <div name="control_budget" class="o_row">
+                                <field name="control_budget" widget="boolean_toggle" />
+                            </div>
+                            <label for="account" invisible="1" />
+                            <div name="account" class="o_row">
+                                <field name="account" />
+                                <span>On Invoice / Journal Entry</span>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="control_all_analytic_accounts" />
+                            <field
+                                name="control_analytic_account_ids"
+                                widget="many2many_tags"
+                                attrs="{'invisible': [('control_all_analytic_accounts', '=', True)]}"
+                            />
+                            <field name="control_level" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="analytic_ids" string="Analytic">
+                            <field
+                                name="analytic_ids"
+                                context="{'tree_view_ref': 'budget_control.view_budget_analytic_list'}"
+                                widget="many2many"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="budget_period_action" model="ir.actions.act_window">
+        <field name="name">Budget Period</field>
+        <field name="view_id" ref="budget_period_view_tree" />
+        <field name="res_model">budget.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="budget_period_menu"
+        parent="budget_config_sub_menu"
+        name="Budget Period"
+        action="budget_period_action"
+        sequence="20"
+    />
+</odoo>

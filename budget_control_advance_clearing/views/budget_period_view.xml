@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="budget_period_view_form" model="ir.ui.view">
+        <field name="name">budget.period.view.form</field>
+        <field name="model">budget.period</field>
+        <field name="inherit_id" ref="budget_control.budget_period_view_form" />
+        <field name="arch" type="xml">
+            <div name="account" position="after">
+                <label for="advance" invisible="1" />
+                <div name="advance" class="o_row">
+                    <field name="advance" />
+                    <span>On Advance</span>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

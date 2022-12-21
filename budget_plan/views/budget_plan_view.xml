@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_budget_plan_line_tree" model="ir.ui.view">
+        <field name="name">budget.plan.line.tree</field>
+        <field name="model">budget.plan.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="budget_period_id" optional="hide" />
+                <field name="date_from" invisible="True" />
+                <field name="date_to" invisible="True" />
+                <field
+                    name="analytic_account_id"
+                    domain="['&amp;', '|', ('bm_date_to', '=', False), ('bm_date_to', '&gt;=', date_from), '|', ('bm_date_from', '=', False), ('bm_date_from', '&lt;=', date_to)]"
+                    options="{'no_create': True, 'no_open': True}"
+                />
+                <field
+                    name="budget_control_ids"
+                    widget="many2many_tags"
+                    optional="hide"
+                />
+                <field name="allocated_amount" sum="Total Allocated" />
+                <field name="released_amount" sum="Total Released" />
+                <field name="amount" sum="Total Amount" />
+                <field name="amount_consumed" sum="Total Consumed" />
+                <field name="active_status" optional="show" widget="boolean_toggle" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_budget_plan_line_form" model="ir.ui.view">
+        <field name="name">budget.plan.line.form</field>
+        <field name="model">budget.plan.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="analytic_account_id" />
+                        <field name="budget_control_ids" widget="many2many_tags" />
+                        <field name="active_status" />
+                    </group>
+                    <group>
+                        <field name="allocated_amount" />
+                        <field name="released_amount" />
+                        <field name="amount" />
+                        <field name="amount_consumed" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="budget_plan_filter" model="ir.ui.view">
+        <field name="name">budget.plan.filter</field>
+        <field name="model">budget.plan</field>
+        <field name="arch" type="xml">
+            <search string="Search Budget Plan">
+                <field name="name" />
+                <field name="budget_period_id" />
+                <filter
+                    name="state_draft"
+                    string="Draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter
+                    name="state_done"
+                    string="Done"
+                    domain="[('state', '=', 'done')]"
+                />
+                <filter
+                    name="state_cancel"
+                    string="Cancelled"
+                    domain="[('state', '=', 'cancel')]"
+                />
+                <separator />
+                <filter
+                    name="current_period"
+                    string="Current Period"
+                    domain="[('date_to', '&gt;=', context_today().strftime('%Y-%m-%d')), ('date_from', '&lt;=', context_today().strftime('%Y-%m-%d'))]"
+                />
+                <filter
+                    name="archived"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        name="group_budget_period"
+                        string="Budget Period"
+                        context="{'group_by':'budget_period_id'}"
+                    />
+                    <filter
+                        name="group_state"
+                        string="State"
+                        context="{'group_by':'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_budget_plan_tree" model="ir.ui.view">
+        <field name="name">budget.plan.tree</field>
+        <field name="model">budget.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="budget_period_id" />
+                <field name="total_amount" />
+                <field name="currency_id" optional="hide" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state in ['confirm', 'done']"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="view_budget_plan_form" model="ir.ui.view">
+        <field name="name">budget.plan.form</field>
+        <field name="model">budget.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_create_update_budget_control"
+                        class="oe_highlight"
+                        string="Create/Update Budget Control"
+                        type="object"
+                        attrs="{'invisible': ['|', ('active', '=', False), ('state', '!=', 'confirm')]}"
+                        title="Create new budget control if not already exists, otherwise update the currently active/latest one"
+                    />
+                    <button
+                        name="action_confirm"
+                        class="oe_highlight"
+                        string="Confirm"
+                        states="draft"
+                        type="object"
+                    />
+                    <button
+                        name="action_done"
+                        class="oe_highlight"
+                        string="Done"
+                        type="object"
+                        attrs="{'invisible': ['|', ('budget_control_count', '=', 0), ('state', '!=', 'confirm')]}"
+                    />
+                    <button
+                        name="action_draft"
+                        string="Reset to Draft"
+                        states="confirm,cancel"
+                        type="object"
+                    />
+                    <button
+                        name="action_cancel"
+                        string="Cancel"
+                        states="draft,confirm,done"
+                        type="object"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirm,done"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="button_open_budget_control"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-bars"
+                            attrs="{'invisible': [('budget_control_count', '=', 0)]}"
+                        >
+                            <field
+                                name="budget_control_count"
+                                string="Budget Control"
+                                widget="statinfo"
+                            />
+                        </button>
+                    </div>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title">
+                        <label for="name" string="Budget Plan" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="budget_plan_left">
+                            <field name="budget_period_id" />
+                            <field name="date_from" />
+                            <field name="date_to" />
+                            <field name="total_amount" />
+                        </group>
+                        <group name="budget_plan_right">
+                            <field name="active" invisible="1" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                            <field
+                                name="currency_id"
+                                groups="base.group_multi_currency"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="line_ids" string="Plan Allocation">
+                            <div class="oe_right" name="buttons">
+                                <button
+                                    name="action_update_plan"
+                                    string="Refresh"
+                                    icon="fa-refresh"
+                                    type="object"
+                                    states="draft,confirm,done"
+                                    title="Refresh released and consumed amount"
+                                />
+                            </div>
+                            <field name="line_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_budget_plan_form_without_header" model="ir.ui.view">
+        <field name="name">budget.plan.form.without.header</field>
+        <field name="model">budget.plan</field>
+        <field name="inherit_id" ref="view_budget_plan_form" />
+        <field name="priority" eval="35" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="budget_plan_action" model="ir.actions.act_window">
+        <field name="name">Budget Plan</field>
+        <field name="res_model">budget.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_current_period': 1}</field>
+    </record>
+    <menuitem
+        id="budget_plan_menu"
+        parent="budget_plan.budget_planning_menu"
+        name="Budget Plan"
+        action="budget_plan_action"
+        sequence="20"
+    />
+</odoo>

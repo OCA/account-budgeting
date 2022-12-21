@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_generate_budget_control" model="ir.ui.view">
+        <field name="name">Generate Budget Control Sheets</field>
+        <field name="model">generate.budget.control</field>
+        <field name="arch" type="xml">
+            <form string="Generate Budget Control Sheet">
+                <field name="budget_period_id" invisible="1" />
+                <field name="template_id" invisible="1" />
+                <field name="state" invisible="1" />
+                <div states="choose">
+                    <group name="criteria" states="choose">
+                        <group string="Analytic Accounts">
+                            <field name="analytic_group_ids" widget="many2many_tags" />
+                            <field name="all_analytic_accounts" />
+                        </group>
+                        <group string="Options">
+                            <field name="init_kpis" />
+                            <field name="init_budget_commit" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="analytics" string="Selected Analytics">
+                            <field name="domain_analytic_account_ids" invisible="1" />
+                            <field
+                                name="analytic_account_ids"
+                                nolabel="1"
+                                states="choose"
+                                context="{'tree_view_ref': 'budget_control.view_budget_analytic_list'}"
+                            />
+                        </page>
+                        <page
+                            name="kpis"
+                            string="With Initial KPIs"
+                            attrs="{'invisible': [('init_kpis', '=', False)]}"
+                        >
+                            <group>
+                                <field name="use_all_kpis" widget="boolean_toggle" />
+                                <field
+                                    name="template_line_ids"
+                                    nolabel="1"
+                                    states="choose"
+                                    colspan="2"
+                                >
+                                    <tree name="kpis">
+                                        <field name="kpi_id" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    <footer states="choose">
+                        <button
+                            name="action_generate_budget_control"
+                            type="object"
+                            string="Generate Budget Control Sheets"
+                            class="btn-primary"
+                        />
+                        <button
+                            string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                        />
+                    </footer>
+                </div>
+                <div states="get">
+                    <separator string="New budget control sheets" />
+                    <field name="result_budget_control_ids" nolabel="1" />
+                    <separator string="Already exists, not created" />
+                    <field name="result_analytic_account_ids" nolabel="1" />
+                    <footer states="get">
+                        <button
+                            name="action_view_budget_control"
+                            type="object"
+                            string="View Newly Created Control Sheets"
+                            class="btn-primary"
+                            attrs="{'invisible': [('result_budget_control_ids', '=', [])]}"
+                        />
+                        <button string="Close" class="btn-secondary" special="cancel" />
+                    </footer>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_generate_budget_control" model="ir.actions.act_window">
+        <field name="name">Generate Budget Control Sheet</field>
+        <field name="res_model">generate.budget.control</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="model_budget_period" />
+        <field name="binding_view_types">form</field>
+        <field name="target">new</field>
+        <field
+            name="context"
+        >{'default_init_kpis': True, 'default_use_all_kpis': True}</field>
+    </record>
+</odoo>

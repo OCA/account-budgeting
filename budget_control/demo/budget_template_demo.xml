@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <!-- Add KPIs -->
+    <record id="budget_kpi1_demo" model="budget.kpi">
+        <field name="name">Expense</field>
+    </record>
+    <record id="budget_kpi2_demo" model="budget.kpi">
+        <field name="name">Purchase of Equipments</field>
+    </record>
+    <record id="budget_kpi3_demo" model="budget.kpi">
+        <field name="name">Rent</field>
+    </record>
+    <!-- Add Template -->
+    <record id="budget_template_demo" model="budget.template">
+        <field name="name">Budget Template (demo)</field>
+    </record>
+    <!-- Add Template Lines -->
+    <record id="budget_template_line_demo_kpi_600000" model="budget.template.line">
+        <field name="kpi_id" eval="ref('budget_control.budget_kpi1_demo')" />
+        <field name="account_ids" eval="[(4, ref('l10n_generic_coa.expense'))]" />
+        <field name="template_id" eval="ref('budget_control.budget_template_demo')" />
+    </record>
+    <record id="budget_template_line_demo_kpi_611000" model="budget.template.line">
+        <field name="kpi_id" ref="budget_control.budget_kpi2_demo" />
+        <field
+            name="account_ids"
+            eval="[(4, ref('l10n_generic_coa.expense_invest'))]"
+        />
+        <field name="template_id" eval="ref('budget_control.budget_template_demo')" />
+    </record>
+    <record id="budget_template_line_demo_kpi_612000" model="budget.template.line">
+        <field name="kpi_id" ref="budget_control.budget_kpi3_demo" />
+        <field name="account_ids" eval="[(4, ref('l10n_generic_coa.expense_rent'))]" />
+        <field name="template_id" eval="ref('budget_control.budget_template_demo')" />
+    </record>
+
+</odoo>
