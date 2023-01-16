@@ -34,6 +34,7 @@ class ReportBudgetLinesHeader (TransientModel):
                     'practical_amount',
                     'theoretical_amount',
                     'percentage',
+                    'practical_on_planned_percentage',
                     'company_id',
                 ],
                 load=None,
@@ -112,6 +113,10 @@ class ReportBudgetLines (TransientModel):
     )
     percentage = fields.Float(
         string='Achievement',
+        readonly=True,
+    )
+    practical_on_planned_percentage = fields.Float(
+        string='Practical/Planned',
         readonly=True,
     )
     company_id = fields.Many2one(
