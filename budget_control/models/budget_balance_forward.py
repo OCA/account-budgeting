@@ -204,11 +204,13 @@ class BudgetBalanceForward(models.Model):
     def _do_update_initial_avaliable(self):
         """ Update all Analytic Account's initial commit value related to budget period """
         self.ensure_one()
-        # Reset
+        # Reset all lines
         Analytic = self.env["account.analytic.account"]
-        analytics = Analytic.search(
-            [("budget_period_id", "in", [self.to_budget_period_id.id, False])]
+        analytic_carry_forward = self.forward_line_ids.mapped("to_analytic_account_id")
+        analytic_accumulate = self.forward_line_ids.mapped(
+            "accumulate_analytic_account_id"
         )
+        analytics = analytic_carry_forward + analytic_accumulate
         analytics.write({"initial_available": 0.0})
         # --
         forward_vals = self._get_forward_initial_balance()

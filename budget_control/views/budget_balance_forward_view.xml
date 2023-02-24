@@ -91,6 +91,7 @@
                         string="Cancel"
                         type="object"
                         states="draft,review,done"
+                        confirm="This action will cancel for every line in document. Are you sure to continue?"
                     />
                     <field
                         name="state"
