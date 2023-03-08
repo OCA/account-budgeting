@@ -1,6 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class AccountBudgetMove(models.Model):
@@ -47,3 +47,13 @@ class AccountBudgetMove(models.Model):
                 if rec.reference
                 else (rec.move_id.display_name or rec.adjust_id.display_name)
             )
+
+    @api.model
+    def _view_account_budget_move(self):
+        return {
+            "name": _("Actual Budget Commitment"),
+            "res_model": "account.budget.move",
+            "view_mode": "tree,pivot",
+            "context": {},
+            "type": "ir.actions.act_window",
+        }
