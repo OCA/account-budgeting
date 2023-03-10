@@ -47,6 +47,12 @@ class BudgetPeriod(models.Model):
         readonly=True,
         help="Control budget on journal document(s), i.e., vendor bill",
     )
+    special_control_actual = fields.Boolean(
+        string="Control Account",
+        compute="_compute_special_control_actual",
+        store=True,
+        readonly=False,
+    )
     control_all_analytic_accounts = fields.Boolean(
         string="Control All Analytics",
         default=True,
@@ -86,6 +92,11 @@ class BudgetPeriod(models.Model):
         res = super().default_get(field_list)
         res["report_id"] = self.env.company.budget_kpi_template_id.id
         return res
+
+    @api.depends("control_budget")
+    def _compute_special_control_actual(self):
+        for rec in self:
+            rec.special_control_actual = True
 
     @api.model
     def create(self, vals):
@@ -331,9 +342,14 @@ class BudgetPeriod(models.Model):
                 % date
             )
         if doc_type:
+            # Get period control budget.
+            # if doctype is account, check special control too.
+            if doc_type == "account":
+                return budget_period.filtered(
+                    lambda l: l.control_budget or l.special_control_actual
+                )
             return budget_period.filtered("control_budget")  # Only if to control
-        else:
-            return budget_period
+        return budget_period
 
     @api.model
     def _prepare_controls(self, budget_period, doclines):

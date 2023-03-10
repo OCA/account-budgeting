@@ -76,6 +76,13 @@
                             <div name="account" class="o_row">
                                 <field name="account" invisible="1" />
                                 <span>On Invoice / Journal Entry</span>
+                                <span
+                                    attrs="{'invisible': [('control_budget', '=', True)]}"
+                                >
+                                    (<field
+                                        name="special_control_actual"
+                                    />Special Control)
+                                </span>
                             </div>
                         </group>
                         <group>
