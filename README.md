@@ -6,9 +6,9 @@
 
 <!-- /!\ do not modify above this line -->
 
-# account-budgeting
+# Odoo Budgeting
 
-TODO: add repo description.
+You'll find modules that manage budgeting.
 
 <!-- /!\ do not modify below this line -->
 
