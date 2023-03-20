@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.fields import Datetime
+from odoo.tests import tagged
 
 from .common import TestAccountBudgetCommon
 
@@ -13,6 +14,7 @@ except ImportError:
 # ---------------------------------------------------------
 # Tests
 # ---------------------------------------------------------
+@tagged("post_install", "-at_install")
 class TestTheoreticalAmount(TestAccountBudgetCommon):
     def setUp(self):
         super().setUp()
