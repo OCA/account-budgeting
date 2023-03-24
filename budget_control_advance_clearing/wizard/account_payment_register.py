@@ -27,3 +27,9 @@ class AccountPaymentRegister(models.TransientModel):
             # make sure that return advance return budget is correct
             advance.sheet_id.recompute_budget_move()
         return res
+
+    def _create_payment_return_advance(self, ctx, advance_account):
+        """Make sure that move in payment must not affect budget"""
+        payment = super()._create_payment_return_advance(ctx, advance_account)
+        payment.move_id.write({"not_affect_budget": True})
+        return payment

@@ -28,6 +28,10 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.budget_template_id",
         readonly=False,
     )
+    group_required_analytic = fields.Boolean(
+        string="Required Analytic Account",
+        implied_group="budget_control.group_required_analytic",
+    )
     # Modules
     budget_control_account = fields.Boolean(
         string="Account",

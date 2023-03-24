@@ -404,6 +404,18 @@ class BudgetDoclineMixin(models.AbstractModel):
 
     def commit_budget(self, reverse=False, **vals):
         """Create budget commit for each docline"""
+        required_analytic = self.env.user.has_group(
+            "budget_control.group_required_analytic"
+        )
+        # Required all document except move that check 'Not Affect Budget'
+        if (
+            required_analytic
+            and not self[self._budget_analytic_field]
+            and not (
+                self._name == "account.move.line" and self.move_id.not_affect_budget
+            )
+        ):
+            raise UserError(_("Please fill analytic account."))
         self.prepare_commit()
         to_commit = self.env.context.get("force_commit") or self._valid_commit_state()
         if self.can_commit and to_commit:

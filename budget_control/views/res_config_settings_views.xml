@@ -169,6 +169,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="budget_required_analytic"
+                        >
+
+                            <div class="o_setting_left_pane">
+                                <field name="group_required_analytic" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="group_required_analytic" />
+                                <div class="text-muted">
+                                    Required analytic account for documents that have a committed budget, such as PR, PO, AV, EX, and Actual.
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <h2>Budget Period</h2>
                     <div
