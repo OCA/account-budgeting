@@ -194,7 +194,7 @@ class BudgetPeriod(models.Model):
             currency = (
                 "currency_id" in doclines
                 and doclines.mapped("currency_id")[:1]
-                or self.env.context.get("doc_currency", False)
+                or self.env.context.get("doc_currency", self.env.company.currency_id)
             )
             warnings = self.with_context(
                 date_commit=date_commit, doc_currency=currency, doclines=doclines

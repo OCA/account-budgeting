@@ -100,6 +100,11 @@
                         <group name="budget_move_adjustment_right">
                             <field name="create_uid" readonly="1" />
                             <field name="create_date" readonly="1" />
+                            <field
+                                name="currency_id"
+                                groups="base.group_multi_currency"
+                                invisible="1"
+                            />
                         </group>
                     </group>
                     <notebook>
@@ -128,7 +133,9 @@
                                         groups="analytic.group_analytic_tags"
                                     />
                                     <field name="amount" />
+                                    <field name="currency_id" optional="hide" />
                                     <field name="amount_commit" optional="hide" />
+                                    <field name="date_commit" optional="hide" />
                                 </tree>
                                 <form>
                                     <group>
@@ -147,6 +154,7 @@
                                             />
                                             <field name="amount" />
                                             <field name="amount_commit" />
+                                            <field name="date_commit" />
                                         </group>
                                     </group>
                                 </form>

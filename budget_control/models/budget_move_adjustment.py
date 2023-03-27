@@ -41,6 +41,10 @@ class BudgetMoveAdjustment(models.Model):
         states={"draft": [("readonly", False)]},
         tracking=True,
     )
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        default=lambda self: self.env.user.company_id.currency_id,
+    )
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -76,7 +80,11 @@ class BudgetMoveAdjustment(models.Model):
         self.write({"state": "cancel"})
 
     def action_adjust(self):
-        self.write({"state": "done"})
+        res = self.write({"state": "done"})
+        BudgetPeriod = self.env["budget.period"]
+        for doc in self:
+            BudgetPeriod.check_budget(doc.adjust_item_ids)
+        return res
 
     def recompute_budget_move(self):
         self.mapped("adjust_item_ids").recompute_budget_move()
@@ -144,7 +152,11 @@ class BudgetMoveAdjustmentItem(models.Model):
         comodel_name="account.analytic.tag",
         string="Analytic Tags",
     )
-    amount = fields.Float(
+    currency_id = fields.Many2one(
+        related="adjust_id.currency_id",
+        readonly=True,
+    )
+    amount = fields.Monetary(
         help="Amount as per company currency",
     )
 
