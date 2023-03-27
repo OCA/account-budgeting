@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree create="0" delete="0" edit="0">
                 <field name="reference" />
+                <field name="source_document" />
                 <field name="move_line_id" />
                 <field name="account_id" />
                 <field name="analytic_account_id" />

@@ -20,6 +20,13 @@ class BaseBudgetMove(models.AbstractModel):
         index=True,
         help="Reference to document number of extending model",
     )
+    source_document = fields.Char(
+        compute="_compute_source_document",
+        store=True,
+        readonly=False,
+        index=True,
+        help="Reference to Source document number of extending model",
+    )
     template_line_id = fields.Many2one(
         comodel_name="budget.template.line",
         index=True,
@@ -90,6 +97,10 @@ class BaseBudgetMove(models.AbstractModel):
     def _compute_reference(self):
         """Compute reference name of the budget move document"""
         self.update({"reference": False})
+
+    def _compute_source_document(self):
+        """Compute source document of the budget move document"""
+        self.update({"source_document": False})
 
 
 class BudgetDoclineMixinBase(models.AbstractModel):

@@ -6,6 +6,8 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="amount_type" />
+                <field name="reference" />
+                <field name="source_document" />
                 <field name="res_id" />
                 <field name="date" />
                 <field name="analytic_account_id" />

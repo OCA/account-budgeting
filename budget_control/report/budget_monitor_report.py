@@ -20,6 +20,7 @@ class BudgetMonitorReport(models.Model):
         comodel_name="budget.kpi",
         string="KPI",
     )
+    source_document = fields.Char()
     reference = fields.Char()
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
@@ -105,6 +106,7 @@ class BudgetMonitorReport(models.Model):
                 a.product_id,
                 a.account_id,
                 a.reference as reference,
+                a.source_document as source_document,
                 null::char as budget_state,
                 a.fwd_commit,
                 1::boolean as active
@@ -146,6 +148,7 @@ class BudgetMonitorReport(models.Model):
             null::integer as product_id,
             null::integer as account_id,
             b.name as reference,
+            null::char as source_document,
             b.state as budget_state,
             0::boolean as fwd_commit,
             a.active as active
