@@ -85,6 +85,9 @@ class BudgetCommitForward(models.Model):
         """For module extension"""
         return False
 
+    def _get_state_document_number(self, doc):
+        return doc[doc._doc_rel].state
+
     def _get_budget_docline_model(self):
         """_compute_missing_analytic"""
         self.ensure_one()
@@ -112,6 +115,7 @@ class BudgetCommitForward(models.Model):
                     "res_id": doc.id,
                     "document_id": "{},{}".format(doc._name, doc.id),
                     "document_number": self._get_document_number(doc),
+                    "document_state": self._get_state_document_number(doc),
                     "amount_commit": doc.amount_commit,
                     "date_commit": doc.fwd_date_commit or doc.date_commit,
                 }
@@ -208,9 +212,6 @@ class BudgetCommitForward(models.Model):
                     line.to_analytic_account_id.bm_date_to = (
                         rec.to_budget_period_id.bm_date_to
                     )
-            # Recompute budget on document number
-            for document in list(set(rec.forward_line_ids.mapped("document_number"))):
-                document.recompute_budget_move()
 
     def _do_update_initial_commit(self):
         """Update all Analytic Account's initial commit value related to budget period"""
@@ -226,21 +227,30 @@ class BudgetCommitForward(models.Model):
             analytic = Analytic.browse(val["analytic_account_id"])
             analytic.initial_commit = val["initial_commit"]
 
+    def _recompute_budget_move(self):
+        for rec in self:
+            # Recompute budget on document number
+            for document in list(set(rec.forward_line_ids.mapped("document_number"))):
+                document.recompute_budget_move()
+
     def action_budget_commit_forward(self):
         self._do_forward_commit()
         self.write({"state": "done"})
         self._do_update_initial_commit()
+        self._recompute_budget_move()
 
     def action_cancel(self):
         self.filtered(lambda l: l.state == "done")._do_forward_commit(reverse=True)
         self.write({"state": "cancel"})
         self._do_update_initial_commit()
+        self._recompute_budget_move()
 
     def action_draft(self):
         self.filtered(lambda l: l.state == "done")._do_forward_commit(reverse=True)
         self.mapped("forward_line_ids").unlink()
         self.write({"state": "draft"})
         self._do_update_initial_commit()
+        self._recompute_budget_move()
 
 
 class BudgetCommitForwardLine(models.Model):
@@ -303,6 +313,7 @@ class BudgetCommitForwardLine(models.Model):
         required=True,
         readonly=True,
     )
+    document_state = fields.Char(readonly=True)
     date_commit = fields.Date(
         string="Date",
         required=True,
