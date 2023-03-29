@@ -27,4 +27,8 @@
         <field name="name">Required Analytic Account</field>
         <field name="category_id" ref="base.module_category_hidden" />
     </record>
+    <record id="group_budget_date_commit" model="res.groups">
+        <field name="name">Enable Date Commit</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
 </odoo>

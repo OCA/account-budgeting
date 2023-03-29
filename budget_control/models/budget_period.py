@@ -1,7 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-
 from psycopg2 import sql
 
 from odoo import _, api, fields, models
@@ -215,7 +214,10 @@ class BudgetPeriod(models.Model):
             return
         # Commit budget
         budget_moves = []
+        vals_date_commit = []
         for line in doclines:
+            if not line.date_commit:
+                vals_date_commit.append(line.id)
             budget_move = line.with_context(force_commit=True).commit_budget()
             if budget_move:
                 budget_moves.append(budget_move)
@@ -224,7 +226,10 @@ class BudgetPeriod(models.Model):
         # Remove commits
         for budget_move in budget_moves:
             budget_move.unlink()
-        doclines.write({"date_commit": False})
+        # Delete date commit from system create auto only
+        doclines.filtered(lambda l: l.id in vals_date_commit).write(
+            {"date_commit": False}
+        )
 
     @api.model
     def check_over_returned_budget(self, docline, reverse=False):

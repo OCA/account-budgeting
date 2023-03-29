@@ -41,6 +41,7 @@
                 <field
                     name="date_commit"
                     optional="hide"
+                    groups="budget_control.group_budget_date_commit"
                     attrs="{'readonly': [('state', '!=', 'draft')]}"
                 />
                 <field

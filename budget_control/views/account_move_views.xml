@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!-- Account Move Line -->
+    <record id="view_move_line_form" model="ir.ui.view">
+        <field name="name">account.move.line.form</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_maturity']" position="after">
+                <field
+                    name="date_commit"
+                    groups="budget_control.group_budget_date_commit"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="name">account.move.line.tree</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_maturity']" position="after">
+                <field
+                    name="date_commit"
+                    optional="hide"
+                    groups="budget_control.group_budget_date_commit"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_move_line_tree_grouped" model="ir.ui.view">
+        <field name="name">account.move.line.tree.grouped</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree_grouped" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_maturity']" position="after">
+                <field
+                    name="date_commit"
+                    optional="hide"
+                    groups="budget_control.group_budget_date_commit"
+                />
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_move_form" model="ir.ui.view">
         <field name="name">account.move.form</field>
         <field name="model">account.move</field>
@@ -33,7 +76,11 @@
                 position="after"
             >
                 <field name="auto_adjust_date_commit" optional="hide" />
-                <field name="date_commit" optional="hide" />
+                <field
+                    name="date_commit"
+                    optional="hide"
+                    groups="budget_control.group_budget_date_commit"
+                />
             </xpath>
             <xpath
                 expr="//page[@id='aml_tab']/field[@name='line_ids']/tree/field[@name='analytic_account_id']"
@@ -54,6 +101,16 @@
                     widget="popover_widget"
                     attrs="{'invisible': [('analytic_account_id', '=', False)]}"
                     groups="budget_control.group_budget_control_user"
+                />
+            </xpath>
+            <xpath
+                expr="//page[@id='aml_tab']/field[@name='line_ids']/tree/field[@name='date_maturity']"
+                position="after"
+            >
+                <field
+                    name="date_commit"
+                    optional="hide"
+                    groups="budget_control.group_budget_date_commit"
                 />
             </xpath>
             <xpath expr="/form/sheet/notebook/page[last()]" position="after">

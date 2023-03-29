@@ -1,5 +1,6 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from odoo import fields, models
 
 
@@ -31,6 +32,10 @@ class ResConfigSettings(models.TransientModel):
     group_required_analytic = fields.Boolean(
         string="Required Analytic Account",
         implied_group="budget_control.group_required_analytic",
+    )
+    group_budget_date_commit = fields.Boolean(
+        string="Enable Date Commit",
+        implied_group="budget_control.group_budget_date_commit",
     )
     # Modules
     budget_control_account = fields.Boolean(
