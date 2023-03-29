@@ -214,6 +214,28 @@ class BudgetControl(models.Model):
                 % ", ".join(analytics.mapped("name"))
             )
 
+    @api.constrains("line_ids")
+    def _check_budget_control_over_consumed(self):
+        BudgetPeriod = self.env["budget.period"]
+        for rec in self.filtered(
+            lambda l: l.budget_period_id.control_level == "analytic_kpi"
+        ):
+            for line in rec.line_ids:
+                # Filter according to budget_control parameter
+                query, dataset_all = rec.with_context(
+                    filter_kpi_ids=[line.kpi_id.id]
+                )._get_query_dataset_all()
+                # Get data from dataset
+                budget_info = BudgetPeriod.get_budget_info_from_dataset(
+                    query, dataset_all
+                )
+                if budget_info["amount_balance"] < 0:
+                    raise UserError(
+                        _("Total amount in KPI {} will result in {:,.2f}").format(
+                            line.name, budget_info["amount_balance"]
+                        )
+                    )
+
     @api.onchange("use_all_kpis")
     def _onchange_use_all_kpis(self):
         if self.use_all_kpis:
@@ -247,13 +269,10 @@ class BudgetControl(models.Model):
             and val["budget_period_id"][0] == self.budget_period_id.id
         )
 
-    def _compute_budget_info(self):
-        BudgetPeriod = self.env["budget.period"]
-        MonitorReport = self.env["budget.monitor.report"]
-        query = BudgetPeriod._budget_info_query()
+    def _get_domain_dataset_all(self):
+        """Retrieve budgeting data for a list of budget_control"""
         analytic_ids = self.mapped("analytic_account_id").ids
         budget_period_ids = self.mapped("budget_period_id").ids
-        # Retrieve budgeting data for a list of budget_control
         domain = [
             ("analytic_account_id", "in", analytic_ids),
             ("budget_period_id", "in", budget_period_ids),
@@ -261,12 +280,26 @@ class BudgetControl(models.Model):
         # Optional filters by context
         if self.env.context.get("no_fwd_commit"):
             domain.append(("fwd_commit", "=", False))
+        if self.env.context.get("filter_kpi_ids"):
+            domain.append(("kpi_id", "in", self.env.context.get("filter_kpi_ids")))
+        return domain
+
+    def _get_query_dataset_all(self):
+        BudgetPeriod = self.env["budget.period"]
+        MonitorReport = self.env["budget.monitor.report"]
+        query = BudgetPeriod._budget_info_query()
+        domain = self._get_domain_dataset_all()
         dataset_all = MonitorReport.read_group(
             domain=domain,
             fields=query["fields"],
             groupby=query["groupby"],
             lazy=False,
         )
+        return query, dataset_all
+
+    def _compute_budget_info(self):
+        BudgetPeriod = self.env["budget.period"]
+        query, dataset_all = self._get_query_dataset_all()
         for rec in self:
             # Filter according to budget_control parameter
             dataset = [x for x in dataset_all if rec._filter_by_budget_control(x)]
