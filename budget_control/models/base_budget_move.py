@@ -341,7 +341,9 @@ class BudgetDoclineMixin(models.AbstractModel):
         budget_period = BudgetPeriod._get_eligible_budget_period(self.date_commit)
         if not budget_period:
             return budget_move
-        controls = BudgetPeriod._prepare_controls(budget_period, self)
+        controls = BudgetPeriod.with_context(need_control=True)._prepare_controls(
+            budget_period, self
+        )
         template_lines = budget_period.template_id.line_ids
         # Get KPI, when possible.
         if controls and template_lines:

@@ -290,6 +290,7 @@ class BudgetPeriod(models.Model):
             lambda l: l.date >= budget_period.bm_date_from
             and l.date <= budget_period.bm_date_to
         )
+        need_control = self.env.context.get("need_control")
         for budget_move in budget_moves_period:
             if budget_period.control_all_analytic_accounts:
                 if (
@@ -302,11 +303,11 @@ class BudgetPeriod(models.Model):
                             budget_move[budget_move._budget_control_field].id,
                         )
                     )
-            else:  # Only analytic in control
+            else:  # analytic in control or force control by send context
                 if (
                     budget_move.analytic_account_id in control_analytics
                     and budget_move[budget_move._budget_control_field]
-                ):
+                ) or need_control:
                     controls.add(
                         (
                             budget_move.analytic_account_id.id,
