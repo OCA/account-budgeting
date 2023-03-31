@@ -38,7 +38,6 @@
                     readonly="1"
                 />
                 <field name="document_number" optional="show" />
-                <field name="document_state" />
                 <field name="date_commit" />
                 <field name="currency_id" invisible="1" />
                 <field name="amount_commit" sum="Total Commitment" />

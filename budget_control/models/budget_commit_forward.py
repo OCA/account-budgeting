@@ -85,9 +85,6 @@ class BudgetCommitForward(models.Model):
         """For module extension"""
         return False
 
-    def _get_state_document_number(self, doc):
-        return doc[doc._doc_rel].state
-
     def _get_budget_docline_model(self):
         """_compute_missing_analytic"""
         self.ensure_one()
@@ -115,7 +112,6 @@ class BudgetCommitForward(models.Model):
                     "res_id": doc.id,
                     "document_id": "{},{}".format(doc._name, doc.id),
                     "document_number": self._get_document_number(doc),
-                    "document_state": self._get_state_document_number(doc),
                     "amount_commit": doc.amount_commit,
                     "date_commit": doc.fwd_date_commit or doc.date_commit,
                 }
@@ -313,7 +309,6 @@ class BudgetCommitForwardLine(models.Model):
         required=True,
         readonly=True,
     )
-    document_state = fields.Char(readonly=True)
     date_commit = fields.Date(
         string="Date",
         required=True,
