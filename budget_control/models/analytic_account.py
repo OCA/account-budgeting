@@ -236,3 +236,13 @@ class AccountAnalyticAccount(models.Model):
                 docline.date_commit = self.bm_date_from
             elif self.bm_date_to and self.bm_date_to < docline.date_commit:
                 docline.date_commit = self.bm_date_to
+
+    def action_edit_initial_available(self):
+        return {
+            "name": _("Edit Analytic Budget"),
+            "type": "ir.actions.act_window",
+            "res_model": "analytic.budget.edit",
+            "view_mode": "form",
+            "target": "new",
+            "context": {"default_initial_available": self.initial_available},
+        }
