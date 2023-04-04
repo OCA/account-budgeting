@@ -85,7 +85,7 @@ class BudgetBalanceForward(models.Model):
             )
 
     def _prepare_vals_forward(self):
-        """ Retrieve Analytic Account relevant to from_budget_period """
+        """Retrieve Analytic Account relevant to from_budget_period"""
         self.ensure_one()
         # Ensure that budget info will be based on this period, and no_fwd_commit
         ctx = {
@@ -202,7 +202,7 @@ class BudgetBalanceForward(models.Model):
         return res
 
     def _do_update_initial_avaliable(self):
-        """ Update all Analytic Account's initial commit value related to budget period """
+        """Update all Analytic Account's initial commit value related to budget period"""
         self.ensure_one()
         # Reset all lines
         Analytic = self.env["account.analytic.account"]

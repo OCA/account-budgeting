@@ -41,7 +41,7 @@ class BudgetPeriod(models.Model):
         return query
 
     def _compute_budget_info(self, **kwargs):
-        """ Add more data info budget_info, based on installed modules """
+        """Add more data info budget_info, based on installed modules"""
         super()._compute_budget_info(**kwargs)
         self._set_budget_info_amount(
             "amount_purchase_request",

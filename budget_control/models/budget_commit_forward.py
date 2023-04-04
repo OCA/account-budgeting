@@ -68,7 +68,7 @@ class BudgetCommitForward(models.Model):
             )
 
     def _get_base_domain(self):
-        """ For module extension """
+        """For module extension"""
         self.ensure_one()
         domain = [
             ("amount_commit", ">", 0.0),
@@ -78,15 +78,15 @@ class BudgetCommitForward(models.Model):
         return domain
 
     def _get_commit_docline(self, res_model):
-        """ For module extension """
+        """For module extension"""
         return []
 
     def _get_document_number(self, doc):
-        """ For module extension """
+        """For module extension"""
         return False
 
     def _get_budget_docline_model(self):
-        """ _compute_missing_analytic """
+        """_compute_missing_analytic"""
         self.ensure_one()
         return []
 
@@ -190,7 +190,7 @@ class BudgetCommitForward(models.Model):
         return res
 
     def _do_forward_commit(self, reverse=False):
-        """ Create carry forward budget move to all related documents """
+        """Create carry forward budget move to all related documents"""
         self = self.sudo()
         for rec in self:
             for line in rec.forward_line_ids:
@@ -213,7 +213,7 @@ class BudgetCommitForward(models.Model):
                 document.recompute_budget_move()
 
     def _do_update_initial_commit(self):
-        """ Update all Analytic Account's initial commit value related to budget period """
+        """Update all Analytic Account's initial commit value related to budget period"""
         self.ensure_one()
         # Reset
         Analytic = self.env["account.analytic.account"]

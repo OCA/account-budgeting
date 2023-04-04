@@ -602,7 +602,7 @@ class BudgetPeriod(models.Model):
         info["amount_consumed"] = info["amount_commit"] + info["amount_actual"]
 
     def _compute_budget_info(self, **kwargs):
-        """ Add more data info budget_info, based on installed modules """
+        """Add more data info budget_info, based on installed modules"""
         self.ensure_one()
         self._set_budget_info_amount(
             "amount_budget", [("source", "=", "mis_budget")], kwargs

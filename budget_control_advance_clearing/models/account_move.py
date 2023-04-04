@@ -7,7 +7,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def button_draft(self):
-        """ Unlink return advance budget """
+        """Unlink return advance budget"""
         res = super().button_draft()
         BudgetMove = self.env["advance.budget.move"]
         moves_inbound = self.filtered(lambda l: l.payment_id.payment_type == "inbound")

@@ -40,7 +40,7 @@ class PurchaseRequest(models.Model):
         return res
 
     def button_to_approve(self):
-        """ Pre-Commit Check Budget """
+        """Pre-Commit Check Budget"""
         res = super().button_to_approve()
         self.flush()
         BudgetPeriod = self.env["budget.period"]

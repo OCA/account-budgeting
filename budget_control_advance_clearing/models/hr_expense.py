@@ -15,7 +15,7 @@ class HRExpenseSheet(models.Model):
     )
 
     def write(self, vals):
-        """ Clearing for its Advance and Cancel payment expense """
+        """Clearing for its Advance and Cancel payment expense"""
         doc_cancel = self.filtered(lambda l: l.state == "cancel")
         res = super().write(vals)
         if vals.get("state") in ("approve", "cancel"):
@@ -29,7 +29,7 @@ class HRExpenseSheet(models.Model):
         return res
 
     def _prepare_clear_advance(self, line):
-        """ Cleaing after carry forward Advance """
+        """Cleaing after carry forward Advance"""
         clearing_dict = super()._prepare_clear_advance(line)
         if clearing_dict.get("analytic_account_id") and clearing_dict.get(
             "fwd_analytic_account_id"

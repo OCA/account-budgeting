@@ -51,7 +51,17 @@
             </field>
             <xpath expr="//group[@name='main']/group[2]" position="inside">
                 <field name="auto_adjust_date_commit" />
-                <field name="initial_available" />
+                <label for="initial_available" />
+                <div>
+                    <field name="initial_available" class="oe_inline" />
+                    <button
+                        name="action_edit_initial_available"
+                        string="=> Edit"
+                        type="object"
+                        class="oe_link"
+                        attrs="{'invisible': [('initial_available', '=', 0)]}"
+                    />
+                </div>
                 <field name="initial_commit" />
             </xpath>
         </field>

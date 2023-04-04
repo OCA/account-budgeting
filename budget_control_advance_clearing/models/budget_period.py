@@ -41,7 +41,7 @@ class BudgetPeriod(models.Model):
         return query
 
     def _compute_budget_info(self, **kwargs):
-        """ Add more data info budget_info, based on installed modules """
+        """Add more data info budget_info, based on installed modules"""
         super()._compute_budget_info(**kwargs)
         self._set_budget_info_amount(
             "amount_advance",
@@ -67,7 +67,7 @@ class BudgetPeriod(models.Model):
 
     @api.model
     def check_budget_precommit(self, doclines, doc_type="account"):
-        """ If the clearing has related advance, uncommit first """
+        """If the clearing has related advance, uncommit first"""
         budget_moves = False
         if doclines._name == "hr.expense":
             clearings = doclines.mapped("sheet_id").filtered("advance_sheet_id")

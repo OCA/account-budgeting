@@ -37,7 +37,7 @@ class MisBudgetItem(models.Model):
     )
 
     def _compute_name(self):
-        """ Overwrite name using KPI only """
+        """Overwrite name using KPI only"""
         for rec in self:
             rec.name = rec.kpi_expression_id.kpi_id.display_name
 

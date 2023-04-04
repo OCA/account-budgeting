@@ -121,7 +121,7 @@ class TestBudgetControl(BudgetControlCommon):
 
     @freeze_time("2001-02-01")
     def test_02_budget_purchase_to_invoice(self):
-        """ Purchase to Invoice, commit and uncommit """
+        """Purchase to Invoice, commit and uncommit"""
         # KPI1 = 100, KPI2 = 200, Total = 300
         self.assertEqual(300, self.budget_control.amount_budget)
         # Prepare PO on kpi1 with qty 3 and unit_price 10

@@ -81,7 +81,7 @@ class BaseBudgetMove(models.AbstractModel):
     )
 
     def _compute_reference(self):
-        """ Compute reference name of the budget move document """
+        """Compute reference name of the budget move document"""
         self.update({"reference": False})
 
 
@@ -169,7 +169,7 @@ class BudgetDoclineMixin(models.AbstractModel):
 
     @api.depends()
     def _compute_can_commit(self):
-        """ Test that this document eligible for budget commit """
+        """Test that this document eligible for budget commit"""
         # All required fields is set
         dom = [(f, "!=", False) for f in self._required_fields_to_commit()]
         records = self.filtered_domain(dom)
@@ -435,13 +435,13 @@ class BudgetDoclineMixin(models.AbstractModel):
         return [self._budget_analytic_field]
 
     def _init_docline_budget_vals(self, budget_vals):
-        """ To be extended by docline to add untaxed amount_currency """
+        """To be extended by docline to add untaxed amount_currency"""
         if "amount_currency" not in budget_vals:
             raise ValidationError(_("No amount_currency passed in!"))
         return budget_vals
 
     def _taxes_included(self, taxes):
-        """ Check configuration, both document and tax type """
+        """Check configuration, both document and tax type"""
         if not self.env.company.budget_include_tax:
             return False
         else:
@@ -490,7 +490,7 @@ class BudgetDoclineMixin(models.AbstractModel):
                 self._check_date_commit()  # Testing only, can be removed when stable
 
     def _check_date_commit(self):
-        """ Commit date must inline with analytic account """
+        """Commit date must inline with analytic account"""
         self.ensure_one()
         docline = self
         analytic = docline[self._budget_analytic_field]
@@ -511,7 +511,7 @@ class BudgetDoclineMixin(models.AbstractModel):
                 raise UserError(_("Budget commitment date not required"))
 
     def close_budget_move(self):
-        """ Reverse commit with amount_commit/date_commit to zero budget """
+        """Reverse commit with amount_commit/date_commit to zero budget"""
         for docline in self:
             docline.with_context(
                 use_amount_commit=True,

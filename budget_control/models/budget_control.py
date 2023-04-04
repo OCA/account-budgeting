@@ -197,7 +197,7 @@ class BudgetControl(models.Model):
 
     @api.constrains("active", "state", "analytic_account_id", "budget_period_id")
     def _check_budget_control_unique(self):
-        """ Not allow multiple active budget control on same period """
+        """Not allow multiple active budget control on same period"""
         self.flush()
         self.env.cr.execute(
             """
@@ -432,7 +432,7 @@ class BudgetControl(models.Model):
         return items
 
     def _keep_item_amount(self, vals, old_items):
-        """ Find amount from old plan for update new plan """
+        """Find amount from old plan for update new plan"""
         for val in vals:
             domain_item = [(k, "=", v) for k, v in val.items()]
             item = old_items.search(domain_item)

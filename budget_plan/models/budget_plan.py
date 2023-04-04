@@ -73,7 +73,7 @@ class BudgetPlan(models.Model):
             rec.total_amount = sum(rec.plan_line.mapped("amount"))
 
     def _compute_budget_control(self):
-        """ Find all budget controls of the same period """
+        """Find all budget controls of the same period"""
         for rec in self.with_context(active_test=False).sudo():
             rec.budget_control_ids = rec.plan_line.mapped("budget_control_ids")
             rec.budget_control_count = len(rec.plan_line.mapped("budget_control_ids"))
@@ -257,7 +257,7 @@ class BudgetPlanLine(models.Model):
         ]
 
     def _compute_budget_control_ids(self):
-        """ It is expected this to contain only """
+        """It is expected this to contain only"""
         BudgetControl = (
             self.env["budget.control"].with_context(active_test=False).sudo()
         )
@@ -265,7 +265,7 @@ class BudgetPlanLine(models.Model):
             rec.budget_control_ids = BudgetControl.search(rec._domain_budget_control())
 
     def _update_budget_control_data(self):
-        """ Push data budget control, i.e., alloc amount, active status """
+        """Push data budget control, i.e., alloc amount, active status"""
         self.invalidate_cache()
         for rec in self:
             all_controls = rec.with_context(active_test=False).budget_control_ids

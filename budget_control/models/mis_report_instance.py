@@ -36,7 +36,7 @@ class MisReportInstance(models.Model):
         return ctx
 
     def _compute_matrix(self):
-        """ Add possible filter_analytic_ids to compute """
+        """Add possible filter_analytic_ids to compute"""
         ctx = self._get_context_filter_matrix()
         return super(MisReportInstance, self.with_context(ctx))._compute_matrix()
 

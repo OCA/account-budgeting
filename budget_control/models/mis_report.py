@@ -10,7 +10,7 @@ class MisReport(models.Model):
     _inherit = "mis.report"
 
     def get_kpis(self, company):
-        """ By default the kpis is by account_id """
+        """By default the kpis is by account_id"""
         self.ensure_one()
         kpis = self.get_kpis_by_account_id(company)
         return kpis
@@ -25,7 +25,7 @@ class MisReport(models.Model):
         return aep
 
     def _prepare_aep(self, companies, currency=None):
-        """ Filter some kpi, performance """
+        """Filter some kpi, performance"""
         self.ensure_one()
         filter_kpi_ids = self._context.get("filter_kpi_ids", False)
         if filter_kpi_ids:

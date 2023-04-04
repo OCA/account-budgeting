@@ -122,7 +122,7 @@ class AccountAnalyticAccount(models.Model):
         return False
 
     def _compute_amount_budget_info(self):
-        """ Note: This method is similar to BCS._compute_budget_info """
+        """Note: This method is similar to BCS._compute_budget_info"""
         BudgetPeriod = self.env["budget.period"]
         MonitorReport = self.env["budget.monitor.report"]
         query = BudgetPeriod._budget_info_query()
@@ -192,7 +192,7 @@ class AccountAnalyticAccount(models.Model):
         return next_analytic
 
     def _check_budget_control_status(self, budget_period_id=False):
-        """ Warning for budget_control on budget_period, but not in controlled """
+        """Warning for budget_control on budget_period, but not in controlled"""
         domain = [("analytic_account_id", "in", self.ids)]
         if budget_period_id:
             domain.append(("budget_period_id", "=", budget_period_id))
@@ -233,3 +233,13 @@ class AccountAnalyticAccount(models.Model):
                 docline.date_commit = self.bm_date_from
             elif self.bm_date_to and self.bm_date_to < docline.date_commit:
                 docline.date_commit = self.bm_date_to
+
+    def action_edit_initial_available(self):
+        return {
+            "name": _("Edit Analytic Budget"),
+            "type": "ir.actions.act_window",
+            "res_model": "analytic.budget.edit",
+            "view_mode": "form",
+            "target": "new",
+            "context": {"default_initial_available": self.initial_available},
+        }

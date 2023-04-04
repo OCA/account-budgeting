@@ -11,7 +11,7 @@ class GenerateBudgetControl(models.TransientModel):
     )
 
     def _get_existing_budget(self):
-        """ Update allocated amount from budget plan """
+        """Update allocated amount from budget plan"""
         if self.budget_plan_id:  # create from budget plan
             return self.budget_plan_id.with_context(
                 active_test=False
