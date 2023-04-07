@@ -118,7 +118,7 @@ class BudgetControl(models.Model):
     # Total Amount
     amount_initial = fields.Monetary(
         string="Initial Balance",
-        related="analytic_account_id.initial_available",
+        compute="_compute_initial_balance",
     )
     amount_budget = fields.Monetary(
         string="Budget",
@@ -212,6 +212,14 @@ class BudgetControl(models.Model):
             raise UserError(
                 _("Multiple budget control on the same period for: %s")
                 % ", ".join(analytics.mapped("name"))
+            )
+
+    @api.depends("analytic_account_id")
+    def _compute_initial_balance(self):
+        for rec in self:
+            rec.amount_initial = (
+                rec.analytic_account_id.initial_available
+                + rec.analytic_account_id.initial_commit
             )
 
     @api.constrains("line_ids")
