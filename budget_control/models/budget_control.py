@@ -217,6 +217,8 @@ class BudgetControl(models.Model):
     @api.constrains("line_ids")
     def _check_budget_control_over_consumed(self):
         BudgetPeriod = self.env["budget.period"]
+        if self.env.context.get("edit_amount", False):
+            return
         for rec in self.filtered(
             lambda l: l.budget_period_id.control_level == "analytic_kpi"
         ):
@@ -307,14 +309,19 @@ class BudgetControl(models.Model):
             budget_info = BudgetPeriod.get_budget_info_from_dataset(query, dataset)
             rec.update(budget_info)
 
+    def _get_lines_init_date(self):
+        self.ensure_one()
+        init_date = min(self.line_ids.mapped("date_from"))
+        return self.line_ids.filtered(lambda l: l.date_from == init_date)
+
     def do_init_budget_commit(self, init):
         """Initialize budget with current commitment amount."""
         for bc in self:
             bc.update({"init_budget_commit": init})
             if not init or not bc.init_budget_commit or not bc.line_ids:
                 continue
-            init_date = min(bc.line_ids.mapped("date_from"))
-            lines = bc.line_ids.filtered(lambda l: l.date_from == init_date)
+            min(bc.line_ids.mapped("date_from"))
+            lines = bc._get_lines_init_date()
             for line in lines:
                 query_data = bc.budget_period_id._get_budget_avaiable(
                     bc.analytic_account_id.id, line.template_line_id
@@ -326,7 +333,7 @@ class BudgetControl(models.Model):
                     if q["amount"] is not None
                     and q["amount_type"] not in ["1_budget", "8_actual"]
                 )
-                line.update({"amount": balance_commit})
+                line.update({"amount": abs(balance_commit)})
 
     @api.onchange("init_budget_commit")
     def _onchange_init_budget_commit(self):
