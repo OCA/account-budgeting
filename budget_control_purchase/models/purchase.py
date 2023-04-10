@@ -72,6 +72,24 @@ class PurchaseOrderLine(models.Model):
         for rec in self:
             rec.account_id = rec._get_po_line_account()
 
+    @api.depends("budget_move_ids", "budget_move_ids.date")
+    def _compute_commit(self):
+        """Move amount commit negative to first line positive"""
+        res = super()._compute_commit()
+        for purchase_line in self.filtered(lambda l: l.price_subtotal < 0.0):
+            available_lines = purchase_line.order_id.order_line.filtered(
+                lambda l: l.price_subtotal > 0.0 and l.amount_commit > 0.0
+            )
+            amount_commit = abs(purchase_line.amount_commit)
+            # Check amount commit each line
+            for line in available_lines:
+                if amount_commit > 0 and line.amount_commit > 0:
+                    amount_to_commit = min(amount_commit, line.amount_commit)
+                    purchase_line.amount_commit += amount_to_commit
+                    line.amount_commit -= amount_to_commit
+                    amount_commit -= amount_to_commit
+        return res
+
     def recompute_budget_move(self):
         for purchase_line in self:
             purchase_line.budget_move_ids.unlink()
