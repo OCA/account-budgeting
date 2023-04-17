@@ -294,12 +294,17 @@ class BudgetControl(models.Model):
             domain.append(("kpi_id", "in", self.env.context.get("filter_kpi_ids")))
         return domain
 
+    def _get_context_monitoring(self):
+        """Support for add context in monitoring"""
+        return self.env.context.copy()
+
     def _get_query_dataset_all(self):
         BudgetPeriod = self.env["budget.period"]
         MonitorReport = self.env["budget.monitor.report"]
+        ctx = self._get_context_monitoring()
         query = BudgetPeriod._budget_info_query()
         domain = self._get_domain_dataset_all()
-        dataset_all = MonitorReport.read_group(
+        dataset_all = MonitorReport.with_context(**ctx).read_group(
             domain=domain,
             fields=query["fields"],
             groupby=query["groupby"],
