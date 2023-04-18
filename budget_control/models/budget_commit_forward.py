@@ -152,7 +152,11 @@ class BudgetCommitForward(models.Model):
                 )
             )
         wizard = self.env.ref("budget_control.view_budget_commit_forward_info_form")
-        forward_vals = self._get_forward_initial_commit()
+        domain = [
+            ("forward_id", "=", self.id),
+            ("forward_id.state", "in", ["review", "done"]),
+        ]
+        forward_vals = self._get_forward_initial_commit(domain)
         return {
             "name": _("Preview Budget Commitment"),
             "type": "ir.actions.act_window",
@@ -167,15 +171,12 @@ class BudgetCommitForward(models.Model):
             },
         }
 
-    def _get_forward_initial_commit(self):
+    def _get_forward_initial_commit(self, domain):
         """Get analytic of all analytic accounts for this budget carry forward
         + all the "done" budget carry forward"""
         self.ensure_one()
         forwards = self.env["budget.commit.forward.line"].read_group(
-            [
-                ("forward_id", "=", self.id),
-                ("forward_id.state", "in", ["review", "done"]),
-            ],
+            domain,
             ["to_analytic_account_id", "amount_commit"],
             ["to_analytic_account_id"],
             orderby="to_analytic_account_id",
@@ -214,24 +215,29 @@ class BudgetCommitForward(models.Model):
         self.ensure_one()
         # Reset initial when cancel document only
         Analytic = self.env["account.analytic.account"]
+        domain = [("forward_id", "=", self.id)]
         if reverse:
-            analytics = Analytic.search(
-                [("budget_period_id", "in", [self.to_budget_period_id.id, False])]
-            )
-            for analytic in analytics:
-                forward_line_ids = self.forward_line_ids.filtered(
-                    lambda l: l.to_analytic_account_id == analytic
-                )
-                analytic_commit = sum(
-                    forward_line_ids.filtered(
-                        lambda l: l.to_analytic_account_id == analytic
-                    ).mapped("amount_commit")
-                )
-                analytic.initial_commit -= analytic_commit
-        forward_vals = self._get_forward_initial_commit()
+            forward_vals = self._get_forward_initial_commit(domain)
+            for val in forward_vals:
+                analytic = Analytic.browse(val["analytic_account_id"])
+                analytic.initial_commit -= val["initial_commit"]
+            return
+        forward_duplicate = self.env["budget.commit.forward"].search(
+            [
+                ("to_budget_period_id", "=", self.to_budget_period_id.id),
+                ("id", "!=", self.id),
+            ]
+        )
+        domain.append(("forward_id.state", "in", ["review", "done"]))
+        forward_vals = self._get_forward_initial_commit(domain)
         for val in forward_vals:
             analytic = Analytic.browse(val["analytic_account_id"])
-            analytic.initial_commit += val["initial_commit"]
+            # Check analytic is no budget period and
+            # First forward commit in the year, it should overwrite initial commit
+            if not (forward_duplicate or analytic.budget_period_id):
+                analytic.initial_commit = val["initial_commit"]
+            else:
+                analytic.initial_commit += val["initial_commit"]
 
     def _recompute_budget_move(self):
         for rec in self:
@@ -246,6 +252,15 @@ class BudgetCommitForward(models.Model):
         self._recompute_budget_move()
 
     def action_cancel(self):
+        forwards = self.env["budget.commit.forward"].search([("state", "=", "done")])
+        max_date_commit = max(forwards.mapped("to_date_commit"))
+        # Not allow cancel document is past period.
+        if max_date_commit and any(
+            rec.to_date_commit < max_date_commit for rec in self
+        ):
+            raise UserError(
+                _("Unable to cancel this document as it belongs to a past period.")
+            )
         self.filtered(lambda l: l.state == "done")._do_forward_commit(reverse=True)
         self.write({"state": "cancel"})
         self._do_update_initial_commit(reverse=True)
