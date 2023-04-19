@@ -225,6 +225,7 @@ class BudgetCommitForward(models.Model):
         forward_duplicate = self.env["budget.commit.forward"].search(
             [
                 ("to_budget_period_id", "=", self.to_budget_period_id.id),
+                ("state", "=", "done"),
                 ("id", "!=", self.id),
             ]
         )
