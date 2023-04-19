@@ -40,9 +40,10 @@ class AccountMoveLine(models.Model):
             budget_vals["amount_currency"] = self.amount_currency
         else:
             sign = -1 if self.move_id.move_type in ("out_refund", "in_refund") else 1
+            discount = (100 - self.discount) / 100 if self.discount else 1
             budget_vals["amount_currency"] = (
-                sign * self.price_subtotal
-            )  # include discount
+                sign * self.price_unit * self.quantity * discount
+            )
         budget_vals["tax_ids"] = self.tax_ids.ids
         # Document specific vals
         budget_vals.update(
