@@ -134,7 +134,6 @@ class AccountAnalyticAccount(models.Model):
         # Optional filters by context
         ctx = self.env.context.copy()
         if ctx.get("budget_period_ids"):
-            # domain += [("budget_period_id", "in", [2, 3])]
             if ctx.get("budget_date_commit"):
                 domain += [
                     "|",
