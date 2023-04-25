@@ -85,12 +85,27 @@ class BudgetBalanceForward(models.Model):
                 )
             )
 
+    def _get_other_forward(self):
+        query = """
+            SELECT fw_line.analytic_account_id
+            FROM budget_balance_forward_line fw_line
+            LEFT JOIN budget_balance_forward fw
+                ON fw.id = fw_line.forward_id
+            WHERE fw.state in ('review', 'done')
+                AND fw.id != %s
+                AND fw.from_budget_period_id = %s
+        """
+        params = (self.id, self.from_budget_period_id.id)
+        self.env.cr.execute(query, params)
+        return self.env.cr.dictfetchall()
+
     def _prepare_vals_forward(self):
         """Retrieve Analytic Account relevant to from_budget_period"""
         self.ensure_one()
-        # Ensure that budget info will be based on this period, and no_fwd_commit
+        # Ensure that budget info will be based on this period, and fwd commit
         self = self.with_context(
-            budget_period_ids=[self.from_budget_period_id.id], no_fwd_commit=True
+            budget_period_ids=self.from_budget_period_id.ids,
+            budget_date_commit=self.to_budget_period_id.bm_date_from,
         )
         # Analyic Account from budget control sheet of the previous year
         BudgetControl = self.env["budget.control"]
@@ -98,8 +113,13 @@ class BudgetBalanceForward(models.Model):
             [("budget_period_id", "=", self.from_budget_period_id.id)]
         )
         analytics = budget_controls.mapped("analytic_account_id")
+        # Find document forward balance is used. it should skip it.
+        query_analytic = self._get_other_forward()
+        analytic_dup_ids = [x["analytic_account_id"] for x in query_analytic]
         value_dict = []
         for analytic in analytics:
+            if analytic.id in analytic_dup_ids:
+                continue
             method_type = False
             if (
                 analytic.bm_date_to
