@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates id="template" xml:space="preserve">
+    <div t-name="budget_control.budgetPopOver" owl="1">
+        <p>
+            AA1
+        </p>
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td>
+                        Planned
+                    </td>
+                    <td class="text-right">
+                        <t t-esc="budget" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Used
+                    </td>
+                    <td class="text-right">
+                        - <t t-esc="consumed" />
+                    </td>
+                </tr>
+                <tr class="table-info">
+                    <td>
+                        Available
+                    </td>
+                    <td class="text-right text-nowrap">
+                        = <t t-esc="balance" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</templates>
