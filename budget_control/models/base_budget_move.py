@@ -414,6 +414,17 @@ class BudgetDoclineMixin(models.AbstractModel):
                             "debit": credit,
                         }
                     )
+                # Remove forward commitment from unused subsequent year budget lines
+                # If a budget line was forwarded to the next year but the budget
+                # for that year is not utilized, this code removes the forward commitment,
+                # allowing the line to be forwarded again in the following year.
+                budget_move_previous_forward = self[self._budget_field()].filtered(
+                    lambda l: l.fwd_commit
+                    and l.date < fwd_line.forward_id.to_date_commit
+                    and l.debit > 0.0
+                )
+                if budget_move_previous_forward:
+                    budget_move_previous_forward.write({"fwd_commit": False})
 
     def commit_budget(self, reverse=False, **vals):
         """Create budget commit for each docline"""

@@ -102,10 +102,11 @@ class BudgetBalanceForward(models.Model):
     def _prepare_vals_forward(self):
         """Retrieve Analytic Account relevant to from_budget_period"""
         self.ensure_one()
-        # Ensure that budget info will be based on this period, and fwd commit
+        # Ensure that budget info will be based on this period, and no_fwd_commit
         self = self.with_context(
             budget_period_ids=self.from_budget_period_id.ids,
             budget_date_commit=self.to_budget_period_id.bm_date_from,
+            no_fwd_commit=True,
         )
         # Analyic Account from budget control sheet of the previous year
         BudgetControl = self.env["budget.control"]

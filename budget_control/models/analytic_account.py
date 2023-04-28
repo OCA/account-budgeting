@@ -133,17 +133,10 @@ class AccountAnalyticAccount(models.Model):
         domain = [("analytic_account_id", "in", analytic_ids)]
         # Optional filters by context
         ctx = self.env.context.copy()
+        if ctx.get("no_fwd_commit"):
+            domain.append(("fwd_commit", "=", False))
         if ctx.get("budget_period_ids"):
-            if ctx.get("budget_date_commit"):
-                domain += [
-                    "|",
-                    ("budget_period_id", "in", ctx["budget_period_ids"]),
-                    ("date", "=", ctx["budget_date_commit"]),
-                ]
-            else:
-                domain += [
-                    ("budget_period_id", "in", ctx["budget_period_ids"]),
-                ]
+            domain.append(("budget_period_id", "in", ctx["budget_period_ids"]))
         # --
         admin_uid = self.env.ref("base.user_admin").id
         dataset_all = MonitorReport.with_user(admin_uid).read_group(
