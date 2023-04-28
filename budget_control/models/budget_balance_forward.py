@@ -105,7 +105,6 @@ class BudgetBalanceForward(models.Model):
         # Ensure that budget info will be based on this period, and no_fwd_commit
         self = self.with_context(
             budget_period_ids=self.from_budget_period_id.ids,
-            budget_date_commit=self.to_budget_period_id.bm_date_from,
             no_fwd_commit=True,
         )
         # Analyic Account from budget control sheet of the previous year
