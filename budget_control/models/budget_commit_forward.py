@@ -233,9 +233,8 @@ class BudgetCommitForward(models.Model):
         forward_vals = self._get_forward_initial_commit(domain)
         for val in forward_vals:
             analytic = Analytic.browse(val["analytic_account_id"])
-            # Check analytic is no budget period and
-            # First forward commit in the year, it should overwrite initial commit
-            if not (forward_duplicate or analytic.budget_period_id):
+            # Check first forward commit in the year, it should overwrite initial commit
+            if not forward_duplicate:
                 analytic.initial_commit = val["initial_commit"]
             else:
                 analytic.initial_commit += val["initial_commit"]
