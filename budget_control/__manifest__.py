@@ -51,7 +51,7 @@
         ],
     },
     "installable": True,
-    "maintainers": ["kittiu"],
+    "maintainers": ["kittiu", "ru3ix-bbb"],
     "post_init_hook": "update_data_hooks",
     "uninstall_hook": "uninstall_hook",
     "development_status": "Alpha",

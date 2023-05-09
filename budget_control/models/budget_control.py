@@ -537,6 +537,7 @@ class BudgetControlLine(models.Model):
         comodel_name="date.range",
         string="Date range",
     )
+    date_range_name = fields.Char(related="date_range_id.name")  # bbbn
     date_from = fields.Date(required=True, string="From")
     date_to = fields.Date(required=True, string="To")
     analytic_account_id = fields.Many2one(

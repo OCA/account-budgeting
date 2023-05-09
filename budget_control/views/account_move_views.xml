@@ -103,7 +103,7 @@
                     name="budget_commit"
                     attrs="{'invisible': [('budget_move_ids', '=', [])]}"
                 >
-                    <div class="oe_read_only oe_right" name="buttons">
+                    <div class="oe_right" name="buttons">
                         <button
                             type="object"
                             name="recompute_budget_move"

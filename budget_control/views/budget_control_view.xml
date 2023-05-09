@@ -245,61 +245,58 @@
                                     title="Reset lines but not clear the planned amount."
                                 />
                             </div>
-                            <field name="line_ids">
-                                <tree editable="bottom">
-                                    <field name="date_range_id" />
-                                    <field name="name" />
-                                    <field name="amount" />
-                                </tree>
-                            </field>
-                            <!-- FIXME: It still error -->
-                            <!-- <field
-                                name="line_ids"
-                                widget="x2many_2d_matrix"
-                                field_x_axis="date_range_id"
-                                field_y_axis="name"
-                                field_value="amount"
-                            >
-                                <tree>
-                                    <field name="date_range_id" />
-                                    <field name="name" />
-                                    <field name="amount" />
-                                </tree>
-                            </field> -->
-                            <!-- Totals Amount -->
-                            <group
-                                name="amount_budget"
-                                class="oe_subtotal_footer oe_right"
-                            >
-                                <div
-                                    class="oe_subtotal_footer_separator oe_inline o_td_label"
-                                >
-                                    <label for="amount_budget" />
-                                </div>
+                            <br />
+                            <br />
+                            <group>
                                 <field
+                                    name="line_ids"
+                                    widget="x2many_2d_matrix"
+                                    field_x_axis="date_range_name"
+                                    field_y_axis="name"
+                                    field_value="amount"
+                                >
+                                    <tree limit="1000000">
+                                        <field name="date_range_id" />
+                                        <field name="date_range_name" /><!-- bbbn -->
+                                        <field name="name" />
+                                        <field name="amount" widget="float" />
+                                    </tree>
+                                </field>
+                                <!-- Totals Amount -->
+                                <group
                                     name="amount_budget"
-                                    nolabel="1"
-                                    class="oe_subtotal_footer_separator"
-                                />
-                                <field
-                                    name="amount_commit"
-                                    class="oe_subtotal_footer_separator"
-                                />
-                                <field name="amount_actual" />
-                                <field
-                                    name="amount_consumed"
-                                    class="oe_subtotal_footer_separator"
-                                />
-                                <div
-                                    class="oe_subtotal_footer_separator oe_inline o_td_label"
+                                    class="oe_subtotal_footer oe_right"
                                 >
-                                    <label for="amount_balance" />
-                                </div>
-                                <field
-                                    name="amount_balance"
-                                    nolabel="1"
-                                    class="oe_subtotal_footer_separator"
-                                />
+                                    <div
+                                        class="oe_subtotal_footer_separator oe_inline o_td_label"
+                                    >
+                                        <label for="amount_budget" />
+                                    </div>
+                                    <field
+                                        name="amount_budget"
+                                        nolabel="1"
+                                        class="oe_subtotal_footer_separator"
+                                    />
+                                    <field
+                                        name="amount_commit"
+                                        class="oe_subtotal_footer_separator"
+                                    />
+                                    <field name="amount_actual" />
+                                    <field
+                                        name="amount_consumed"
+                                        class="oe_subtotal_footer_separator"
+                                    />
+                                    <div
+                                        class="oe_subtotal_footer_separator oe_inline o_td_label"
+                                    >
+                                        <label for="amount_balance" />
+                                    </div>
+                                    <field
+                                        name="amount_balance"
+                                        nolabel="1"
+                                        class="oe_subtotal_footer_separator"
+                                    />
+                                </group>
                             </group>
                         </page>
                         <page name="options" string="Reset Options">

@@ -183,8 +183,8 @@ class BudgetPeriod(models.Model):
                 ):
                     raise UserError(
                         _(
-                            "The total sum percent of Analytic Account must 100%.",
-                            "Please check again.",
+                            "The total sum percent of Analytic Account must 100%."
+                            " Please check again."
                         )
                     )
                 all_analytic_ids.update(int(key) for key in data_dict.keys())
