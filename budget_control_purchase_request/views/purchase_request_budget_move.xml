@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Purchase Move Line -->
+    <record id="view_purchase_request_budget_move_form" model="ir.ui.view">
+        <field name="name">view.purchase.request.budget.move.form</field>
+        <field name="model">purchase.request.budget.move</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="reference" string="Reference">
+                    <group name="group_left">
+                        <field name="purchase_request_line_id" />
+                        <field name="purchase_request_id" />
+                        <field name="purchase_line_id" />
+                        <field name="purchase_id" />
+                    </group>
+                    <group name="group_right">
+                        <field name="reference" />
+                        <field name="source_document" />
+                    </group>
+                </group>
+                <group name="information" string="General Information">
+                    <group name="group_left">
+                        <field name="template_line_id" />
+                        <field name="kpi_id" />
+                        <field name="account_id" />
+                        <field name="analytic_plan" />
+                        <field name="analytic_account_id" />
+                        <field name="date" />
+                        <field name="amount_currency" />
+                        <field name="debit" />
+                        <field name="credit" />
+                    </group>
+                    <group name="group_right">
+                        <field name="product_id" />
+                        <field name="write_uid" />
+                        <field name="write_date" />
+                        <field name="note" />
+                        <field name="adj_commit" />
+                        <field name="fwd_commit" />
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>
