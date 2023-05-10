@@ -28,6 +28,7 @@ class PurchaseOrderLine(models.Model):
                         reverse=True,
                         purchase_line_id=po_line.id,
                         date=po_line.date_commit,
+                        analytic_account_id=pr_line.fwd_analytic_account_id or False,
                     )
             else:  # Cancel or draft, not commitment line
                 self.env["purchase.request.budget.move"].search(

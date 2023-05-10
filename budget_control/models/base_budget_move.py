@@ -268,9 +268,10 @@ class BudgetDoclineMixin(models.AbstractModel):
         self.ensure_one()
         company = self.env.user.company_id
         account = self.account_id
-        analytic_account = budget_vals.get(
-            "analytic_account_id", self[self._budget_analytic_field]
-        )
+        # Check params analytic_account_id, if not it should be self analytic
+        analytic_account = budget_vals.get("analytic_account_id", False)
+        if not analytic_account:
+            analytic_account = self[self._budget_analytic_field]
         budget_moves = self[self._budget_field()]
         date_commit = budget_vals.get(
             "date",
@@ -332,7 +333,7 @@ class BudgetDoclineMixin(models.AbstractModel):
         return [
             ("res_model", "=", docline._name),
             ("res_id", "=", docline.id),
-            ("forward_id.state", "in", ["review", "done"]),
+            ("forward_id.state", "=", "done"),
         ]
 
     def forward_commit(self):
@@ -375,7 +376,11 @@ class BudgetDoclineMixin(models.AbstractModel):
                     commit_note=_("Commitment carry forward"),
                     fwd_commit=True,
                     fwd_amount_commit=fwd_line.amount_commit,
-                ).commit_budget(reverse=True, date=budget_period.bm_date_to)
+                ).commit_budget(
+                    reverse=True,
+                    date=budget_period.bm_date_to,
+                    analytic_account_id=fwd_line.analytic_account_id,
+                )
                 # create commitment carry (debit)
                 if budget_move:
                     fwd_budget_move = budget_move.copy()

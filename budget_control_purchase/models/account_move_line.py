@@ -29,12 +29,12 @@ class AccountMoveLine(models.Model):
 
     def uncommit_purchase_budget(self):
         """For vendor bill in valid state, do uncommit for related purchase."""
+        ForwardLine = self.env["budget.commit.forward.line"]
         for ml in self:
             inv_state = ml.move_id.state
             move_type = ml.move_id.move_type
             if move_type in ("in_invoice", "in_refund"):
                 if inv_state == "posted":
-                    rev = move_type == "in_invoice" and True or False
                     purchase_line = ml._get_po_line_amount_commit()
                     if not purchase_line:
                         continue
@@ -43,14 +43,35 @@ class AccountMoveLine(models.Model):
                     if qty <= 0 and not ml._check_skip_negative_qty():
                         continue
                     # Only case reverse and want to return_amount_commit
-                    if rev and ml.return_amount_commit:
-                        purchase_line = purchase_line.with_context(
-                            return_amount_commit=ml.amount_commit
-                        )
-                    purchase_line.commit_budget(
-                        reverse=rev,
+                    context = {}
+                    if move_type == "in_invoice" and ml.return_amount_commit:
+                        context["return_amount_commit"] = ml.amount_commit
+
+                    # Check case forward commit,
+                    # it should uncommit with forward commit or old analytic
+                    analytic_account = False
+                    if purchase_line.fwd_analytic_account_id:
+                        # Case actual use analytic same as PO Commit,
+                        # it will uncommit with PO analytic
+                        if purchase_line.account_analytic_id == ml.analytic_account_id:
+                            analytic_account = purchase_line.account_analytic_id
+                        else:
+                            # Case actual commit is use analytic not same as PO Commit
+                            domain_fwd_line = self._get_domain_fwd_line(purchase_line)
+                            fwd_lines = ForwardLine.search(domain_fwd_line)
+                            for fwd_line in fwd_lines:
+                                if (
+                                    fwd_line.forward_id.to_budget_period_id.bm_date_from
+                                    <= ml.date_commit
+                                    <= fwd_line.forward_id.to_budget_period_id.bm_date_to
+                                ):
+                                    analytic_account = fwd_line.to_analytic_account_id
+                                    break
+                    # Confirm vendor bill, do uncommit budget
+                    purchase_line.with_context(**context).commit_budget(
+                        reverse=move_type == "in_invoice",
                         move_line_id=ml.id,
-                        analytic_account_id=ml.analytic_account_id,
+                        analytic_account_id=analytic_account,
                         product_qty=qty,
                         date=ml.date_commit,
                     )
