@@ -112,12 +112,6 @@ class HRExpense(models.Model):
                     ml["analytic_account_id"] = expense.fwd_analytic_account_id.id
         return move_line_values_by_expense
 
-    def _prepare_move_values(self):
-        move_values = super()._prepare_move_values()
-        journal = self.env["account.journal"].browse(move_values["journal_id"])
-        move_values["not_affect_budget"] = journal.not_affect_budget
-        return move_values
-
     def _get_included_tax(self):
         if self._name == "hr.expense":
             return self.env.company.budget_include_tax_expense

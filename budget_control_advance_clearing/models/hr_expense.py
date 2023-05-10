@@ -186,6 +186,7 @@ class HRExpense(models.Model):
                         reverse=True,
                         amount_currency=origin_clearing_amount,
                         move_line_id=move_line.id,
+                        analytic_account_id=advance.fwd_analytic_account_id or False,
                         date=date_commit,
                     )
                     break
@@ -197,6 +198,7 @@ class HRExpense(models.Model):
                     reverse=True,
                     amount_currency=return_advance_amount,
                     move_line_id=move_line.id,
+                    analytic_account_id=advance.fwd_analytic_account_id or False,
                     date=date_commit,
                 )
                 advance = self._find_next_av(advance)
@@ -264,6 +266,8 @@ class HRExpense(models.Model):
                             reverse=True,
                             clearing_id=clearing.id,
                             amount_currency=clearing_amount,
+                            analytic_account_id=advance.fwd_analytic_account_id
+                            or False,
                             date=clearing.date_commit,
                         )
                         budget_moves |= budget_move

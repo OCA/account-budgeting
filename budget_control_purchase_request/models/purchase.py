@@ -26,6 +26,7 @@ class PurchaseOrderLine(models.Model):
                 for pr_line in po_line.purchase_request_lines.filtered("amount_commit"):
                     pr_line.commit_budget(
                         reverse=True,
+                        analytic_account_id=pr_line.fwd_analytic_account_id or False,
                         purchase_line_id=po_line.id,
                         date=po_line.date_commit,
                     )
