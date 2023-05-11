@@ -29,6 +29,7 @@ class AccountMoveLine(models.Model):
 
     def uncommit_purchase_budget(self):
         """For vendor bill in valid state, do uncommit for related purchase."""
+        # ForwardLine =self.env["budget.commit.forward.line"]
         for ml in self.filtered(
             lambda l: l.move_id.move_type in ("in_invoice", "in_refund")
         ):
@@ -52,10 +53,32 @@ class AccountMoveLine(models.Model):
             context = {}
             if move_type == "in_invoice" and ml.return_amount_commit:
                 context["return_amount_commit"] = ml.amount_commit
+            # TODO: How can we fix when multi analytic account in 1 lines and forward?
+            # # Check case forward commit,
+            # # it should uncommit with forward commit or old analytic
+            # analytic_account = False
+            # if purchase_line.fwd_analytic_distribution:
+            #     # Case actual use analytic same as PO Commit,
+            #     # it will uncommit with PO analytic
+            #     if purchase_line.analytic_distribution == ml.analytic_distribution:
+            #         analytic_account = purchase_line.analytic_distribution
+            #     else:
+            #         # Case actual commit is use analytic not same as PO Commit
+            #         domain_fwd_line = self._get_domain_fwd_line(purchase_line)
+            #         fwd_lines = ForwardLine.search(domain_fwd_line)
+            #         for fwd_line in fwd_lines:
+            #             if (
+            #                 fwd_line.forward_id.to_budget_period_id.bm_date_from
+            #                 <= ml.date_commit
+            #                 <= fwd_line.forward_id.to_budget_period_id.bm_date_to
+            #             ):
+            #                 analytic_account = fwd_line.to_analytic_account_id
+            #                 break
             # Confirm vendor bill, do uncommit budget
             purchase_line.with_context(**context).commit_budget(
                 reverse=move_type == "in_invoice",
                 move_line_id=ml.id,
+                # analytic_distribution=analytic_account,
                 product_qty=qty,
                 date=ml.date_commit,
             )

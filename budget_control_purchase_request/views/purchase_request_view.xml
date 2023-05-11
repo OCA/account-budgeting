@@ -32,7 +32,8 @@
                     groups="budget_control.group_budget_date_commit"
                 />
                 <field
-                    name="fwd_analytic_account_id"
+                    name="fwd_analytic_distribution"
+                    widget="analytic_distribution"
                     optional="hide"
                     groups="budget_control.group_budget_control_manager"
                 />
@@ -48,7 +49,7 @@
                     name="budget_commit"
                     attrs="{'invisible': [('budget_move_ids', '=', [])]}"
                 >
-                    <div class="oe_read_only oe_right" name="buttons">
+                    <div class="oe_right" name="buttons">
                         <button
                             type="object"
                             name="recompute_budget_move"

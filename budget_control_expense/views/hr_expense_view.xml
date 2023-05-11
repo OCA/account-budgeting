@@ -28,12 +28,13 @@
                 <field name="amount_commit" optional="hide" readonly="1" />
                 <field
                     name="date_commit"
-                    groups="budget_control.group_budget_date_commit"
                     optional="hide"
+                    groups="budget_control.group_budget_date_commit"
                     attrs="{'readonly': [('state', '!=', 'draft')]}"
                 />
                 <field
-                    name="fwd_analytic_account_id"
+                    name="fwd_analytic_distribution"
+                    widget="analytic_distribution"
                     optional="hide"
                     groups="budget_control.group_budget_control_manager"
                 />

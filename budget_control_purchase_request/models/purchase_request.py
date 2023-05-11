@@ -45,7 +45,7 @@ class PurchaseRequest(models.Model):
 
     def button_approved(self):
         res = super().button_approved()
-        self.flush()
+        self.flush_model()
         BudgetPeriod = self.env["budget.period"]
         for doc in self:
             BudgetPeriod.check_budget(doc.line_ids, doc_type="purchase_request")
@@ -97,7 +97,8 @@ class PurchaseRequestLine(models.Model):
 
     def _init_docline_budget_vals(self, budget_vals, analytic_id):
         self.ensure_one()
-        budget_vals["amount_currency"] = self.estimated_cost
+        percent_analytic = self[self._budget_analytic_field].get(str(analytic_id))
+        budget_vals["amount_currency"] = self.estimated_cost * percent_analytic / 100
         # Document specific vals
         budget_vals.update(
             {

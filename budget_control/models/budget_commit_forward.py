@@ -93,29 +93,37 @@ class BudgetCommitForward(models.Model):
     def _prepare_vals_forward(self, docs, res_model):
         self.ensure_one()
         value_dict = []
+        AnalyticAccount = self.env["account.analytic.account"]
         for doc in docs:
             analytic_account = (
-                doc.fwd_analytic_account_id or doc[doc._budget_analytic_field]
+                doc.fwd_analytic_distribution or doc[doc._budget_analytic_field]
             )
-            method_type = False
-            if (
-                analytic_account.bm_date_to
-                and analytic_account.bm_date_to < self.to_date_commit
-            ):
-                method_type = "new"
-            value_dict.append(
-                {
-                    "forward_id": self.id,
-                    "analytic_account_id": analytic_account.id,
-                    "method_type": method_type,
-                    "res_model": res_model,
-                    "res_id": doc.id,
-                    "document_id": "{},{}".format(doc._name, doc.id),
-                    "document_number": self._get_document_number(doc),
-                    "amount_commit": doc.amount_commit,
-                    "date_commit": doc.fwd_date_commit or doc.date_commit,
-                }
-            )
+            # 1 line document can multi analytic, This function will split analytic
+            for analytic_id, aa_percent in analytic_account.items():
+                analytic = AnalyticAccount.browse(int(analytic_id))
+                method_type = False
+                to_analytic_account_id = False
+                if analytic.bm_date_to and analytic.bm_date_to < self.to_date_commit:
+                    method_type = "new"
+                    to_analytic_account_id = analytic.next_year_analytic(
+                        auto_create=False
+                    )
+                value_dict.append(
+                    {
+                        "forward_id": self.id,
+                        "analytic_account_id": analytic_id,
+                        "analytic_percent": aa_percent,
+                        "method_type": method_type,
+                        "res_model": res_model,
+                        "res_id": doc.id,
+                        "document_id": "{},{}".format(doc._name, doc.id),
+                        "document_number": self._get_document_number(doc),
+                        "to_analytic_account_id": to_analytic_account_id.id,
+                        # Total amount commit from each analytic account
+                        "amount_commit": doc.amount_commit * aa_percent / 100,
+                        "date_commit": doc.fwd_date_commit or doc.date_commit,
+                    }
+                )
         return value_dict
 
     def action_review_budget_commit(self):
@@ -193,18 +201,31 @@ class BudgetCommitForward(models.Model):
     def _do_forward_commit(self, reverse=False):
         """Create carry forward budget move to all related documents"""
         self = self.sudo()
+        _analytic_field = "analytic_account_id" if reverse else "to_analytic_account_id"
         for rec in self:
+            group_document = {}
+            # Group by document
             for line in rec.forward_line_ids:
-                line.document_id.write(
+                if line.document_id in group_document:
+                    group_document[line.document_id].append(line)
+                else:
+                    group_document[line.document_id] = [line]
+            for doc, fwd_line in group_document.items():
+                fwd_analytic_distribution = {}
+                for line in fwd_line:
+                    fwd_analytic_distribution[
+                        str(line[_analytic_field].id)
+                    ] = line.analytic_percent
+                doc.write(
                     {
-                        "fwd_analytic_account_id": reverse
-                        and line.analytic_account_id
-                        or line.to_analytic_account_id,
+                        "fwd_analytic_distribution": fwd_analytic_distribution,
                         "fwd_date_commit": reverse
-                        and line.date_commit
+                        and fwd_line[0].date_commit
                         or rec.to_date_commit,
                     }
                 )
+            # For case extend
+            for line in rec.forward_line_ids:
                 if not reverse and line.method_type == "extend":
                     line.to_analytic_account_id.bm_date_to = (
                         rec.to_budget_period_id.bm_date_to
@@ -233,9 +254,8 @@ class BudgetCommitForward(models.Model):
         forward_vals = self._get_forward_initial_commit(domain)
         for val in forward_vals:
             analytic = Analytic.browse(val["analytic_account_id"])
-            # Check analytic is no budget period and
-            # First forward commit in the year, it should overwrite initial commit
-            if not (forward_duplicate or analytic.budget_period_id):
+            # Check first forward commit in the year, it should overwrite initial commit
+            if not forward_duplicate:
                 analytic.initial_commit = val["initial_commit"]
             else:
                 analytic.initial_commit += val["initial_commit"]
@@ -290,6 +310,10 @@ class BudgetCommitForwardLine(models.Model):
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         index=True,
+        required=True,
+        readonly=True,
+    )
+    analytic_percent = fields.Float(
         required=True,
         readonly=True,
     )
@@ -353,6 +377,8 @@ class BudgetCommitForwardLine(models.Model):
     @api.depends("method_type")
     def _compute_to_analytic_account_id(self):
         for rec in self:
+            if not rec.analytic_account_id:
+                continue
             # Case analytic has no end date, always use same analytic
             if not rec.analytic_account_id.bm_date_to:
                 rec.to_analytic_account_id = rec.analytic_account_id

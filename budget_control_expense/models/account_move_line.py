@@ -35,7 +35,10 @@ class AccountMoveLine(models.Model):
                 if hasattr(expense, "advance") and expense["advance"]:
                     continue
                 expense.commit_budget(
-                    reverse=True, move_line_id=ml.id, date=ml.date_commit
+                    reverse=True,
+                    move_line_id=ml.id,
+                    date=ml.date_commit,
+                    analytic_distribution=expense.fwd_analytic_distribution or False,
                 )
             else:  # Cancel or draft, not commitment line
                 self.env[Expense._budget_model()].search(

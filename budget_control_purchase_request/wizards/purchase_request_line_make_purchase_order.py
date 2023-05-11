@@ -1,7 +1,7 @@
 # Copyright 2021 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models
+from odoo import api, models
 
 
 class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
@@ -18,9 +18,11 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
                 requests.recompute_budget_move()
         return res
 
-    # @api.model
-    # def _prepare_purchase_order_line(self, po, item):
-    #     vals = super()._prepare_purchase_order_line(po, item)
-    #     if vals.get("account_analytic_id") and item.line_id.fwd_analytic_account_id:
-    #         vals["account_analytic_id"] = item.line_id.fwd_analytic_account_id.id
-    #     return vals
+    @api.model
+    def _prepare_purchase_order_line(self, po, item):
+        """Change analytic distribution on PO Line
+        following forward analytic (if any)"""
+        vals = super()._prepare_purchase_order_line(po, item)
+        if vals.get("analytic_distribution") and item.line_id.fwd_analytic_distribution:
+            vals["analytic_distribution"] = item.line_id.fwd_analytic_distribution
+        return vals

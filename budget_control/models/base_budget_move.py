@@ -12,6 +12,7 @@ class BaseBudgetMove(models.AbstractModel):
     _name = "base.budget.move"
     _description = "Document Budget Moves"
     _budget_control_field = "account_id"
+    _order = "analytic_account_id, date, id"
 
     reference = fields.Char(
         compute="_compute_reference",
@@ -141,12 +142,9 @@ class BudgetDoclineMixin(models.AbstractModel):
         compute="_compute_auto_adjust_date_commit",
         readonly=True,
     )
-    fwd_analytic_account_id = fields.Many2one(
-        comodel_name="account.analytic.account",
+    fwd_analytic_distribution = fields.Json(
         string="Carry Forward Analytic",
         copy=False,
-        readonly=False,
-        index=True,
         help="If specified, recompute budget will take this into account",
     )
     fwd_date_commit = fields.Date(
@@ -169,13 +167,9 @@ class BudgetDoclineMixin(models.AbstractModel):
     def _valid_commit_state(self):
         raise ValidationError(_("No implementation error!"))
 
-    @api.onchange("fwd_analytic_account_id")
-    def _onchange_fwd_analytic_account_id(self):
-        self.fwd_date_commit = self.fwd_analytic_account_id.bm_date_from
-
-    def _convert_analytics(self):
+    def _convert_analytics(self, analytic_distribution=False):
         Analytic = self.env["account.analytic.account"]
-        analytics = self[self._budget_analytic_field]
+        analytics = analytic_distribution or self[self._budget_analytic_field]
         if not analytics:
             return Analytic
         # Check analytic from distribution it send data with JSON type 'dict'
@@ -372,7 +366,7 @@ class BudgetDoclineMixin(models.AbstractModel):
         return [
             ("res_model", "=", docline._name),
             ("res_id", "=", docline.id),
-            ("forward_id.state", "in", ["review", "done"]),
+            ("forward_id.state", "=", "done"),
         ]
 
     def forward_commit(self):
@@ -381,14 +375,13 @@ class BudgetDoclineMixin(models.AbstractModel):
         ForwardLine = self.env["budget.commit.forward.line"]
         BudgetPeriod = self.env["budget.period"]
         for docline in self:
-            if not docline.fwd_analytic_account_id or not docline.fwd_date_commit:
+            if not docline.fwd_analytic_distribution or not docline.fwd_date_commit:
                 return
             if (
-                docline[self._budget_analytic_field] == docline.fwd_analytic_account_id
+                docline[self._budget_analytic_field]
+                == docline.fwd_analytic_distribution
                 and docline.date_commit == docline.fwd_date_commit
             ):  # no forward to same date
-                # docline.fwd_analytic_account_id = False
-                # docline.fwd_date_commit = False
                 return
             domain_fwd_line = self._get_domain_fwd_line(docline)
             fwd_lines = ForwardLine.search(domain_fwd_line)
@@ -415,7 +408,11 @@ class BudgetDoclineMixin(models.AbstractModel):
                     commit_note=_("Commitment carry forward"),
                     fwd_commit=True,
                     fwd_amount_commit=fwd_line.amount_commit,
-                ).commit_budget(reverse=True, date=budget_period.bm_date_to)
+                ).commit_budget(
+                    reverse=True,
+                    date=budget_period.bm_date_to,
+                    analytic_account_id=fwd_line.analytic_account_id,
+                )
                 # create commitment carry (debit)
                 if budget_move:
                     fwd_budget_move = budget_move.copy()
@@ -429,6 +426,17 @@ class BudgetDoclineMixin(models.AbstractModel):
                             "debit": credit,
                         }
                     )
+                # Remove forward commitment from unused subsequent year budget lines
+                # If a budget line was forwarded to the next year but the budget
+                # for that year is not utilized, this code removes the forward commitment,
+                # allowing the line to be forwarded again in the following year.
+                budget_move_previous_forward = self[self._budget_field()].filtered(
+                    lambda l: l.fwd_commit
+                    and l.date < fwd_line.forward_id.to_date_commit
+                    and l.debit > 0.0
+                )
+                if budget_move_previous_forward:
+                    budget_move_previous_forward.write({"fwd_commit": False})
 
     def commit_budget(self, reverse=False, **vals):
         """Create budget commit for each docline"""
@@ -449,8 +457,8 @@ class BudgetDoclineMixin(models.AbstractModel):
         to_commit = self.env.context.get("force_commit") or self._valid_commit_state()
         if self.can_commit and to_commit:
             budget_commit_vals = []
-            analytic_account = vals.get(
-                "analytic_account_id", self._convert_analytics()
+            analytic_account = self._convert_analytics(
+                analytic_distribution=vals.get("analytic_distribution", False)
             )
             for analytic in analytic_account:
                 # Set amount_currency

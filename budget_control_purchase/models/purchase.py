@@ -127,8 +127,8 @@ class PurchaseOrderLine(models.Model):
     def _prepare_account_move_line(self, move=False):
         self.ensure_one()
         res = super()._prepare_account_move_line(move)
-        if res.get("analytic_account_id") and self.fwd_analytic_account_id:
-            res["analytic_account_id"] = self.fwd_analytic_account_id.id
+        if res.get("analytic_distribution") and self.fwd_analytic_distribution:
+            res["analytic_distribution"] = self.fwd_analytic_distribution
         return res
 
     def _get_included_tax(self):

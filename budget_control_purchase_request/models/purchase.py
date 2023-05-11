@@ -27,6 +27,8 @@ class PurchaseOrderLine(models.Model):
                     pr_line.commit_budget(
                         reverse=True,
                         purchase_line_id=po_line.id,
+                        analytic_distribution=pr_line.fwd_analytic_distribution
+                        or False,
                         date=po_line.date_commit,
                     )
             else:  # Cancel or draft, not commitment line
