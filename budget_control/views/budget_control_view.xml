@@ -251,15 +251,14 @@
                                 <field
                                     name="line_ids"
                                     widget="x2many_2d_matrix"
-                                    field_x_axis="date_range_name"
+                                    field_x_axis="date_range_id"
                                     field_y_axis="name"
                                     field_value="amount"
                                 >
                                     <tree limit="1000000">
                                         <field name="date_range_id" />
-                                        <field name="date_range_name" /><!-- bbbn -->
                                         <field name="name" />
-                                        <field name="amount" widget="float" />
+                                        <field name="amount" />
                                     </tree>
                                 </field>
                                 <!-- Totals Amount -->
