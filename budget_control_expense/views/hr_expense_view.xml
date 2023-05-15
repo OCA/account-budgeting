@@ -96,6 +96,7 @@
             <xpath expr="//field[@name='date']" position="after">
                 <field
                     name="date_commit"
+                    attrs="{'readonly': [('state', '!=', 'draft')]}"
                     groups="budget_control.group_budget_date_commit"
                 />
             </xpath>
