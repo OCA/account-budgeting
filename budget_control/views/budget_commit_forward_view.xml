@@ -130,6 +130,7 @@
                         </group>
                         <group>
                             <field name="to_date_commit" />
+                            <field name="total_commitment" />
                         </group>
                     </group>
                     <notebook>
