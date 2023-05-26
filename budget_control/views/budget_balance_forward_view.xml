@@ -24,7 +24,7 @@
             <tree editable="bottom" create="0">
                 <field name="analytic_account_id" />
                 <field name="currency_id" invisible="1" />
-                <field name="amount_balance" sum="Total Balance"/>
+                <field name="amount_balance" sum="Total Balance" />
                 <field name="bm_date_to" invisible="1" />
                 <field
                     name="method_type"
@@ -47,7 +47,7 @@
                     optional="show"
                     attrs="{'required': [('amount_balance_accumulate', '>', 0)]}"
                 />
-                <field name="amount_balance_accumulate" sum="Total Accumulate"/>
+                <field name="amount_balance_accumulate" sum="Total Accumulate" />
             </tree>
         </field>
     </record>

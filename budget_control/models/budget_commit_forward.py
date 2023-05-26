@@ -59,14 +59,14 @@ class BudgetCommitForward(models.Model):
         ("name_uniq", "UNIQUE(name)", "Name must be unique!"),
     ]
     total_commitment = fields.Monetary(
-        string="Total Commitment",
         compute="_compute_total_commitment",
     )
+
     @api.depends("forward_line_ids")
     def _compute_total_commitment(self):
         for rec in self:
-            rec.total_commitment = sum(rec.forward_line_ids.mapped('amount_commit'))
-            
+            rec.total_commitment = sum(rec.forward_line_ids.mapped("amount_commit"))
+
     def _compute_missing_analytic(self):
         for rec in self:
             rec.missing_analytic = any(
