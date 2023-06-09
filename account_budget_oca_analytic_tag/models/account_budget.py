@@ -30,7 +30,7 @@ class CrossoveredBudgetLines(models.Model):
                 )
                 result = self.env.cr.fetchone()[0] or 0.0
 
-            else:
+            elif line.general_budget_id.account_ids:
                 self.env.cr.execute(
                     """
                     SELECT SUM(credit) - SUM(debit)
@@ -53,6 +53,8 @@ class CrossoveredBudgetLines(models.Model):
                     ),
                 )
                 result = self.env.cr.fetchone()[0]
+            else:
+                result = 0.0
             line.practical_amount = result
 
     @api.constrains("general_budget_id", "analytic_account_id", "analytic_tag_id")
