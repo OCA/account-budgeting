@@ -20,6 +20,7 @@ class BaseBudgetMove(models.AbstractModel):
     )
     kpi_id = fields.Many2one(
         comodel_name="mis.report.kpi",
+        index=True,
     )
     date = fields.Date(
         required=True,
@@ -27,6 +28,7 @@ class BaseBudgetMove(models.AbstractModel):
     )
     product_id = fields.Many2one(
         comodel_name="product.product",
+        index=True,
     )
     account_id = fields.Many2one(
         comodel_name="account.account",

@@ -25,6 +25,7 @@ class ExpenseBudgetMove(models.Model):
         comodel_name="account.move",
         related="move_line_id.move_id",
         store=True,
+        index=True,
     )
     move_line_id = fields.Many2one(
         comodel_name="account.move.line",

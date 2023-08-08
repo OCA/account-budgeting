@@ -78,6 +78,7 @@ class BudgetPeriod(models.Model):
         comodel_name="date.range.type",
         string="Plan Date Range",
         required=True,
+        index=True,
         help="Budget control sheet in this budget control year, will use this "
         "data range to plan the budget.",
     )

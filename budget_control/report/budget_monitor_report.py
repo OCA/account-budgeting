@@ -19,13 +19,16 @@ class BudgetMonitorReport(models.Model):
     kpi_id = fields.Many2one(
         comodel_name="mis.report.kpi",
         string="KPI",
+        index=True,
     )
     reference = fields.Char()
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
+        index=True,
     )
     analytic_group = fields.Many2one(
         comodel_name="account.analytic.group",
+        index=True,
     )
     date = fields.Date()
     amount = fields.Float()
@@ -36,12 +39,15 @@ class BudgetMonitorReport(models.Model):
     )
     product_id = fields.Many2one(
         comodel_name="product.product",
+        index=True,
     )
     account_id = fields.Many2one(
         comodel_name="account.account",
+        index=True,
     )
     budget_period_id = fields.Many2one(
         comodel_name="budget.period",
+        index=True,
     )
     budget_state = fields.Selection(
         [

@@ -10,11 +10,13 @@ class GenerateBudgetControl(models.TransientModel):
     mis_report_id = fields.Many2one(
         comodel_name="mis.report",
         required=True,
+        index=True,
         ondelete="cascade",
     )
     budget_period_id = fields.Many2one(
         comodel_name="budget.period",
         required=True,
+        index=True,
         ondelete="cascade",
     )
     budget_id = fields.Many2one(

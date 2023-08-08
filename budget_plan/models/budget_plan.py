@@ -22,6 +22,7 @@ class BudgetPlan(models.Model):
         comodel_name="budget.period",
         required=True,
         readonly=True,
+        index=True,
         states={"draft": [("readonly", False)]},
     )
     date_from = fields.Date(related="budget_period_id.bm_date_from")
@@ -42,6 +43,7 @@ class BudgetPlan(models.Model):
         required=False,
         string="Company",
         readonly=True,
+        index=True,
         states={"draft": [("readonly", False)]},
     )
     currency_id = fields.Many2one(
@@ -237,6 +239,7 @@ class BudgetPlanLine(models.Model):
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         required=True,
+        index=True,
     )
     allocated_amount = fields.Float(string="Allocated", readonly=True)
     released_amount = fields.Float(string="Released", readonly=True)

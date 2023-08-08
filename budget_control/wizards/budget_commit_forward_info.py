@@ -45,6 +45,7 @@ class BudgetCommitForwardInfoLine(models.TransientModel):
         string="Forward to Analytic",
         comodel_name="account.analytic.account",
         readonly=True,
+        index=True,
     )
     analytic_group = fields.Many2one(
         comodel_name="account.analytic.group",

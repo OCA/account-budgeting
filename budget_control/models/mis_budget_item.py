@@ -17,6 +17,7 @@ class MisBudgetItem(models.Model):
         comodel_name="mis.report.kpi",
         related="kpi_expression_id.kpi_id",
         store=True,
+        index=True,
     )
     active = fields.Boolean(
         compute="_compute_active",

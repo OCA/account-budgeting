@@ -16,7 +16,10 @@ class AccountAnalyticAccount(models.Model):
         help="This field hold analytic name with budget period indicator.\n"
         "This name will work with name_get() and name_search() to ensure usability",
     )
-    budget_period_id = fields.Many2one(comodel_name="budget.period")
+    budget_period_id = fields.Many2one(
+        comodel_name="budget.period",
+        index=True,
+    )
     budget_control_ids = fields.One2many(
         string="Budget Control(s)",
         comodel_name="budget.control",

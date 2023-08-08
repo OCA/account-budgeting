@@ -22,6 +22,7 @@ class BudgetBalanceForward(models.Model):
         required=True,
         ondelete="restrict",
         readonly=True,
+        index=True,
         states={"draft": [("readonly", False)]},
         default=lambda self: self.env["budget.period"]._get_eligible_budget_period(),
     )
@@ -30,6 +31,7 @@ class BudgetBalanceForward(models.Model):
         string="To Budget Period",
         required=True,
         ondelete="restrict",
+        index=True,
         readonly=True,
         states={"draft": [("readonly", False)]},
     )
@@ -55,6 +57,7 @@ class BudgetBalanceForward(models.Model):
     )
     currency_id = fields.Many2one(
         comodel_name="res.currency",
+        index=True,
         default=lambda self: self.env.user.company_id.currency_id,
     )
     missing_analytic = fields.Boolean(
@@ -276,6 +279,7 @@ class BudgetBalanceForwardLine(models.Model):
         comodel_name="account.analytic.account",
         string="Carry Forward Analytic",
         compute="_compute_to_analytic_account_id",
+        index=True,
         store=True,
         readonly=True,
     )
@@ -293,6 +297,7 @@ class BudgetBalanceForwardLine(models.Model):
     accumulate_analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Accumulate Analytic",
+        index=True,
     )
     amount_balance_accumulate = fields.Monetary(
         string="Accumulate",

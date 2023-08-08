@@ -8,6 +8,7 @@ class GenerateBudgetControl(models.TransientModel):
 
     budget_plan_id = fields.Many2one(
         comodel_name="budget.plan",
+        index=True,
     )
 
     def _get_existing_budget(self):

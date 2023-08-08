@@ -21,6 +21,7 @@ class BudgetCommitForward(models.Model):
         required=True,
         ondelete="restrict",
         readonly=True,
+        index=True,
         states={"draft": [("readonly", False)]},
     )
     to_date_commit = fields.Date(
@@ -43,6 +44,7 @@ class BudgetCommitForward(models.Model):
     )
     currency_id = fields.Many2one(
         comodel_name="res.currency",
+        index=True,
         default=lambda self: self.env.user.company_id.currency_id,
     )
     forward_line_ids = fields.One2many(
@@ -296,6 +298,7 @@ class BudgetCommitForwardLine(models.Model):
         comodel_name="account.analytic.account",
         string="Forward to Analytic",
         compute="_compute_to_analytic_account_id",
+        index=True,
         store=True,
         readonly=True,
     )

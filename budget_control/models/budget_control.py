@@ -31,6 +31,7 @@ class BudgetControl(models.Model):
         tracking=True,
         copy=False,
         readonly=True,
+        index=True,
         states={"draft": [("readonly", False)]},
     )
     budget_id = fields.Many2one(
@@ -40,6 +41,7 @@ class BudgetControl(models.Model):
         ondelete="cascade",
         domain=lambda self: self._get_mis_budget_domain(),
         readonly=True,
+        index=True,
         states={"draft": [("readonly", False)]},
         help="List of mis.budget created by and linked to budget.period",
     )
@@ -52,6 +54,7 @@ class BudgetControl(models.Model):
     budget_period_id = fields.Many2one(
         comodel_name="budget.period",
         compute="_compute_budget_period_id",
+        index=True,
         store=True,
         help="Budget Period that inline with date from/to",
     )
@@ -64,12 +67,14 @@ class BudgetControl(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
         tracking=True,
+        index=True,
         ondelete="restrict",
     )
     analytic_group = fields.Many2one(
         comodel_name="account.analytic.group",
         string="Analytic Group",
         related="analytic_account_id.group_id",
+        index=True,
         store=True,
     )
     item_ids = fields.One2many(
@@ -89,6 +94,7 @@ class BudgetControl(models.Model):
         string="Plan Date Range",
         required=True,
         readonly=True,
+        index=True,
         states={"draft": [("readonly", False)]},
     )
     init_budget_commit = fields.Boolean(
@@ -103,6 +109,7 @@ class BudgetControl(models.Model):
         string="Company",
         default=lambda self: self.env.company,
         required=True,
+        index=True,
     )
     currency_id = fields.Many2one(
         comodel_name="res.currency", related="company_id.currency_id"

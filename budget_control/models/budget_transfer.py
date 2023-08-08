@@ -22,6 +22,7 @@ class BudgetTransfer(models.Model):
         default=lambda self: self._get_budget_period(),
         required=True,
         readonly=True,
+        index=True,
     )
     mis_budget_id = fields.Many2one(
         comodel_name="mis.budget",

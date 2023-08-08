@@ -39,4 +39,5 @@ class ResCompany(models.Model):
     budget_kpi_template_id = fields.Many2one(
         comodel_name="mis.report",
         string="Budget KPI Template",
+        index=True,
     )

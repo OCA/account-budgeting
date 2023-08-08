@@ -127,10 +127,12 @@ class BudgetMoveAdjustmentItem(models.Model):
     )
     product_id = fields.Many2one(
         comodel_name="product.product",
+        index=True,
     )
     account_id = fields.Many2one(
         comodel_name="account.account",
         required=True,
+        index=True,
     )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
