@@ -286,7 +286,7 @@ class BudgetControl(models.Model):
     @api.depends("allocated_amount")
     def _compute_allocated_released_amount(self):
         for rec in self:
-            rec.released_amount = rec.allocated_amount + rec.transferred_amount
+            rec.released_amount = rec.allocated_amount
 
     @api.depends("released_amount", "amount_budget")
     def _compute_diff_amount(self):
