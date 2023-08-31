@@ -24,10 +24,22 @@ class PurchaseOrderLine(models.Model):
             po_state = po_line.order_id.state
             if po_state in ("purchase", "done"):
                 for pr_line in po_line.purchase_request_lines.filtered("amount_commit"):
+                    analytic_account_po_line = po_line.account_analytic_id
+                    analytic_account_pr_line = pr_line.analytic_account_id
+                    # Set date following date commit on PO line
+                    date = po_line.date_commit
+                    # If Period of AA on PR line does not the same as PO line
+                    # Set date as the end date of the current period
+                    if (
+                        analytic_account_po_line.name == analytic_account_pr_line.name
+                        and analytic_account_po_line.budget_period_id
+                        != analytic_account_pr_line.budget_period_id
+                    ):
+                        date = analytic_account_pr_line.bm_date_to
                     pr_line.commit_budget(
                         reverse=True,
                         purchase_line_id=po_line.id,
-                        date=po_line.date_commit,
+                        date=date,
                         analytic_account_id=pr_line.fwd_analytic_account_id or False,
                     )
             else:  # Cancel or draft, not commitment line
