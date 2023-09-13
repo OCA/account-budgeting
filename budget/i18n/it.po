@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-22 22:06+0000\n"
-"PO-Revision-Date: 2023-07-10 11:10+0000\n"
+"PO-Revision-Date: 2023-09-20 17:49+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/it/)\n"
@@ -497,7 +497,7 @@ msgstr ""
 #: view:budget.line:budget.view_budget_line_list
 #: view:budget.version:budget.view_budget_version_form
 msgid "Total Amount"
-msgstr "Importo Totale"
+msgstr "Importo totale"
 
 #. module: budget
 #: view:budget.line:budget.view_budget_line_analytic_list
