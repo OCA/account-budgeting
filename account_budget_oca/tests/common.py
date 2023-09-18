@@ -23,7 +23,7 @@ class TestAccountBudgetCommon(AccountTestInvoicingCommon):
         # Checking if the budgetary positions have accounts or not
         account_ids = self.account_model.search(
             [
-                ("user_type_id", "=", self.ref("account.data_account_type_revenue")),
+                ("account_type", "=", "income"),
                 ("tag_ids.name", "in", ["Operating Activities"]),
             ]
         ).ids
@@ -32,7 +32,7 @@ class TestAccountBudgetCommon(AccountTestInvoicingCommon):
                 {
                     "name": "Product Sales - (test)",
                     "code": "X2020",
-                    "user_type_id": self.ref("account.data_account_type_revenue"),
+                    "account_type": "income",
                     "tag_ids": [(6, 0, [self.ref("account.account_tag_operating")])],
                 }
             ).ids
@@ -159,7 +159,7 @@ class TestAccountBudgetCommon(AccountTestInvoicingCommon):
 
         account_ids = self.account_model.search(
             [
-                ("user_type_id.name", "=", "Expenses"),
+                ("account_type", "=", "expense"),
                 ("tag_ids.name", "in", ["Operating Activities"]),
             ]
         ).ids
@@ -169,7 +169,7 @@ class TestAccountBudgetCommon(AccountTestInvoicingCommon):
                 {
                     "name": "Expense - (test)",
                     "code": "X2120",
-                    "user_type_id": self.ref("account.data_account_type_expenses"),
+                    "account_type": "expense",
                     "tag_ids": [(6, 0, [self.ref("account.account_tag_operating")])],
                 }
             ).ids
