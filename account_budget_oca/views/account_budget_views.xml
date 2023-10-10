@@ -253,7 +253,6 @@
             <tree
                 decoration-info="state == 'draft'"
                 decoration-muted="state in ('done','cancel')"
-                string="Budget"
             >
                 <field name="name" colspan="1" />
                 <field name="date_from" />
