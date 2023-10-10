@@ -72,7 +72,6 @@ msgid "Budget"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Budget Items"
 msgstr ""
@@ -87,9 +86,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__crossovered_budget_line_ids
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__crossovered_budget_line_ids
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Budget Lines"
 msgstr ""
 
@@ -102,9 +98,7 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_budget_post
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__general_budget_id
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
 msgid "Budgetary Position"
 msgstr ""
 
@@ -141,7 +135,7 @@ msgid "Cancel Budget"
 msgstr ""
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__cancel
 msgid "Cancelled"
 msgstr ""
 
@@ -163,7 +157,7 @@ msgid "Confirm"
 msgstr ""
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__confirm
 msgid "Confirmed"
 msgstr "Confirmé"
 
@@ -189,13 +183,13 @@ msgid "Display Name"
 msgstr ""
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__done
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Done"
 msgstr ""
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__draft
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Draft"
 msgstr ""
@@ -236,18 +230,15 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_budget_oca
-#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
-msgid "If checked new messages require your attention."
-msgstr "Si coché, les nouveaux messages requierent votre attention. "
-
-#. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
 #, fuzzy
 msgid "If checked, new messages require your attention."
 msgstr "Si coché, les nouveaux messages requierent votre attention. "
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_sms_error
 #, fuzzy
 msgid "If checked, some messages have a delivery error."
 msgstr "Si coché, les nouveaux messages requierent votre attention. "
@@ -306,7 +297,7 @@ msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
-msgid "Number of error"
+msgid "Number of errors"
 msgstr ""
 
 #. module: account_budget_oca
@@ -359,6 +350,11 @@ msgid "Responsible"
 msgstr "Responsable"
 
 #. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_from
 msgid "Start Date"
@@ -370,7 +366,7 @@ msgid "Status"
 msgstr "Statut"
 
 #. module: account_budget_oca
-#: code:addons/account_budget_oca/models/account_budget.py:42
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #, python-format
 msgid "The budget must have at least one account."
 msgstr ""
@@ -404,7 +400,7 @@ msgid "Unread Messages Counter"
 msgstr "Messages non lus"
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__validate
 msgid "Validated"
 msgstr ""
 
@@ -419,6 +415,9 @@ msgstr "Messages"
 #, fuzzy
 msgid "Website communication history"
 msgstr "Messages et historique des communications"
+
+#~ msgid "If checked new messages require your attention."
+#~ msgstr "Si coché, les nouveaux messages requierent votre attention. "
 
 #~ msgid "<strong>Analytic Account</strong>"
 #~ msgstr "Comptabilité Analytique"
