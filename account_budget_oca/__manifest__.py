@@ -2,7 +2,7 @@
 
 {
     "name": "Budgets Management",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Accounting",
     "license": "LGPL-3",
     "author": "Odoo S.A., Odoo Community Association (OCA)",
