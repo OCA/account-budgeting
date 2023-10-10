@@ -58,7 +58,6 @@ msgstr ""
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__crossovered_budget_id
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Budget"
 msgstr ""
