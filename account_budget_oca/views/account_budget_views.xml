@@ -253,7 +253,6 @@
             <tree
                 decoration-info="state == 'draft'"
                 decoration-muted="state in ('done','cancel')"
-                string="Budget"
             >
                 <field name="name" colspan="1" />
                 <field name="date_from" />
@@ -306,7 +305,7 @@
                                 <div class="oe_kanban_bottom_right">
                                     <span class="pull-right">
                                         <img
-                                            t-att-src="kanban_image('res.users', 'image_small', record.creating_user_id.raw_value)"
+                                            t-att-src="kanban_image('res.users', 'image_128', record.creating_user_id.raw_value)"
                                             t-att-title="record.creating_user_id.value"
                                             t-att-alt="record.creating_user_id.value"
                                             width="24"
