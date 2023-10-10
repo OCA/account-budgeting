@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_budget_oca](account_budget_oca/) | 16.0.1.0.0 |  | Budgets Management
+[account_budget_oca](account_budget_oca/) | 16.0.1.0.1 |  | Budgets Management
 
 [//]: # (end addons)
 
