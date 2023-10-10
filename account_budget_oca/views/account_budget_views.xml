@@ -311,7 +311,7 @@
                                 <div class="oe_kanban_bottom_right">
                                     <span class="pull-right">
                                         <img
-                                            t-att-src="kanban_image('res.users', 'image_small', record.creating_user_id.raw_value)"
+                                            t-att-src="kanban_image('res.users', 'avatar_128', record.creating_user_id.raw_value)"
                                             t-att-title="record.creating_user_id.value"
                                             t-att-alt="record.creating_user_id.value"
                                             width="24"
