@@ -98,7 +98,7 @@ class HRExpense(models.Model):
                     [("sheet_id", "=", av_sheet.id), ("move_line_id", "!=", False)]
                 )
                 return_budget_moves += [
-                    (x.move_line_id, x.amount_currency, x.expense_id)
+                    (x.move_line_id, x.amount_currency, x.expense_id, x.credit)
                     for x in return_advances
                 ]
         return return_budget_moves
@@ -150,7 +150,7 @@ class HRExpense(models.Model):
         # Recompute budget moves for advances
         self._get_recompute_advances()
         # Return advance, commit again because it will lose from clearing uncommit
-        for move_line, amount, advance in return_budget_moves:
+        for move_line, amount, advance, credit in return_budget_moves:
             origin_clearing_amount = amount
             # Find new advance if amount_commit <= 0.0
             if (
@@ -183,7 +183,7 @@ class HRExpense(models.Model):
                     != 1
                 ):
                     advance.commit_budget(
-                        reverse=True,
+                        reverse=bool(credit),
                         amount_currency=origin_clearing_amount,
                         move_line_id=move_line.id,
                         analytic_account_id=advance.fwd_analytic_account_id or False,
@@ -195,7 +195,7 @@ class HRExpense(models.Model):
                 )
                 origin_clearing_amount -= return_advance_amount
                 advance.commit_budget(
-                    reverse=True,
+                    reverse=bool(credit),
                     amount_currency=return_advance_amount,
                     move_line_id=move_line.id,
                     analytic_account_id=advance.fwd_analytic_account_id or False,
