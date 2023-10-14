@@ -16,6 +16,8 @@
         'views/account_analytic_account_views.xml',
         'views/account_budget_views.xml',
         'views/res_config_settings_views.xml',
+        'wizards/report_budget_lines_wizard_views.xml',
+        'report/report_budget_lines_views.xml',
     ],
     'demo': ['data/account_budget_demo.xml'],
 }
