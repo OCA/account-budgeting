@@ -31,10 +31,8 @@ class BudgetPlan(models.Model):
         comodel_name="budget.control",
         compute="_compute_budget_control",
     )
-    budget_control_count = fields.Integer(
-        string="# of Budget Control",
-        compute="_compute_budget_control",
-        help="Count budget control in Plan",
+    is_budget_created = fields.Boolean(
+        copy=False, help="it mean budget control is created or updated"
     )
     total_amount = fields.Monetary(compute="_compute_total_amount")
     company_id = fields.Many2one(
@@ -78,7 +76,6 @@ class BudgetPlan(models.Model):
         """Find all budget controls of the same period"""
         for rec in self.with_context(active_test=False).sudo():
             rec.budget_control_ids = rec.plan_line.mapped("budget_control_ids")
-            rec.budget_control_count = len(rec.plan_line.mapped("budget_control_ids"))
 
     def _update_plan(self):
         Analytic = self.env["account.analytic.account"]
@@ -179,11 +176,14 @@ class BudgetPlan(models.Model):
         analytic_plan = self._get_analytic_plan()
         budget_control_view = self._generate_budget_control(analytic_plan)
         self.plan_line._update_budget_control_data()
+        # When create/update budget control first time.
+        self.is_budget_created = True
         return budget_control_view
 
     def check_plan_consumed(self):
         self.action_update_plan()
         prec_digits = self.env.user.company_id.currency_id.decimal_places
+        error_messages = []
         for line in self.mapped("plan_line"):
             if (
                 float_compare(
@@ -193,14 +193,13 @@ class BudgetPlan(models.Model):
                 )
                 == -1
             ):
-                raise UserError(
-                    _(
-                        "{} has amount less than consumed.".format(
-                            line.analytic_account_id.display_name
-                        )
-                    )
-                )
+                error_messages.append(line.analytic_account_id.display_name)
+            # Update allocated, released to equal amount
             line.allocated_amount = line.released_amount = line.amount
+        if error_messages:
+            raise UserError(
+                _("{} has amount less than consumed.".format("\n".join(error_messages)))
+            )
 
     def action_confirm(self):
         self.check_plan_consumed()

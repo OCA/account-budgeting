@@ -139,7 +139,7 @@
                         class="oe_highlight"
                         string="Done"
                         type="object"
-                        attrs="{'invisible': ['|', ('budget_control_count', '=', 0), ('state', '!=', 'confirm')]}"
+                        attrs="{'invisible': ['|', ('is_budget_created', '=', False), ('state', '!=', 'confirm')]}"
                     />
                     <button
                         name="action_draft"
@@ -166,14 +166,8 @@
                             type="object"
                             class="oe_stat_button"
                             icon="fa-bars"
-                            attrs="{'invisible': [('budget_control_count', '=', 0)]}"
-                        >
-                            <field
-                                name="budget_control_count"
-                                string="Budget Control"
-                                widget="statinfo"
-                            />
-                        </button>
+                            string="Budget Control"
+                        />
                     </div>
                     <widget
                         name="web_ribbon"
@@ -196,6 +190,7 @@
                         </group>
                         <group name="budget_plan_right">
                             <field name="active" invisible="1" />
+                            <field name="is_budget_created" invisible="1" />
                             <field
                                 name="company_id"
                                 groups="base.group_multi_company"
