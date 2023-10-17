@@ -1,9 +1,7 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-
 from odoo import api, fields, models
-from odoo.tools import float_compare
 
 
 class HRExpenseSheet(models.Model):
@@ -89,20 +87,6 @@ class HRExpense(models.Model):
         )
         return next_av[0] if next_av else advance
 
-    def _get_return_budget_moves(self):
-        budget_moves = self.env["advance.budget.move"]
-        return_budget_moves = []
-        if self._context.get("model") != "budget.commit.forward":
-            for av_sheet in self.filtered("advance").mapped("sheet_id"):
-                return_advances = budget_moves.search(
-                    [("sheet_id", "=", av_sheet.id), ("move_line_id", "!=", False)]
-                )
-                return_budget_moves += [
-                    (x.move_line_id, x.amount_currency, x.expense_id, x.credit)
-                    for x in return_advances
-                ]
-        return return_budget_moves
-
     def _get_recompute_advances(self):
         advances = self.filtered(lambda l: l.advance)
         res = False
@@ -120,11 +104,32 @@ class HRExpense(models.Model):
                     force_date_commit=advance_date_commit,
                 ),
             ).recompute_budget_move()
+            advance_sheet = advances.mapped("sheet_id")
+            advance_sheet.ensure_one()
             # If the advances has any clearing, uncommit them from advance
             clearings = self.search(
-                [("sheet_id.advance_sheet_id", "in", advances.mapped("sheet_id").ids)]
+                [("sheet_id.advance_sheet_id", "=", advance_sheet.id)]
             )
             clearings.uncommit_advance_budget()
+            # If the advances has any reconcile (return advance),
+            # reverse commit them from advance
+            aml_debit = advance_sheet.account_move_id.line_ids.filtered(
+                lambda l: l.debit
+            )
+            ml_reconcile = aml_debit.matched_credit_ids
+            for reconcile in ml_reconcile:
+                # Debit side (Advance)
+                advance = reconcile.debit_move_id.expense_id
+                amount_return = reconcile.debit_amount_currency
+                # Credit side (Return Advance)
+                return_ml = reconcile.credit_move_id
+                if advance:
+                    advance.commit_budget(
+                        reverse=True,
+                        amount_currency=amount_return,
+                        move_line_id=return_ml.id,
+                        date=return_ml.date_commit,
+                    )
         return res
 
     def _close_budget_sheets_with_adj_commit(self):
@@ -142,66 +147,12 @@ class HRExpense(models.Model):
     def recompute_budget_move(self):
         if not self:
             return
-        # Keep value return advance (Not include case carry commitment)
-        return_budget_moves = self._get_return_budget_moves()
         # Recompute budget moves for expenses
         expenses = self.filtered(lambda l: not l.advance)
         res = super(HRExpense, expenses).recompute_budget_move()
         # Recompute budget moves for advances
         self._get_recompute_advances()
         # Return advance, commit again because it will lose from clearing uncommit
-        for move_line, amount, advance, credit in return_budget_moves:
-            origin_clearing_amount = amount
-            # Find new advance if amount_commit <= 0.0
-            if (
-                float_compare(
-                    advance.amount_commit,
-                    0.0,
-                    precision_rounding=2,
-                )
-                != 1
-            ):
-                advance = self._find_next_av(advance)
-            # Get dates following _budget_date_commit_fields
-            date_commit = move_line._get_budget_date_commit(move_line)
-            # Split line commit return advance
-            while (
-                float_compare(
-                    origin_clearing_amount,
-                    0.0,
-                    precision_rounding=2,
-                )
-                == 1
-            ):
-                # Last commit advance
-                if (
-                    float_compare(
-                        advance.amount_commit,
-                        0.0,
-                        precision_rounding=2,
-                    )
-                    != 1
-                ):
-                    advance.commit_budget(
-                        reverse=bool(credit),
-                        amount_currency=origin_clearing_amount,
-                        move_line_id=move_line.id,
-                        analytic_account_id=advance.fwd_analytic_account_id or False,
-                        date=date_commit,
-                    )
-                    break
-                return_advance_amount = min(
-                    advance.amount_commit, origin_clearing_amount
-                )
-                origin_clearing_amount -= return_advance_amount
-                advance.commit_budget(
-                    reverse=bool(credit),
-                    amount_currency=return_advance_amount,
-                    move_line_id=move_line.id,
-                    analytic_account_id=advance.fwd_analytic_account_id or False,
-                    date=date_commit,
-                )
-                advance = self._find_next_av(advance)
         # Only when advance is over returned, do close_budget_move() to final adjust
         # Note: now, we only found case in Advance / Return / Clearing case
         self._close_budget_sheets_with_adj_commit()

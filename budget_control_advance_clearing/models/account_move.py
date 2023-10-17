@@ -7,38 +7,24 @@ from odoo import models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def action_post(self):
-        res = super().action_post()
-        BudgetMove = self.env["advance.budget.move"]
-        moves_inbound = self.filtered(lambda l: l.payment_id.payment_type == "inbound")
-        # Unlink advance return commit
-        if moves_inbound:
-            return_advances = BudgetMove.search(
-                [
-                    ("move_id", "in", moves_inbound.ids),
-                    ("debit", ">", 0.0),
-                ]
-            )
-            return_advances.unlink()
-        return res
+    def _recompute_budget_return_advance(self):
+        for rec in self:
+            if rec.payment_id.advance_id:
+                rec.payment_id.advance_id.recompute_budget_move()
 
     def button_draft(self):
-        """Unlink return advance budget"""
         res = super().button_draft()
-        BudgetMove = self.env["advance.budget.move"]
-        moves_inbound = self.filtered(lambda l: l.payment_id.payment_type == "inbound")
-        if moves_inbound:
-            return_advances = BudgetMove.search(
-                [
-                    ("move_id", "in", moves_inbound.ids),
-                    ("credit", ">", 0.0),
-                ]
-            )
-            # Commit budget again
-            for ret in return_advances:
-                ret.expense_id.commit_budget(
-                    amount_currency=ret.amount_currency,
-                    move_line_id=ret.move_line_id.id,
-                    date=ret.date,
-                )
+        self._recompute_budget_return_advance()
+        return res
+
+    def button_cancel(self):
+        res = super().button_cancel()
+        self._recompute_budget_return_advance()
+        return res
+
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        res = super()._reverse_moves(
+            default_values_list=default_values_list, cancel=cancel
+        )
+        self._recompute_budget_return_advance()
         return res

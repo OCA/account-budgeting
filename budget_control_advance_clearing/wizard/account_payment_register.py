@@ -8,7 +8,7 @@ class AccountPaymentRegister(models.TransientModel):
     _inherit = "account.payment.register"
 
     def expense_post_return_advance(self):
-        """Use reconciled data to return advance budget commit"""
+        """Recompute advance budget"""
         res = super().expense_post_return_advance()
         reconciles = res.get("partials")
         if not reconciles:
@@ -16,14 +16,6 @@ class AccountPaymentRegister(models.TransientModel):
         # Return advance (debit side)
         for reconcile in reconciles:
             advance = reconcile.debit_move_id.expense_id
-            amount_return = reconcile.debit_amount_currency
-            payment_move_line_id = reconcile.credit_move_id
-            advance.commit_budget(
-                reverse=True,
-                amount_currency=amount_return,
-                move_line_id=payment_move_line_id.id,
-                date=payment_move_line_id.date_commit,
-            )
             # make sure that return advance return budget is correct
             advance.sheet_id.recompute_budget_move()
         return res
