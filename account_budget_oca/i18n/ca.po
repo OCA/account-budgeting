@@ -1,0 +1,430 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_budget_oca
+#
+# Translators:
+# Quim - eccit <quim@eccit.com>, 2017
+# Sandra Franch <sandra.franch@upc.edu>, 2018
+# Martin Trigaux, 2018
+# RGB Consulting <odoo@rgbconsulting.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-10 11:34+0000\n"
+"PO-Revision-Date: 2022-03-22 14:17+0000\n"
+"Last-Translator: Noel estudillo <noelestudilloviera@gmail.com>\n"
+"Language-Team: Catalan (https://www.transifex.com/odoo/teams/41243/ca/)\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"A budget is a forecast of your company's income and/or expenses\n"
+"                expected for a period in the future. A budget is defined on "
+"some\n"
+"                financial accounts and/or analytic accounts (that may "
+"represent\n"
+"                projects, departments, categories of products, etc.)"
+msgstr ""
+"Un pressupost és una previsió dels ingressos i/o despeses de la vostra "
+"empresa\n"
+"                previst per a un període en el futur. En alguns es defineix "
+"un pressupost\n"
+"                comptes financers i/o comptes analítics (que poden "
+"representar\n"
+"               projectes, departaments, categories de productes, etc.)"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+msgid "Accounts"
+msgstr "Comptes"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
+msgid "Achievement"
+msgstr "Assoliment"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "Action Needed"
+msgstr "Acció necessària"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_analytic_account
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__analytic_account_id
+msgid "Analytic Account"
+msgstr "Compte analític"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Approve"
+msgstr "Aprova"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recompte de fitxers adjunts"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__crossovered_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Budget"
+msgstr "Pressupost"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Budget Items"
+msgstr "Elements de pressupost"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
+msgid "Budget Line"
+msgstr "Línia de pressupost"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_analytic_account__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__crossovered_budget_line_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
+msgid "Budget Lines"
+msgstr "Línies de pressupost"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__name
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Budget Name"
+msgstr "Nom del pressupost"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_budget_post
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__general_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
+msgid "Budgetary Position"
+msgstr "Posició pressupostària"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.open_budget_post_form
+#: model:ir.ui.menu,name:account_budget_oca.menu_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
+msgid "Budgetary Positions"
+msgstr "Posicions pressupostaries"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
+msgid "Budgets"
+msgstr "Pressupostos"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"By keeping track of where your money goes, you may be less\n"
+"                likely to overspend, and more likely to meet your financial\n"
+"                goals. Forecast a budget by detailing the expected revenue "
+"per\n"
+"                analytic account and monitor its evolution based on the "
+"actuals\n"
+"                realised during that period."
+msgstr ""
+"Si feu un seguiment d'on van els vostres diners, podeu ser menys\n"
+"                és probable que gasteu en excés i més probabilitats de "
+"satisfer les vostres finances\n"
+"                metes. Preveu un pressupost detallant els ingressos esperats "
+"per\n"
+"                compte analític i supervisar la seva evolució a partir dels "
+"reals\n"
+"                realitzat durant aquest període."
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Cancel Budget"
+msgstr "Cancel·lar presupost"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Cancelled"
+msgstr "Cancel·lada"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid "Click to create a new budget."
+msgstr "Faci clic per a crear un nou pressupost."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__company_id
+msgid "Company"
+msgstr "Companyia"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Confirmed"
+msgstr "Confirmada"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_uid
+msgid "Created by"
+msgstr "Creat per"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_date
+msgid "Created on"
+msgstr "Creat el"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__display_name
+msgid "Display Name"
+msgstr "Mostrar Nom"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Done"
+msgstr "Fet"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft"
+msgstr "Esborrany"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft Budgets"
+msgstr "Pressupostos esborrany"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_to
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_to
+msgid "End Date"
+msgstr "Data final"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
+msgid "Followers"
+msgstr "Seguidors"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidors (canals)"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidors (partners)"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si està marcat, els missatges nous requereixen la vostra atenció."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si està marcat, els missatges nous requereixen la vostra atenció."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si està marcat, alguns missatges tenen un error d'entrega."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_is_follower
+msgid "Is Follower"
+msgstr "És Seguidor"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines____last_update
+msgid "Last Modified on"
+msgstr "Darrera modificació feta el"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_uid
+msgid "Last Updated by"
+msgstr "Actualitzat per última vegada per"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_date
+msgid "Last Updated on"
+msgstr "Actualitzat per última vegada el dia"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjunt principal"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de lliurament del missatge"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_ids
+msgid "Messages"
+msgstr "Missatges"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'accions"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of error"
+msgstr "Nombre d'error"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Nombre de missatges que requereixen una acció"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de missatges amb error de lliurament"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Nombre de missatges no llegits"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
+msgid "Paid Date"
+msgstr "Data de pagament"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Period"
+msgstr "Període"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Planned Amount"
+msgstr "Import pressupostat"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Practical Amount"
+msgstr "Import real"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Reset to Draft"
+msgstr "Inicialitza a esborrany"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__creating_user_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_from
+msgid "Start Date"
+msgstr "Data d'inici"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__state
+msgid "Status"
+msgstr "Estat"
+
+#. module: account_budget_oca
+#: code:addons/account_budget_oca/models/account_budget.py:42
+#, python-format
+msgid "The budget must have at least one account."
+msgstr "El pressupost ha de tenir almenys un compte."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Theoretical Amount"
+msgstr "Import teòric"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve"
+msgstr "Per aprovar"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve Budgets"
+msgstr "Pressupostos per aprovar"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
+msgid "Unread Messages"
+msgstr "Missatges no llegits"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Comptador de missatges no llegits"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Validated"
+msgstr "Validat"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website Messages"
+msgstr "Missatges del lloc web"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicacions del lloc web"
