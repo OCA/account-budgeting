@@ -432,3 +432,13 @@ msgstr "Messages du site web"
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website communication history"
 msgstr "Historique de communication du site web"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of errors"
+msgstr "Nombre d'erreurs"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur d'envoi de SMS"
