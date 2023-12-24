@@ -18,15 +18,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2023-05-12 12:54+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2023-12-24 18:43+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
@@ -388,7 +388,7 @@ msgstr "Stato"
 #: code:addons/account_budget_oca/models/account_budget.py:42
 #, python-format
 msgid "The budget must have at least one account."
-msgstr "Il budget deve avere almeno un conto. "
+msgstr "Il budget deve avere almeno un conto."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
