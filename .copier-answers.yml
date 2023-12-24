@@ -11,8 +11,8 @@ odoo_version: 14.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 rebel_module_groups: []
-repo_description: 'TODO: add repo description.'
-repo_name: account-budgeting
+repo_description: You'll find modules that manage budgeting.
+repo_name: Odoo Budgeting
 repo_slug: account-budgeting
 repo_website: https://github.com/OCA/account-budgeting
 travis_apt_packages: []
