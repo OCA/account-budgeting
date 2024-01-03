@@ -535,4 +535,7 @@ class BudgetDoclineMixin(models.AbstractModel):
                 use_amount_commit=True,
                 commit_note=_("Auto adjustment on close budget"),
                 adj_commit=True,
-            ).commit_budget(reverse=True)
+            ).commit_budget(
+                reverse=True,
+                analytic_account_id=docline.fwd_analytic_account_id,
+            )
