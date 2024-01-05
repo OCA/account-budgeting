@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_budget_commit_forward_form" model="ir.ui.view">
+        <field name="name">view.budget.commit.forward.form</field>
+        <field name="model">budget.commit.forward</field>
+        <field name="inherit_id" ref="budget_control.view_budget_commit_forward_form" />
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <div name="docs" position="inside">
+                <div>
+                    <field
+                        name="advance"
+                        attrs="{'readonly': [('state', '!=', 'draft')]}"
+                    />
+                    <label for="advance" />
+                </div>
+            </div>
+            <page name="help" position="before">
+                <page string="Advance" attrs="{'invisible': [('advance', '=', False)]}">
+                    <field
+                        name="forward_advance_ids"
+                        attrs="{'readonly': [('state', '!=', 'review')]}"
+                        tree_view_ref="budget_control.view_budget_commit_forward_line_tree"
+                        form_view_ref="budget_control.view_budget_commit_forward_line_form"
+                    />
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

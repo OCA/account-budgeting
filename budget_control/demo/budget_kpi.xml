@@ -1,0 +1,32 @@
+<odoo noupdate="1">
+
+    <record id="budget_kpi" model="mis.report">
+        <field name="name">Budget KPI (demo)</field>
+    </record>
+
+    <record id="budget_kpi_600000" model="mis.report.kpi">
+        <field name="report_id" ref="budget_control.budget_kpi" />
+        <field name="description">Expense</field>
+        <field name="name">expense</field>
+        <field name="budgetable">True</field>
+        <field name="expression">balp[600000]</field>
+    </record>
+
+    <record id="budget_kpi_611000" model="mis.report.kpi">
+        <field name="report_id" ref="budget_control.budget_kpi" />
+        <field name="description">Purchase of Equipments</field>
+        <field name="name">purchase_of_equipments</field>
+        <field name="budgetable">True</field>
+        <field name="expression">balp[611000]</field>
+    </record>
+
+    <record id="budget_kpi_612000" model="mis.report.kpi">
+        <field name="report_id" ref="budget_control.budget_kpi" />
+        <field name="description">Rent</field>
+        <field name="name">rent</field>
+        <field name="budgetable">True</field>
+        <field name="expression">balp[612000]</field>
+    </record>
+
+
+</odoo>
