@@ -33,7 +33,7 @@ class PurchaseOrderLine(models.Model):
                     if (
                         analytic_account_po_line.name == analytic_account_pr_line.name
                         and analytic_account_po_line.budget_period_id
-                        != analytic_account_pr_line.budget_period_id
+                        != analytic_account_pr_line.budget_period_id and not pr_line.fwd_analytic_account_id
                     ):
                         date = analytic_account_pr_line.bm_date_to
                     pr_line.commit_budget(
