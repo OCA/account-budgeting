@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2017-10-10 11:34+0000\n"
-"Last-Translator: Kristoffer Grundström <kristoffer.grundstrom1983@gmail."
-"com>, 2017\n"
+"PO-Revision-Date: 2024-02-27 12:38+0000\n"
+"Last-Translator: jakobkrabbe <jakob@syscare.se>\n"
 "Language-Team: Swedish (https://www.transifex.com/odoo/teams/41243/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
@@ -35,6 +35,12 @@ msgid ""
 "represent\n"
 "                projects, departments, categories of products, etc.)"
 msgstr ""
+"En budget är en prognos över ditt företags intäkter och/eller kostnader\n"
+"                som förväntas för en period i framtiden. En budget "
+"definieras på vissa\n"
+"                finansiella konton och/eller analytiska konton (som kan "
+"representera\n"
+"                projekt, avdelningar, produktkategorier etc.)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
@@ -45,12 +51,12 @@ msgstr "Konton"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
 msgid "Achievement"
-msgstr ""
+msgstr "Prestationer"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Åtgärder som krävs"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_analytic_account
@@ -66,7 +72,7 @@ msgstr "Godkänn"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Antal bilagor"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
@@ -81,7 +87,7 @@ msgstr "Budget"
 #: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Budget Items"
-msgstr ""
+msgstr "Budgetposter"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
@@ -103,7 +109,7 @@ msgstr "Budgetrader"
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__name
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Budget Name"
-msgstr ""
+msgstr "Budget Namn"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_budget_post
@@ -112,14 +118,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
 msgid "Budgetary Position"
-msgstr "Finanser"
+msgstr "Budgeterad ställning"
 
 #. module: account_budget_oca
 #: model:ir.actions.act_window,name:account_budget_oca.open_budget_post_form
 #: model:ir.ui.menu,name:account_budget_oca.menu_budget_post_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
 msgid "Budgetary Positions"
-msgstr "Offentliga finanserna"
+msgstr "Budgeterade ställningar"
 
 #. module: account_budget_oca
 #: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
@@ -140,6 +146,14 @@ msgid ""
 "actuals\n"
 "                realised during that period."
 msgstr ""
+"Genom att hålla reda på vart dina pengar går kan du bli mindre\n"
+"                mindre benägen att spendera för mycket och mer benägen att "
+"uppfylla dina\n"
+"                mål. Gör en budgetprognos genom att ange de förväntade "
+"intäkterna per\n"
+"                analytiskt konto och övervaka dess utveckling baserat på de "
+"faktiska\n"
+"                som realiserats under den perioden."
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
@@ -154,7 +168,7 @@ msgstr "Avbruten"
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
 msgid "Click to create a new budget."
-msgstr ""
+msgstr "Klicka för att skapa en ny budget."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__company_id
@@ -220,17 +234,17 @@ msgstr "Slutdatum"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Följare"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
 msgid "Followers (Channels)"
-msgstr ""
+msgstr "Följare (kanaler)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Följare (Kontakter)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__id
@@ -242,22 +256,22 @@ msgstr "ID"
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
 msgid "If checked new messages require your attention."
-msgstr ""
+msgstr "Om markerat kräver nya meddelanden din uppmärksamhet."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Om markerat, kräver nya meddelanden din uppmärksamhet."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Om markerat får vissa meddelanden ett leveransfel."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Är följare"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
@@ -283,17 +297,17 @@ msgstr "Senast uppdaterad"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "Huvudanslutning"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Fel vid leverans av meddelande"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Meddelanden"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
@@ -303,27 +317,27 @@ msgstr "Namn"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Antal åtgärder"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
 msgid "Number of error"
-msgstr ""
+msgstr "Antal fel"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "Antal meddelanden som kräver en åtgärd"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Antal meddelanden med leveransfel"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "Antal olästa meddelanden"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
@@ -373,7 +387,7 @@ msgstr "Status"
 #: code:addons/account_budget_oca/models/account_budget.py:42
 #, python-format
 msgid "The budget must have at least one account."
-msgstr ""
+msgstr "Budgeten måste ha minst ett konto."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
@@ -395,12 +409,12 @@ msgstr "Att godkänna budgetar"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Olästa meddelanden"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "Räknare för olästa meddelanden"
 
 #. module: account_budget_oca
 #: selection:crossovered.budget,state:0
@@ -410,9 +424,9 @@ msgstr "Bekräftat"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Meddelanden från webbplatsen"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Historik för kommunikation på webbplatsen"
