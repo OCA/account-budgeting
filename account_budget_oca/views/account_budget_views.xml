@@ -105,6 +105,7 @@
                                         <field name="practical_amount" sum="Practical Amount" widget="monetary"/>
                                         <field name="theoretical_amount" sum="Theoretical Amount" widget="monetary"/>
                                         <field name="percentage"/>
+                                        <field name="practical_on_planned_percentage"/>
                                     </tree>
                                     <form string="Budget Lines">
                                         <group>
@@ -261,6 +262,7 @@
                     <field name="practical_amount" widget="monetary"/>
                     <field name="theoretical_amount" widget="monetary"/>
                     <field name="percentage"/>
+                    <field name="practical_on_planned_percentage"/>
                 </tree>
             </field>
         </record>
