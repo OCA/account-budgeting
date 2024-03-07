@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_budget_transfer_item_tree" model="ir.ui.view">
+        <field name="name">view.budget.transfer.item.tree</field>
+        <field name="model">budget.transfer.item</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="transfer_id" invisible="1" />
+                <field name="budget_period_id" invisible="1" />
+                <field
+                    name="budget_control_from_id"
+                    options="{'no_create_edit': True, 'no_open': True, 'no_create': True}"
+                />
+                <field name="state_from" optional="hide" />
+                <field name="amount_from_available" string="Available" />
+                <field
+                    name="budget_control_to_id"
+                    options="{'no_create_edit': True, 'no_open': True, 'no_create': True}"
+                />
+                <field name="state_to" optional="hide" />
+                <field name="amount_to_available" string="Available" />
+                <field name="amount" />
+                <field name="currency_id" invisible="1" />
+                <field name="state" invisible="1" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_budget_transfer_item_form" model="ir.ui.view">
+        <field name="name">view.budget.transfer.item.form</field>
+        <field name="model">budget.transfer.item</field>
+        <field name="arch" type="xml">
+            <form string="Budget Transfer Item">
+                <sheet>
+                    <group>
+                        <group name="budget_transfer_item_left">
+                            <field name="transfer_id" invisible="1" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="budget_period_id" invisible="1" />
+                            <field name="budget_control_from_id" />
+                            <field name="state_from" />
+                            <field name="amount_from_available" string="Available" />
+                        </group>
+                        <group name="budget_transfer_item_right">
+                            <field name="budget_control_to_id" />
+                            <field name="state_to" />
+                            <field name="amount_to_available" string="Available" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- For view transfer from budget control -->
+    <record id="view_budget_transfer_item_ref_tree" model="ir.ui.view">
+        <field name="name">view.budget.transfer.item.ref.tree</field>
+        <field name="model">budget.transfer.item</field>
+        <field name="inherit_id" ref="budget_control.view_budget_transfer_item_tree" />
+        <field name="mode">primary</field>
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='transfer_id']" position="attributes">
+                <attribute name="invisible" eval="False" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_budget_transfer_item_ref_form" model="ir.ui.view">
+        <field name="name">view.budget.transfer.item.ref.form</field>
+        <field name="model">budget.transfer.item</field>
+        <field name="inherit_id" ref="budget_control.view_budget_transfer_item_form" />
+        <field name="mode">primary</field>
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+            <xpath expr="//form//field[@name='transfer_id']" position="attributes">
+                <attribute name="invisible" eval="False" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

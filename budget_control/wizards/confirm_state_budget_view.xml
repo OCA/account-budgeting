@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="confirm_state_budget_control_view" model="ir.ui.view">
+        <field name="name">Confirm</field>
+        <field name="model">budget.state.confirmation</field>
+        <field name="arch" type="xml">
+            <form string="Update Status">
+                <sheet>
+                    <p>
+                        Please choose the state you want to update.
+                    </p>
+                    <group>
+                        <field name="state" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        name="confirm"
+                        string="Confirm"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Discard" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_budget" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.budget</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="25" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+                    class="app_settings_block"
+                    data-string="Budgeting"
+                    string="Budgeting"
+                    data-key="budget_control"
+                >
+                    <h2>Budget Control Documents</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="budget_control_document_setting_container"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="budget_control_account"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="budget_control_account" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="budget_control_account" />
+                                <div class="text-muted">
+                                    Enable budget actuals on Bills / Journal Entries.
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="module_budget_control_purchase_request"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="module_budget_control_purchase_request" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_budget_control_purchase_request" />
+                                <div class="text-muted">
+                                    Enable budget commitment on purchase request.
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="module_budget_control_purchase"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="module_budget_control_purchase" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_budget_control_purchase" />
+                                <div class="text-muted">
+                                    Enable budget commitment on purchase order.
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="module_budget_control_expense"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="module_budget_control_expense" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_budget_control_expense" />
+                                <div class="text-muted">
+                                    Enable budget commitment on expense sheet.
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="module_budget_control_advance_clearing"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="module_budget_control_advance_clearing" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_budget_control_advance_clearing" />
+                                <div class="text-muted">
+                                    Enable budget commitment on employee advance and also on clearing.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Budget Control Options</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="budget_control_setting_container"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="budget_include_tax"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="budget_include_tax" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="budget_include_tax" />
+                                <div class="text-muted">
+                                    By default, budget commitment will be untaxed amount.
+                                    If checked, budget commitment will include tax amount.
+                                </div>
+                                <div
+                                    class="content-group"
+                                    attrs="{'invisible': [('budget_include_tax' ,'=', False)]}"
+                                >
+                                    <div class="mt16">
+                                        <field
+                                            name="budget_include_tax_method"
+                                            class="o_light_label"
+                                            widget="radio"
+                                        />
+                                        <div
+                                            name="account"
+                                            attrs="{'invisible': [('budget_include_tax_method' ,'!=', 'specific')]}"
+                                        >
+                                            <label
+                                                for="budget_include_tax_account"
+                                                string="Bills / Journal Entries"
+                                                class="o_light_label"
+                                            />
+                                            <field
+                                                name="budget_include_tax_account"
+                                                class="oe_inline"
+                                                placeholder="taxes to include"
+                                                widget="many2many_tags"
+                                            />
+                                        </div>
+                                        <div
+                                            name="purchase"
+                                            attrs="{'invisible': ['|', ('budget_include_tax_method' ,'!=', 'specific'), ('module_budget_control_purchase', '=', False)]}"
+                                        >
+                                            <label
+                                                for="budget_include_tax_purchase"
+                                                string="Purchase Order"
+                                                class="o_light_label"
+                                            />
+                                            <field
+                                                name="budget_include_tax_purchase"
+                                                class="oe_inline"
+                                                placeholder="taxes to include"
+                                                widget="many2many_tags"
+                                            />
+                                        </div>
+                                        <div
+                                            name="expense"
+                                            attrs="{'invisible': ['|', ('budget_include_tax_method' ,'!=', 'specific'), ('module_budget_control_expense', '=', False)]}"
+                                        >
+                                            <label
+                                                for="budget_include_tax_expense"
+                                                string="Expense"
+                                                class="o_light_label"
+                                            />
+                                            <field
+                                                name="budget_include_tax_expense"
+                                                class="oe_inline"
+                                                placeholder="taxes to include"
+                                                widget="many2many_tags"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="budget_required_analytic"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="group_required_analytic" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="group_required_analytic" />
+                                <div class="text-muted">
+                                    Required analytic account for documents that have a committed budget, such as PR, PO, AV, EX, and Actual.
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="enable_budget_date_commit"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="group_budget_date_commit" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="group_budget_date_commit" />
+                                <div class="text-muted">
+                                    Allow users to commit a budget using the 'date commit' field.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Budget Period</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="budget_period_setting_container"
+                    >
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="budget_template_id" />
+                                <div class="text-muted">
+                                    Default Budget Template used when create new budget period.
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field
+                                            name="budget_template_id"
+                                            class="o_light_label"
+                                            widget="selection"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt8">
+                                        <button
+                                            name="%(budget_control.budget_template_action)d"
+                                            icon="fa-arrow-right"
+                                            type="action"
+                                            string="Templates"
+                                            class="btn-link"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>Budget Plan / Allocation</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="budget_plan_setting_container"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="module_budget_plan"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field name="module_budget_plan" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="module_budget_plan" />
+                                <div class="text-muted">
+                                    Use budget plan to allocate amount and create budget control sheet.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_budget_configuration" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'budget_control', 'bin_size': False}</field>
+    </record>
+    <menuitem
+        id="budget_settings_menu"
+        name="Settings"
+        parent="budget_control.budget_config_menu"
+        sequence="0"
+        action="action_budget_configuration"
+        groups="base.group_system"
+    />
+</odoo>

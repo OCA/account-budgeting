@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_budget_constraint_filter" model="ir.ui.view">
+        <field name="name">view.budget.constraint.filter</field>
+        <field name="model">budget.constraint</field>
+        <field name="arch" type="xml">
+            <search string="Search Budget Constraint">
+                <field
+                    name="name"
+                    string="Budget Control"
+                    filter_domain="[('name', 'ilike', self)]"
+                />
+                <separator />
+                <filter
+                    name="active"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+    <record id="budget_constraint_view_tree" model="ir.ui.view">
+        <field name="name">budget.constraint.view.tree</field>
+        <field name="model">budget.constraint</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" />
+                <field name="name" />
+                <field name="server_action_id" optional="show" />
+            </tree>
+        </field>
+    </record>
+    <record id="budget_constraint_view_form" model="ir.ui.view">
+        <field name="name">budget.constraint.view.form</field>
+        <field name="model">budget.constraint</field>
+        <field name="arch" type="xml">
+            <form string="Budget Constraint">
+                <header />
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="budget_constraint_left">
+                            <field name="sequence" />
+                            <field name="server_action_id" />
+                        </group>
+                        <group name="budget_constraint_right">
+                            <field name="active" invisible="1" />
+                            <field name="description" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="budget_constraint_action" model="ir.actions.act_window">
+        <field name="name">Budget Constraint</field>
+        <field name="view_id" ref="budget_constraint_view_tree" />
+        <field name="res_model">budget.constraint</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="budget_constraint_menu"
+        parent="budget_config_sub_menu"
+        name="Budget Constraint"
+        action="budget_constraint_action"
+        sequence="5"
+    />
+</odoo>
