@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-22 22:06+0000\n"
-"PO-Revision-Date: 2023-09-20 17:49+0000\n"
+"PO-Revision-Date: 2024-03-21 15:35+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/it/)\n"
@@ -109,7 +109,7 @@ msgstr "Moneta di Presopposto"
 #. module: budget
 #: field:budget.line,budget_item_id:0
 msgid "Budget Item"
-msgstr "Oggetto del Presopposto"
+msgstr "Elementi del budget"
 
 #. module: budget
 #: field:budget.line,allocation:0
@@ -127,7 +127,7 @@ msgstr "Nome d'Oggetto di Presopposto"
 #: view:budget.item:budget.view_budget_item_search
 #: model:ir.ui.menu,name:budget.menu_budget_item_list
 msgid "Budget Items"
-msgstr "Oggetti del Presopposto"
+msgstr "Elementi del budget"
 
 #. module: budget
 #: model:ir.ui.menu,name:budget.menu_budget_item_tree
@@ -151,7 +151,7 @@ msgstr "Tipo d'Allocazione di Linia del Presopposto"
 #: model:ir.model,name:budget.model_budget_line
 #: model:ir.ui.menu,name:budget.menu_budget_line_list
 msgid "Budget Lines"
-msgstr "Linie di Presopposti"
+msgstr "Righe budget"
 
 #. module: budget
 #: model:res.groups,name:budget.group_budget_responsible
