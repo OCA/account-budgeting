@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-22 22:06+0000\n"
-"PO-Revision-Date: 2024-03-21 15:35+0000\n"
+"PO-Revision-Date: 2024-09-11 09:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/it/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -127,7 +127,7 @@ msgstr "Nome d'Oggetto di Presopposto"
 #: view:budget.item:budget.view_budget_item_search
 #: model:ir.ui.menu,name:budget.menu_budget_item_list
 msgid "Budget Items"
-msgstr "Elementi del budget"
+msgstr "Voci del budget"
 
 #. module: budget
 #: model:ir.ui.menu,name:budget.menu_budget_item_tree
