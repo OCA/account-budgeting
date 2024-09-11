@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2024-08-30 10:06+0000\n"
+"PO-Revision-Date: 2024-09-11 09:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "Language: it\n"
@@ -88,7 +88,7 @@ msgstr "Budget"
 #: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Budget Items"
-msgstr "Elementi del budget"
+msgstr "Voci del budget"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
