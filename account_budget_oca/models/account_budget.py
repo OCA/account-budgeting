@@ -2,6 +2,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
+from odoo.tools import float_is_zero
 
 from_string = fields.Datetime.from_string
 
@@ -129,7 +130,13 @@ class CrossoveredBudgetLines(models.Model):
         compute='_compute_theoretical_amount', oldname='theoritical_amount',
         digits=0)
     percentage = fields.Float(
-        compute='_compute_percentage', string='Achievement')
+        compute='_compute_percentage',
+        string='Practical/Theoretical',
+    )
+    practical_on_planned_percentage = fields.Float(
+        compute='_compute_practical_on_planned_percentage',
+        string='Practical/Planned',
+    )
     company_id = fields.Many2one(
         related='crossovered_budget_id.company_id', comodel_name='res.company',
         string='Company', store=True, readonly=True)
@@ -168,7 +175,11 @@ class CrossoveredBudgetLines(models.Model):
 
     @api.multi
     def _compute_theoretical_amount(self):
-        today = fields.Datetime.now()
+        date = self.env.context.get('budget_date')
+        if date:
+            date = date
+        else:
+            date = fields.Datetime.now()
         for line in self:
             # Used for the report
 
@@ -183,14 +194,14 @@ class CrossoveredBudgetLines(models.Model):
                     from_string(line.date_to) -
                     from_string(line.date_from))
                 elapsed_timedelta = (
-                    from_string(today) - (from_string(line.date_from)))
+                    from_string(date) - (from_string(line.date_from)))
 
                 if elapsed_timedelta.days < 0:
                     # If the budget line has not started yet, theoretical
                     # amount should be zero
                     theo_amt = 0.00
                 elif (line_timedelta.days > 0 and
-                      from_string(today) < from_string(line.date_to)):
+                      from_string(date) < from_string(line.date_to)):
                     # If today is between the budget line date_from and
                     # date_to
                     theo_amt = (
@@ -211,3 +222,18 @@ class CrossoveredBudgetLines(models.Model):
                           line.theoretical_amount) * 100)
             else:
                 line.percentage = 0.00
+
+    @api.multi
+    def _compute_practical_on_planned_percentage(self):
+        planned_digits = self._fields['planned_amount'].digits
+        for line in self:
+            planned_amount = line.planned_amount
+            if not float_is_zero(planned_amount,
+                                 precision_digits=planned_digits):
+                practical_amount = line.practical_amount or 0
+                practical_on_planned_percentage = \
+                    practical_amount / planned_amount * 100
+            else:
+                practical_on_planned_percentage = 0
+            line.practical_on_planned_percentage = \
+                practical_on_planned_percentage

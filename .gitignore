@@ -1,11 +1,8 @@
-# Project specific
-oca.cfg
-.pytest_cache/
-/.vscode
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+/.venv
+/.pytest_cache
 
 # C extensions
 *.so
@@ -18,7 +15,6 @@ build/
 develop-eggs/
 dist/
 eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -42,7 +38,6 @@ coverage.xml
 
 # Translations
 *.mo
-*.pot
 
 # Pycharm
 .idea
@@ -52,6 +47,7 @@ coverage.xml
 
 # Visual Studio cache/options directory
 .vs/
+.vscode
 
 # OSX Files
 .DS_Store
@@ -76,4 +72,3 @@ docs/_build/
 
 # OCA rules
 !static/lib/
-

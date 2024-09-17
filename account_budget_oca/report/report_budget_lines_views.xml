@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright 2022 Simone Rubino - TAKOBI
+  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+  -->
+<odoo>
+    <record model="ir.ui.view" id="budget_lines_report_view_pivot">
+        <field name="name">Budget Report Lines Pivot view</field>
+        <field name="model">account_budget_oca.budget_lines_report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="analytic_account_id" groups="analytic.group_analytic_accounting" type="row"/>
+                <field name="date_to" type="col" interval="month"/>
+                <field name="practical_amount" type="measure" widget="monetary"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="budget_lines_report_view_tree">
+        <field name="name">Budget Report Lines Tree view</field>
+        <field name="model">account_budget_oca.budget_lines_report</field>
+        <field name="arch" type="xml">
+            <tree string="Budget Lines">
+                <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="planned_amount" widget="monetary"/>
+                <field name="practical_amount" widget="monetary"/>
+                <field name="theoretical_amount" widget="monetary"/>
+                <field name="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="budget_lines_report_action">
+        <field name="name">Budgets</field>
+        <field name="res_model">account_budget_oca.budget_lines_report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot,tree,form</field>
+    </record>
+</odoo>
