@@ -151,7 +151,7 @@ class CrossoveredBudgetLines(models.Model):
             acc_ids = line.general_budget_id.account_ids.ids
             date_to = line.date_to
             date_from = line.date_from
-            if line.analytic_account_id.id:
+            if line.analytic_account_id.id and date_from and date_to:
                 self.env.cr.execute(
                     """
                     SELECT SUM(amount)
