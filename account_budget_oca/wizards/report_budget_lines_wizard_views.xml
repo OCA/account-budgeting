@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright 2022 Simone Rubino - TAKOBI
+  ~ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+  -->
+<odoo>
+    <record id="report_budget_lines_wizard_view_form" model="ir.ui.view">
+        <field name="name">Form view for Budget Report Wizard</field>
+        <field name="model">account_budget_oca.budget_lines_report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group name="description">
+                            <p>
+                                Show a report on the budget lines.
+                            </p>
+                        </group>
+                        <group name="configuration">
+                            <field name="date" invisible="True"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="generate" type="object" string="Show" class="btn-primary"/>
+                    or
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="report_budget_lines_wizard_action">
+        <field name="name">Budget analysis</field>
+        <field name="res_model">account_budget_oca.budget_lines_report.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="report_budget_lines_wizard_menu"
+        parent="account.account_reports_management_menu"
+        action="report_budget_lines_wizard_action"
+    />
+</odoo>
