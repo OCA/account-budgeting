@@ -21,7 +21,7 @@ class AccountBudgetPost(models.Model):
         column1="budget_id",
         column2="account_id",
         string="Accounts",
-        domain="[('deprecated', '=', False), ('company_id', '=', company_id)]",
+        domain="[('deprecated', '=', False), ('company_ids', 'in', company_id)]",
     )
     crossovered_budget_line_ids = fields.One2many(
         comodel_name="crossovered.budget.lines",
@@ -44,10 +44,11 @@ class AccountBudgetPost(models.Model):
         if not account_ids:
             raise ValidationError(_("The budget must have at least one account."))
 
-    @api.model
-    def create(self, vals):
-        self._check_account_ids(vals)
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            self._check_account_ids(vals)
+        return super().create(vals_list)
 
     def write(self, vals):
         self._check_account_ids(vals)
@@ -59,20 +60,14 @@ class CrossoveredBudget(models.Model):
     _description = "Budget"
     _inherit = ["mail.thread"]
 
-    name = fields.Char(
-        string="Budget Name", required=True, states={"done": [("readonly", True)]}
-    )
+    name = fields.Char(string="Budget Name", required=True)
     creating_user_id = fields.Many2one(
         comodel_name="res.users",
         string="Responsible",
         default=lambda self: self.env.user,
     )
-    date_from = fields.Date(
-        string="Start Date", required=True, states={"done": [("readonly", True)]}
-    )
-    date_to = fields.Date(
-        string="End Date", required=True, states={"done": [("readonly", True)]}
-    )
+    date_from = fields.Date(string="Start Date", required=True)
+    date_to = fields.Date(string="End Date", required=True)
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),
@@ -93,7 +88,6 @@ class CrossoveredBudget(models.Model):
         comodel_name="crossovered.budget.lines",
         inverse_name="crossovered_budget_id",
         string="Budget Lines",
-        states={"done": [("readonly", True)]},
         copy=True,
     )
     company_id = fields.Many2one(

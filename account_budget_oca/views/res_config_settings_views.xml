@@ -5,19 +5,25 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form" />
         <field name="priority" eval="100" />
         <field name="arch" type="xml">
-            <div id="account_budget" position="replace">
-                <div class="content-group">
-                    <div class="mt16">
-                        <button
-                            name="%(account_budget_oca.open_budget_post_form)d"
-                            icon="fa-arrow-right"
-                            type="action"
-                            string="Budgetary Positions"
-                            class="btn-link"
-                        />
+            <xpath expr="//block[@id='analytic']" position="inside">
+                <setting
+                    id="account_budget"
+                    string="Budgets"
+                    help="Manage account budgeting"
+                >
+                    <div class="content-group">
+                        <div class="mt16">
+                            <button
+                                name="%(account_budget_oca.open_budget_post_form)d"
+                                icon="fa-arrow-right"
+                                type="action"
+                                string="Budgetary Positions"
+                                class="btn-link"
+                            />
+                        </div>
                     </div>
-                </div>
-            </div>
+                </setting>
+            </xpath>
         </field>
     </record>
 </odoo>

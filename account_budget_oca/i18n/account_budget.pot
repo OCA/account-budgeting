@@ -48,7 +48,6 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_crossovered_budget_id
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
 #: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Budget"
@@ -70,7 +69,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post_crossovered_budget_line
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_crossovered_budget_line
 #: model:ir.model.fields,field_description:account_budget_oca.field_project_project_crossovered_budget_line
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
 #: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
 #: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
@@ -78,15 +76,8 @@ msgid "Budget Lines"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_name
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Budget Name"
-msgstr ""
-
-#. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_budget_post
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_general_budget_id
-#: model:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
 #: model:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
 #: model:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
 msgid "Budgetary Position"
@@ -108,27 +99,8 @@ msgid "Budgets"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
-msgid "By keeping track of where your money goes, you may be less\n"
-"                likely to overspend, and more likely to meet your financial\n"
-"                goals. Forecast a budget by detailing the expected revenue per\n"
-"                analytic account and monitor its evolution based on the actuals\n"
-"                realised during that period."
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Cancel Budget"
-msgstr ""
-
-#. module: account_budget_oca
 #: selection:crossovered.budget,state:0
 msgid "Cancelled"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
-msgid "Click to create a new budget."
 msgstr ""
 
 #. module: account_budget_oca
@@ -136,11 +108,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_company_id
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_company_id
 msgid "Company"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Confirm"
 msgstr ""
 
 #. module: account_budget_oca
@@ -167,23 +134,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_display_name
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_display_name
 msgid "Display Name"
-msgstr ""
-
-#. module: account_budget_oca
-#: selection:crossovered.budget,state:0
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Done"
-msgstr ""
-
-#. module: account_budget_oca
-#: selection:crossovered.budget,state:0
-#: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
-msgid "Draft"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
-msgid "Draft Budgets"
 msgstr ""
 
 #. module: account_budget_oca
@@ -231,29 +181,6 @@ msgid "Paid Date"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Period"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_planned_amount
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Planned Amount"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_practical_amount
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-#: model:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
-msgid "Practical Amount"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-msgid "Reset to Draft"
-msgstr ""
-
-#. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_creating_user_id
 msgid "Responsible"
 msgstr ""
@@ -273,23 +200,6 @@ msgstr ""
 #: code:addons/account_budget/models/account_budget_oca.py:31
 #, python-format
 msgid "The budget must have at least one account."
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines_theoretical_amount
-#: model:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-#: model:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
-msgid "Theoretical Amount"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
-msgid "To Approve"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
-msgid "To Approve Budgets"
 msgstr ""
 
 #. module: account_budget_oca
