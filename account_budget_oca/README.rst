@@ -17,38 +17,37 @@ Budgets Management
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--budgeting-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-budgeting/tree/16.0/account_budget_oca
+    :target: https://github.com/OCA/account-budgeting/tree/18.0/account_budget_oca
     :alt: OCA/account-budgeting
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-budgeting-16-0/account-budgeting-16-0-account_budget_oca
+    :target: https://translation.odoo-community.org/projects/account-budgeting-18-0/account-budgeting-18-0-account_budget_oca
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-budgeting&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-budgeting&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows accountants to manage analytic and crossovered budgets.
+This module allows accountants to manage analytic and crossovered
+budgets.
 
-Once the Budgets are defined (in Invoicing/Budgets/Budgets), the Project Managers
-can set the planned amount on each Analytic Account.
+Once the Budgets are defined (in Invoicing/Budgets/Budgets), the Project
+Managers can set the planned amount on each Analytic Account.
 
-The accountant has the possibility to see the total of amount planned for each
-Budget in order to ensure the total planned is not greater/lower than what he
-planned for this Budget. Each list of record can also be switched to a graphical
-view of it.
+The accountant has the possibility to see the total of amount planned
+for each Budget in order to ensure the total planned is not
+greater/lower than what he planned for this Budget. Each list of record
+can also be switched to a graphical view of it.
 
 Three reports are available:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
-1. The first is available from a list of Budgets. It gives the spreading, for
-   these Budgets, of the Analytic Accounts.
-
-2. The second is a summary of the previous one, it only gives the spreading,
-   for the selected Budgets, of the Analytic Accounts.
-
-3. The last one is available from the Analytic Chart of Accounts. It gives
-   the spreading, for the selected Analytic Accounts of Budgets.
+1. The first is available from a list of Budgets. It gives the
+   spreading, for these Budgets, of the Analytic Accounts.
+2. The second is a summary of the previous one, it only gives the
+   spreading, for the selected Budgets, of the Analytic Accounts.
+3. The last one is available from the Analytic Chart of Accounts. It
+   gives the spreading, for the selected Analytic Accounts of Budgets.
 
 **Table of contents**
 
@@ -58,14 +57,14 @@ Three reports are available:
 Known issues / Roadmap
 ======================
 
-* This module is incompatible with Odoo Enterprise account_budget module
+- This module is incompatible with Odoo Enterprise account_budget module
 
 Changelog
 =========
 
-**This module is a backport from Odoo SA and as such, it is not included in the
-OCA CLA. That means we do not have a copy of the copyright on it like all
-other OCA modules.**
+**This module is a backport from Odoo SA and as such, it is not included
+in the OCA CLA. That means we do not have a copy of the copyright on it
+like all other OCA modules.**
 
 Bug Tracker
 ===========
@@ -73,7 +72,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-budgeting/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-budgeting/issues/new?body=module:%20account_budget_oca%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-budgeting/issues/new?body=module:%20account_budget_oca%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -81,21 +80,21 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Odoo S.A.
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Odoo S.A.
-* Ana Juaristi <anajuaristi@avanzosc.es>
-* Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
-* Alberto Martín Cortada <alberto.martin@guadaltech.es>
-* Freni Patel <fpatel@opensourceintegrators.com>
+- Odoo S.A.
+- Ana Juaristi <anajuaristi@avanzosc.es>
+- Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
+- Alberto Martín Cortada <alberto.martin@guadaltech.es>
+- Freni Patel <fpatel@opensourceintegrators.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -107,6 +106,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-budgeting <https://github.com/OCA/account-budgeting/tree/16.0/account_budget_oca>`_ project on GitHub.
+This module is part of the `OCA/account-budgeting <https://github.com/OCA/account-budgeting/tree/18.0/account_budget_oca>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

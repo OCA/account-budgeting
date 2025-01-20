@@ -142,16 +142,16 @@
                             <label for="date_from" string="Period" />
                             <div>
                                     <field
-                                    name="date_from"
-                                    class="oe_inline"
-                                    attrs="{'readonly':[('state','!=','draft')]}"
-                                /> -
+                                name="date_from"
+                                class="oe_inline"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                            /> -
                                     <field
-                                    name="date_to"
-                                    class="oe_inline"
-                                    attrs="{'readonly':[('state','!=','draft')]}"
-                                    nolabel="1"
-                                />
+                                name="date_to"
+                                class="oe_inline"
+                                attrs="{'readonly':[('state','!=','draft')]}"
+                                nolabel="1"
+                            />
                                 </div>
                             <field
                                 name="company_id"
@@ -217,13 +217,13 @@
                                             <label for="date_from" string="Period" />
                                             <div>
                                                     <field
-                                                    name="date_from"
-                                                    class="oe_inline"
-                                                /> -
+                                                name="date_from"
+                                                class="oe_inline"
+                                            /> -
                                                     <field
-                                                    name="date_to"
-                                                    class="oe_inline"
-                                                />
+                                                name="date_to"
+                                                class="oe_inline"
+                                            />
                                                 </div>
                                             <field
                                                 name="paid_date"
@@ -305,8 +305,8 @@
                             <div class="o_kanban_record_bottom">
                                 <div class="oe_kanban_bottom_left text-muted">
                                         <i class="fa fa-clock-o" /> <t
-                                        t-esc="record.date_from.value"
-                                    />-<t t-esc="record.date_to.value" />
+                                    t-esc="record.date_from.value"
+                                />-<t t-esc="record.date_to.value" />
                                     </div>
                                 <div class="oe_kanban_bottom_right">
                                     <span class="pull-right">
