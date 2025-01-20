@@ -17,23 +17,23 @@
         </field>
     </record>
     <record id="view_budget_post_tree" model="ir.ui.view">
-        <field name="name">account.budget.post.tree</field>
+        <field name="name">account.budget.post.list</field>
         <field name="model">account.budget.post</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field
                     name="company_id"
                     options="{'no_create': True}"
                     groups="base.group_multi_company"
                 />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="open_budget_post_form" model="ir.actions.act_window">
         <field name="name">Budgetary Positions</field>
         <field name="res_model">account.budget.post</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="view_id" ref="view_budget_post_tree" />
         <field name="search_view_id" ref="view_budget_post_search" />
     </record>
@@ -65,10 +65,10 @@
                 <notebook>
                     <page string="Accounts">
                         <field name="account_ids">
-                            <tree>
+                            <list>
                                 <field name="code" />
                                 <field name="name" />
-                            </tree>
+                            </list>
                         </field>
                     </page>
                 </notebook>
@@ -84,34 +84,34 @@
                     <button
                         string="Confirm"
                         name="action_budget_confirm"
-                        states="draft"
+                        invisible="state != 'draft'"
                         type="object"
                         class="oe_highlight"
                     />
                     <button
                         string="Approve"
                         name="action_budget_validate"
-                        states="confirm"
+                        invisible="state != 'confirm'"
                         type="object"
                         class="oe_highlight"
                     />
                     <button
                         string="Done"
                         name="action_budget_done"
-                        states="validate"
+                        invisible="state != 'validate'"
                         type="object"
                         class="oe_highlight"
                     />
                     <button
                         string="Reset to Draft"
                         name="action_budget_draft"
-                        states="cancel"
+                        invisible="state != 'cancel'"
                         type="object"
                     />
                     <button
                         string="Cancel Budget"
                         name="action_budget_cancel"
-                        states="confirm,validate"
+                        invisible="state not in ['confirm', 'validate']"
                         type="object"
                     />
                     <field
@@ -126,7 +126,7 @@
                         <h1>
                             <field
                                 name="name"
-                                attrs="{'readonly':[('state','!=','draft')]}"
+                                readonly="state != 'draft'"
                                 placeholder="Budget Name"
                             />
                         </h1>
@@ -135,7 +135,7 @@
                         <group>
                             <field
                                 name="creating_user_id"
-                                attrs="{'readonly':[('state','!=','draft')]}"
+                                readonly="state != 'draft'"
                             />
                         </group>
                         <group>
@@ -144,12 +144,12 @@
                                     <field
                                 name="date_from"
                                 class="oe_inline"
-                                attrs="{'readonly':[('state','!=','draft')]}"
+                                readonly="state != 'draft'"
                             /> -
                                     <field
                                 name="date_to"
                                 class="oe_inline"
-                                attrs="{'readonly':[('state','!=','draft')]}"
+                                readonly="state != 'draft'"
                                 nolabel="1"
                             />
                                 </div>
@@ -167,9 +167,9 @@
                                 context="{'default_date_from': date_from,'default_date_to': date_to}"
                                 colspan="4"
                                 nolabel="1"
-                                attrs="{'readonly':[('state','!=','draft')]}"
+                                readonly="state != 'draft'"
                             >
-                                <tree>
+                                <list>
                                     <field name="general_budget_id" />
                                     <field
                                         name="analytic_account_id"
@@ -182,31 +182,22 @@
                                         name="paid_date"
                                         groups="base.group_no_one"
                                     />
-                                    <field
-                                        name="planned_amount"
-                                        sum="Planned Amount"
-                                        widget="monetary"
-                                    />
+                                    <field name="planned_amount" sum="Planned Amount" />
                                     <field
                                         name="practical_amount"
                                         sum="Practical Amount"
-                                        widget="monetary"
                                     />
                                     <field
                                         name="theoretical_amount"
                                         sum="Theoretical Amount"
-                                        widget="monetary"
                                     />
                                     <field name="percentage" />
-                                </tree>
+                                </list>
                                 <form>
                                     <group>
                                         <group>
                                             <field name="general_budget_id" />
-                                            <field
-                                                name="planned_amount"
-                                                widget="monetary"
-                                            />
+                                            <field name="planned_amount" />
                                             <field
                                                 name="analytic_account_id"
                                                 groups="analytic.group_analytic_accounting"
@@ -241,22 +232,15 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field
-                        name="message_follower_ids"
-                        widget="mail_followers"
-                        groups="base.group_user"
-                    />
-                    <field name="message_ids" widget="mail_thread" />
-                </div>
+                <chatter />
             </form>
         </field>
     </record>
     <record id="crossovered_budget_view_tree" model="ir.ui.view">
-        <field name="name">crossovered.budget.view.tree</field>
+        <field name="name">crossovered.budget.view.list</field>
         <field name="model">crossovered.budget</field>
         <field name="arch" type="xml">
-            <tree
+            <list
                 decoration-info="state == 'draft'"
                 decoration-muted="state in ('done','cancel')"
             >
@@ -270,7 +254,7 @@
                 />
                 <field name="creating_user_id" />
                 <field name="state" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="view_crossovered_budget_kanban" model="ir.ui.view">
@@ -284,7 +268,7 @@
                 <field name="creating_user_id" />
                 <field name="state" />
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div t-attf-class="oe_kanban_card oe_kanban_global_click">
                             <div class="o_kanban_record_top mb16">
                                 <div class="o_kanban_record_headings mt4">
@@ -310,14 +294,18 @@
                                     </div>
                                 <div class="oe_kanban_bottom_right">
                                     <span class="pull-right">
-                                        <img
-                                            t-att-src="kanban_image('res.users', 'avatar_128', record.creating_user_id.raw_value)"
-                                            t-att-title="record.creating_user_id.value"
-                                            t-att-alt="record.creating_user_id.value"
-                                            width="24"
-                                            height="24"
-                                            class="oe_kanban_avatar pull-right"
-                                        />
+                                        <t
+                                            name="user_avatar"
+                                            t-if="record.creating_user_id.raw_value"
+                                        >
+                                            <field
+                                                name="creating_user_id"
+                                                widget="image"
+                                                options="{'size': [24, 24], 'preview_image': 'avatar_128'}"
+                                                class="ms-1"
+                                                alt="Avatar"
+                                            />
+                                        </t>
                                     </span>
                                 </div>
                             </div>
@@ -358,7 +346,7 @@
     <record id="act_crossovered_budget_view" model="ir.actions.act_window">
         <field name="name">Budgets</field>
         <field name="res_model">crossovered.budget</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="view_id" ref="crossovered_budget_view_tree" />
         <field name="search_view_id" ref="view_crossovered_budget_search" />
         <field name="help" type="html">
@@ -382,7 +370,7 @@
     </record>
     <menuitem
         id="menu_act_crossovered_budget_view"
-        parent="account.menu_finance_entries_management"
+        parent="account.menu_finance_entries"
         name="Budgets"
         action="act_crossovered_budget_view"
         sequence="60"
@@ -398,10 +386,10 @@
         </field>
     </record>
     <record id="view_crossovered_budget_line_tree" model="ir.ui.view">
-        <field name="name">crossovered.budget.line.tree</field>
+        <field name="name">crossovered.budget.line.list</field>
         <field name="model">crossovered.budget.lines</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="crossovered_budget_id" invisible="1" />
                 <field name="general_budget_id" />
                 <field
@@ -411,11 +399,11 @@
                 <field name="date_from" />
                 <field name="date_to" />
                 <field name="paid_date" groups="base.group_no_one" />
-                <field name="planned_amount" widget="monetary" />
-                <field name="practical_amount" widget="monetary" />
-                <field name="theoretical_amount" widget="monetary" />
+                <field name="planned_amount" sum="Planned Amount" />
+                <field name="practical_amount" sum="Practical Amount" />
+                <field name="theoretical_amount" sum="Theoretical Amount" />
                 <field name="percentage" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="view_crossovered_budget_line_form" model="ir.ui.view">
@@ -431,9 +419,9 @@
                         <field name="date_from" />
                         <field name="date_to" />
                         <field name="paid_date" />
-                        <field name="planned_amount" widget="monetary" />
-                        <field name="practical_amount" widget="monetary" />
-                        <field name="theoretical_amount" widget="monetary" />
+                        <field name="planned_amount" sum="Planned Amount" />
+                        <field name="practical_amount" sum="Practical Amount" />
+                        <field name="theoretical_amount" sum="Theoretical Amount" />
                         <field name="percentage" />
                         <field
                             name="company_id"
@@ -448,7 +436,7 @@
     <record id="act_crossovered_budget_lines_view" model="ir.actions.act_window">
         <field name="name">Budgets</field>
         <field name="res_model">crossovered.budget.lines</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_crossovered_budget_line_tree" />
     </record>
     <menuitem
