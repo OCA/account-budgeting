@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_advance_budget_move_user,access_advance_budget_move_user,model_advance_budget_move,,1,1,1,1

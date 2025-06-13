@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Ecosoft - (http://ecosoft.co.th)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_analytic_budget_edit_form" model="ir.ui.view">
+        <field name="name">analytic.budget.edit.form</field>
+        <field name="model">analytic.budget.edit</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <p>
+                        This wizard will edit value and add reason in log note.
+                    </p>
+                    <group>
+                        <field name="initial_available" />
+                        <field name="reason" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        name="action_edit"
+                        string="Edit"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Discard" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

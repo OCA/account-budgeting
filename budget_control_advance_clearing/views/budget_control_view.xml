@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="budget_control_view_tree" model="ir.ui.view">
+        <field name="name">budget.control.view.tree</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.budget_control_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='amount_expense']" position="before">
+                <field name="amount_advance" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+    <record id="budget_control_view_form" model="ir.ui.view">
+        <field name="name">budget.control.view.form</field>
+        <field name="model">budget.control</field>
+        <field name="inherit_id" ref="budget_control.budget_control_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//group[@name='amount_budget']/field[@name='amount_expense']"
+                position="before"
+            >
+                <field name="amount_advance" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
