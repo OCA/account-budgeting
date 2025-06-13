@@ -12,14 +12,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2017-10-10 11:34+0000\n"
-"Last-Translator: Umur Akın <umura@projetgrup.com>, 2018\n"
+"PO-Revision-Date: 2025-06-13 17:26+0000\n"
+"Last-Translator: Betül Öğmen <betulo@eska.biz>\n"
 "Language-Team: Turkish (https://www.transifex.com/odoo/teams/41243/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
@@ -51,7 +52,7 @@ msgstr "Başarı"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Aksiyon Gerekli"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_analytic_account
@@ -67,7 +68,7 @@ msgstr "Onayla"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Eklenti Sayısı"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
@@ -220,17 +221,17 @@ msgstr "Bitiş Tarihi"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Takipçiler"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
 msgid "Followers (Channels)"
-msgstr ""
+msgstr "Takipçiler (Kanallar)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Takipçiler (İş ortakları)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_analytic_account__id
@@ -244,18 +245,18 @@ msgstr "ID"
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "İşaretliyse dikkatinize yeni mesajlar var."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "İşaretliyse bazı mesajlarda teslim hatası var."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Takipçi"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_analytic_account____last_update
@@ -282,17 +283,17 @@ msgstr "Son Güncelleme"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "Ana Ek"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Mesaj Teslim hatası"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Mesajlar"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
@@ -302,27 +303,27 @@ msgstr "İsim"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Eylem Sayısı"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Hata adedi"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "Eylem gerektiren mesaj sayısı"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Teslimat hatası olan mesaj sayısı"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "Okunmamış mesaj adedi"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
@@ -360,7 +361,7 @@ msgstr "Sorumlu"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "SMS Teslim etme hatası"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
@@ -399,12 +400,12 @@ msgstr "Bütçeleri Onaylama"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Okunmamış Mesajlar"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "Okunmamış Mesaj Sayacı"
 
 #. module: account_budget_oca
 #: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__validate
@@ -414,9 +415,9 @@ msgstr "Doğrulanmış"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Websitesi Mesajları"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Web Sitesi iletişim geçmişi"
