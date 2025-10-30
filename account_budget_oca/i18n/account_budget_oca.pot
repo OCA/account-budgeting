@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -52,6 +52,11 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
 msgid "Attachment Count"
+msgstr ""
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_kanban
+msgid "Avatar"
 msgstr ""
 
 #. module: account_budget_oca
@@ -105,6 +110,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_view
 #: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
 #: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
 msgid "Budgets"
 msgstr ""
 
@@ -232,13 +238,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget____last_update
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_uid
@@ -253,8 +252,8 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
-msgid "Main Attachment"
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
+msgid "Manage account budgeting"
 msgstr ""
 
 #. module: account_budget_oca
@@ -305,6 +304,9 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Planned Amount"
 msgstr ""
 
@@ -312,6 +314,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Practical Amount"
 msgstr ""
 
@@ -339,7 +343,6 @@ msgstr ""
 #. module: account_budget_oca
 #. odoo-python
 #: code:addons/account_budget_oca/models/account_budget.py:0
-#, python-format
 msgid "The budget must have at least one account."
 msgstr ""
 
@@ -347,6 +350,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Theoretical Amount"
 msgstr ""
 
