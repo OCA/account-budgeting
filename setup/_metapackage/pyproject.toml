@@ -1,0 +1,11 @@
+[project]
+name = "odoo-addons-oca-account-budgeting"
+version = "18.0.20251030.0"
+dependencies = [
+    "odoo-addon-account_budget_oca==18.0.*",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 18.0",
+]
