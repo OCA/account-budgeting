@@ -1,0 +1,423 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_budget_oca
+#
+# Translators:
+# Onii Onii <onii0223@yahoo.com>, 2018
+# Martin Trigaux, 2018
+# Otgonbayar.A <gobi.mn@gmail.com>, 2018
+# nasaaskii <nasaaskii@gmail.com>, 2018
+# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2019
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-10 11:34+0000\n"
+"PO-Revision-Date: 2017-09-20 10:14+0000\n"
+"Last-Translator: Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2019\n"
+"Language-Team: Mongolian (https://www.transifex.com/odoo/teams/41243/mn/)\n"
+"Language: mn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"A budget is a forecast of your company's income and/or expenses\n"
+"                expected for a period in the future. A budget is defined on "
+"some\n"
+"                financial accounts and/or analytic accounts (that may "
+"represent\n"
+"                projects, departments, categories of products, etc.)"
+msgstr ""
+"Төсөв гэдэг нь компанийн ирээдүйн мөчлөгүүд дахь орлого, зардалын таамагийг "
+"гаргахад хэрэглэгдэнэ. Төсөв нь санхүүгийн данс болон шинжилгээний дансууд "
+"(төсөл, алба хэлтэс, салбар, барааны ангилал зэрэгийг шинжилгээний данс нь "
+"илэрхийлдэг) дээр тодорхойлогдоно. "
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+msgid "Accounts"
+msgstr "Данс"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
+msgid "Achievement"
+msgstr "Хүрсэн үр дүн"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_analytic_account
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__analytic_account_id
+msgid "Analytic Account"
+msgstr "Шинжилгээний данс"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Approve"
+msgstr "Зөвшөөрөх"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__crossovered_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Budget"
+msgstr "Төсөв"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Budget Items"
+msgstr "Төсвийн зүйлүүд"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
+msgid "Budget Line"
+msgstr "Төсвийн мөр"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_analytic_account__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__crossovered_budget_line_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
+msgid "Budget Lines"
+msgstr "Төсвийн мөрүүд"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__name
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Budget Name"
+msgstr "Төсвийн нэр"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_budget_post
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__general_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
+msgid "Budgetary Position"
+msgstr "Төсвийн чиглэл"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.open_budget_post_form
+#: model:ir.ui.menu,name:account_budget_oca.menu_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
+msgid "Budgetary Positions"
+msgstr "Төсвийн чиглэл"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
+msgid "Budgets"
+msgstr "Төсөв"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"By keeping track of where your money goes, you may be less\n"
+"                likely to overspend, and more likely to meet your financial\n"
+"                goals. Forecast a budget by detailing the expected revenue "
+"per\n"
+"                analytic account and monitor its evolution based on the "
+"actuals\n"
+"                realised during that period."
+msgstr ""
+"Мөнгөө хаашаа урсаж байгааг хөтлөснөөр илүү зарцуулалт хийхгүй байж "
+"санхүүгийн зорилогодоо хүрэхэд тусладаг. Шинжилгээний данс бүрээрх орлогыг "
+"таамаглаж гүйцэтгэлийг харьцуулан ажиглах боломжтой."
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Cancel Budget"
+msgstr "Төсөв Цуцлах"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Cancelled"
+msgstr "Цуцлагдсан"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid "Click to create a new budget."
+msgstr "Шинэ төсөв үүсгэх бол дарна уу."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__company_id
+msgid "Company"
+msgstr "Компани"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Confirm"
+msgstr "Батлах"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Confirmed"
+msgstr "Баталсан"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_uid
+msgid "Created by"
+msgstr "Үүсгэгч"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_date
+msgid "Created on"
+msgstr "Үүсгэсэн"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__display_name
+msgid "Display Name"
+msgstr "Дэлгэцийн Нэр"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Done"
+msgstr "Дууссан"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft"
+msgstr "Ноорог"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft Budgets"
+msgstr "Ноорог төсөвүүд"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_to
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_to
+msgid "End Date"
+msgstr "Дуусах Огноо"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines____last_update
+msgid "Last Modified on"
+msgstr "Сүүлийн зассан хийсэн огноо"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_uid
+msgid "Last Updated by"
+msgstr "Сүүлийн засвар хийсэн"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_date
+msgid "Last Updated on"
+msgstr "Сүүлийн засвар хийсэн огноо"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
+msgid "Name"
+msgstr "Нэр"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
+msgid "Paid Date"
+msgstr "Төлөгдсөн Огноо"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Period"
+msgstr "Мөчлөг"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Planned Amount"
+msgstr "Төлөвлөсөн дүн"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Practical Amount"
+msgstr "Бодит дүн"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Reset to Draft"
+msgstr "Ноороглох"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__creating_user_id
+msgid "Responsible"
+msgstr "Хариуцлага"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_from
+msgid "Start Date"
+msgstr "Эхлэх Огноо"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__state
+msgid "Status"
+msgstr "Төлөв"
+
+#. module: account_budget_oca
+#: code:addons/account_budget_oca/models/account_budget.py:42
+#, python-format
+msgid "The budget must have at least one account."
+msgstr "Төсөвт дор хаяж нэг данс тохируулагдсан байх ёстой."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Theoretical Amount"
+msgstr "Онолын дүн"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve"
+msgstr "Батлах"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve Budgets"
+msgstr "Төсөвүүдийг Батлах"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Validated"
+msgstr "Батлагдсан"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website communication history"
+msgstr ""
