@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-budgeting (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-22 22:06+0000\n"
-"PO-Revision-Date: 2024-10-05 18:06+0000\n"
+"PO-Revision-Date: 2025-11-24 12:53+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-account-budgeting-8-0/language/it/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: budget
 #: model:ir.model,name:budget.model_account_period
@@ -32,7 +32,7 @@ msgstr "Conti"
 #. module: budget
 #: field:budget.item,all_account_ids:0
 msgid "Accounts and Children Accounts"
-msgstr "Conti e Conti di Ragazzi"
+msgstr "Conti e conti figli"
 
 #. module: budget
 #: field:budget.budget,active:0 field:budget.item,active:0
