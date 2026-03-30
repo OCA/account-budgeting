@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 from_string = fields.Datetime.from_string
@@ -42,7 +42,9 @@ class AccountBudgetPost(models.Model):
         else:
             account_ids = self.account_ids
         if not account_ids:
-            raise ValidationError(_("The budget must have at least one account."))
+            raise ValidationError(
+                self.env._("The budget must have at least one account.")
+            )
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -114,6 +116,9 @@ class CrossoveredBudgetLines(models.Model):
     _name = "crossovered.budget.lines"
     _description = "Budget Line"
 
+    display_name = fields.Char(
+        compute="_compute_display_name_budget",
+    )
     crossovered_budget_id = fields.Many2one(
         comodel_name="crossovered.budget",
         string="Budget",
@@ -135,6 +140,14 @@ class CrossoveredBudgetLines(models.Model):
     company_id = fields.Many2one(
         related="crossovered_budget_id.company_id", store=True, readonly=True
     )
+
+    @api.depends("general_budget_id", "crossovered_budget_id")
+    def _compute_display_name_budget(self):
+        for line in self:
+            if line.general_budget_id and line.crossovered_budget_id:
+                line.display_name = (
+                    f"{line.crossovered_budget_id.name} - {line.general_budget_id.name}"
+                )
 
     @api.depends(
         "general_budget_id.account_ids", "date_from", "date_to", "analytic_account_id"

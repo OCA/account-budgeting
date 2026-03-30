@@ -1,20 +1,83 @@
 <odoo noupdate="1">
+    <!-- Budgetary Positions -->
+    <record id="account_budget_post_income_demo" model="account.budget.post">
+        <field name="name">Incomes</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="account_ids"
+            search="[('account_type', '=', 'income')]"
+            model="account.account"
+        />
+    </record>
+    <record id="account_budget_post_expense_demo" model="account.budget.post">
+        <field name="name">Expenses</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="account_ids"
+            search="[('account_type', '=', 'expense')]"
+            model="account.account"
+        />
+    </record>
     <!-- Budgets -->
     <record id="crossovered_budget_budgetoptimistic0" model="crossovered.budget">
-        <field name="name" eval="'Budget '+str(datetime.now().year+1)+': Optimistic'" />
-        <field name="date_from" eval="str(datetime.now().year+1)+'-01-01'" />
+        <field
+            name="name"
+            eval="'Budget '+ datetime.now().strftime('%Y') +': Optimistic'"
+        />
+        <field name="date_from" eval="datetime.now().strftime('%Y-01-01')" />
         <field name="state">draft</field>
-        <field name="date_to" eval="str(datetime.now().year+1)+'-12-31'" />
+        <field name="date_to" eval="datetime.now().strftime('%Y-12-31')" />
         <field name="creating_user_id" ref="base.user_root" />
     </record>
     <record id="crossovered_budget_budgetpessimistic0" model="crossovered.budget">
         <field
             name="name"
-            eval="'Budget '+str(datetime.now().year+1)+': Pessimistic'"
+            eval="'Budget '+ datetime.now().strftime('%Y') +': Pessimistic'"
         />
-        <field name="date_from" eval="str(datetime.now().year+1)+'-01-01'" />
+        <field name="date_from" eval="datetime.now().strftime('%Y-01-01')" />
         <field name="state">draft</field>
-        <field name="date_to" eval="str(datetime.now().year+1)+'-12-31'" />
+        <field name="date_to" eval="datetime.now().strftime('%Y-12-31')" />
         <field name="creating_user_id" ref="base.user_root" />
+    </record>
+    <!-- Budget Lines -->
+    <record id="budget_line_income_optimistic_demo" model="crossovered.budget.lines">
+        <field
+            name="crossovered_budget_id"
+            ref="crossovered_budget_budgetoptimistic0"
+        />
+        <field name="general_budget_id" ref="account_budget_post_income_demo" />
+        <field name="date_from" eval="datetime.now().strftime('%Y-01-01')" />
+        <field name="date_to" eval="datetime.now().strftime('%Y-12-31')" />
+        <field name="planned_amount" eval="50000" />
+    </record>
+    <record id="budget_line_expense_optimistic_demo" model="crossovered.budget.lines">
+        <field
+            name="crossovered_budget_id"
+            ref="crossovered_budget_budgetoptimistic0"
+        />
+        <field name="general_budget_id" ref="account_budget_post_expense_demo" />
+        <field name="date_from" eval="datetime.now().strftime('%Y-01-01')" />
+        <field name="date_to" eval="datetime.now().strftime('%Y-12-31')" />
+        <field name="planned_amount" eval="5000" />
+    </record>
+    <record id="budget_line_income_pessimistic_demo" model="crossovered.budget.lines">
+        <field
+            name="crossovered_budget_id"
+            ref="crossovered_budget_budgetpessimistic0"
+        />
+        <field name="general_budget_id" ref="account_budget_post_income_demo" />
+        <field name="date_from" eval="datetime.now().strftime('%Y-01-01')" />
+        <field name="date_to" eval="datetime.now().strftime('%Y-12-31')" />
+        <field name="planned_amount" eval="10000" />
+    </record>
+    <record id="budget_line_expense_pessimistic_demo" model="crossovered.budget.lines">
+        <field
+            name="crossovered_budget_id"
+            ref="crossovered_budget_budgetpessimistic0"
+        />
+        <field name="general_budget_id" ref="account_budget_post_expense_demo" />
+        <field name="date_from" eval="datetime.now().strftime('%Y-01-01')" />
+        <field name="date_to" eval="datetime.now().strftime('%Y-12-31')" />
+        <field name="planned_amount" eval="5000" />
     </record>
 </odoo>
