@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 from_string = fields.Datetime.from_string
@@ -21,7 +21,7 @@ class AccountBudgetPost(models.Model):
         column1="budget_id",
         column2="account_id",
         string="Accounts",
-        domain="[('deprecated', '=', False), ('company_ids', 'in', company_id)]",
+        domain="[('active', '=', True), ('company_ids', 'in', company_id)]",
     )
     crossovered_budget_line_ids = fields.One2many(
         comodel_name="crossovered.budget.lines",
@@ -42,7 +42,9 @@ class AccountBudgetPost(models.Model):
         else:
             account_ids = self.account_ids
         if not account_ids:
-            raise ValidationError(_("The budget must have at least one account."))
+            raise ValidationError(
+                self.env._("The budget must have at least one account.")
+            )
 
     @api.model_create_multi
     def create(self, vals_list):

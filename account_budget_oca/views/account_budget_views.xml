@@ -40,7 +40,7 @@
     <menuitem
         id="menu_budget_post_form"
         action="open_budget_post_form"
-        parent="account.account_management_menu"
+        parent="account.account_account_menu"
         sequence="5"
     />
     <record id="view_budget_post_form" model="ir.ui.view">

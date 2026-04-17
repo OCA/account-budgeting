@@ -33,9 +33,7 @@ class TestAccountBudget(TestAccountBudgetCommon):
         self.env["crossovered.budget.lines"].create(
             {
                 "crossovered_budget_id": budget.id,
-                "analytic_account_id": (
-                    self.ref("analytic.analytic_partners_camp_to_camp")
-                ),
+                "analytic_account_id": self.analytic_camp_to_camp.id,
                 "date_from": Date.from_string(
                     "%s-01-01" % (datetime.datetime.now().year + 1)
                 ),
@@ -49,9 +47,7 @@ class TestAccountBudget(TestAccountBudgetCommon):
         self.env["crossovered.budget.lines"].create(
             {
                 "crossovered_budget_id": budget.id,
-                "analytic_account_id": (
-                    self.ref("analytic.analytic_our_super_product")
-                ),
+                "analytic_account_id": self.analytic_our_super_product.id,
                 "date_from": Date.from_string(
                     "%s-09-01" % (datetime.datetime.now().year + 1)
                 ),

@@ -17,7 +17,7 @@ except ImportError:
 @tagged("post_install", "-at_install")
 class TestTheoreticalAmount(TestAccountBudgetCommon):
     def setUp(self):
-        super().setUp()
+        super().setUp()  # ensures Odoo savepoint/transaction setup
         crossovered_budget = self.env["crossovered.budget"].create(
             {
                 "name": "test budget name",
