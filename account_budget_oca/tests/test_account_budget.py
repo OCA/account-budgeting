@@ -81,3 +81,43 @@ class TestAccountBudget(TestAccountBudgetCommon):
 
         # I check that budget is in "done" state
         self.assertEqual(budget.state, "done")
+
+    def test_budget_with_account_move_lines(self):
+        Budget = self.env["crossovered.budget"]
+        date_from = Date.start_of(Date.context_today(Budget), "year")
+        date_to = Date.end_of(Date.context_today(Budget), "year")
+        budget = Budget.create(
+            {"date_from": date_from, "date_to": date_to, "name": "Budget"}
+        )
+        budget_line = self.env["crossovered.budget.lines"].create(
+            {
+                "crossovered_budget_id": budget.id,
+                "general_budget_id": self.account_budget_post_sales0.id,
+                "date_from": date_from,
+                "date_to": date_to,
+                "planned_amount": -1000.0,
+            }
+        )
+
+        budget_account = self.account_budget_post_sales0.account_ids[:1]
+        self._create_invoice(
+            move_type="out_invoice",
+            date=date_from,
+            post=True,
+            invoice_line_ids=[
+                self._prepare_invoice_line(
+                    price_unit=250.0, account_id=budget_account.id
+                )
+            ],
+        )
+        self._create_invoice(
+            move_type="in_invoice",
+            date=date_from,
+            post=True,
+            invoice_line_ids=[
+                self._prepare_invoice_line(
+                    price_unit=150.0, account_id=budget_account.id
+                )
+            ],
+        )
+        self.assertAlmostEqual(budget_line.practical_amount, 100.0)
