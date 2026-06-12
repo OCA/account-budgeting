@@ -106,9 +106,7 @@ msgid "Budgetary Positions"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
 #: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_view
-#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
 #: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
 msgid "Budgets"
