@@ -65,16 +65,19 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_kanban
+msgid "Avatar"
+msgstr ""
+
+#. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__crossovered_budget_id
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Budget"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Budget Items"
 msgstr ""
@@ -89,9 +92,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__crossovered_budget_line_ids
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__crossovered_budget_line_ids
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Budget Lines"
 msgstr ""
 
@@ -104,9 +104,7 @@ msgstr ""
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_budget_post
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__general_budget_id
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
-#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
 msgid "Budgetary Position"
 msgstr ""
 
@@ -118,10 +116,9 @@ msgid "Budgetary Positions"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
 #: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_view
-#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
 #: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
 msgid "Budgets"
 msgstr ""
 
@@ -143,7 +140,7 @@ msgid "Cancel Budget"
 msgstr ""
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__cancel
 msgid "Cancelled"
 msgstr "રદ"
 
@@ -165,7 +162,7 @@ msgid "Confirm"
 msgstr "ખાતરી"
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__confirm
 msgid "Confirmed"
 msgstr "સમર્થિત"
 
@@ -191,13 +188,13 @@ msgid "Display Name"
 msgstr "પ્રદર્શન નામ"
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__done
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Done"
 msgstr "પુર્ણ થયુ"
 
 #. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__draft
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Draft"
 msgstr "ડ્રાફ્ટ"
@@ -219,13 +216,13 @@ msgid "Followers"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
-msgid "Followers (Channels)"
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
+msgid "Followers (Partners)"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
-msgid "Followers (Partners)"
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__has_message
+msgid "Has Message"
 msgstr ""
 
 #. module: account_budget_oca
@@ -234,11 +231,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__id
 msgid "ID"
 msgstr "ઓળખ"
-
-#. module: account_budget_oca
-#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
-msgid "If checked new messages require your attention."
-msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
@@ -256,13 +248,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget____last_update
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_uid
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_uid
@@ -277,8 +262,8 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
-msgid "Main Attachment"
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
+msgid "Manage account budgeting"
 msgstr ""
 
 #. module: account_budget_oca
@@ -303,22 +288,17 @@ msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
-msgid "Number of error"
+msgid "Number of errors"
 msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
-msgid "Number of unread messages"
 msgstr ""
 
 #. module: account_budget_oca
@@ -334,6 +314,9 @@ msgstr "અવધિ"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Planned Amount"
 msgstr ""
 
@@ -341,6 +324,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Practical Amount"
 msgstr ""
 
@@ -366,8 +351,8 @@ msgid "Status"
 msgstr "સ્થિતિ"
 
 #. module: account_budget_oca
-#: code:addons/account_budget_oca/models/account_budget.py:42
-#, python-format
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 msgid "The budget must have at least one account."
 msgstr ""
 
@@ -375,6 +360,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
 msgid "Theoretical Amount"
 msgstr ""
 
@@ -389,17 +376,7 @@ msgid "To Approve Budgets"
 msgstr ""
 
 #. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: account_budget_oca
-#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr ""
-
-#. module: account_budget_oca
-#: selection:crossovered.budget,state:0
+#: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__validate
 msgid "Validated"
 msgstr ""
 
