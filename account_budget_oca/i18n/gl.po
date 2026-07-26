@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2017-10-10 11:34+0000\n"
-"Last-Translator: Alejandro Santana <alejandrosantana@anubia.es>, 2018\n"
+"PO-Revision-Date: 2026-07-26 18:46+0000\n"
+"Last-Translator: Anxo López Rodríguez <lopezrodriguezanxo@gmail.com>\n"
 "Language-Team: Galician (https://www.transifex.com/odoo/teams/41243/gl/)\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
@@ -29,6 +30,12 @@ msgid ""
 "represent\n"
 "                projects, departments, categories of products, etc.)"
 msgstr ""
+"Un orzamento é unha previsión dos ingresos e/ou gastos da túa empresa\n"
+"                agardados para un período no futuro. Un orzamento defínese "
+"sobre algunhas\n"
+"                contas financeiras e/ou contas analíticas (que poden "
+"representar\n"
+"proxectos, departamentos, categorías de produtos, etc.)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
@@ -39,12 +46,12 @@ msgstr "Contas"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
 msgid "Achievement"
-msgstr ""
+msgstr "Logro"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Acción precisada"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_analytic_account
@@ -60,7 +67,7 @@ msgstr "Aprobar"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Número de anexos"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
@@ -75,7 +82,7 @@ msgstr "Presuposto"
 #: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
 msgid "Budget Items"
-msgstr ""
+msgstr "Elementos do orzamento"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
@@ -97,7 +104,7 @@ msgstr "Liñas de presuposto"
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__name
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 msgid "Budget Name"
-msgstr ""
+msgstr "Nome do orzamento"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_account_budget_post
@@ -134,6 +141,14 @@ msgid ""
 "actuals\n"
 "                realised during that period."
 msgstr ""
+"Ao facer un seguimento de onde vai o teu diñeiro, é menos\n"
+"               probable que gastes de máis e máis probable que alcanzas os "
+"teus obxectivos\n"
+"               financeiros. Prevé un orzamento detallando os ingresos "
+"agardados por\n"
+"                conta analítica e monitoriza a súa evolución en base aos "
+"reais\n"
+"                realizados durante ese período."
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
@@ -148,7 +163,7 @@ msgstr "Cancelado"
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
 msgid "Click to create a new budget."
-msgstr ""
+msgstr "Prema para crear un novo orzamento."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__company_id
@@ -214,17 +229,17 @@ msgstr "Data de remate"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Seguidores"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
 msgid "Followers (Channels)"
-msgstr ""
+msgstr "Seguidores (Canles)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Seguidores (Socios)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__id
@@ -236,22 +251,22 @@ msgstr "ID"
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
 msgid "If checked new messages require your attention."
-msgstr ""
+msgstr "De estar marcado, novas mensaxes requiren a túa atención."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "De estar marcado, novas mensaxes requiren a túa atención."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "De estar marcado, novas mensaxes requiren a túa atención."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "É seguidor"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
@@ -277,17 +292,17 @@ msgstr "Última actualización en"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "Anexo principal"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Mensaxe de erro de entrega"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Mensaxes"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
@@ -297,27 +312,27 @@ msgstr "Nome"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Número de accións"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
 msgid "Number of error"
-msgstr ""
+msgstr "Número de erros"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "Numero de mensaxes que requiren unha acción"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Numero de mensaxes con erros de entrega"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "Numero de mensaxes sen ler"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
@@ -367,7 +382,7 @@ msgstr "Estado"
 #: code:addons/account_budget_oca/models/account_budget.py:42
 #, python-format
 msgid "The budget must have at least one account."
-msgstr ""
+msgstr "O orzamento debe de ter ao menos unha conta."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
@@ -389,12 +404,12 @@ msgstr "Orzamentos por aprobar"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Mensaxes sen ler"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "Contador de mensaxes sen ler"
 
 #. module: account_budget_oca
 #: selection:crossovered.budget,state:0
@@ -404,9 +419,9 @@ msgstr "Validado"
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Mensaxes do Sitio Web"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Historial de comunicación do Sitio Web"
