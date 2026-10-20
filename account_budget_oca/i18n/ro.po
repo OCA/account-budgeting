@@ -1,0 +1,421 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_budget_oca
+#
+# Translators:
+# Martin Trigaux <mat@odoo.com>, 2017
+# Dorin Hongu <dhongu@gmail.com>, 2017
+# Iulian Cutui <iulian.cutui@gmail.com>, 2017
+# Cozmin Candea <office@terrabit.ro>, 2017
+# Sergiu Baltariu <s_baltariu@yahoo.com>, 2017
+# Valy28 <pdevalentin@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-10 11:34+0000\n"
+"PO-Revision-Date: 2017-10-10 11:34+0000\n"
+"Last-Translator: Valy28 <pdevalentin@gmail.com>, 2017\n"
+"Language-Team: Romanian (https://www.transifex.com/odoo/teams/41243/ro/)\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"A budget is a forecast of your company's income and/or expenses\n"
+"                expected for a period in the future. A budget is defined on "
+"some\n"
+"                financial accounts and/or analytic accounts (that may "
+"represent\n"
+"                projects, departments, categories of products, etc.)"
+msgstr ""
+"Un buget este o prognoză a veniturilor și / sau a cheltuielilor companiei "
+"dvs. așteptate pentru o perioadă în viitor. Un buget este definit pentru "
+"anumite conturi financiare și / sau conturi analitice (care pot reprezenta "
+"proiecte, departamente, categorii de produse etc.)"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+msgid "Accounts"
+msgstr "Conturi"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
+msgid "Achievement"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_analytic_account
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__analytic_account_id
+msgid "Analytic Account"
+msgstr "Cont analitic"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Approve"
+msgstr "Aprobă"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__crossovered_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Budget"
+msgstr "Buget"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_account_analytic_account_cb_lines
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Budget Items"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_crossovered_budget_lines
+msgid "Budget Line"
+msgstr "Linie Buget"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_analytic_account__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__crossovered_budget_line_ids
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__crossovered_budget_line_ids
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_line_tree
+msgid "Budget Lines"
+msgstr "Linii buget"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__name
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Budget Name"
+msgstr "Nume buget"
+
+#. module: account_budget_oca
+#: model:ir.model,name:account_budget_oca.model_account_budget_post
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__general_budget_id
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_tree
+msgid "Budgetary Position"
+msgstr "Pozitie Bugetara"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.open_budget_post_form
+#: model:ir.ui.menu,name:account_budget_oca.menu_budget_post_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.res_config_settings_view_form
+msgid "Budgetary Positions"
+msgstr "Pozitii bugetare"
+
+#. module: account_budget_oca
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_lines_view
+#: model:ir.actions.act_window,name:account_budget_oca.act_crossovered_budget_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_lines_view
+#: model:ir.ui.menu,name:account_budget_oca.menu_act_crossovered_budget_view
+msgid "Budgets"
+msgstr "Bugete"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid ""
+"By keeping track of where your money goes, you may be less\n"
+"                likely to overspend, and more likely to meet your financial\n"
+"                goals. Forecast a budget by detailing the expected revenue "
+"per\n"
+"                analytic account and monitor its evolution based on the "
+"actuals\n"
+"                realised during that period."
+msgstr ""
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Cancel Budget"
+msgstr "Anulati Buget"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Cancelled"
+msgstr "Anulat(ă)"
+
+#. module: account_budget_oca
+#: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
+msgid "Click to create a new budget."
+msgstr "Clic aici pentru a crea un buget nou."
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__company_id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__company_id
+msgid "Company"
+msgstr "Companie"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Confirm"
+msgstr "Confirmă"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Confirmed"
+msgstr "Nelansată"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_uid
+msgid "Created by"
+msgstr "Creat de"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__create_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__create_date
+msgid "Created on"
+msgstr "Creat în"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__display_name
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__display_name
+msgid "Display Name"
+msgstr "Nume afișat"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Done"
+msgstr "Efectuat"
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft"
+msgstr "Ciornă"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "Draft Budgets"
+msgstr "Bugete Ciorna"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_to
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_to
+msgid "End Date"
+msgstr "Dată sfârșit"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__id
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget____last_update
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines____last_update
+msgid "Last Modified on"
+msgstr "Ultima modificare la"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_uid
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_uid
+msgid "Last Updated by"
+msgstr "Ultima actualizare făcută de"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__write_date
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualizare pe"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__name
+msgid "Name"
+msgstr "Nume"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__paid_date
+msgid "Paid Date"
+msgstr "Data platii"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Period"
+msgstr "Perioadă"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Planned Amount"
+msgstr "Suma Planificata"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Practical Amount"
+msgstr "Valoarea Efectivă"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+msgid "Reset to Draft"
+msgstr "Resetare ca Ciorna"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__creating_user_id
+msgid "Responsible"
+msgstr "Responsabil"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_from
+msgid "Start Date"
+msgstr "Dată început"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__state
+msgid "Status"
+msgstr "Stare"
+
+#. module: account_budget_oca
+#: code:addons/account_budget_oca/models/account_budget.py:42
+#, python-format
+msgid "The budget must have at least one account."
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
+msgid "Theoretical Amount"
+msgstr "Valoare teoretică"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve"
+msgstr "De aprobat"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
+msgid "To Approve Budgets"
+msgstr "Bugete pentru aprobare"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: account_budget_oca
+#: selection:crossovered.budget,state:0
+msgid "Validated"
+msgstr "Validat"
+
+#. module: account_budget_oca
+#: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: account_budget_oca
+#: model:ir.model.fields,help:account_budget_oca.field_crossovered_budget__website_message_ids
+msgid "Website communication history"
+msgstr ""
