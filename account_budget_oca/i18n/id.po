@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-10 11:34+0000\n"
-"PO-Revision-Date: 2026-11-06 05:46+0000\n"
+"PO-Revision-Date: 2026-11-06 08:46+0000\n"
 "Last-Translator: Yazid Bustomi <bustomi024@gmail.com>\n"
 "Language-Team: Indonesian (https://www.transifex.com/odoo/teams/41243/id/)\n"
 "Language: id\n"
@@ -35,11 +35,11 @@ msgid ""
 "represent\n"
 "                projects, departments, categories of products, etc.)"
 msgstr ""
-"Anggaran belanja adalah ramalan dari pendapatan dan/atau beban perusahaan "
-"Anda\n"
-"yang diharapkan untuk periode mendatang. Anggaran belanja didefinisikan "
-"sebagai akun finansial dan/atau akun analitik (yang mungkin mewakili\n"
-"proyek, departemen, kategori dari produk, dll.)"
+"Anggaran adalah perkiraan pendapatan dan/atau pengeluaran perusahaan Anda\n"
+"yang diperkirakan akan terjadi pada suatu periode di masa depan. Anggaran "
+"ditetapkan berdasarkan beberapa\n"
+"rekening keuangan dan/atau rekening analitik (yang dapat mewakili\n"
+"proyek, departemen, kategori produk, dan sebagainya)"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__account_ids
@@ -54,7 +54,6 @@ msgstr "Pencapaian"
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_needaction
-#, fuzzy
 msgid "Action Needed"
 msgstr "Tindakan yang Perlu Dilakukan"
 
@@ -77,7 +76,7 @@ msgstr "Jumlah Lampiran"
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_kanban
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 #. module: account_budget_oca
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
@@ -143,12 +142,12 @@ msgid ""
 "actuals\n"
 "                realised during that period."
 msgstr ""
-"Dengan selalu mengetahui kemana uang yg keluar, anda akan cenderung tidak "
-"melakukan pengeluaran berlebihan, dan berpeluang lebih besar untuk mencapai "
-"target keuangan anda.\n"
-"Peramalan anggaran dengan memperinci pendapatan yang diharapkan untuk setiap "
-"akun analitik dan memonitor perubahannya berdasarkan aktual yang di "
-"realisasikan dalam perioda tersebut"
+"Dengan memantau ke mana uang Anda mengalir, Anda mungkin akan lebih\n"
+"jarang berbelanja berlebihan, dan lebih mungkin mencapai\n"
+"tujuan keuangan Anda. Buatlah perkiraan anggaran dengan merinci pendapatan "
+"yang diharapkan per\n"
+"akun analitik, lalu pantau perkembangannya berdasarkan angka aktual\n"
+"yang tercatat selama periode tersebut."
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
@@ -163,7 +162,7 @@ msgstr "Dibatalkan"
 #. module: account_budget_oca
 #: model_terms:ir.actions.act_window,help:account_budget_oca.act_crossovered_budget_view
 msgid "Click to create a new budget."
-msgstr "Klik untuk membuat anggaran baru"
+msgstr "Klik untuk membuat anggaran baru."
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_account_budget_post__company_id
@@ -213,7 +212,7 @@ msgstr "selesai"
 #: model:ir.model.fields.selection,name:account_budget_oca.selection__crossovered_budget__state__draft
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
 msgid "Draft"
-msgstr "Draft"
+msgstr "konsep"
 
 #. module: account_budget_oca
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_crossovered_budget_search
