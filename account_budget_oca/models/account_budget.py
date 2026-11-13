@@ -1,4 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import json
+from urllib.parse import quote
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
@@ -110,6 +112,37 @@ class CrossoveredBudget(models.Model):
 
     def action_budget_done(self):
         self.write({"state": "done"})
+
+    def action_budget_report_xlsx(self):
+        line = "crossovered_budget_line_ids"
+        export_fields = [
+            ("name", "Budget", "char"),
+            (f"{line}/general_budget_id", "Budgetary Position", "many2one"),
+            (f"{line}/analytic_account_id", "Analytic Account", "many2one"),
+            (f"{line}/date_from", "Start Date", "date"),
+            (f"{line}/date_to", "End Date", "date"),
+            (f"{line}/planned_amount", "Planned Amount", "float"),
+            (f"{line}/practical_amount", "Practical Amount", "float"),
+            (f"{line}/theoretical_amount", "Theoretical Amount", "float"),
+            (f"{line}/percentage", "Achievement", "float"),
+        ]
+        data = {
+            "import_compat": False,
+            "context": {"lang": self.env.lang, "tz": self.env.user.tz},
+            "domain": [("id", "in", self.ids)],
+            "fields": [
+                {"name": name, "label": label, "type": ttype}
+                for name, label, ttype in export_fields
+            ],
+            "groupby": [],
+            "ids": self.ids,
+            "model": self._name,
+        }
+        return {
+            "type": "ir.actions.act_url",
+            "url": f"/web/export/xlsx?data={quote(json.dumps(data))}",
+            "target": "self",
+        }
 
 
 class CrossoveredBudgetLines(models.Model):
