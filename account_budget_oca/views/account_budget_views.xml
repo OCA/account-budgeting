@@ -114,6 +114,11 @@
                         invisible="state not in ['confirm', 'validate']"
                         type="object"
                     />
+                    <button
+                        string="Export xlsx"
+                        name="action_budget_report_xlsx"
+                        type="object"
+                    />
                     <field
                         name="state"
                         widget="statusbar"
@@ -242,6 +247,13 @@
                 decoration-info="state == 'draft'"
                 decoration-muted="state in ('done','cancel')"
             >
+                <header>
+                    <button
+                        string="Export xlsx"
+                        name="action_budget_report_xlsx"
+                        type="object"
+                    />
+                </header>
                 <field name="name" colspan="1" />
                 <field name="date_from" />
                 <field name="date_to" />

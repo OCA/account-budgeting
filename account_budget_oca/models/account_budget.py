@@ -1,4 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import json
+from urllib.parse import quote
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
@@ -110,6 +112,45 @@ class CrossoveredBudget(models.Model):
 
     def action_budget_done(self):
         self.write({"state": "done"})
+
+    def action_budget_report_xlsx(self):
+        line = "crossovered_budget_line_ids"
+        export_fields = [
+            ("name", self.env._("Budget"), "char"),
+            (f"{line}/general_budget_id", self.env._("Budgetary Position"), "many2one"),
+            (f"{line}/date_from", self.env._("Start Date"), "date"),
+            (f"{line}/date_to", self.env._("End Date"), "date"),
+            (f"{line}/planned_amount", self.env._("Planned Amount"), "float"),
+            (f"{line}/practical_amount", self.env._("Practical Amount"), "float"),
+            (f"{line}/theoretical_amount", self.env._("Theoretical Amount"), "float"),
+            (f"{line}/percentage", self.env._("Achievement"), "float"),
+        ]
+        if self.env.user.has_group("analytic.group_analytic_accounting"):
+            export_fields.insert(
+                2,
+                (
+                    f"{line}/analytic_account_id",
+                    self.env._("Analytic Account"),
+                    "many2one",
+                ),
+            )
+        data = {
+            "import_compat": False,
+            "context": {"lang": self.env.lang, "tz": self.env.user.tz},
+            "domain": [],
+            "fields": [
+                {"name": name, "label": label, "type": ttype}
+                for name, label, ttype in export_fields
+            ],
+            "groupby": [],
+            "ids": self.ids,
+            "model": self._name,
+        }
+        return {
+            "type": "ir.actions.act_url",
+            "url": f"/web/export/xlsx?data={quote(json.dumps(data))}",
+            "target": "self",
+        }
 
 
 class CrossoveredBudgetLines(models.Model):
