@@ -45,6 +45,8 @@ msgid "Accounts"
 msgstr "Данс"
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__percentage
 msgid "Achievement"
 msgstr "Хүрсэн үр дүн"
@@ -55,6 +57,8 @@ msgid "Action Needed"
 msgstr ""
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model,name:account_budget_oca.model_account_analytic_account
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__analytic_account_id
 msgid "Analytic Account"
@@ -76,6 +80,8 @@ msgid "Avatar"
 msgstr ""
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model,name:account_budget_oca.model_crossovered_budget
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__crossovered_budget_id
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
@@ -108,6 +114,8 @@ msgid "Budget Name"
 msgstr "Төсвийн нэр"
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model,name:account_budget_oca.model_account_budget_post
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__general_budget_id
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_budget_post_search
@@ -214,10 +222,18 @@ msgid "Draft Budgets"
 msgstr "Ноорог төсөвүүд"
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_to
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_to
 msgid "End Date"
 msgstr "Дуусах Огноо"
+
+#. module: account_budget_oca
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_tree
+msgid "Export xlsx"
+msgstr ""
 
 #. module: account_budget_oca
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__message_follower_ids
@@ -321,6 +337,8 @@ msgid "Period"
 msgstr "Мөчлөг"
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__planned_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
@@ -330,6 +348,8 @@ msgid "Planned Amount"
 msgstr "Төлөвлөсөн дүн"
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__practical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
@@ -349,6 +369,8 @@ msgid "Responsible"
 msgstr "Хариуцлага"
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget__date_from
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__date_from
 msgid "Start Date"
@@ -366,6 +388,8 @@ msgid "The budget must have at least one account."
 msgstr "Төсөвт дор хаяж нэг данс тохируулагдсан байх ёстой."
 
 #. module: account_budget_oca
+#. odoo-python
+#: code:addons/account_budget_oca/models/account_budget.py:0
 #: model:ir.model.fields,field_description:account_budget_oca.field_crossovered_budget_lines__theoretical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.crossovered_budget_view_form
 #: model_terms:ir.ui.view,arch_db:account_budget_oca.view_account_analytic_account_form_inherit_budget
