@@ -268,3 +268,29 @@ class CrossoveredBudgetLines(models.Model):
                 )
             else:
                 line.percentage = 0.00
+
+    def action_open_budget_entries(self):
+        if self.analytic_account_id:
+            action = self.env["ir.actions.act_window"]._for_xml_id(
+                "analytic.account_analytic_line_action_entries"
+            )
+            action["domain"] = [
+                ("account_id", "=", self.analytic_account_id.id),
+                ("date", ">=", self.date_from),
+                ("date", "<=", self.date_to),
+            ]
+            if self.general_budget_id:
+                action["domain"] += [
+                    ("general_account_id", "in", self.general_budget_id.account_ids.ids)
+                ]
+        else:
+            action = self.env["ir.actions.act_window"]._for_xml_id(
+                "account.action_account_moves_all_a"
+            )
+            action["domain"] = [
+                ("account_id", "in", self.general_budget_id.account_ids.ids),
+                ("date", ">=", self.date_from),
+                ("date", "<=", self.date_to),
+            ]
+        action["context"] = {}
+        return action

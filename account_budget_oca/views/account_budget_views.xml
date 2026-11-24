@@ -196,6 +196,12 @@
                                         sum="Theoretical Amount"
                                     />
                                     <field name="percentage" />
+                                    <button
+                                        type="object"
+                                        name="action_open_budget_entries"
+                                        string="Details"
+                                        icon="fa-arrow-circle-o-right"
+                                    />
                                 </list>
                                 <form>
                                     <group>
